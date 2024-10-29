@@ -1,10 +1,6 @@
 package org.example.auth_module.global.auth.jwt
 
-import io.jsonwebtoken.Claims
-import io.jsonwebtoken.ExpiredJwtException
-import io.jsonwebtoken.JwtException
-import io.jsonwebtoken.Jwts
-import io.jsonwebtoken.SignatureAlgorithm
+import io.jsonwebtoken.*
 import io.jsonwebtoken.io.Decoders
 import io.jsonwebtoken.security.Keys
 import jakarta.servlet.http.HttpServletRequest
@@ -14,6 +10,7 @@ import org.example.auth_module.global.exception.errorcode.UserErrorCode
 import org.example.auth_module.user.domain.User
 import org.example.auth_module.user.service.port.UserRepository
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.http.ResponseCookie
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
@@ -23,11 +20,14 @@ import java.security.Key
 import java.util.*
 import java.util.stream.Collectors
 
+
 @Component
 class JwtTokenProvider(
     val userRepository: UserRepository,
     @Value("\${app.auth.token.secret-key}")
-    val secretKey: String
+    val secretKey: String,
+    @Value("\${app.auth.token.refresh-token-key}")
+    val COOKIE_REFRESH_TOKEN_KEY: String
 ) {
 
 
@@ -50,11 +50,42 @@ class JwtTokenProvider(
             .setSubject(userId)
             .claim(AUTHORITIES_KEY, role)
             .claim(EMAIL_KEY, email)
-            .setIssuer("getch")
+            .setIssuer("SSmartOffice")
             .setIssuedAt(now)
             .setExpiration(validity)
             .signWith(SECRET_KEY, SignatureAlgorithm.HS256)
             .compact()
+    }
+
+    private fun saveRefreshToken(authentication: Authentication, refreshToken: String) {
+        val user : User = (authentication.principal as CustomUserDetails).user
+
+        user.updateRefreshToken(refreshToken)
+
+        userRepository.save(user)
+    }
+
+    fun createRefreshToken(authentication: Authentication, response: HttpServletResponse) {
+        val now = Date()
+        val validity = Date(now.time + REFRESH_TOKEN_EXPIRE_LENGTH)
+
+        val refreshToken = Jwts.builder()
+            .signWith(SECRET_KEY, SignatureAlgorithm.HS256)
+            .setIssuer("bok")
+            .setIssuedAt(now)
+            .setExpiration(validity)
+            .compact()
+
+        saveRefreshToken(authentication, refreshToken)
+        val cookie = ResponseCookie.from(COOKIE_REFRESH_TOKEN_KEY, refreshToken)
+            .httpOnly(false)
+            .secure(true)
+            .sameSite("None")
+            .maxAge(REFRESH_TOKEN_EXPIRE_LENGTH)
+            .path("/")
+            .build()
+
+        response.addHeader("Set-Cookie", cookie.toString())
     }
 
     fun getAuthentication(accessToken: String): Authentication {
@@ -103,8 +134,8 @@ class JwtTokenProvider(
     }
 
     companion object {
-        private const val ACCESS_TOKEN_EXPIRE_LENGTH = 1000L * 60 // 2시간
-//        private const val ACCESS_TOKEN_EXPIRE_LENGTH = 1000L * 60 * 60 * 2 // 2시간
+        private const val REFRESH_TOKEN_EXPIRE_LENGTH = 1000L * 60 * 60 * 24 * 7
+        private const val ACCESS_TOKEN_EXPIRE_LENGTH = 1000L * 60 * 60 * 2 // 2시간
         private const val AUTHORITIES_KEY = "role"
         private const val EMAIL_KEY = "email"
     }

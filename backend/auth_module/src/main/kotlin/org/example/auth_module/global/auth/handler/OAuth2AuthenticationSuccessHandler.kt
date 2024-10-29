@@ -67,6 +67,7 @@ class OAuth2AuthenticationSuccessHandler(
         // String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
         val targetUrl = redirectUri.orElse("http://localhost:3000")
         val accessToken: String = tokenProvider.createAccessToken(authentication)
+        tokenProvider.createRefreshToken(authentication, response)
 
         return UriComponentsBuilder.fromUriString(targetUrl)
             .queryParam("accessToken", accessToken)

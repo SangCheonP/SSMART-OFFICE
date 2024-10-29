@@ -1,13 +1,7 @@
 package org.example.auth_module.global.auth
 
-import lombok.Builder
-import lombok.Getter
-import lombok.ToString
 import org.example.auth_module.user.domain.User
 
-@Builder
-@Getter
-@ToString
 class OAuth2UserInfo(
    val provider: String,
    val name: String,
@@ -15,11 +9,13 @@ class OAuth2UserInfo(
 ) {
     fun toEntity(): User {
         return User(
+            id = null,
             loginId = null,
             password = null,
             name = name,
             email = email,
-            role = Role.USER
+            role = Role.USER,
+            refreshToken = null
         )
     }
 
