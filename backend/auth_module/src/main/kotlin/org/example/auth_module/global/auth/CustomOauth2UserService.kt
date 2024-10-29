@@ -21,9 +21,9 @@ class CustomOauth2UserService(
 
         val oauth2UserInfo = OAuth2UserInfo.of(provider, oAuth2User.attributes)
 
-        val user : User = userRepository.findByEmail(oauth2UserInfo.email) ?: oauth2UserInfo.toEntity()
+        var user : User = userRepository.findByEmail(oauth2UserInfo.email) ?: oauth2UserInfo.toEntity()
 
-        userRepository.save(user)
+        user = userRepository.save(user)
 
         return CustomUserDetails(user, oAuth2User.attributes)
     }

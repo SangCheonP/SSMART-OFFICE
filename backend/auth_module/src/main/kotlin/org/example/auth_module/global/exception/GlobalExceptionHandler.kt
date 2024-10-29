@@ -1,22 +1,30 @@
 package org.example.auth_module.global.exception
 
-import io.jsonwebtoken.ExpiredJwtException
-import io.jsonwebtoken.security.SignatureException
+import io.github.oshai.kotlinlogging.KotlinLogging
+import jakarta.validation.ConstraintViolationException
 import lombok.extern.slf4j.Slf4j
 import org.example.auth_module.global.exception.errorcode.CommonErrorCode
 import org.example.auth_module.global.exception.errorcode.ErrorCode
-import org.example.auth_module.global.exception.errorcode.UserErrorCode
+import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpStatusCode
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.BindException
 import org.springframework.validation.FieldError
+import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
+import org.springframework.web.context.request.WebRequest
+import org.springframework.web.method.annotation.HandlerMethodValidationException
+import org.springframework.web.server.ResponseStatusException
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
 import java.util.stream.Collectors
+
+private val logger = KotlinLogging.logger {}
 
 @RestControllerAdvice
 @Slf4j
 class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
+
     @ExceptionHandler(RestApiException::class)
     fun handleCustomException(e: RestApiException): ResponseEntity<Any> {
         val errorCode: ErrorCode = e.errorCode
@@ -29,6 +37,13 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
         return handleExceptionInternal(errorCode, e.message)
     }
 
+    @ExceptionHandler(ConstraintViolationException::class)
+    fun handleIllegalArgument(e: ConstraintViolationException): ResponseEntity<Any> {
+        val errorCode: ErrorCode = CommonErrorCode.INVALID_PARAMETER
+        return handleExceptionInternal(errorCode, e.message)
+    }
+
+
 
     @ExceptionHandler(Exception::class)
     fun handleAllException(ex: Exception?): ResponseEntity<Any> {
@@ -36,16 +51,27 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
         return handleExceptionInternal(errorCode)
     }
 
-    @ExceptionHandler(SignatureException::class)
-    fun handleSignatureException(ex: Exception?): ResponseEntity<Any> {
-        val errorCode: ErrorCode = UserErrorCode.INVALID_TOKEN
-        return handleExceptionInternal(errorCode)
+    override fun handleMethodArgumentNotValid(
+        e: MethodArgumentNotValidException,
+        headers: HttpHeaders,
+        status: HttpStatusCode,
+        request: WebRequest
+    ): ResponseEntity<Any>? {
+        logger.warn("handleIllegalArgument", e)
+        val commonErrorCode = CommonErrorCode.INVALID_PARAMETER
+        return handleExceptionInternal(e, commonErrorCode)
     }
 
-    @ExceptionHandler(ExpiredJwtException::class)
-    fun handleExpiredJwtException(ex: Exception?): ResponseEntity<Any> {
-        val errorCode: ErrorCode = UserErrorCode.EXPIRED_TOKEN_EXCEPTION
-        return handleExceptionInternal(errorCode)
+
+    override fun handleHandlerMethodValidationException(
+        e: HandlerMethodValidationException,
+        headers: HttpHeaders,
+        status: HttpStatusCode,
+        request: WebRequest
+    ): ResponseEntity<Any>? {
+        logger.warn("handleIllegalArgument", e)
+        val commonErrorCode = CommonErrorCode.INVALID_PARAMETER
+        return handleExceptionInternal(e, commonErrorCode)
     }
 
     private fun handleExceptionInternal(errorCode: ErrorCode): ResponseEntity<Any> {
@@ -77,6 +103,19 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
     private fun handleExceptionInternal(e: BindException, errorCode: ErrorCode): ResponseEntity<Any> {
         return ResponseEntity.status(errorCode.httpStatus)
             .body(makeErrorResponse(e, errorCode))
+    }
+
+    private fun handleExceptionInternal(e: ResponseStatusException, errorCode: ErrorCode): ResponseEntity<Any> {
+        return ResponseEntity.status(errorCode.httpStatus)
+            .body(makeErrorResponse(e, errorCode))
+    }
+
+    private fun makeErrorResponse(error: ResponseStatusException, errorCode: ErrorCode): ErrorResponse {
+        return ErrorResponse(
+            status = errorCode.httpStatus.value(),
+            error = errorCode.name,
+            message = errorCode.message,
+        )
     }
 
     private fun makeErrorResponse(e: BindException, errorCode: ErrorCode): ErrorResponse {

@@ -77,7 +77,7 @@ class SecurityConfig(
                 authz
 //                    .requestMatchers("/users").hasRole("USER")
                     .requestMatchers("/admin").hasRole("ADMIN")
-                    .anyRequest().hasRole("USER")
+                    .anyRequest().permitAll()
             }
 
         //oauth2Login

@@ -1,11 +1,13 @@
 package org.example.auth_module.global.auth
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.KotlinModule
 import jakarta.servlet.FilterChain
 import jakarta.servlet.ServletException
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.example.auth_module.global.auth.jwt.JwtTokenProvider
+import org.example.auth_module.user.controller.request.UserLoginRequest
 import org.example.auth_module.user.domain.User
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager
@@ -20,7 +22,10 @@ class LoginFilter(authenticationManager: AuthenticationManager?, private val jwt
     AbstractAuthenticationProcessingFilter(
         antPathMatcher, authenticationManager
     ) {
-    private val objectMapper = ObjectMapper()
+    private val objectMapper = ObjectMapper().registerModule(
+        KotlinModule.Builder()
+            .build()
+    )
 
     @Throws(IOException::class, ServletException::class)
     override fun successfulAuthentication(
@@ -49,7 +54,7 @@ class LoginFilter(authenticationManager: AuthenticationManager?, private val jwt
     @Throws(AuthenticationException::class)
     override fun attemptAuthentication(request: HttpServletRequest, response: HttpServletResponse): Authentication {
         try {
-            val user = objectMapper.readValue(request.inputStream, User::class.java)
+            val user = objectMapper.readValue(request.inputStream, UserLoginRequest::class.java)
             val authenticationToken = UsernamePasswordAuthenticationToken(user.loginId, user.password)
             return authenticationManager.authenticate(authenticationToken)
         } catch (e: IOException) {

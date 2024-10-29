@@ -24,7 +24,10 @@ class JwtAuthenticationEntryPoint : AuthenticationEntryPoint {
         /*
         토큰 없는 경우
         */
-        request.getAttribute("exception") ?: setResponse(response, UserErrorCode.NO_TOKEN_EXCEPTION)
+        if(exception == "") {
+            setResponse(response, UserErrorCode.NO_TOKEN_EXCEPTION)
+            return
+        }
 
         /*
         토큰이 이상한 경우
