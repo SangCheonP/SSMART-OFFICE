@@ -1,0 +1,54 @@
+# Persistent Volume Claim (Primary)
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-primary-pvc
+  namespace: db
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi  # Primary 데이터가 저장될 공간 크기
+---
+# MySQL Primary StatefulSet 생성
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql-primary
+  namespace: db
+spec:
+  serviceName: "mysql-primary"  # 이 StatefulSet이 사용하는 서비스 이름
+  replicas: 1  # Primary는 1개 파드로 유지
+  selector:
+    matchLabels:
+      app: mysql-primary
+  template:
+    metadata:
+      labels:
+        app: mysql-primary
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:5.7
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "s11p31b202!"
+            - name: MYSQL_REPLICATION_USER
+              value: "repl"  # Replica에 필요한 복제 사용자 설정
+            - name: MYSQL_REPLICATION_PASSWORD
+              value: "s11p31b202!"  # Replica에 필요한 복제 사용자 비밀번호 설정
+          ports:
+            - containerPort: 3306  # MySQL 포트
+          volumeMounts:
+            - name: mysql-primary-storage
+              mountPath: /var/lib/mysql  # MySQL 데이터가 저장되는 디렉토리
+  volumeClaimTemplates:
+    - metadata:
+        name: mysql-primary-storage
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: gp2
+        resources:
+          requests:
+            storage: 1Gi  # Primary MySQL 인스턴스의 스토리지 크기
