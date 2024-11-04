@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins-deployment
+  namespace: ci-cd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins
+  template:
+    metadata:
+      labels:
+        app: jenkins
+    spec:
+      nodeSelector:
+        name: Worker1
+      containers:
+        - name: jenkins
+          image: jenkins/jenkins:lts
+          ports:
+            - containerPort: 8080  # Jenkins 기본 포트
+          env:
+            - name: TZ
+              value: "Asia/Seoul"
+          volumeMounts:
+            - name: jenkins-pvc
+              mountPath: /var/jenkins_home  # Jenkins의 데이터 저장 경로
+      volumes:
+        - name: jenkins-pvc
+          persistentVolumeClaim:
+            claimName: jenkins-pvc
+

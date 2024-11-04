@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jenkins-pvc
+  namespace: ci-cd  # PVC가 속할 네임스페이스
+spec:
+  accessModes:
+    - ReadWriteOnce  # PVC 접근 모드 설정
+  resources:
+    requests:
+      storage: 10Gi  # 요청할 스토리지 용량
+  storageClassName: manual  # 사용할 PV의 StorageClassName
+
