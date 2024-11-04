@@ -1,0 +1,66 @@
+.container {
+  display: flex;
+  width: 100%;
+}
+
+.left {
+  background-color: #4876ef;
+  flex: 7;
+}
+.icon {
+  margin-left: 25%;
+  margin-top: 25%;
+}
+
+.right {
+  flex: 3;
+  /* text-align: center; */
+  display: flex;
+  justify-content: center;
+  width: 300px;
+}
+.right input {
+  box-shadow: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  border: none;
+  border-bottom: 1px solid;
+  font-size: 15px;
+  margin: 10px;
+  padding: 10px;
+  width: 300px;
+}
+
+.right input:focus {
+  outline: none;
+}
+
+.title {
+  font-size: 50px;
+  color: #4876ef;
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+.buttonBox {
+}
+.button {
+  all: unset;
+  background-color: #4876ef;
+  color: #fff;
+  width: 120px;
+  height: 45px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.googleButton {
+  all: unset;
+  width: 175px;
+  height: 45px;
+  margin-left: 20px;
+  border-radius: 5px;
+  border: 1px solid #a0a0a0;
+  text-align: center;
+}

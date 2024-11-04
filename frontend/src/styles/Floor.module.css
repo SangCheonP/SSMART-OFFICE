@@ -1,0 +1,23 @@
+.container {
+  flex: 1;
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 6fr 4fr;
+  gap: 30px;
+}
+
+.left,
+.right {
+  background-color: #fff;
+  border-radius: 20px;
+}
+
+.left {
+}
+
+.right {
+}
+
+.buttonContainer {
+  display: grid;
+}

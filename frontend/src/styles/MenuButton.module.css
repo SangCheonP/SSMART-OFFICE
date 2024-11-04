@@ -1,0 +1,52 @@
+a {
+  text-decoration: none;
+  outline: none;
+}
+
+.button {
+  cursor: pointer;
+  display: flex;
+  color: #a0a0a0;
+  align-items: center;
+  margin-bottom: 30px;
+  height: 40px;
+  justify-self: center;
+  width: 180px;
+  padding-left: 20px;
+}
+
+.image {
+  fill: #a0a0a0;
+  margin-right: 20px;
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.text {
+  font-size: 1rem;
+}
+
+.button:hover {
+  color: #4876ef;
+}
+.activeButton {
+  background-color: #dae4fc;
+  color: #4876ef;
+  position: relative;
+  border-radius: 10px;
+}
+.activeButton::after {
+  content: "";
+  background-color: #4876ef;
+  width: 4px;
+  height: 30px;
+  position: absolute;
+  right: -2px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 0 20px 20px 0;
+}
+
+.logoutButton {
+  margin-top: 170px;
+}
