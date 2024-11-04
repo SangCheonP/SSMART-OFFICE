@@ -1,6 +1,6 @@
-package org.example.auth_module.global.exception
+package com.smartoffice.apigateway.exception
 
-import org.example.auth_module.global.exception.errorcode.ErrorCode
+import com.smartoffice.apigateway.exception.errorcode.ErrorCode
 
 class RestApiException(val errorCode: ErrorCode) : RuntimeException() {
 

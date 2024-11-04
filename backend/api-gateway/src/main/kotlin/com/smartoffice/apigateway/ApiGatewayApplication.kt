@@ -1,4 +1,4 @@
-package com.study.apigateway
+package com.smartoffice.apigateway
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
