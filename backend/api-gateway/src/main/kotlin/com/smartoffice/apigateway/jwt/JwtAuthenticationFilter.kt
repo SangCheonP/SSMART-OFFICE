@@ -1,4 +1,4 @@
-package com.study.apigateway.jwt
+package com.smartoffice.apigateway.jwt
 
 import org.springframework.http.HttpHeaders
 import org.springframework.http.server.reactive.ServerHttpRequest

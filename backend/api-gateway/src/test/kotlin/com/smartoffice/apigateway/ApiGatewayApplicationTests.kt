@@ -1,4 +1,4 @@
-package com.study.apigateway
+package com.smartoffice.apigateway
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest

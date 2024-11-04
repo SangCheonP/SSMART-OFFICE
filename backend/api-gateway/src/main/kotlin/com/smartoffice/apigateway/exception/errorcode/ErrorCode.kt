@@ -1,4 +1,4 @@
-package org.example.auth_module.global.exception.errorcode
+package com.smartoffice.apigateway.exception.errorcode
 
 import org.springframework.http.HttpStatus
 import java.io.Serializable

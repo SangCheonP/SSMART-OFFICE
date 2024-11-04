@@ -1,9 +1,9 @@
-package com.study.apigateway.config
+package com.smartoffice.apigateway.config
 
-import com.study.apigateway.jwt.JwtAccessDeniedHandler
-import com.study.apigateway.jwt.JwtAuthenticationEntryPoint
-import com.study.apigateway.jwt.JwtAuthenticationFilter
-import com.study.apigateway.jwt.JwtTokenProvider
+import com.smartoffice.apigateway.jwt.JwtAccessDeniedHandler
+import com.smartoffice.apigateway.jwt.JwtAuthenticationEntryPoint
+import com.smartoffice.apigateway.jwt.JwtAuthenticationFilter
+import com.smartoffice.apigateway.jwt.JwtTokenProvider
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity

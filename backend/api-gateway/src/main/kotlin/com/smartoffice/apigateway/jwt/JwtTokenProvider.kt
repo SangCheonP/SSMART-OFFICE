@@ -1,4 +1,4 @@
-package com.study.apigateway.jwt
+package com.smartoffice.apigateway.jwt
 
 import io.jsonwebtoken.*
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken

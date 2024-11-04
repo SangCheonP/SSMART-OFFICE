@@ -1,4 +1,4 @@
-package org.example.auth_module.global.exception
+package com.smartoffice.apigateway.exception
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import org.springframework.validation.FieldError

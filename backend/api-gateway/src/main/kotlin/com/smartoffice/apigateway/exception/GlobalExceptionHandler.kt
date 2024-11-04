@@ -1,9 +1,9 @@
-package org.example.auth_module.global.exception
+package com.smartoffice.apigateway.exception
 
+import com.smartoffice.apigateway.exception.errorcode.CommonErrorCode
+import com.smartoffice.apigateway.exception.errorcode.ErrorCode
 import io.github.oshai.kotlinlogging.KotlinLogging
 import jakarta.validation.ConstraintViolationException
-import org.example.auth_module.global.exception.errorcode.CommonErrorCode
-import org.example.auth_module.global.exception.errorcode.ErrorCode
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatusCode
 import org.springframework.http.ResponseEntity
