@@ -1,0 +1,18 @@
+.container {
+  width: 80%;
+  margin: 40px auto 0;
+  justify-content: center;
+  height: calc(100dvh - 60px);
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.date {
+}
+.floor {
+}

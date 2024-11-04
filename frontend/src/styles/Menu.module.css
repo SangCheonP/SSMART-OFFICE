@@ -1,0 +1,11 @@
+.icon {
+  margin: 55px 0 44px 0;
+}
+.temp {
+  display: flex;
+  justify-content: center;
+}
+.menu {
+  width: 240px;
+  background-color: #fff;
+}
