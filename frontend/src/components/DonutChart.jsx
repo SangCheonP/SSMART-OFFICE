@@ -1,6 +1,7 @@
+import PropTypes from "prop-types";
 import styles from "./../styles/Seat/DonutChart.module.css";
 
-function DonutChart({ number, totalNumber }) {
+const DonutChart = ({ number, totalNumber }) => {
   if (totalNumber === undefined) {
     totalNumber = 6;
   }
@@ -53,5 +54,11 @@ function DonutChart({ number, totalNumber }) {
       </svg>
     </div>
   );
-}
+};
+
+// DonutChart.propTypes = {
+//   number: PropTypes.number.isRequired,
+//   totalNumber: PropTypes.number.isRequired,
+// };
+
 export default DonutChart;

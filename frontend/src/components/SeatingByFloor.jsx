@@ -3,7 +3,7 @@ import DonutChart from "./DonutChart";
 import styles from "./../styles/Seat/SeatingByFloor.module.css";
 import PropTypes from "prop-types";
 
-const SeatStatus = ({ floor }) => {
+const SeatingByFloor = ({ floor }) => {
   return (
     <div className={styles.container}>
       <div className={styles.left}>{floor}</div>
@@ -20,7 +20,7 @@ const SeatStatus = ({ floor }) => {
   );
 };
 
-SeatStatus.propTypes = {
+SeatingByFloor.propTypes = {
   floor: PropTypes.string.isRequired,
 };
-export default SeatStatus;
+export default SeatingByFloor;
