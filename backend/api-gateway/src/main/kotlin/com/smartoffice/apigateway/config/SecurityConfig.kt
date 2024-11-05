@@ -1,7 +1,5 @@
 package com.smartoffice.apigateway.config
 
-import com.smartoffice.apigateway.jwt.JwtAccessDeniedHandler
-import com.smartoffice.apigateway.jwt.JwtAuthenticationEntryPoint
 import com.smartoffice.apigateway.jwt.JwtAuthenticationFilter
 import com.smartoffice.apigateway.jwt.JwtTokenProvider
 import org.springframework.context.annotation.Bean
@@ -17,9 +15,7 @@ import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource
 @Configuration
 @EnableWebFluxSecurity
 class SecurityConfig(
-    private val jwtTokenProvider: JwtTokenProvider,
-    private val jwtAuthenticationEntryPoint: JwtAuthenticationEntryPoint,
-    private val jwtAccessDeniedHandler: JwtAccessDeniedHandler
+    private val jwtTokenProvider: JwtTokenProvider
 ) {
 
     @Bean
@@ -43,15 +39,9 @@ class SecurityConfig(
             .cors { it.configurationSource(corsConfigurationSource()) }
             .authorizeExchange {
                 it.anyExchange().permitAll()
-//                it.pathMatchers("/api/v1/auth/ping").permitAll()
-//                    .pathMatchers("/api/v1/auth/login").permitAll()
-//                    .pathMatchers("/api/v1/auth/signup").permitAll()
-//                    .anyExchange().authenticated()
+
             }
-            .exceptionHandling {
-                it.authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                    .accessDeniedHandler(jwtAccessDeniedHandler)
-            }
+
             .addFilterAt(JwtAuthenticationFilter(jwtTokenProvider), SecurityWebFiltersOrder.AUTHENTICATION)
             .build()
     }

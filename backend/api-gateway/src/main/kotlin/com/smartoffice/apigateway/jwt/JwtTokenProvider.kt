@@ -1,50 +1,53 @@
 package com.smartoffice.apigateway.jwt
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.smartoffice.apigateway.exception.errorcode.JwtErrorCode
+import io.github.oshai.kotlinlogging.KotlinLogging
 import io.jsonwebtoken.*
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.Authentication
-import org.springframework.security.core.GrantedAuthority
-import org.springframework.security.core.authority.SimpleGrantedAuthority
+import io.jsonwebtoken.io.Decoders
+import io.jsonwebtoken.security.Keys
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
-import javax.crypto.SecretKey
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.server.ServerWebExchange
+import reactor.core.publisher.Mono
+import java.security.Key
 
+
+private val logger = KotlinLogging.logger {}
 
 @Component
 class JwtTokenProvider(
     @Value("\${app.auth.token.secret-key}")
-    private val secretKey: String
+    private val secretKey: String,
 ) {
-    private val key: SecretKey = Jwts.SIG.HS256.key().build()
+    private final val key: Key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey))
 
-    fun validateToken(token: String): Boolean {
-        return try {
-            Jwts.parser()
-                .verifyWith(key)
-                .build()
-                .parseSignedClaims(token)
-            true
+    fun validateToken(token: String?, exchange: ServerWebExchange): Mono<Void> {
+
+        if(token == null) {
+            return setResponse(exchange, JwtErrorCode.NO_TOKEN_EXCEPTION)
+        }
+
+        try {
+            val result = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).body
+            logger.info { "result: $result" }
+            return Mono.empty()
+        } catch (e: ExpiredJwtException) {
+            return setResponse(exchange, JwtErrorCode.EXPIRED_TOKEN_EXCEPTION)
         } catch (e: JwtException) {
-            false
+            return setResponse(exchange, JwtErrorCode.INVALID_TOKEN)
         }
     }
 
-    fun getAuthentication(token: String): Authentication {
-        val claims: Claims = Jwts.parser()
-            .verifyWith(key)
-            .build()
-            .parseSignedClaims(token)
-            .payload
-
-        val authorities: Collection<GrantedAuthority> =
-            claims[AUTHORITIES_KEY]?.toString()?.split(",")
-                ?.map { SimpleGrantedAuthority(it.trim()) }
-                ?: emptyList()
-
-        return UsernamePasswordAuthenticationToken(claims.subject, "", authorities)
-    }
-
-    companion object {
-        private const val AUTHORITIES_KEY = "role"
+    private fun setResponse(exchange: ServerWebExchange, errorCode: JwtErrorCode): Mono<Void> {
+        val errorAttributes: MutableMap<String, Any> = HashMap()
+        errorAttributes["status"] = errorCode.httpStatus.value()
+        errorAttributes["name"] = errorCode.name
+        errorAttributes["message"] = errorCode.message
+        exchange.response.setStatusCode(errorCode.httpStatus)
+        exchange.response.headers.contentType = MediaType.APPLICATION_JSON
+        return exchange.response.writeWith(
+            Mono.just(exchange.response.bufferFactory().wrap(ObjectMapper().writeValueAsBytes(errorAttributes))))
     }
 }
