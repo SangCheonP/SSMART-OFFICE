@@ -1,5 +1,6 @@
 .home {
   margin-left: 68px;
+  display: flex;
 }
 .calendar {
   margin-top: 33px;
