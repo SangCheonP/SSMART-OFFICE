@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import ProfileImage from "./../assets/Login/ProfileImage.svg?react";
 import styles from "./../styles/Header.module.css";
 import Down from "./../assets/Common/Arrow_down.svg?react";
-import Up from "./../assets/Common/Arrow_up.svg?react";
 
 const UserCard = () => {
   const [isOpen, setIsOpen] = useState(false);
