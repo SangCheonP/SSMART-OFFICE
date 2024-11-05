@@ -5,8 +5,8 @@ import com.ssmartofice.userservice.user.exception.UserException
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
 import com.ssmartofice.userservice.user.exception.UserErrorCode
+import com.ssmartofice.userservice.user.util.EmployeeNumberGenerator
 import org.springframework.security.crypto.password.PasswordEncoder
-import kotlin.random.Random
 
 class User(
     val id: Long = 0,
@@ -24,7 +24,7 @@ class User(
     @field:NotBlank(message = "이미지를 입력해주세요.")
     var profileImageUrl: String,
     var role: Role = Role.USER,
-    val employeeNumber: String = generateEmployeeNumber(),
+    val employeeNumber: String,
     val point: Int = 0,
     val status: UserStatus = UserStatus.OFF_DUTY,
     val deleted: Boolean = false,
@@ -60,22 +60,20 @@ class User(
         this.password = encoder.encode(newPassword)
     }
 
+    companion object {
 
-    companion object { //TODO: 클래스 분리하고 중복 체크
-
-        private fun generateEmployeeNumber(): String {
-            val randomNumber = Random.nextInt(1000000, 9999999)
-            return "S$randomNumber"
-        }
-
-        fun fromRequest(userRegisterRequest: UserRegisterRequest): User {
+        fun fromRequest(
+            userRegisterRequest: UserRegisterRequest,
+            employeeNumberGenerator: EmployeeNumberGenerator
+        ): User {
             return User(
                 email = userRegisterRequest.email,
                 password = userRegisterRequest.password,
                 name = userRegisterRequest.name,
                 position = userRegisterRequest.position,
                 duty = userRegisterRequest.duty,
-                profileImageUrl = userRegisterRequest.profileImageUrl
+                profileImageUrl = userRegisterRequest.profileImageUrl,
+                employeeNumber = employeeNumberGenerator.generate() //TODO: 근데 사원번호를 백에서 만드는게 맞나..?
             )
         }
     }

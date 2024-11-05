@@ -8,6 +8,7 @@ import com.ssmartofice.userservice.user.domain.User
 import com.ssmartofice.userservice.user.exception.UserErrorCode
 import com.ssmartofice.userservice.user.exception.UserException
 import com.ssmartofice.userservice.user.service.port.UserRepository
+import com.ssmartofice.userservice.user.util.EmployeeNumberGenerator
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -17,12 +18,13 @@ import org.springframework.stereotype.Service
 @Service
 class UserServiceImpl(
     val passwordEncoder: BCryptPasswordEncoder,
-    val userRepository: UserRepository
+    val userRepository: UserRepository,
+    val employeeNumberGenerator: EmployeeNumberGenerator
 ) : UserService {
 
     override fun addUser(userRegisterRequest: UserRegisterRequest): User {
         try {
-            val user = User.fromRequest(userRegisterRequest)
+            val user = User.fromRequest(userRegisterRequest, employeeNumberGenerator)
             user.encodePassword(passwordEncoder)
             return userRepository.save(user)
         } catch (ex: DataIntegrityViolationException) {

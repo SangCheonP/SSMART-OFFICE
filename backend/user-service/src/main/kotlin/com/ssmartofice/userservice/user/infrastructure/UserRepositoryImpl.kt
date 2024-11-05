@@ -27,4 +27,9 @@ class UserRepositoryImpl(
     override fun findAll(pageable: Pageable): Page<User> {
         return userJpaRepository.findAll(pageable).map { userEntity -> userEntity.toModel() }
     }
+
+    override fun findMaxEmployeeNumberByYear(prefix: String): String? {
+        return userJpaRepository.findTopByEmployeeNumberStartingWithOrderByEmployeeNumberDesc(prefix)
+            ?.employeeNumber
+    }
 }
