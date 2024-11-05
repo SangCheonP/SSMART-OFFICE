@@ -4,6 +4,7 @@ import com.ssmartofice.userservice.global.const.successcode.SuccessCode
 import com.ssmartofice.userservice.global.dto.CommonResponse
 import com.ssmartofice.userservice.global.jwt.JwtUtil
 import com.ssmartofice.userservice.user.controller.port.UserService
+import com.ssmartofice.userservice.user.controller.request.PasswordUpdateRequest
 import com.ssmartofice.userservice.user.controller.request.UserRegisterRequest
 import com.ssmartofice.userservice.user.controller.request.UserUpdateRequest
 import com.ssmartofice.userservice.user.controller.response.UserInfoResponse
@@ -18,6 +19,7 @@ class UserController(
     val userService: UserService,
     val jwtUtil: JwtUtil
 ) {
+
     @GetMapping("/ping")
     fun check(): ResponseEntity<Any> {
         return ResponseEntity.ok("pong");
@@ -108,6 +110,22 @@ class UserController(
                 .status(SuccessCode.OK.getValue())
                 .data(updatedUser)
                 .message("내 정보 수정에 성공했습니다.")
+                .build()
+        )
+    }
+
+    @PatchMapping("/me/password")
+    fun updateMyPassword(
+        @RequestHeader("Authorization") token: String,
+        @RequestBody @Valid passwordUpdateRequest: PasswordUpdateRequest
+    ): ResponseEntity<CommonResponse> {
+        val userId = jwtUtil.getUserByToken(token).id
+        userService.updatePassword(userId, passwordUpdateRequest);
+        return ResponseEntity.ok(
+            CommonResponse.builder()
+                .status(SuccessCode.OK.getValue())
+                .data(null)
+                .message("비밀번호 수정에 성공했습니다.")
                 .build()
         )
     }

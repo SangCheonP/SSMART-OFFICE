@@ -1,7 +1,9 @@
 package com.ssmartofice.userservice.user.domain
 
 import com.ssmartofice.userservice.user.controller.request.UserRegisterRequest
+import com.ssmartofice.userservice.user.exception.UserException
 import jakarta.validation.constraints.NotBlank
+import org.example.auth_module.global.exception.errorcode.UserErrorCode
 import org.springframework.security.crypto.password.PasswordEncoder
 import kotlin.random.Random
 
@@ -44,6 +46,16 @@ class User(
         position?.let { this.position = it }
         duty?.let { this.duty = it }
         profileImageUrl?.let { this.profileImageUrl = it }
+    }
+
+    fun updatePassword(oldPassword: String, newPassword: String, encoder: PasswordEncoder) {
+        if (!encoder.matches(oldPassword, this.password)) {
+            throw UserException(UserErrorCode.INVALID_OLD_PASSWORD)
+        }
+        if (oldPassword == newPassword) {
+            throw UserException(UserErrorCode.DUPLICATE_PASSWORD)
+        }
+        this.password = encoder.encode(newPassword)
     }
 
 

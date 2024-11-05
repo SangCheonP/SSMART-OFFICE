@@ -1,6 +1,7 @@
 package com.ssmartofice.userservice.user.service
 
 import com.ssmartofice.userservice.user.controller.port.UserService
+import com.ssmartofice.userservice.user.controller.request.PasswordUpdateRequest
 import com.ssmartofice.userservice.user.controller.request.UserRegisterRequest
 import com.ssmartofice.userservice.user.controller.request.UserUpdateRequest
 import com.ssmartofice.userservice.user.domain.User
@@ -41,5 +42,15 @@ class UserServiceImpl(
             profileImageUrl = userUpdateRequest.profileImageUrl
         )
         return userRepository.save(user)
+    }
+
+    override fun updatePassword(userId: Long, passwordUpdateRequest: PasswordUpdateRequest) {
+        val user: User = findUserByUserId(userId)
+        user.updatePassword(
+            oldPassword = passwordUpdateRequest.oldPassword,
+            newPassword = passwordUpdateRequest.newPassword,
+            encoder = passwordEncoder
+        )
+        userRepository.save(user)
     }
 }

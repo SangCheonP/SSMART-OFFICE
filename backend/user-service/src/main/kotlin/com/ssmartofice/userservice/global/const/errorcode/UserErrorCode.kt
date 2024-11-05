@@ -13,4 +13,6 @@ enum class UserErrorCode(override val httpStatus: HttpStatus, override val messa
     INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "사용할 수 없는 토큰입니다."),
     ACCESS_DENIED(HttpStatus.UNAUTHORIZED, "해당 api에 접근 권한이 없습니다."),
     NOT_MATCHED_REDIRECT_URI(HttpStatus.BAD_REQUEST, "Redirect URI가 맞지 않습니다."),
+    INVALID_OLD_PASSWORD(HttpStatus.CONFLICT, "기존 비밀번호를 틀렸습니다"),
+    DUPLICATE_PASSWORD(HttpStatus.CONFLICT, "기존 비밀번호와 동일합니다"),
 }
