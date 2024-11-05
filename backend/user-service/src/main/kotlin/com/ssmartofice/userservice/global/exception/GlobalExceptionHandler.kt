@@ -1,8 +1,9 @@
 package com.ssmartofice.userservice.global.exception
 
+import com.ssmartofice.userservice.global.dto.ErrorResponse
 import io.github.oshai.kotlinlogging.KotlinLogging
-import com.ssmartofice.userservice.global.exception.errorcode.CommonErrorCode
-import com.ssmartofice.userservice.global.exception.errorcode.ErrorCode
+import com.ssmartofice.userservice.global.const.errorcode.CommonErrorCode
+import com.ssmartofice.userservice.global.const.errorcode.ErrorCode
 import lombok.extern.slf4j.Slf4j
 import org.hibernate.exception.ConstraintViolationException
 import org.springframework.http.HttpHeaders
@@ -42,8 +43,6 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
         val errorCode: ErrorCode = CommonErrorCode.INVALID_PARAMETER
         return handleExceptionInternal(errorCode, e.message)
     }
-
-
 
     @ExceptionHandler(Exception::class)
     fun handleAllException(ex: Exception?): ResponseEntity<Any> {

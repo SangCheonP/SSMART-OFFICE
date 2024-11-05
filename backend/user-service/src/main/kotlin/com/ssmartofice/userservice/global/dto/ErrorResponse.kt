@@ -1,4 +1,4 @@
-package com.ssmartofice.userservice.global.exception
+package com.ssmartofice.userservice.global.dto
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import org.springframework.validation.FieldError

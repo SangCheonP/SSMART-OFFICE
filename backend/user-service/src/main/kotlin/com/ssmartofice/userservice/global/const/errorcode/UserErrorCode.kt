@@ -1,6 +1,6 @@
 package org.example.auth_module.global.exception.errorcode
 
-import com.ssmartofice.userservice.global.exception.errorcode.ErrorCode
+import com.ssmartofice.userservice.global.const.errorcode.ErrorCode
 import lombok.Getter
 import org.springframework.http.HttpStatus
 

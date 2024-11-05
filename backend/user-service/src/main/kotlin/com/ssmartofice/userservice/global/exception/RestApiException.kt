@@ -1,6 +1,6 @@
 package com.ssmartofice.userservice.global.exception
 
-import com.ssmartofice.userservice.global.exception.errorcode.ErrorCode
+import com.ssmartofice.userservice.global.const.errorcode.ErrorCode
 
 class RestApiException(val errorCode: ErrorCode) : RuntimeException() {
 

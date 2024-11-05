@@ -1,4 +1,4 @@
-package com.ssmartofice.userservice.global.exception.errorcode
+package com.ssmartofice.userservice.global.const.errorcode
 
 import org.springframework.http.HttpStatus
 import java.io.Serializable
