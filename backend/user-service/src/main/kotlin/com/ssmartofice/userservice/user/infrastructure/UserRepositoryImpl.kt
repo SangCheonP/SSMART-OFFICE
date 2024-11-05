@@ -14,11 +14,13 @@ class UserRepositoryImpl(
         return userJpaRepository.save(UserEntity.fromModel(user)).toModel()
     }
 
-    override fun findById(id: Long): User {
-        return userJpaRepository.findById(id).get().toModel()
+    override fun findById(id: Long): User? {
+        return userJpaRepository.findById(id)
+            .map{it.toModel()}
+            .orElse(null)
     }
 
-    override fun findByEmail(email: String): User {
+    override fun findByEmail(email: String): User? {
         return userJpaRepository.findByEmail(email).toModel()
     }
 

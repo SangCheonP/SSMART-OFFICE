@@ -82,7 +82,6 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
         return handleExceptionInternal(e, commonErrorCode)
     }
 
-
     override fun handleHandlerMethodValidationException(
         e: HandlerMethodValidationException,
         headers: HttpHeaders,
@@ -99,27 +98,6 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
             .body(makeErrorResponse(errorCode))
     }
 
-    private fun makeErrorResponse(errorCode: ErrorCode): ErrorResponse {
-        return ErrorResponse(
-            status = errorCode.httpStatus.value(),
-            error = errorCode.name,
-            message = errorCode.message,
-        )
-    }
-
-    private fun handleExceptionInternal(errorCode: ErrorCode, message: String?): ResponseEntity<Any> {
-        return ResponseEntity.status(errorCode.httpStatus)
-            .body(makeErrorResponse(errorCode, message))
-    }
-
-    private fun makeErrorResponse(errorCode: ErrorCode, message: String?): ErrorResponse {
-        return ErrorResponse(
-            status = errorCode.httpStatus.value(),
-            error = errorCode.name,
-            message = message,
-        )
-    }
-
     private fun handleExceptionInternal(e: BindException, errorCode: ErrorCode): ResponseEntity<Any> {
         return ResponseEntity.status(errorCode.httpStatus)
             .body(makeErrorResponse(e, errorCode))
@@ -128,6 +106,27 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
     private fun handleExceptionInternal(e: ResponseStatusException, errorCode: ErrorCode): ResponseEntity<Any> {
         return ResponseEntity.status(errorCode.httpStatus)
             .body(makeErrorResponse(e, errorCode))
+    }
+
+    private fun handleExceptionInternal(errorCode: ErrorCode, message: String?): ResponseEntity<Any> {
+        return ResponseEntity.status(errorCode.httpStatus)
+            .body(makeErrorResponse(errorCode, message))
+    }
+
+    private fun makeErrorResponse(errorCode: ErrorCode): ErrorResponse {
+        return ErrorResponse(
+            status = errorCode.httpStatus.value(),
+            error = errorCode.name,
+            message = errorCode.message,
+        )
+    }
+
+    private fun makeErrorResponse(errorCode: ErrorCode, message: String?): ErrorResponse {
+        return ErrorResponse(
+            status = errorCode.httpStatus.value(),
+            error = errorCode.name,
+            message = message,
+        )
     }
 
     private fun makeErrorResponse(error: ResponseStatusException, errorCode: ErrorCode): ErrorResponse {

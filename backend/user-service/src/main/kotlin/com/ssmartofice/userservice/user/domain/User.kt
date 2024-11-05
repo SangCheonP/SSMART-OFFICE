@@ -2,13 +2,15 @@ package com.ssmartofice.userservice.user.domain
 
 import com.ssmartofice.userservice.user.controller.request.UserRegisterRequest
 import com.ssmartofice.userservice.user.exception.UserException
+import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
-import org.example.auth_module.global.exception.errorcode.UserErrorCode
+import com.ssmartofice.userservice.user.exception.UserErrorCode
 import org.springframework.security.crypto.password.PasswordEncoder
 import kotlin.random.Random
 
 class User(
     val id: Long = 0,
+    @field:Email(message = "이메일 형식이 올바르지 않습니다.", regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
     @field:NotBlank(message = "이메일을 입력해주세요.")
     var email: String,
     @field:NotBlank(message = "비밀번호를 입력해주세요.")

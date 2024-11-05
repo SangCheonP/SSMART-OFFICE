@@ -11,6 +11,7 @@ class UserEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     val id: Long = 0,
+    @Column(nullable = false, unique = true)
     val email: String,
     val password: String,
     val name: String,

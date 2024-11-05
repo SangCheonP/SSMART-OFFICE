@@ -14,8 +14,6 @@ class ErrorResponse(
         val field: String,
         val message: String?
     ) {
-
-
         companion object {
             @JvmStatic
             fun of(fieldError: FieldError): ValidationError {

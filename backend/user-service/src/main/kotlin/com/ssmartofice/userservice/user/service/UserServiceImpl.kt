@@ -5,7 +5,10 @@ import com.ssmartofice.userservice.user.controller.request.PasswordUpdateRequest
 import com.ssmartofice.userservice.user.controller.request.UserRegisterRequest
 import com.ssmartofice.userservice.user.controller.request.UserUpdateRequest
 import com.ssmartofice.userservice.user.domain.User
+import com.ssmartofice.userservice.user.exception.UserErrorCode
+import com.ssmartofice.userservice.user.exception.UserException
 import com.ssmartofice.userservice.user.service.port.UserRepository
+import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -18,13 +21,18 @@ class UserServiceImpl(
 ) : UserService {
 
     override fun addUser(userRegisterRequest: UserRegisterRequest): User {
-        val user = User.fromRequest(userRegisterRequest)
-        user.encodePassword(passwordEncoder)
-        return userRepository.save(user)
+        try {
+            val user = User.fromRequest(userRegisterRequest)
+            user.encodePassword(passwordEncoder)
+            return userRepository.save(user)
+        } catch (ex: DataIntegrityViolationException) {
+            throw UserException(UserErrorCode.DUPLICATED_EMAIL)
+        }
     }
 
     override fun findUserByUserId(userId: Long): User {
         return userRepository.findById(userId)
+            ?: throw UserException(UserErrorCode.USER_NOT_FOUND)
     }
 
     override fun getAllUsersByPage(pageable: Pageable): Page<User> {

@@ -1,8 +1,11 @@
 package com.ssmartofice.userservice.user.controller.request
 
+import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.Pattern
 
 data class UserRegisterRequest(
+    @field:Email(message = "이메일 형식이 올바르지 않습니다.", regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
     @field:NotBlank(message = "이메일을 입력해주세요.")
     val email: String,
 
@@ -18,6 +21,7 @@ data class UserRegisterRequest(
     @field:NotBlank(message = "직무를 입력해주세요.")
     val duty: String,
 
+    @field:Pattern(message = "유효한 URL 형식이 아닙니다.", regexp = "(http|https)://[a-zA-Z0-9./]+")
     @field:NotBlank(message = "이미지를 입력해주세요.")
     val profileImageUrl: String
 )

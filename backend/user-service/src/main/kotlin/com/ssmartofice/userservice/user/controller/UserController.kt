@@ -9,6 +9,7 @@ import com.ssmartofice.userservice.user.controller.request.UserRegisterRequest
 import com.ssmartofice.userservice.user.controller.request.UserUpdateRequest
 import com.ssmartofice.userservice.user.controller.response.UserInfoResponse
 import jakarta.validation.Valid
+import jakarta.validation.constraints.Positive
 import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -19,11 +20,6 @@ class UserController(
     val userService: UserService,
     val jwtUtil: JwtUtil
 ) {
-
-    @GetMapping("/ping")
-    fun check(): ResponseEntity<Any> {
-        return ResponseEntity.ok("pong");
-    }
 
     @PostMapping
     fun join(
@@ -42,7 +38,8 @@ class UserController(
 
     @GetMapping("/me")
     fun getMyInfo(@RequestHeader("Authorization") token: String): ResponseEntity<CommonResponse> {
-        val user = jwtUtil.getUserByToken(token)
+        val userId = jwtUtil.getUserIdByToken(token)
+        val user = userService.findUserByUserId(userId)
         return ResponseEntity.ok(
             CommonResponse.builder()
                 .status(SuccessCode.OK.getValue())
@@ -55,6 +52,7 @@ class UserController(
     @GetMapping("/{userId}")
     fun getEmployeeInfo(
         @RequestHeader("Authorization") token: String,
+        @Positive(message = "유효한 사용자 ID를 입력해주세요.")
         @PathVariable userId: Long
     ): ResponseEntity<CommonResponse> {
         val user = userService.findUserByUserId(userId)
@@ -86,7 +84,9 @@ class UserController(
     @PatchMapping("/{userId}")
     fun updateEmployee(
         @RequestHeader("Authorization") token: String,
-        @RequestBody @Valid userUpdateRequest: UserUpdateRequest, @PathVariable userId: Long
+        @RequestBody @Valid userUpdateRequest: UserUpdateRequest,
+        @Positive(message = "유효한 사용자 ID를 입력해주세요.")
+        @PathVariable userId: Long
     ): ResponseEntity<CommonResponse> {
         val updatedUser = userService.updateUser(userId, userUpdateRequest);
         return ResponseEntity.ok(
@@ -103,7 +103,7 @@ class UserController(
         @RequestHeader("Authorization") token: String,
         @RequestBody @Valid userUpdateRequest: UserUpdateRequest
     ): ResponseEntity<CommonResponse> {
-        val userId = jwtUtil.getUserByToken(token).id
+        val userId = jwtUtil.getUserIdByToken(token)
         val updatedUser = userService.updateUser(userId, userUpdateRequest);
         return ResponseEntity.ok(
             CommonResponse.builder()
@@ -119,7 +119,7 @@ class UserController(
         @RequestHeader("Authorization") token: String,
         @RequestBody @Valid passwordUpdateRequest: PasswordUpdateRequest
     ): ResponseEntity<CommonResponse> {
-        val userId = jwtUtil.getUserByToken(token).id
+        val userId = jwtUtil.getUserIdByToken(token)
         userService.updatePassword(userId, passwordUpdateRequest);
         return ResponseEntity.ok(
             CommonResponse.builder()

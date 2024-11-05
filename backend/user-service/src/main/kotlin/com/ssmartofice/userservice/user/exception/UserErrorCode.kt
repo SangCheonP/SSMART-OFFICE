@@ -1,4 +1,4 @@
-package com.ssmartofice.userservice.global.const.errorcode
+package com.ssmartofice.userservice.user.exception
 
 import com.ssmartofice.userservice.global.const.errorcode.ErrorCode
 import lombok.Getter
@@ -16,4 +16,5 @@ enum class UserErrorCode(override val httpStatus: HttpStatus, override val messa
     DUPLICATED_EMAIL(HttpStatus.BAD_REQUEST, "중복된 이메일입니다."),
     INVALID_OLD_PASSWORD(HttpStatus.CONFLICT, "기존 비밀번호를 틀렸습니다"),
     DUPLICATE_PASSWORD(HttpStatus.CONFLICT, "기존 비밀번호와 동일합니다"),
+    USER_NOT_FOUND(HttpStatus.NOT_FOUND, "사용자를 찾을 수 없습니다."),
 }

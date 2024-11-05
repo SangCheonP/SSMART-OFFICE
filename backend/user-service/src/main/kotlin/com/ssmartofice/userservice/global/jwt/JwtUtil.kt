@@ -20,25 +20,33 @@ class JwtUtil(
 
     private val SECRET_KEY: Key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey))
 
-    fun getUserByToken(accessToken: String): User {
+    fun getUserIdByToken(accessToken: String): Long {
         val token: String = accessToken.split(" ")[1]
         val claims: Claims = parseClaims(token)
-//        val id: Long = claims[ID_KEY, Long::class.java]
-//        return userRepository.findById(id)
-        val email: String = claims[EMAIL_KEY, String::class.java]
-        return userRepository.findByEmail(email)
+        val id: Long = claims[ID_KEY, Long::class.java]
+        return id
     }
 
-    private fun parseClaims(token: String): Claims {
+    fun getUserEmailByToken(accessToken: String): String {
+        val token: String = accessToken.split(" ")[1]
+        val claims: Claims = parseClaims(token)
+        val email: String = claims[EMAIL_KEY, String::class.java]
+        return email
+    }
+
+    fun parseClaims(token: String): Claims {
         return try {
-            Jwts.parserBuilder().setSigningKey(SECRET_KEY).build().parseClaimsJws(token).body
+            Jwts.parserBuilder()
+                .setSigningKey(SECRET_KEY)
+                .build()
+                .parseClaimsJws(token).body
         } catch (e: ExpiredJwtException) {
             e.claims
         }
     }
 
     companion object {
-        private const val AUTHORITIES_KEY = "role"
+        const val AUTHORITIES_KEY = "role"
         private const val ID_KEY = "id"
         private const val EMAIL_KEY = "email"
     }
