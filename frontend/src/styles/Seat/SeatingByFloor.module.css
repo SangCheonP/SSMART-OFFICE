@@ -1,6 +1,6 @@
 .container {
   flex: 1;
-  margin-top: 40px;
+  margin-top: 20px;
   display: grid;
   grid-template-columns: 6fr 4fr;
   gap: 30px;
@@ -10,12 +10,6 @@
 .right {
   background-color: #fff;
   border-radius: 20px;
-}
-
-.left {
-}
-
-.right {
 }
 
 .buttonContainer {

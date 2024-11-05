@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import styles from "./../../styles/SeatButton.module.css";
+import styles from "./../../styles/Seat/SeatButton.module.css";
 
 const SeatButton = ({ color, content }) => {
   return (
