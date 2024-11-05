@@ -16,4 +16,8 @@ class UserServiceImpl(
         user.encodePassword(passwordEncoder)
         return userRepository.save(user)
     }
+
+    override fun findUserByUserId(userId: Long): User {
+        return userRepository.findById(userId)
+    }
 }

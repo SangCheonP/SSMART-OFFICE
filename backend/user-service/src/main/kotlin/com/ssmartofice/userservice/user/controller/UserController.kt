@@ -40,7 +40,19 @@ class UserController(
             CommonResponse.builder()
                 .status(SuccessCode.OK.getValue())
                 .data(UserInfoResponse.fromModel(user))
-                .message("내 정보 조회 성공")
+                .message("내 정보 조회에 성공했습니다.")
+                .build()
+        )
+    }
+
+    @GetMapping("/{userId}")
+    fun employeeInfo(@PathVariable userId: Long): ResponseEntity<CommonResponse> {
+        val user = userService.findUserByUserId(userId)
+        return ResponseEntity.ok(
+            CommonResponse.builder()
+                .status(SuccessCode.OK.getValue())
+                .data(UserInfoResponse.fromModel(user))
+                .message("사원 조회에 성공했습니다.")
                 .build()
         )
     }
