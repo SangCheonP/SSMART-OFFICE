@@ -1,7 +1,7 @@
 import MenuButton from "./../components/common/MenuButton";
 import HomeIcon from "./../assets/Menu/SSMART OFFICE.svg?react";
 import { NavLink } from "react-router-dom";
-import styles from "./../styles/Menu.module.css";
+import styles from "./../styles/Menu/Menu.module.css";
 import PropTypes from "prop-types";
 
 const NavItem = ({ link, type, content }) => {

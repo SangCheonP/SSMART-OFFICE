@@ -1,6 +1,14 @@
-import styles from "./../styles/DonutChart.module.css";
+import styles from "./../styles/Seat/DonutChart.module.css";
 
-function DonutChart() {
+function DonutChart({ number, totalNumber }) {
+  if (totalNumber === undefined) {
+    totalNumber = 6;
+  }
+  if (number === undefined) {
+    number = 2;
+  }
+  let percentage = number / totalNumber;
+
   return (
     <div className={styles.container}>
       <svg viewBox="0 0 200 200" width="100%" height="100%">
@@ -20,14 +28,14 @@ function DonutChart() {
           stroke="#4876EF"
           strokeWidth="20"
           strokeLinecap="round"
-          strokeDasharray={`${2 * Math.PI * 90 * 0.5} ${
-            2 * Math.PI * 90 * 0.5
+          strokeDasharray={`${2 * Math.PI * 90 * percentage} ${
+            2 * Math.PI * 90 * (1 - percentage)
           }`}
           strokeDashoffset={2 * Math.PI * 90 * 0.25}
         />
         <text x="100" y="95" textAnchor="middle" fontSize="20" fill="#000">
           <tspan fontSize="20" fontWeight="bold">
-            3
+            {number}
           </tspan>
           <tspan fontSize="14" dx="2">
             석 사용가능
@@ -36,7 +44,7 @@ function DonutChart() {
         <text x="100" y="125" textAnchor="middle" fontSize="12" fill="#000">
           <tspan fontSize="14">총</tspan>
           <tspan fontSize="20" dx="2" fontWeight="bold">
-            6
+            {totalNumber}
           </tspan>
           <tspan fontSize="14" dx="2">
             석

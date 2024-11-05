@@ -1,11 +1,12 @@
-import SeatButton from "../components/common/SeatButton";
-import DonutChart from "../components/DonutChart";
-import styles from "./../styles/Floor.module.css";
+import SeatButton from "./common/SeatButton";
+import DonutChart from "./DonutChart";
+import styles from "./../styles/Seat/SeatingByFloor.module.css";
+import PropTypes from "prop-types";
 
-const Floor = () => {
+const SeatStatus = ({ floor }) => {
   return (
     <div className={styles.container}>
-      <div className={styles.left}>1</div>
+      <div className={styles.left}>{floor}</div>
       <div className={styles.right}>
         <DonutChart />
         <div className={styles.buttonContainer}>
@@ -18,4 +19,8 @@ const Floor = () => {
     </div>
   );
 };
-export default Floor;
+
+SeatStatus.propTypes = {
+  floor: PropTypes.string.isRequired,
+};
+export default SeatStatus;
