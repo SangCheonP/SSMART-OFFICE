@@ -2,12 +2,6 @@ import PropTypes from "prop-types";
 import styles from "./../styles/Seat/DonutChart.module.css";
 
 const DonutChart = ({ number, totalNumber }) => {
-  if (totalNumber === undefined) {
-    totalNumber = 6;
-  }
-  if (number === undefined) {
-    number = 2;
-  }
   let percentage = number / totalNumber;
 
   return (
@@ -36,7 +30,7 @@ const DonutChart = ({ number, totalNumber }) => {
         />
         <text x="100" y="95" textAnchor="middle" fontSize="20" fill="#000">
           <tspan fontSize="20" fontWeight="bold">
-            {number}
+            {totalNumber - number}
           </tspan>
           <tspan fontSize="14" dx="2">
             석 사용가능
@@ -56,9 +50,9 @@ const DonutChart = ({ number, totalNumber }) => {
   );
 };
 
-// DonutChart.propTypes = {
-//   number: PropTypes.number.isRequired,
-//   totalNumber: PropTypes.number.isRequired,
-// };
+DonutChart.propTypes = {
+  number: PropTypes.number.isRequired,
+  totalNumber: PropTypes.number.isRequired,
+};
 
 export default DonutChart;
