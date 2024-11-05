@@ -18,36 +18,25 @@ class SecurityConfig{
     @Bean
     @Throws(Exception::class)
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
-        val authenticationManagerBuilder: AuthenticationManagerBuilder =
-            http.getSharedObject(
-                AuthenticationManagerBuilder::class.java
-            )
-        val authenticationManager: AuthenticationManager = authenticationManagerBuilder.build()
-
-        http.authenticationManager(authenticationManager)
-
         http
-            .httpBasic { obj: HttpBasicConfigurer<HttpSecurity?> -> obj.disable() }
-            .cors(Customizer.withDefaults<CorsConfigurer<HttpSecurity>>())
-            .csrf { obj: CsrfConfigurer<HttpSecurity?> -> obj.disable() }
-            .formLogin { obj: FormLoginConfigurer<HttpSecurity?> -> obj.disable() }
-            .rememberMe { obj: RememberMeConfigurer<HttpSecurity?> -> obj.disable() }
-            .sessionManagement { management: SessionManagementConfigurer<HttpSecurity?> ->
-                management.sessionCreationPolicy(
-                    SessionCreationPolicy.STATELESS
-                )
+            .httpBasic { it.disable() }
+            .cors(Customizer.withDefaults())
+            .csrf { it.disable() }
+            .formLogin { it.disable() }
+            .rememberMe { it.disable() }
+            .sessionManagement { session ->
+                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             }
-
-        http
-            .authorizeHttpRequests { authz: AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry ->
+            .authorizeHttpRequests { authz ->
                 authz
-//                    .requestMatchers("/users").hasRole("USER")
+                    // .requestMatchers("/users").hasRole("USER") // 필요시 사용
                     .requestMatchers("/admin").hasRole("ADMIN")
                     .anyRequest().permitAll()
             }
 
         return http.build()
     }
+
 
 
     @Bean

@@ -1,5 +1,6 @@
 package com.ssmartofice.userservice.user.controller
 
+import com.ssmartofice.userservice.global.jwt.JwtUtil
 import com.ssmartofice.userservice.user.controller.port.UserService
 import com.ssmartofice.userservice.user.domain.User
 import jakarta.validation.Valid
@@ -8,11 +9,12 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/v1/users")
-class UserController (
-    val userService: UserService
-){
+class UserController(
+    val userService: UserService,
+    val jwtUtil: JwtUtil
+) {
     @GetMapping("/ping")
-    fun check():ResponseEntity<Any>{
+    fun check(): ResponseEntity<Any> {
         return ResponseEntity.ok("pong");
     }
 
@@ -23,4 +25,12 @@ class UserController (
         response["msg"] = "직원등록에 성공하였습니다."
         return ResponseEntity.ok(response)
     }
+
+    @GetMapping("/me")
+    fun myInfo(@RequestHeader("Authorization") token: String): ResponseEntity<User> {
+        val user = jwtUtil.getUserByToken(token)
+        return ResponseEntity.ok(user)
+    }
+
+
 }

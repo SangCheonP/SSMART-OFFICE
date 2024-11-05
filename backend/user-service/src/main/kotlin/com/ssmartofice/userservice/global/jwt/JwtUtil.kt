@@ -1,0 +1,45 @@
+package com.ssmartofice.userservice.global.jwt
+
+import com.ssmartofice.userservice.user.domain.User
+import com.ssmartofice.userservice.user.service.port.UserRepository
+import io.jsonwebtoken.Claims
+import io.jsonwebtoken.ExpiredJwtException
+import io.jsonwebtoken.Jwts
+import io.jsonwebtoken.io.Decoders
+import io.jsonwebtoken.security.Keys
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.stereotype.Component
+import java.security.Key
+
+@Component
+class JwtUtil(
+    val userRepository: UserRepository,
+    @Value("\${app.auth.token.secret-key}")
+    val secretKey: String,
+) {
+
+    private val SECRET_KEY: Key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey))
+
+    fun getUserByToken(accessToken: String): User {
+        val token: String = accessToken.split(" ")[1]
+        val claims: Claims = parseClaims(token)
+//        val id: Long = claims[ID_KEY, Long::class.java]
+//        return userRepository.findById(id)
+        val email: String = claims[EMAIL_KEY, String::class.java]
+        return userRepository.findByEmail(email)
+    }
+
+    private fun parseClaims(token: String): Claims {
+        return try {
+            Jwts.parserBuilder().setSigningKey(SECRET_KEY).build().parseClaimsJws(token).body
+        } catch (e: ExpiredJwtException) {
+            e.claims
+        }
+    }
+
+    companion object {
+        private const val AUTHORITIES_KEY = "role"
+        private const val ID_KEY = "id"
+        private const val EMAIL_KEY = "email"
+    }
+}
