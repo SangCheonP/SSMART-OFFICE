@@ -5,7 +5,7 @@ import com.ssmartofice.userservice.user.domain.User
 import com.ssmartofice.userservice.user.domain.UserStatus
 
 class UserInfoResponse(
-    val id: Int = 0,
+    val id: Long = 0,
     val employeeNumber: String,
     val email: String,
     val name: String,

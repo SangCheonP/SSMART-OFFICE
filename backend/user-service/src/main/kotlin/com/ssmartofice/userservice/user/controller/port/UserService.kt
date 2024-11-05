@@ -8,4 +8,5 @@ interface UserService {
     fun addUser(user: User): User
     fun findUserByUserId(userId: Long): User
     fun getAllUsersByPage(pageable: Pageable): Page<User>
+    fun updateUser(userId: Long, user: User): User
 }

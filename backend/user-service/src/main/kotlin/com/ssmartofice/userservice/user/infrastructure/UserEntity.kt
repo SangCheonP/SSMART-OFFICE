@@ -10,7 +10,7 @@ import java.time.LocalDateTime
 class UserEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    val id: Int = 0,
+    val id: Long = 0,
     val email: String,
     val password: String,
     val name: String,

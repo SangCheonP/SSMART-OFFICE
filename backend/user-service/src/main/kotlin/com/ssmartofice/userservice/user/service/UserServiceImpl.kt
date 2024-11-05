@@ -26,4 +26,9 @@ class UserServiceImpl(
     override fun getAllUsersByPage(pageable: Pageable): Page<User> {
          return userRepository.findAll(pageable)
     }
+
+    override fun updateUser(userId: Long, user: User): User {
+        user.updateUserId(userId)
+        return userRepository.save(user)
+    }
 }

@@ -23,7 +23,9 @@ class UserController(
     }
 
     @PostMapping
-    fun join(@RequestBody @Valid user: User): ResponseEntity<CommonResponse> {
+    fun join(
+        @RequestHeader("Authorization") token: String,
+        @RequestBody @Valid user: User): ResponseEntity<CommonResponse> {
         userService.addUser(user)
         return ResponseEntity.ok(
             CommonResponse.builder()
@@ -34,7 +36,7 @@ class UserController(
     }
 
     @GetMapping("/me")
-    fun myInfo(@RequestHeader("Authorization") token: String): ResponseEntity<CommonResponse> {
+    fun getMyInfo(@RequestHeader("Authorization") token: String): ResponseEntity<CommonResponse> {
         val user = jwtUtil.getUserByToken(token)
         return ResponseEntity.ok(
             CommonResponse.builder()
@@ -46,7 +48,9 @@ class UserController(
     }
 
     @GetMapping("/{userId}")
-    fun employeeInfo(@PathVariable userId: Long): ResponseEntity<CommonResponse> {
+    fun getEmployeeInfo(
+        @RequestHeader("Authorization") token: String,
+        @PathVariable userId: Long): ResponseEntity<CommonResponse> {
         val user = userService.findUserByUserId(userId)
         return ResponseEntity.ok(
             CommonResponse.builder()
@@ -58,7 +62,9 @@ class UserController(
     }
 
     @GetMapping()
-    fun employees(pageable: Pageable): ResponseEntity<CommonResponse> {
+    fun getEmployees(
+        @RequestHeader("Authorization") token: String,
+        pageable: Pageable): ResponseEntity<CommonResponse> {
         val userList = userService.getAllUsersByPage(pageable).map{
             user->UserInfoResponse.fromModel(user)
         }
@@ -67,6 +73,20 @@ class UserController(
                 .status(SuccessCode.OK.getValue())
                 .data(userList)
                 .message("전체 사원 조회에 성공했습니다.")
+                .build()
+        )
+    }
+
+    @PatchMapping("/{userId}")
+    fun updateEmployee(
+        @RequestHeader("Authorization") token: String,
+        @RequestBody @Valid user: User, @PathVariable userId: Long): ResponseEntity<CommonResponse> {
+        val updatedUser = userService.updateUser(userId, user);
+        return ResponseEntity.ok(
+            CommonResponse.builder()
+                .status(SuccessCode.OK.getValue())
+                .data(updatedUser)
+                .message("사원 수정에 성공했습니다.")
                 .build()
         )
     }

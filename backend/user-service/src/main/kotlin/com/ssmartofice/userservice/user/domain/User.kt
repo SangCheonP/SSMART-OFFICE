@@ -1,14 +1,11 @@
 package com.ssmartofice.userservice.user.domain
 
 import jakarta.validation.constraints.NotBlank
-import org.springframework.data.annotation.CreatedDate
-import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.security.crypto.password.PasswordEncoder
-import java.time.LocalDateTime
 import kotlin.random.Random
 
-class User (
-    val id: Int = 0,
+class User(
+    id: Long = 0,
     @field:NotBlank(message = "이메일을 입력해주세요.")
     val email: String,
     @field:NotBlank(message = "비밀번호를 입력해주세요.")
@@ -26,13 +23,17 @@ class User (
     val point: Int = 0,
     val status: UserStatus = UserStatus.OFF_DUTY,
     val deleted: Boolean = false,
-    @CreatedDate
-    val createdDateTime: LocalDateTime? = null,
-    @LastModifiedDate
-    val updatedDateTime: LocalDateTime? = null
 ) {
+
+    var id = id
+    private set
+
     fun encodePassword(encoder: PasswordEncoder) {
         this.password = encoder.encode(password)
+    }
+
+    fun updateUserId(userId: Long) {
+        id = userId
     }
 
     companion object { //TODO: 클래스 분리하고 중복 체크
