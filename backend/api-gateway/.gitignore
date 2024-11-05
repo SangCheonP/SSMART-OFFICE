@@ -1,5 +1,4 @@
 HELP.md
-.properties
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
@@ -41,4 +40,4 @@ out/
 .kotlin
 
 .env
-.properties
+application.properties
