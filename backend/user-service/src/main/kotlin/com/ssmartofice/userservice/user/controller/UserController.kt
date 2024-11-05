@@ -4,8 +4,9 @@ import com.ssmartofice.userservice.global.const.successcode.SuccessCode
 import com.ssmartofice.userservice.global.dto.CommonResponse
 import com.ssmartofice.userservice.global.jwt.JwtUtil
 import com.ssmartofice.userservice.user.controller.port.UserService
+import com.ssmartofice.userservice.user.controller.request.UserRegisterRequest
+import com.ssmartofice.userservice.user.controller.request.UserUpdateRequest
 import com.ssmartofice.userservice.user.controller.response.UserInfoResponse
-import com.ssmartofice.userservice.user.domain.User
 import jakarta.validation.Valid
 import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
@@ -25,11 +26,13 @@ class UserController(
     @PostMapping
     fun join(
         @RequestHeader("Authorization") token: String,
-        @RequestBody @Valid user: User): ResponseEntity<CommonResponse> {
-        userService.addUser(user)
+        @RequestBody @Valid userRegisterRequest: UserRegisterRequest
+    ): ResponseEntity<CommonResponse> {
+        val registeredUser = userService.addUser(userRegisterRequest)
         return ResponseEntity.ok(
             CommonResponse.builder()
                 .status(SuccessCode.CREATED.getValue())
+                .data(registeredUser)
                 .message("직원등록에 성공하였습니다.")
                 .build()
         )
@@ -50,7 +53,8 @@ class UserController(
     @GetMapping("/{userId}")
     fun getEmployeeInfo(
         @RequestHeader("Authorization") token: String,
-        @PathVariable userId: Long): ResponseEntity<CommonResponse> {
+        @PathVariable userId: Long
+    ): ResponseEntity<CommonResponse> {
         val user = userService.findUserByUserId(userId)
         return ResponseEntity.ok(
             CommonResponse.builder()
@@ -63,10 +67,10 @@ class UserController(
 
     @GetMapping()
     fun getEmployees(
-        @RequestHeader("Authorization") token: String,
-        pageable: Pageable): ResponseEntity<CommonResponse> {
-        val userList = userService.getAllUsersByPage(pageable).map{
-            user->UserInfoResponse.fromModel(user)
+        @RequestHeader("Authorization") token: String, pageable: Pageable
+    ): ResponseEntity<CommonResponse> {
+        val userList = userService.getAllUsersByPage(pageable).map { user ->
+            UserInfoResponse.fromModel(user)
         }
         return ResponseEntity.ok(
             CommonResponse.builder()
@@ -80,13 +84,30 @@ class UserController(
     @PatchMapping("/{userId}")
     fun updateEmployee(
         @RequestHeader("Authorization") token: String,
-        @RequestBody @Valid user: User, @PathVariable userId: Long): ResponseEntity<CommonResponse> {
-        val updatedUser = userService.updateUser(userId, user);
+        @RequestBody @Valid userUpdateRequest: UserUpdateRequest, @PathVariable userId: Long
+    ): ResponseEntity<CommonResponse> {
+        val updatedUser = userService.updateUser(userId, userUpdateRequest);
         return ResponseEntity.ok(
             CommonResponse.builder()
                 .status(SuccessCode.OK.getValue())
                 .data(updatedUser)
                 .message("사원 수정에 성공했습니다.")
+                .build()
+        )
+    }
+
+    @PatchMapping("/me")
+    fun updateMe(
+        @RequestHeader("Authorization") token: String,
+        @RequestBody @Valid userUpdateRequest: UserUpdateRequest
+    ): ResponseEntity<CommonResponse> {
+        val userId = jwtUtil.getUserByToken(token).id
+        val updatedUser = userService.updateUser(userId, userUpdateRequest);
+        return ResponseEntity.ok(
+            CommonResponse.builder()
+                .status(SuccessCode.OK.getValue())
+                .data(updatedUser)
+                .message("내 정보 수정에 성공했습니다.")
                 .build()
         )
     }

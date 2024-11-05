@@ -1,6 +1,8 @@
 package com.ssmartofice.userservice.user.service
 
 import com.ssmartofice.userservice.user.controller.port.UserService
+import com.ssmartofice.userservice.user.controller.request.UserRegisterRequest
+import com.ssmartofice.userservice.user.controller.request.UserUpdateRequest
 import com.ssmartofice.userservice.user.domain.User
 import com.ssmartofice.userservice.user.service.port.UserRepository
 import org.springframework.data.domain.Page
@@ -14,7 +16,8 @@ class UserServiceImpl(
     val userRepository: UserRepository
 ) : UserService {
 
-    override fun addUser(user: User): User {
+    override fun addUser(userRegisterRequest: UserRegisterRequest): User {
+        val user = User.fromRequest(userRegisterRequest)
         user.encodePassword(passwordEncoder)
         return userRepository.save(user)
     }
@@ -24,11 +27,19 @@ class UserServiceImpl(
     }
 
     override fun getAllUsersByPage(pageable: Pageable): Page<User> {
-         return userRepository.findAll(pageable)
+        return userRepository.findAll(pageable)
     }
 
-    override fun updateUser(userId: Long, user: User): User {
-        user.updateUserId(userId)
+    override fun updateUser(userId: Long, userUpdateRequest: UserUpdateRequest): User {
+        val user: User = findUserByUserId(userId)
+        user.update(
+            email = userUpdateRequest.email,
+            password = userUpdateRequest.password?.let { passwordEncoder.encode(it) },
+            name = userUpdateRequest.name,
+            position = userUpdateRequest.position,
+            duty = userUpdateRequest.duty,
+            profileImageUrl = userUpdateRequest.profileImageUrl
+        )
         return userRepository.save(user)
     }
 }
