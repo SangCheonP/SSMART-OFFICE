@@ -5,12 +5,14 @@ import Seat from "./pages/Seat";
 import MyPage from "./pages/MyPage";
 import Message from "./pages/Message";
 import Floor from "./pages/Floor";
+import Header from "./components/common/Header";
 
 import styles from "./styles/AppRoutes.module.css";
 
 const AppRoutes = () => {
   return (
     <div className={styles.appRoutes}>
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/seat" element={<Seat />}>
