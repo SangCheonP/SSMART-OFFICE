@@ -7,7 +7,7 @@ import com.ssmartofice.userservice.user.controller.port.UserService
 import com.ssmartofice.userservice.user.controller.response.UserInfoResponse
 import com.ssmartofice.userservice.user.domain.User
 import jakarta.validation.Valid
-import org.example.auth_module.global.exception.errorcode.UserErrorCode
+import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -56,5 +56,20 @@ class UserController(
                 .build()
         )
     }
+
+    @GetMapping()
+    fun employees(pageable: Pageable): ResponseEntity<CommonResponse> {
+        val userList = userService.getAllUsersByPage(pageable).map{
+            user->UserInfoResponse.fromModel(user)
+        }
+        return ResponseEntity.ok(
+            CommonResponse.builder()
+                .status(SuccessCode.OK.getValue())
+                .data(userList)
+                .message("전체 사원 조회에 성공했습니다.")
+                .build()
+        )
+    }
+
 
 }

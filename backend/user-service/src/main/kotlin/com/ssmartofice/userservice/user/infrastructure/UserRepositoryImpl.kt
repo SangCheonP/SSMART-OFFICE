@@ -2,12 +2,14 @@ package com.ssmartofice.userservice.user.infrastructure
 
 import com.ssmartofice.userservice.user.domain.User
 import com.ssmartofice.userservice.user.service.port.UserRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Repository
 
 @Repository
-class UserRepositoryImpl (
+class UserRepositoryImpl(
     private val userJpaRepository: UserJpaRepository,
-):UserRepository{
+) : UserRepository {
     override fun save(user: User): User {
         return userJpaRepository.save(UserEntity.fromModel(user)).toModel()
     }
@@ -18,5 +20,9 @@ class UserRepositoryImpl (
 
     override fun findByEmail(email: String): User {
         return userJpaRepository.findByEmail(email).toModel()
+    }
+
+    override fun findAll(pageable: Pageable): Page<User> {
+        return userJpaRepository.findAll(pageable).map { userEntity -> userEntity.toModel() }
     }
 }
