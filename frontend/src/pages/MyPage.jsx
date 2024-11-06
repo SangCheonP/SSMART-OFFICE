@@ -1,8 +1,10 @@
+import MyInfo from "../components/MyPage/MyInfo";
+
 const MyPage = () => {
   return (
-    <div>
-      <h1>MyPage</h1>
-    </div>
+    <>
+      <MyInfo />
+    </>
   );
 };
 export default MyPage;

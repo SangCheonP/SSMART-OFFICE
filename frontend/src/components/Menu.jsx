@@ -23,7 +23,7 @@ const NavItem = ({ link, type, content }) => {
 
 const Menu = () => {
   return (
-    <div className={styles.menu}>
+    <>
       <NavLink to="/" className={styles.temp}>
         <HomeIcon className={styles.icon} />
       </NavLink>
@@ -32,7 +32,7 @@ const Menu = () => {
       <NavItem link="/message" type="Message" content="사내 메시지" />
       <NavItem link="/mypage" type="Mypage" content="마이페이지" />
       <NavItem link="/logout" type="Logout" content="로그아웃" />
-    </div>
+    </>
   );
 };
 

@@ -127,3 +127,9 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+html,
+body {
+  height: 100%;
+  background-color: #f5f6fa;
+}

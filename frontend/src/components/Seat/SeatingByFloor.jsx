@@ -1,6 +1,6 @@
-import SeatButton from "./common/SeatButton";
+import SeatButton from "./../common/SeatButton";
 import DonutChart from "./DonutChart";
-import styles from "./../styles/Seat/SeatingByFloor.module.css";
+import styles from "./../../styles/Seat/SeatingByFloor.module.css";
 import PropTypes from "prop-types";
 import SeatingStatus from "./SeatingStatus";
 
@@ -27,18 +27,21 @@ const SeatingByFloor = ({ floor, totalNumber }) => {
       name: "이순신",
       position: "사원",
       role: "백엔드",
-    },
-    {
-      number: 5,
-      name: "김유신",
-      position: "과장",
-      role: "프론트엔드",
+      status: "IN_USE",
     },
     {
       number: 4,
       name: "유관순",
       position: "부장",
       role: "프론트엔드",
+      status: "NOT_OCCUPIED",
+    },
+    {
+      number: 5,
+      name: "김유신",
+      position: "과장",
+      role: "프론트엔드",
+      status: "NOT_OCCUPIED",
     },
   ];
 
@@ -66,5 +69,6 @@ const SeatingByFloor = ({ floor, totalNumber }) => {
 
 SeatingByFloor.propTypes = {
   floor: PropTypes.string.isRequired,
+  totalNumber: PropTypes.number.isRequired,
 };
 export default SeatingByFloor;

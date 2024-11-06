@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import dayjs from "dayjs";
 import { format, parse, startOfWeek, getDay } from "date-fns";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { ko } from "date-fns/locale";
 import Toolbar from "./Toolbar";
-import WeekdayHeader from "./WeekdayHeader";
+// import WeekdayHeader from "./WeekdayHeader";
+import "./../../styles/Home/Calendar.module.css";
 
 const locales = { ko };
 const localizer = dateFnsLocalizer({
@@ -23,7 +24,6 @@ const MyCalendar = () => {
       end: new Date(dayjs().add(1, "day").toDate()),
       title: "Sample Event",
     },
-    // 필요한 추가 이벤트를 여기에 넣을 수 있어요.
   ]);
 
   return (
