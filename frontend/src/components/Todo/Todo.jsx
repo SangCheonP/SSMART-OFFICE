@@ -6,8 +6,13 @@ import MessageIcon from "../../assets/Todo/message.svg?react";
 import ReadCard from "./ReadCard";
 import TodoList from "./TodoList";
 import AddButton from "../../assets/Todo/AddButton.svg?react";
+import dayjs from "dayjs";
 
-const Todo = () => {
+const Todo = ({ selectedDate, monthData }) => {
+  // 선택된 날짜에 해당하는 일정 필터링
+  const filteredDate = monthData.filter(
+    (item) => item.date === dayjs(selectedDate).format("YYYY-MM-DD")
+  );
   return (
     <div>
       <section className={styles.todo_box}>
@@ -35,7 +40,7 @@ const Todo = () => {
             linkUrl="#"
           />
 
-          <TodoList />
+          <TodoList monthData={filteredDate} />
 
           {/* 일정 추가 버튼 클릭 시 모달 띄우기 */}
           <button

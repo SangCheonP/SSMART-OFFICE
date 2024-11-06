@@ -17,7 +17,6 @@
   font-size: 13px;
   font-weight: 400;
   color: #00000080;
-  /* text-align: center; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -41,4 +40,7 @@
 }
 .rbc-event {
   height: 25px;
+  background-color: #ffffff00;
+  color: #000000;
+  pointer-events: none;
 }

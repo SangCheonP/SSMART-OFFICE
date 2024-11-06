@@ -1,0 +1,13 @@
+.message_container {
+  margin: 25px 67px 0 67px;
+}
+.add_member {
+  flex-direction: column;
+}
+.member_box {
+  width: 35vw;
+  height: 80vh;
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px;
+}
