@@ -8,9 +8,13 @@
   background-color: white;
   border-top-left-radius: 50px;
   border-bottom-left-radius: 10px;
+  display: flex;
+  flex-direction: column;
 }
 .contentWrapper {
+  height: calc(100% - 80px);
   margin: 40px 0 0 40px;
+  overflow-y: auto;
 }
 .name_tag {
   display: flex;
@@ -62,7 +66,9 @@
 .todoList {
   margin-top: 41px;
 }
-.todoItem {
+.todoItem label {
+  display: flex;
+  align-items: center;
 }
 .checkIcon {
   width: 18px;
@@ -71,4 +77,24 @@
 }
 .labelText {
   font-size: 15px;
+}
+.add_todo {
+  background-color: #4876ef;
+  height: 65px;
+  width: 20vw;
+  border: none;
+  border-radius: 13px;
+  cursor: pointer;
+  position: fixed;
+  top: 80%;
+}
+.add_inner {
+  margin-left: 1vw;
+  display: flex;
+  align-items: center;
+}
+.add_text {
+  color: white;
+  font-size: 17px;
+  margin-left: 4vw;
 }
