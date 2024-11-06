@@ -7,7 +7,11 @@ const MyInfo = () => {
       <div className={styles.left}>
         <Home className={styles.image} />
       </div>
-      <div className={styles.right}>somthing</div>
+      <div className={styles.right}>
+        <div>
+          <img src="" alt="" />
+        </div>
+      </div>
     </div>
   );
 };
