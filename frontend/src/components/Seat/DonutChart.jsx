@@ -20,7 +20,7 @@ const DonutChart = ({ number, totalNumber }) => {
           cy="100"
           r="90"
           fill="none"
-          stroke="#4876EF"
+          stroke="var(--blue)"
           strokeWidth="20"
           strokeLinecap="round"
           strokeDasharray={`${2 * Math.PI * 90 * percentage} ${

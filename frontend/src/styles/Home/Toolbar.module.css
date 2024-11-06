@@ -13,10 +13,10 @@
 .dateGroup {
   margin-left: 33px;
   margin-right: 10px;
-  color: #104def;
+  color: var(--gray);
 }
 .leftButton {
-  color: #a0a0a0;
+  color: var(--text-description);
   background-color: white;
   border: 0.5px solid rgba(204, 204, 204, 0.5);
   border-top-left-radius: 8px;

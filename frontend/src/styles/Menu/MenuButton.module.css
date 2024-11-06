@@ -6,7 +6,7 @@ a {
 .button {
   cursor: pointer;
   display: flex;
-  color: #a0a0a0;
+  color: var(--text-description);
   align-items: center;
   margin-bottom: 30px;
   height: 40px;
@@ -16,7 +16,7 @@ a {
 }
 
 .image {
-  fill: #a0a0a0;
+  fill: var(--text-description);
   margin-right: 20px;
   width: 1.2rem;
   height: 1.2rem;
@@ -27,17 +27,17 @@ a {
 }
 
 .button:hover {
-  color: #4876ef;
+  color: var(--blue);
 }
 .activeButton {
   background-color: #dae4fc;
-  color: #4876ef;
+  color: var(--blue);
   position: relative;
   border-radius: 10px;
 }
 .activeButton::after {
   content: "";
-  background-color: #4876ef;
+  background-color: var(--blue);
   width: 4px;
   height: 30px;
   position: absolute;

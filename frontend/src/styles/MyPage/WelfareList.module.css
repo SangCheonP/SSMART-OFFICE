@@ -1,0 +1,10 @@
+.title {
+  margin-top: 3vh;
+  margin-bottom: 2vh;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.table {
+  border: 1px solid;
+}
