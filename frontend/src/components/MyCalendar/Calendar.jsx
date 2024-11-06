@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import dayjs from "dayjs";
 import { format, parse, startOfWeek, getDay } from "date-fns";
@@ -56,13 +56,13 @@ const MyCalendar = () => {
         backgroundColor = "#FF6347"; // 예: 빨간색
         break;
       case "SICK":
-        backgroundColor = "#A0A0A0"; // 예: 노란색
+        backgroundColor = "var(--text-description)"; // 예: 노란색
         break;
       case "MEETING":
         backgroundColor = "#52C41A"; // 예: 파란색
         break;
       case "OTHER":
-        backgroundColor = "#104DEF";
+        backgroundColor = "var(--gray)";
         break;
       default:
         backgroundColor = "#808080"; // 예: 회색

@@ -33,7 +33,7 @@
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  color: #a0a0a0;
+  color: var(--text-description);
   background-color: #fff;
 }
 

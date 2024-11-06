@@ -1,7 +1,11 @@
+import MyInfo from "../components/MyPage/MyInfo";
+import WelfareList from "../components/MyPage/WelfareList";
+
 const MyPage = () => {
   return (
-    <div>
-      <h1>MyPage</h1>
+    <div style={{ width: "65vw", margin: "11vh auto 0" }}>
+      <MyInfo />
+      <WelfareList />
     </div>
   );
 };

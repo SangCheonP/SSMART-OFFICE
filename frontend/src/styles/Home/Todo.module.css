@@ -24,7 +24,7 @@
   margin: 5px 11px 0 0;
 }
 .name {
-  color: #104def;
+  color: var(--gray);
   font-size: 22px;
   font-weight: 500;
 }
@@ -55,7 +55,7 @@
   margin-bottom: 4px;
 }
 .link {
-  color: #104def;
+  color: var(--gray);
   font-size: 13px;
   text-decoration: none;
 }
@@ -79,7 +79,7 @@
   font-size: 15px;
 }
 .add_todo {
-  background-color: #4876ef;
+  background-color: var(--blue);
   height: 65px;
   width: 20vw;
   border: none;

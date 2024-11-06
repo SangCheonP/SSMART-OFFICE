@@ -4,7 +4,7 @@
 }
 
 .left {
-  background-color: #4876ef;
+  background-color: var(--blue);
   flex: 7;
 }
 .icon {
@@ -39,7 +39,7 @@
 
 .title {
   font-size: 50px;
-  color: #4876ef;
+  color: var(--blue);
   margin-top: 100px;
   margin-bottom: 100px;
 }
@@ -47,7 +47,7 @@
 }
 .button {
   all: unset;
-  background-color: #4876ef;
+  background-color: var(--blue);
   color: #fff;
   width: 120px;
   height: 45px;
@@ -61,6 +61,6 @@
   height: 45px;
   margin-left: 20px;
   border-radius: 5px;
-  border: 1px solid #a0a0a0;
+  border: 1px solid var(--text-description);
   text-align: center;
 }

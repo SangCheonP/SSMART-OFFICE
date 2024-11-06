@@ -1,12 +1,7 @@
-import styles from "./../styles/Seat/DonutChart.module.css";
+import PropTypes from "prop-types";
+import styles from "./../../styles/Seat/DonutChart.module.css";
 
-function DonutChart({ number, totalNumber }) {
-  if (totalNumber === undefined) {
-    totalNumber = 6;
-  }
-  if (number === undefined) {
-    number = 2;
-  }
+const DonutChart = ({ number, totalNumber }) => {
   let percentage = number / totalNumber;
 
   return (
@@ -25,7 +20,7 @@ function DonutChart({ number, totalNumber }) {
           cy="100"
           r="90"
           fill="none"
-          stroke="#4876EF"
+          stroke="var(--blue)"
           strokeWidth="20"
           strokeLinecap="round"
           strokeDasharray={`${2 * Math.PI * 90 * percentage} ${
@@ -35,7 +30,7 @@ function DonutChart({ number, totalNumber }) {
         />
         <text x="100" y="95" textAnchor="middle" fontSize="20" fill="#000">
           <tspan fontSize="20" fontWeight="bold">
-            {number}
+            {totalNumber - number}
           </tspan>
           <tspan fontSize="14" dx="2">
             석 사용가능
@@ -53,5 +48,11 @@ function DonutChart({ number, totalNumber }) {
       </svg>
     </div>
   );
-}
+};
+
+DonutChart.propTypes = {
+  number: PropTypes.number.isRequired,
+  totalNumber: PropTypes.number.isRequired,
+};
+
 export default DonutChart;
