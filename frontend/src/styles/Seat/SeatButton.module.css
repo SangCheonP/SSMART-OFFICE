@@ -1,0 +1,47 @@
+.container {
+  margin: 15px auto 0;
+}
+
+.button::after {
+  content: "";
+  background-color: #000;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  left: 1px;
+  border-radius: 5px;
+}
+
+.content {
+  position: relative;
+  font-size: 14px;
+  width: 55px;
+  margin-top: 15px;
+  left: 20px;
+}
+
+.content::before {
+  content: "";
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  left: -40px;
+  transform: translateY(-25%);
+  border-radius: 5px;
+}
+
+.content[data-color="grey"]::before {
+  background-color: #d9d9d9;
+}
+
+.content[data-color="blue"]::before {
+  background-color: var(--blue);
+}
+
+.content[data-color="pink"]::before {
+  background-color: #ff4c81;
+}
+
+.content[data-color="darkGrey"]::before {
+  background-color: var(--text-description);
+}
