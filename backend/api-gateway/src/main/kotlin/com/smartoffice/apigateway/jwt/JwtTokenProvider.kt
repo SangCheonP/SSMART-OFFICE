@@ -29,6 +29,7 @@ class JwtTokenProvider(
             return setResponse(exchange, JwtErrorCode.NO_TOKEN_EXCEPTION)
         }
 
+        println("token = ${token}")
         try {
             val result = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).body
             logger.info { "result: $result" }
