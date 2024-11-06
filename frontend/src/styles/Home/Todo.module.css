@@ -1,0 +1,100 @@
+.todo_box {
+  position: absolute;
+  right: 0;
+  margin-top: 60px;
+  margin-left: 11px;
+  width: 25vw;
+  height: 830px;
+  background-color: white;
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.contentWrapper {
+  height: calc(100% - 80px);
+  margin: 40px 0 0 40px;
+  overflow-y: auto;
+}
+.name_tag {
+  display: flex;
+  margin-bottom: 43px;
+}
+.month {
+  margin: 5px 11px 0 0;
+}
+.name {
+  color: var(--gray);
+  font-size: 22px;
+  font-weight: 500;
+}
+.name_text {
+  margin: 5px 0 0 8px;
+  font-size: 16px;
+  font-weight: 400;
+}
+.card {
+  margin-bottom: 13px;
+  display: flex;
+}
+.iconWrapper {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  margin-right: 16px;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+}
+.title {
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+.link {
+  color: var(--gray);
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+.todoList {
+  margin-top: 41px;
+}
+.todoItem label {
+  display: flex;
+  align-items: center;
+}
+.checkIcon {
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+}
+.labelText {
+  font-size: 15px;
+}
+.add_todo {
+  background-color: var(--blue);
+  height: 65px;
+  width: 20vw;
+  border: none;
+  border-radius: 13px;
+  cursor: pointer;
+  position: fixed;
+  top: 80%;
+}
+.add_inner {
+  margin-left: 1vw;
+  display: flex;
+  align-items: center;
+}
+.add_text {
+  color: white;
+  font-size: 17px;
+  margin-left: 4vw;
+}

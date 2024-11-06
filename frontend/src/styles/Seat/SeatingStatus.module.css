@@ -1,0 +1,30 @@
+.container {
+  width: 80%;
+  height: 100%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  justify-content: center;
+  justify-items: center;
+  align-content: center;
+}
+
+.seat {
+  text-align: center;
+  width: 150px;
+  height: 110px;
+  border-radius: 20px;
+}
+.inUse {
+  background-color: var(--blue);
+}
+.vacant {
+  background-color: #d9d9d9;
+}
+.unavailable {
+  background-color: var(--text-description);
+}
+.notOccupied {
+  background-color: #ff4c81;
+}
