@@ -1,6 +1,5 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
-import dayjs from "dayjs";
 import { format, parse, startOfWeek, getDay } from "date-fns";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { ko } from "date-fns/locale";
@@ -17,75 +16,60 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
-// 날짜별 이벤트 데이터
-const localEvents = [
-  {
-    start: new Date(2024, 10, 5),
-    end: new Date(2024, 10, 5),
-    title: "연차",
-    type: "HOLIDAY",
-  },
-  {
-    start: new Date(2024, 10, 10),
-    end: new Date(2024, 10, 10),
-    title: "조퇴",
-    type: "SICK",
-  },
-  {
-    start: new Date(2024, 10, 15),
-    end: new Date(2024, 10, 15),
-    title: "회의",
-    type: "MEETING",
-  },
-  {
-    start: new Date(2024, 10, 20),
-    end: new Date(2024, 10, 20),
-    title: "기타",
-    type: "OTHER", // 기타 일정은 일정 제목 띄우기
-  },
-];
+const CustomEvent = ({ event }) => {
+  let circleColor = "";
+  let displayTitle = "";
 
-const MyCalendar = () => {
-  const [events, setEvents] = useState(localEvents);
+  switch (event.type) {
+    case "HOLIDAY":
+      circleColor = "#FF6347"; // 빨간색
+      displayTitle = "연차";
+      break;
+    case "SICK":
+      circleColor = "#FFD700"; // 노란색
+      displayTitle = "조퇴";
+      break;
+    case "MEETING":
+      circleColor = "#1E90FF"; // 파란색
+      displayTitle = "회의";
+      break;
+    case "WORK":
+      circleColor = "#32CD32"; // 녹색
+      displayTitle = "TODO";
+      break;
+    default:
+      circleColor = "#808080"; // 기본 회색
+  }
 
-  const eventStyleGetter = (event) => {
-    let backgroundColor = "";
+  return (
+    <div style={{ display: "flex", alignItems: "center" }}>
+      <span
+        style={{
+          display: "inline-block",
+          width: "8px",
+          height: "8px",
+          borderRadius: "50%",
+          backgroundColor: circleColor,
+          marginRight: "5px",
+        }}
+      ></span>
+      <span style={{ fontSize: "13px" }}>{displayTitle}</span>
+    </div>
+  );
+};
 
-    switch (event.type) {
-      case "HOLIDAY":
-        backgroundColor = "#FF6347"; // 예: 빨간색
-        break;
-      case "SICK":
-        backgroundColor = "var(--text-description)"; // 예: 노란색
-        break;
-      case "MEETING":
-        backgroundColor = "#52C41A"; // 예: 파란색
-        break;
-      case "OTHER":
-        backgroundColor = "var(--gray)";
-        break;
-      default:
-        backgroundColor = "#808080"; // 예: 회색
-    }
+const MyCalendar = ({ monthData, onDateSelect }) => {
+  const [events, setEvents] = useState([]);
 
-    return {
-      style: {
-        backgroundColor,
-        color: "white",
-      },
-    };
-  };
-  // 빈 날짜 셀을 클릭했을 때의 동작
-  const handleSelectSlot = (slotInfo) => {
-    alert(`Selected slot: \nStart: ${slotInfo.start}\nEnd: ${slotInfo.end}`);
-    // 필요한 동작 추가 가능
-  };
-
-  // 이벤트를 클릭했을 때의 동작
-  const handleSelectEvent = (event) => {
-    alert(`Selected event: ${event.title}`);
-    // 필요한 동작 추가 가능
-  };
+  useEffect(() => {
+    const formattedEvents = monthData.map((item) => ({
+      start: new Date(item.date),
+      end: new Date(item.date),
+      title: item.name,
+      type: item.type,
+    }));
+    setEvents(formattedEvents);
+  }, [monthData]);
 
   return (
     <Calendar
@@ -96,12 +80,10 @@ const MyCalendar = () => {
       className={styles.calendar}
       components={{
         toolbar: Toolbar,
+        event: CustomEvent,
       }}
-      eventPropGetter={eventStyleGetter}
       selectable
-      onSelectSlot={(slotInfo) => {
-        alert(`일정추가할래유?`);
-      }}
+      onSelectSlot={(slotInfo) => onDateSelect(slotInfo.start)} // 클릭된 날짜 전달
       onSelectEvent={(event) => {
         alert(`클릭함 ${event.title}`);
       }}
