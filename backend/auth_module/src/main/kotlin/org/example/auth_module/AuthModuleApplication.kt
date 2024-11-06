@@ -1,11 +1,11 @@
-package com.ssmartofice.userservice
+package org.example.auth_module
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class UserServiceApplication
+class AuthModuleApplication
 
 fun main(args: Array<String>) {
-    runApplication<UserServiceApplication>(*args)
+    runApplication<AuthModuleApplication>(*args)
 }
