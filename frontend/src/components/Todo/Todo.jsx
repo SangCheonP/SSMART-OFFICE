@@ -5,6 +5,7 @@ import FileIcon from "../../assets/Todo/File.svg?react";
 import MessageIcon from "../../assets/Todo/message.svg?react";
 import ReadCard from "./ReadCard";
 import TodoList from "./TodoList";
+import AddButton from "../../assets/Todo/AddButton.svg?react";
 
 const Todo = () => {
   return (
@@ -35,6 +36,17 @@ const Todo = () => {
           />
 
           <TodoList />
+
+          {/* 일정 추가 버튼 클릭 시 모달 띄우기 */}
+          <button
+            className={styles.add_todo}
+            onClick={() => alert("일정을 추가하시겠습니까?")}
+          >
+            <div className={styles.add_inner}>
+              <AddButton />
+              <span className={styles.add_text}>일정 추가</span>
+            </div>
+          </button>
         </div>
       </section>
     </div>

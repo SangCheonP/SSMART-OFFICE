@@ -1,8 +1,4 @@
-.rbc-header {
-  background-color: #f0f8ff; /* 요일 배경색 */
-  color: #104def; /* 요일 글자 색 */
-  font-weight: bold; /* 요일 글자 굵기 */
-  text-align: center; /* 요일 글자 중앙 정렬 */
-  padding: 8px; /* 요일 셀 내부 여백 */
-  border-bottom: 1px solid #ddd; /* 요일 셀 하단 테두리 */
+.calendar {
+  height: 78vh;
+  width: 53vw;
 }
