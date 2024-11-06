@@ -35,14 +35,6 @@ class SecurityConfig(
                 JwtAuthenticationFilter(jwtUtil),
                 UsernamePasswordAuthenticationFilter::class.java
             )
-//            .authorizeHttpRequests { authz ->
-//                authz
-//                    .requestMatchers("/api/v1/users/me").authenticated()
-//                    .requestMatchers(HttpMethod.POST, "/api/v1/users").hasAuthority("ROLE_ADMIN")
-//                    .requestMatchers(HttpMethod.PATCH, "/api/v1/users/{userId}").hasAuthority("ROLE_ADMIN")
-//                    .requestMatchers("/api/v1/users/**").authenticated()
-//                    .anyRequest().permitAll()
-//            }
 
         return http.build()
     }
