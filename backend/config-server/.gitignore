@@ -39,4 +39,5 @@ out/
 ### Kotlin ###
 .kotlin
 
-.properties
+application.properties
+*.properties
