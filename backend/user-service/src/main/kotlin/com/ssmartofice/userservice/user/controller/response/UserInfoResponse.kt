@@ -14,6 +14,7 @@ class UserInfoResponse(
     val profileImageUrl: String,
     var role: Role,
     val status: UserStatus,
+    val phoneNumber:String?
 ) {
     companion object {
         fun fromModel(user: User): UserInfoResponse {
@@ -27,6 +28,7 @@ class UserInfoResponse(
                 role = user.role,
                 employeeNumber = user.employeeNumber,
                 status = user.status,
+                phoneNumber = user.phoneNumber
             )
         }
     }

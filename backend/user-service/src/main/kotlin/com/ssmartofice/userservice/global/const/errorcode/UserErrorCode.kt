@@ -1,10 +1,7 @@
 package com.ssmartofice.userservice.global.const.errorcode
 
-import com.ssmartofice.userservice.global.const.errorcode.ErrorCode
-import lombok.Getter
 import org.springframework.http.HttpStatus
 
-@Getter
 enum class UserErrorCode(override val httpStatus: HttpStatus, override val message: String) : ErrorCode {
     NOT_FOUND_REFRESH_TOKEN(HttpStatus.UNAUTHORIZED, "저장된 리프레시 토큰이 없습니다."),
     NOT_MATCH_REFRESH_TOKEN(HttpStatus.UNAUTHORIZED, "리프레시 토큰이 일치하지 않습니다."),

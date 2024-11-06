@@ -1,9 +1,7 @@
 package com.ssmartofice.userservice.global.const.errorcode
 
-import lombok.Getter
 import org.springframework.http.HttpStatus
 
-@Getter
 enum class CommonErrorCode(override val httpStatus: HttpStatus, override val message: String) : ErrorCode {
     INVALID_PARAMETER(HttpStatus.BAD_REQUEST, "잘못된 parameter가 포함되었습니다."),
     INVALID_METHOD_ARG(HttpStatus.BAD_REQUEST, "요청 본문에 잘못된 값이 포함되어 있습니다. 필드를 확인해주세요."),

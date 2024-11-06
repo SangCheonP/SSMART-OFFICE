@@ -23,5 +23,10 @@ data class UserRegisterRequest(
 
     @field:Pattern(message = "유효한 URL 형식이 아닙니다.", regexp = "(http|https)://[a-zA-Z0-9./]+")
     @field:NotBlank(message = "이미지를 입력해주세요.")
-    val profileImageUrl: String
+    val profileImageUrl: String,
+
+    @field:NotBlank(message = "사원 번호를 입력해주세요.")
+    val employeeNumber: String,
+
+    var phoneNumber: String?
 )

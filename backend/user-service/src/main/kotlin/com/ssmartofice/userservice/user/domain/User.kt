@@ -5,7 +5,6 @@ import com.ssmartofice.userservice.user.exception.UserException
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
 import com.ssmartofice.userservice.user.exception.UserErrorCode
-import com.ssmartofice.userservice.user.util.EmployeeNumberGenerator
 import org.springframework.security.crypto.password.PasswordEncoder
 
 class User(
@@ -23,6 +22,7 @@ class User(
     var duty: String,
     @field:NotBlank(message = "이미지를 입력해주세요.")
     var profileImageUrl: String,
+    var phoneNumber: String? = null,
     var role: Role = Role.USER,
     val employeeNumber: String,
     val point: Int = 0,
@@ -40,7 +40,8 @@ class User(
         name: String? = null,
         position: String? = null,
         duty: String? = null,
-        profileImageUrl: String? = null
+        profileImageUrl: String? = null,
+        phoneNumber: String? = null,
     ) {
         email?.let { this.email = it }
         password?.let { this.password = it }
@@ -48,6 +49,7 @@ class User(
         position?.let { this.position = it }
         duty?.let { this.duty = it }
         profileImageUrl?.let { this.profileImageUrl = it }
+        phoneNumber?.let { this.phoneNumber = it }
     }
 
     fun updatePassword(oldPassword: String, newPassword: String, encoder: PasswordEncoder) {
@@ -63,8 +65,7 @@ class User(
     companion object {
 
         fun fromRequest(
-            userRegisterRequest: UserRegisterRequest,
-            employeeNumberGenerator: EmployeeNumberGenerator
+            userRegisterRequest: UserRegisterRequest
         ): User {
             return User(
                 email = userRegisterRequest.email,
@@ -73,7 +74,8 @@ class User(
                 position = userRegisterRequest.position,
                 duty = userRegisterRequest.duty,
                 profileImageUrl = userRegisterRequest.profileImageUrl,
-                employeeNumber = employeeNumberGenerator.generate() //TODO: 근데 사원번호를 백에서 만드는게 맞나..?
+                employeeNumber = userRegisterRequest.employeeNumber,
+                phoneNumber = userRegisterRequest.phoneNumber
             )
         }
     }

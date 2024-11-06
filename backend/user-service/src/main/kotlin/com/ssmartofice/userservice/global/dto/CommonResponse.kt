@@ -1,31 +1,62 @@
 package com.ssmartofice.userservice.global.dto
 
+import com.fasterxml.jackson.annotation.JsonInclude
 import com.ssmartofice.userservice.global.const.successcode.SuccessCode
 import lombok.Builder
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 
 @Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 data class CommonResponse(
     val status: Int,
     val msg: String,
     val data: Any?
-){
+) {
     companion object {
-        fun builder(): Builder {
-            return Builder()
+
+        fun ok(msg: String, data: Any): ResponseEntity<CommonResponse> {
+            return ResponseEntity(
+                CommonResponse(
+                    status = SuccessCode.OK.getValue(),
+                    msg = msg,
+                    data = data
+                ),
+                HttpStatus.OK
+            )
         }
-    }
 
-    class Builder {
-        private var status: Int = SuccessCode.OK.getValue()
-        private var message: String = "Success"
-        private var data: Any? = null
+        fun ok(msg: String): ResponseEntity<CommonResponse> {
+            return ResponseEntity(
+                CommonResponse(
+                    status = SuccessCode.OK.getValue(),
+                    msg = msg,
+                    data = null
+                ),
+                HttpStatus.OK
+            )
+        }
 
-        fun status(status: Int) = apply { this.status = status }
-        fun message(message: String) = apply { this.message = message }
-        fun data(data: Any?) = apply { this.data = data }
+        fun created(msg: String, data: Any): ResponseEntity<CommonResponse> {
+            return ResponseEntity(
+                CommonResponse(
+                    status = SuccessCode.CREATED.getValue(),
+                    msg = msg,
+                    data = data
+                ),
+                HttpStatus.OK
+            )
+        }
 
-        fun build(): CommonResponse {
-            return CommonResponse(status, message, data)
+        fun created(msg: String): ResponseEntity<CommonResponse> {
+            return ResponseEntity(
+                CommonResponse(
+                    status = SuccessCode.CREATED.getValue(),
+                    msg = msg,
+                    data = null
+                ),
+                HttpStatus.OK
+            )
         }
     }
 }

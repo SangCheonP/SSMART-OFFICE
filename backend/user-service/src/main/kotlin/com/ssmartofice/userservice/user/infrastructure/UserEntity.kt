@@ -7,6 +7,13 @@ import jakarta.persistence.*
 import java.time.LocalDateTime
 
 @Entity(name = "users")
+@Table(
+    name = "users",
+    uniqueConstraints = [
+        UniqueConstraint(columnNames = ["email"]),
+        UniqueConstraint(columnNames = ["employee_number"])
+    ]
+)
 class UserEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -19,10 +26,12 @@ class UserEntity(
     val duty: String,
     val profileImageUrl: String,
     val role: Role = Role.USER,
+    @Column(nullable = false, unique = true)
     val employeeNumber: String,
     val point: Int = 0,
     val status: UserStatus = UserStatus.OFF_DUTY,
     val deleted: Boolean = false,
+    val phoneNumber: String?
 ) {
     @Column(nullable = false, updatable = false)
     private var createdDateTime: LocalDateTime? = null
@@ -46,7 +55,8 @@ class UserEntity(
                 employeeNumber = user.employeeNumber,
                 point = user.point,
                 status = user.status,
-                deleted = user.deleted
+                deleted = user.deleted,
+                phoneNumber = user.phoneNumber
             )
         }
     }
@@ -64,7 +74,8 @@ class UserEntity(
             employeeNumber = employeeNumber,
             point = point,
             status = status,
-            deleted = deleted
+            deleted = deleted,
+            phoneNumber = phoneNumber
         )
     }
 

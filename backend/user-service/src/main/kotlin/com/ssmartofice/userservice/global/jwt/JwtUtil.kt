@@ -1,6 +1,5 @@
 package com.ssmartofice.userservice.global.jwt
 
-import com.ssmartofice.userservice.user.domain.User
 import com.ssmartofice.userservice.user.service.port.UserRepository
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
@@ -47,7 +46,7 @@ class JwtUtil(
 
     companion object {
         const val AUTHORITIES_KEY = "role"
-        private const val ID_KEY = "id"
-        private const val EMAIL_KEY = "email"
+        const val ID_KEY = "id"
+        const val EMAIL_KEY = "email"
     }
 }

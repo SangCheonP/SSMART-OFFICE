@@ -4,6 +4,7 @@ import com.ssmartofice.userservice.global.dto.ErrorResponse
 import io.github.oshai.kotlinlogging.KotlinLogging
 import com.ssmartofice.userservice.global.const.errorcode.CommonErrorCode
 import com.ssmartofice.userservice.global.const.errorcode.ErrorCode
+import com.ssmartofice.userservice.user.exception.UserErrorCode
 import com.ssmartofice.userservice.user.exception.UserException
 import lombok.extern.slf4j.Slf4j
 import org.hibernate.exception.ConstraintViolationException
@@ -11,6 +12,7 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatusCode
 import org.springframework.http.ResponseEntity
 import org.springframework.http.converter.HttpMessageNotReadableException
+import org.springframework.security.authorization.AuthorizationDeniedException
 import org.springframework.validation.BindException
 import org.springframework.validation.FieldError
 import org.springframework.web.bind.MethodArgumentNotValidException
@@ -50,6 +52,12 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
     fun handleUserException(e: UserException): ResponseEntity<Any> {
         val errorCode: ErrorCode = e.errorCode
         return handleExceptionInternal(errorCode, e.message)
+    }
+
+    @ExceptionHandler(AuthorizationDeniedException::class)
+    fun handleAuthorizationDeniedException(ex: AuthorizationDeniedException?): ResponseEntity<Any> {
+        val errorCode: ErrorCode = UserErrorCode.ACCESS_ADMIN_DENIED
+        return handleExceptionInternal(errorCode)
     }
 
     @ExceptionHandler(Exception::class)

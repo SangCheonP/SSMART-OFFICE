@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable
 interface UserService {
     fun addUser(userRegisterRequest: UserRegisterRequest): User
     fun findUserByUserId(userId: Long): User
+    fun findByUserEmail(userEmail: String): User
     fun getAllUsersByPage(pageable: Pageable): Page<User>
     fun updateUser(userId: Long, userUpdateRequest: UserUpdateRequest): User
     fun updatePassword(userId: Long, passwordUpdateRequest: PasswordUpdateRequest)

@@ -14,7 +14,7 @@ class OAuth2UserInfo(
             password = null,
             name = name,
             email = email,
-            role = Role.USER,
+            role = Role.ADMIN,
             refreshToken = null
         )
     }

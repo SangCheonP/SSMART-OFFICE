@@ -8,7 +8,6 @@ import com.ssmartofice.userservice.user.domain.User
 import com.ssmartofice.userservice.user.exception.UserErrorCode
 import com.ssmartofice.userservice.user.exception.UserException
 import com.ssmartofice.userservice.user.service.port.UserRepository
-import com.ssmartofice.userservice.user.util.EmployeeNumberGenerator
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -19,21 +18,25 @@ import org.springframework.stereotype.Service
 class UserServiceImpl(
     val passwordEncoder: BCryptPasswordEncoder,
     val userRepository: UserRepository,
-    val employeeNumberGenerator: EmployeeNumberGenerator
 ) : UserService {
 
     override fun addUser(userRegisterRequest: UserRegisterRequest): User {
         try {
-            val user = User.fromRequest(userRegisterRequest, employeeNumberGenerator)
+            val user = User.fromRequest(userRegisterRequest)
             user.encodePassword(passwordEncoder)
             return userRepository.save(user)
         } catch (ex: DataIntegrityViolationException) {
-            throw UserException(UserErrorCode.DUPLICATED_EMAIL)
+            throw UserException(UserErrorCode.DUPLICATED_VALUE)
         }
     }
 
     override fun findUserByUserId(userId: Long): User {
         return userRepository.findById(userId)
+            ?: throw UserException(UserErrorCode.USER_NOT_FOUND)
+    }
+
+    override fun findByUserEmail(userEmail: String): User {
+        return userRepository.findByEmail(userEmail)
             ?: throw UserException(UserErrorCode.USER_NOT_FOUND)
     }
 
@@ -49,7 +52,8 @@ class UserServiceImpl(
             name = userUpdateRequest.name,
             position = userUpdateRequest.position,
             duty = userUpdateRequest.duty,
-            profileImageUrl = userUpdateRequest.profileImageUrl
+            profileImageUrl = userUpdateRequest.profileImageUrl,
+            phoneNumber = userUpdateRequest.phoneNumber
         )
         return userRepository.save(user)
     }
