@@ -1,11 +1,11 @@
-package com.ssmartofice.userservice
+package org.smartoffice.apigateway
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class UserServiceApplication
+class ApiGatewayApplication
 
 fun main(args: Array<String>) {
-    runApplication<UserServiceApplication>(*args)
+    runApplication<ApiGatewayApplication>(*args)
 }
