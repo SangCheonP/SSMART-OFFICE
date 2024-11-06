@@ -1,4 +1,16 @@
 .container {
   display: flex;
-  height: 100dvh;
+}
+.menu {
+  width: 15rem;
+  position: fixed;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+}
+.appRoutes {
+  margin-left: 240px;
+  flex: 1;
+  min-height: 100dvh;
 }

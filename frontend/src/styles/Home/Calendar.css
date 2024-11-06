@@ -23,8 +23,8 @@
 }
 /* 지난 달 날짜 */
 .rbc-off-range-bg {
-  background-color: #a0a0a020;
-  color: #a0a0a0;
+  background-color: var(--text-description) 20;
+  color: var(--text-description);
 }
 .rbc-month-row {
   color: #00000080;

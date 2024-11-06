@@ -127,3 +127,20 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+html,
+body {
+  height: 100%;
+  background-color: #f5f6fa;
+}
+
+:root {
+  --blue: #4876ef;
+  --black: #1c1516;
+  --gray: #f5f6fa;
+  --red: #fe2e6b;
+  --text-blue: #104def;
+  --text-description: #a0a0a0;
+  --text-placeholder: #cccccc;
+  --text-gray: #e8e8e8;
+}

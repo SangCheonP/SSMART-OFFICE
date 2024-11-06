@@ -35,7 +35,7 @@
 }
 
 .content[data-color="blue"]::before {
-  background-color: #4876ef;
+  background-color: var(--blue);
 }
 
 .content[data-color="pink"]::before {
@@ -43,5 +43,5 @@
 }
 
 .content[data-color="darkGrey"]::before {
-  background-color: #a0a0a0;
+  background-color: var(--text-description);
 }
