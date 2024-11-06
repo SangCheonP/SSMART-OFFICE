@@ -1,6 +1,6 @@
-import SeatButton from "./../common/SeatButton";
+import SeatButton from "@/components/common/SeatButton";
 import DonutChart from "./DonutChart";
-import styles from "./../../styles/Seat/SeatingByFloor.module.css";
+import styles from "@/styles/Seat/SeatingByFloor.module.css";
 import PropTypes from "prop-types";
 import SeatingStatus from "./SeatingStatus";
 

@@ -4,8 +4,8 @@ import { format, parse, startOfWeek, getDay } from "date-fns";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { ko } from "date-fns/locale";
 import Toolbar from "./Toolbar";
-import styles from "../../styles/Home/Calendar.module.css";
-import "../../styles/Home/Calendar.css";
+import styles from "@/styles/Home/Calendar.module.css";
+import "@/styles/Home/Calendar.css";
 
 const locales = { ko };
 const localizer = dateFnsLocalizer({

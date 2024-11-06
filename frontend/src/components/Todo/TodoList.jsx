@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../styles/Home/Todo.module.css";
+import styles from "@/styles/Home/Todo.module.css";
 
 const TodoList = ({ monthData }) => {
   return (

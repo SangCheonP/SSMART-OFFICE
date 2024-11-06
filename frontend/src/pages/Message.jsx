@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import MemberList from "../components/Message/MemberList";
-import styles from "./../styles/Message/Message.module.css";
+import styles from "@/styles/Message/Message.module.css";
 import AddMember from "./../assets/Message/AddMember.svg?react";
+import Chat from "../components/Message/Chat";
+import SearchBar from "../components/common/SearchBar";
 
 const Message = () => {
   const [selectedMember, setSelectedMember] = useState(null);
@@ -42,11 +44,13 @@ const Message = () => {
     },
   ];
   const handleMemberSelect = (name) => {
-    setSelectedMember(name);
+    const selected = memberData.find((member) => member.name === name);
+    setSelectedMember(selected);
   };
   return (
     <div className={styles.message_container}>
       <div className={styles.member_box}>
+        <SearchBar />
         {/* <AddMember className={styles.add_member} /> */}
         {/* 검색창 */}
         <MemberList
@@ -54,6 +58,7 @@ const Message = () => {
           onMemberSelect={handleMemberSelect}
         />
       </div>
+      <Chat selectedMember={selectedMember} className={styles.chat_container} />
     </div>
   );
 };

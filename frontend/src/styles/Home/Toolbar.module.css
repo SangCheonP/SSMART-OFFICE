@@ -13,7 +13,7 @@
 .dateGroup {
   margin-left: 33px;
   margin-right: 10px;
-  color: var(--gray);
+  color: var(--text-blue);
 }
 .leftButton {
   color: var(--text-description);
