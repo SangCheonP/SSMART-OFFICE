@@ -82,16 +82,18 @@ class SecurityConfig(
 
         //oauth2Login
         http.oauth2Login { login: OAuth2LoginConfigurer<HttpSecurity?> ->
-            login.authorizationEndpoint { authorizationEndpoint: OAuth2LoginConfigurer<HttpSecurity?>.AuthorizationEndpointConfig ->
-                authorizationEndpoint.authorizationRequestRepository(
-                    cookieAuthorizationRequestRepository
-                )
-            }
-                .userInfoEndpoint { userInfoEndpoint: OAuth2LoginConfigurer<HttpSecurity?>.UserInfoEndpointConfig ->
-                    userInfoEndpoint.userService(
-                        customOauth2UserService
-                    )
-                } // 회원 정보 처리
+            login
+                .authorizationEndpoint { endpoint ->
+                    endpoint
+                        .baseUri("/api/v1/auth/oauth2/authorization")
+                        .authorizationRequestRepository(cookieAuthorizationRequestRepository)
+                }
+                .redirectionEndpoint { endpoint ->
+                    endpoint.baseUri("/api/v1/auth/oauth2/code/*")
+                }
+                .userInfoEndpoint { userInfoEndpoint ->
+                    userInfoEndpoint.userService(customOauth2UserService)
+                }
                 .successHandler(oAuth2AuthenticationSuccessHandler)
                 .failureHandler(oAuth2AuthenticationFailureHandler)
         }
