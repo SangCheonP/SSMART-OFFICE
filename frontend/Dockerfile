@@ -23,7 +23,7 @@ RUN npm run build
 FROM nginx:stable-alpine
 
 # 빌드된 React 앱을 Nginx의 정적 파일 경로로 복사
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=builder /app/dist /usr/share/nginx/html
 
 # 기본 nginx 설정 파일을 삭제
 RUN rm /etc/nginx/conf.d/default.conf
