@@ -1,0 +1,12 @@
+controller:
+  service:
+    enabled: true
+    type: LoadBalancer
+    annotations:
+      service.beta.kubernetes.io/aws-load-balancer-internal: "false"  # 공용 로드 밸런서 설정
+      service.beta.kubernetes.io/aws-load-balancer-type: "nlb"  # 필요에 따라 Network Load Balancer 설정
+    externalTrafficPolicy: Local  # 로드 밸런서의 외부 트래픽 정책 설정
+    port:
+      http: 80
+      https: 443
+

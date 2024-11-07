@@ -1,0 +1,101 @@
+.message_container {
+  margin: 25px 67px 0 67px;
+  display: flex;
+}
+
+.member_box {
+  position: relative;
+  width: 30vw;
+  height: 80vh;
+  background-color: white;
+  border-radius: 10px;
+  padding: 35px;
+}
+.add_member {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+}
+.member_list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.member_card {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  background-color: white;
+  cursor: pointer;
+  border-bottom: 1px solid #a0a0a060;
+}
+.profile_image {
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  box-shadow: 0px 4px 10px 3px #ededed;
+  margin-right: 10px;
+}
+.member_info {
+  display: flex;
+  flex-direction: column;
+  margin-left: 38px;
+}
+.member_profile {
+  display: flex;
+  margin-bottom: 9px;
+  align-items: center;
+}
+.position {
+  color: #104def;
+  margin-right: 10px;
+  font-size: 16px;
+}
+.name {
+  font-weight: 500;
+  margin-right: 10px;
+  font-size: 20px;
+}
+.status {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.status.active {
+  background-color: #22d761;
+}
+
+.status.inactive {
+  background-color: var(--text-description);
+}
+.duty {
+  font-size: 14px;
+  color: #404040;
+}
+.location {
+  font-size: 14px;
+  margin-top: 9px;
+  color: #404040;
+}
+.search_bar {
+  background-color: transparent;
+  width: 100%;
+  height: 43px;
+  border-radius: 25px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+.search_bar_container {
+  display: flex;
+  align-items: center;
+  background-color: #f5f6fa;
+  border-radius: 25px;
+  margin-bottom: 20px;
+  padding-left: 10px;
+}
+.search_icon {
+  margin-right: 10px;
+  width: 20px; /* 아이콘 크기 */
+  height: 20px;
+}
