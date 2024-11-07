@@ -19,7 +19,7 @@ class FileServiceImpl(
 
     override fun uploadFile(file: MultipartFile): String {
         val fileName: String = file.originalFilename + UUID.randomUUID().toString()
-        val extension: String = StringUtils.getFilenameExtension(fileName) ?: throw IllegalArgumentException("File extension not found")
+        val extension: String = StringUtils.getFilenameExtension(fileName) ?: throw IllegalArgumentException("파일이 존재하지 않습니다.")
         val s3Resource = s3Template.upload(bucketName, fileName, file.inputStream, ObjectMetadata.builder().contentType(extension).build())
         return s3Resource.url.toString()
     }
