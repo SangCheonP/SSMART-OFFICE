@@ -1,10 +1,10 @@
-import Home from "./../../assets/Menu/Home.svg?react";
-import Logout from "./../../assets/Menu/Logout.svg?react";
-import Message from "./../../assets/Menu/Message.svg?react";
-import Mypage from "./../../assets/Menu/MyPage.svg?react";
-import Seat from "./../../assets/Menu/Seat.svg?react";
+import Home from "@/assets/Menu/Home.svg?react";
+import Logout from "@/assets/Menu/Logout.svg?react";
+import Message from "@/assets/Menu/Message.svg?react";
+import Mypage from "@/assets/Menu/Mypage.svg?react";
+import Seat from "@/assets/Menu/Seat.svg?react";
 
-import styles from "./../../styles/Menu/MenuButton.module.css";
+import styles from "@/styles/Menu/MenuButton.module.css";
 
 import classNames from "classnames";
 import PropTypes from "prop-types";
