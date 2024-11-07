@@ -1,7 +1,7 @@
-import Home from "./../../assets/Menu/SSMART OFFICE.svg?react";
-import Profile from "./../../assets/Common/Profile.png";
+import Home from "@/assets/Menu/SSMART OFFICE.svg?react";
+import Profile from "@/assets/Common/Profile.png";
 
-import styles from "./../../styles/MyPage/MyPage.module.css";
+import styles from "@/styles/MyPage/MyPage.module.css";
 
 const MyInfo = () => {
   return (

@@ -24,7 +24,7 @@
   margin: 5px 11px 0 0;
 }
 .name {
-  color: var(--gray);
+  color: var(--text-blue);
   font-size: 22px;
   font-weight: 500;
 }
@@ -55,7 +55,7 @@
   margin-bottom: 4px;
 }
 .link {
-  color: var(--gray);
+  color: var(--text-blue);
   font-size: 13px;
   text-decoration: none;
 }
