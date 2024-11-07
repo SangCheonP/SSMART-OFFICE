@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-ingress-deployment
+  namespace: dev
+  labels:
+    app.kubernetes.io/name: nginx-ingress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: nginx-ingress
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: nginx-ingress
+    spec:
+      containers:
+        - name: controller
+          image: nginx/nginx-ingress:3.5.2
+          args:
+            - /nginx-ingress-controller
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+            - name: https
+              containerPort: 443
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 80
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 80
+
