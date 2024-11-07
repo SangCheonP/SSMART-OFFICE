@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "@/styles/Message/Message.module.css";
 
 const MemberList = ({ memberData, onMemberSelect }) => {
+  const [selectedMemberId, setSelectedMemberId] = useState(null);
+
+  const handleMemberClick = (member) => {
+    setSelectedMemberId(member.userId); // 클릭된 member의 ID를 상태에 저장
+    onMemberSelect(member.name); // 부모 컴포넌트로 선택된 멤버 이름 전달
+  };
   return (
     <div className={styles.member_list}>
       {memberData.map((member) => (
         <div
           key={member.userId}
-          className={styles.member_card}
-          onClick={() => onMemberSelect(member.name)}
+          className={`${styles.member_card} ${
+            selectedMemberId === member.userId ? styles.selected_card : ""
+          }`}
+          onClick={() => handleMemberClick(member)}
         >
           <img
             src={member.profileImageUrl}
