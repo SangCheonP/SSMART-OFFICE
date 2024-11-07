@@ -1,0 +1,48 @@
+.chat_container {
+  background-color: white;
+  width: 30vw;
+  height: 80vh;
+  padding: 35px;
+  border-radius: 10px;
+  margin-left: 18px;
+}
+.member_info {
+  border-bottom: 1px solid #a0a0a060;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+}
+.profile_image {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  box-shadow: 0px 4px 10px 3px #ededed;
+  margin-right: 18px;
+}
+.position {
+  color: #104def;
+  margin-right: 10px;
+  font-size: 14px;
+}
+.name {
+  font-weight: 500;
+  margin-right: 10px;
+  font-size: 16px;
+}
+.status {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.status.active {
+  background-color: #22d761;
+}
+
+.status.inactive {
+  background-color: var(--text-description);
+}
+.location {
+  font-size: 14px;
+  margin-top: 9px;
+  color: var(--text-description);
+}

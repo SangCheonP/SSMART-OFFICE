@@ -1,11 +1,11 @@
 import React from "react";
-import styles from "../../styles/Home/Todo.module.css";
-import Month from "../../assets/Todo/Todo.svg?react";
-import FileIcon from "../../assets/Todo/File.svg?react";
-import MessageIcon from "../../assets/Todo/message.svg?react";
+import styles from "@/styles/Home/Todo.module.css";
+import Month from "@/assets/Todo/Todo.svg?react";
+import FileIcon from "@/assets/Todo/File.svg?react";
+import MessageIcon from "@/assets/Todo/message.svg?react";
 import ReadCard from "./ReadCard";
 import TodoList from "./TodoList";
-import AddButton from "../../assets/Todo/AddButton.svg?react";
+import AddButton from "@/assets/Todo/AddButton.svg?react";
 import dayjs from "dayjs";
 
 const Todo = ({ selectedDate, monthData }) => {

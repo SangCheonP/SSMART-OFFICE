@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "../../styles/Home/Toolbar.module.css";
-import Left from "../../assets/Common/Arrow_left.svg?react";
-import Right from "../../assets/Common/Arrow_right.svg?react";
-import Line from "../../assets/Common/Vertical_line.svg?react";
+import styles from "@/styles/Home/Toolbar.module.css";
+import Left from "@/assets/Common/Arrow_left.svg?react";
+import Right from "@/assets/Common/Arrow_right.svg?react";
+import Line from "@/assets/Common/Vertical_line.svg?react";
 
 export default function Toolbar(props) {
   const { date } = props;

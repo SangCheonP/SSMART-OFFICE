@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Icon from "./../assets/Login/LoginImage.svg?react";
+import Icon from "@/assets/Login/LoginImage.svg?react";
 
-import styles from "./../styles/Login/Login.module.css";
+import styles from "@/styles/Login/Login.module.css";
 
 const Login = () => {
   const [email, setEmail] = useState();

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import MyCalendar from "../components/MyCalendar/Calendar";
-import styles from "./../styles/Home/Home.module.css";
+import styles from "@/styles/Home/Home.module.css";
 import Todo from "../components/Todo/Todo";
 
 const Home = () => {

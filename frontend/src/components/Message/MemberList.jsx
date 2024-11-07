@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../styles/Message/Message.module.css";
+import styles from "@/styles/Message/Message.module.css";
 
 const MemberList = ({ memberData, onMemberSelect }) => {
   return (
@@ -25,7 +25,7 @@ const MemberList = ({ memberData, onMemberSelect }) => {
                 }`}
               ></div>
             </div>
-            <div className={styles.employeeNumber}>{member.duty}</div>
+            <div className={styles.duty}>{member.duty}</div>
             <div className={styles.location}>2층임</div>
           </div>
         </div>
