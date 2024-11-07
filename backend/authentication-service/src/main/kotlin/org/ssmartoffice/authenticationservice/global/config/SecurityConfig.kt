@@ -1,15 +1,5 @@
 package org.ssmartoffice.authenticationservice.global.config
 
-import org.ssmartoffice.authenticationservice.global.auth.CustomOauth2UserService
-import org.ssmartoffice.authenticationservice.global.auth.CustomUserDetailsService
-import org.ssmartoffice.authenticationservice.global.auth.LoginFilter
-import org.ssmartoffice.authenticationservice.global.auth.handler.OAuth2AuthenticationFailureHandler
-import org.ssmartoffice.authenticationservice.global.auth.handler.OAuth2AuthenticationSuccessHandler
-import org.ssmartoffice.authenticationservice.global.auth.jwt.JwtAccessDeniedHandler
-import org.ssmartoffice.authenticationservice.global.auth.jwt.JwtAuthenticationEntryPoint
-import org.ssmartoffice.authenticationservice.global.auth.jwt.JwtAuthenticationFilter
-import org.ssmartoffice.authenticationservice.global.auth.jwt.JwtTokenProvider
-import org.ssmartoffice.authenticationservice.global.auth.repository.CookieAuthorizationRequestRepository
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.AuthenticationManager
@@ -30,7 +20,17 @@ import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
-import org.ssmartoffice.authenticationservice.user.client.UserServiceClient
+import org.ssmartoffice.authenticationservice.auth.infrastructure.CookieAuthorizationRequestRepository
+import org.ssmartoffice.authenticationservice.auth.infrastructure.filter.JwtAuthenticationFilter
+import org.ssmartoffice.authenticationservice.auth.infrastructure.filter.LoginFilter
+import org.ssmartoffice.authenticationservice.auth.infrastructure.handler.JwtAccessDeniedHandler
+import org.ssmartoffice.authenticationservice.auth.infrastructure.handler.OAuth2AuthenticationFailureHandler
+import org.ssmartoffice.authenticationservice.auth.infrastructure.handler.OAuth2AuthenticationSuccessHandler
+import org.ssmartoffice.authenticationservice.auth.service.CustomOauth2UserService
+import org.ssmartoffice.authenticationservice.auth.service.CustomUserDetailsService
+import org.ssmartoffice.authenticationservice.global.client.UserServiceClient
+import org.ssmartoffice.authenticationservice.global.jwt.JwtAuthenticationEntryPoint
+import org.ssmartoffice.authenticationservice.global.jwt.JwtTokenProvider
 
 @EnableWebSecurity
 @Configuration

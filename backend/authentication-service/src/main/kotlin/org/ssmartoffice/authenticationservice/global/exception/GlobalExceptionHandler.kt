@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import org.ssmartoffice.authenticationservice.global.const.errorcode.CommonErrorCode
 import org.ssmartoffice.authenticationservice.global.const.errorcode.ErrorCode
 import org.ssmartoffice.authenticationservice.global.dto.ErrorResponse
-import org.ssmartoffice.authenticationservice.user.exception.UserException
+import org.ssmartoffice.authenticationservice.auth.exception.UserException
 import java.util.stream.Collectors
 
 private val logger = KotlinLogging.logger {}

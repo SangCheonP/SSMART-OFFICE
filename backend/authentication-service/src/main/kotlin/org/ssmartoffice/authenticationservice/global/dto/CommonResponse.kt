@@ -1,4 +1,4 @@
-package org.ssmartofice.userservice.global.dto
+package org.ssmartoffice.authenticationservice.global.dto
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import org.ssmartoffice.authenticationservice.global.const.successcode.SuccessCode

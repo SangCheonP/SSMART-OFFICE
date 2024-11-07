@@ -1,14 +1,9 @@
-package org.example.auth_module.global.auth.jwt
+package org.ssmartoffice.authenticationservice.global.jwt
 
 import io.jsonwebtoken.*
 import io.jsonwebtoken.io.Decoders
 import io.jsonwebtoken.security.Keys
-import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import org.example.auth_module.global.auth.domain.CustomUserDetails
-import org.example.auth_module.global.exception.errorcode.UserErrorCode
-import org.example.auth_module.user.domain.User
-import org.example.auth_module.user.service.port.UserRepository
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.ResponseCookie
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -16,6 +11,7 @@ import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.stereotype.Component
+import org.ssmartoffice.authenticationservice.auth.domain.CustomUserDetails
 import java.security.Key
 import java.util.*
 import java.util.stream.Collectors
@@ -23,13 +19,11 @@ import java.util.stream.Collectors
 
 @Component
 class JwtTokenProvider(
-    val userRepository: UserRepository,
     @Value("\${app.auth.token.secret-key}")
     val secretKey: String,
     @Value("\${app.auth.token.refresh-token-key}")
     val COOKIE_REFRESH_TOKEN_KEY: String
 ) {
-
 
     final val SECRET_KEY: Key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey))
 
@@ -38,8 +32,7 @@ class JwtTokenProvider(
         val validity = Date(now.time + ACCESS_TOKEN_EXPIRE_LENGTH)
 
         val user: CustomUserDetails = authentication.principal as CustomUserDetails
-
-        val userId: String = user.name
+        val userId: Long? = user.userId
         val email: String = user.email
 
         val role: String = authentication.authorities.stream()
@@ -47,9 +40,9 @@ class JwtTokenProvider(
             .collect(Collectors.joining(","))
 
         return Jwts.builder()
-            .setSubject(userId)
+            .setSubject(email)
             .claim(AUTHORITIES_KEY, role)
-            .claim(EMAIL_KEY, email)
+            .claim(ID_KEY, userId)
             .setIssuer("SSmartOffice")
             .setIssuedAt(now)
             .setExpiration(validity)
@@ -58,11 +51,9 @@ class JwtTokenProvider(
     }
 
     private fun saveRefreshToken(authentication: Authentication, refreshToken: String) {
-        val user : User = (authentication.principal as CustomUserDetails).user
-
-        user.updateRefreshToken(refreshToken)
-
-        userRepository.save(user)
+//        val userId: Long? = (authentication.principal as CustomUserDetails).userId
+        (authentication.principal as CustomUserDetails).updateRefreshToken(refreshToken)
+        //TODO: 리프레시 토큰 저장
     }
 
     fun createRefreshToken(authentication: Authentication, response: HttpServletResponse) {
@@ -104,26 +95,30 @@ class JwtTokenProvider(
                 }.toList()
 
 
-        val email: String = claims[EMAIL_KEY, String::class.java]
+        val email = claims[EMAIL_KEY].toString()
+        val userId = claims.subject.toLong()
 
-        val user: User = userRepository.findByEmail(email)!!
+        val customUserDetails = CustomUserDetails(
+            userId = userId,
+            role = authorities.first().authority.replace("ROLE_", ""),
+            email = email,
+            password = "",
+        )
 
-        val principal = CustomUserDetails(user, authorities)
-
-        return UsernamePasswordAuthenticationToken(principal, "", authorities)
+        return UsernamePasswordAuthenticationToken(customUserDetails, "", authorities)
     }
 
-    fun validateToken(token: String?, request: HttpServletRequest): Boolean {
-        try {
-            Jwts.parserBuilder().setSigningKey(SECRET_KEY).build().parseClaimsJws(token).body
-            return true
+    fun validateToken(token: String?): Boolean {
+        return try {
+            Jwts.parserBuilder().setSigningKey(SECRET_KEY).build().parseClaimsJws(token)
+            true
         } catch (e: ExpiredJwtException) {
-            request.setAttribute("exception", UserErrorCode.EXPIRED_TOKEN_EXCEPTION.name)
+            false
         } catch (e: JwtException) {
-            request.setAttribute("exception", UserErrorCode.INVALID_TOKEN.name)
+            false
         }
-        return false
     }
+
 
     private fun parseClaims(accessToken: String): Claims {
         return try {
@@ -138,5 +133,6 @@ class JwtTokenProvider(
         private const val ACCESS_TOKEN_EXPIRE_LENGTH = 1000L * 60 * 60 * 2 // 2시간
         private const val AUTHORITIES_KEY = "role"
         private const val EMAIL_KEY = "email"
+        private const val ID_KEY="id"
     }
 }
