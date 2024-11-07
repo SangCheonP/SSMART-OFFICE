@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import styles from "./../../styles/Seat/DonutChart.module.css";
+import styles from "@/styles/Seat/DonutChart.module.css";
 
 const DonutChart = ({ number, totalNumber }) => {
   let percentage = number / totalNumber;

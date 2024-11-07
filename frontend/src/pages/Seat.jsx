@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import styles from "./../styles/Seat/Seat.module.css";
+import styles from "@/styles/Seat/Seat.module.css";
 import FloorLink from "../components/common/FloorLink";
 import TimeDisplay from "../components/Seat/TimeDisplay";
 

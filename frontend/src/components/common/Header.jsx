@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
-import Right from "./../../assets/Common/Right.svg?react";
-import styles from "./../../styles/Header.module.css";
-import UserCard from "./../UserCard";
+import Right from "@/assets/Common/Right.svg?react";
+import styles from "@/styles/Header.module.css";
+import UserCard from "@/components/UserCard";
 
 const Header = () => {
   const location = useLocation();

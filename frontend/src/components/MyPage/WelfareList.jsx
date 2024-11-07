@@ -1,4 +1,4 @@
-import styles from "./../../styles/MyPage/WelfareList.module.css";
+import styles from "@/styles/MyPage/WelfareList.module.css";
 
 const WelfareList = () => {
   return (
