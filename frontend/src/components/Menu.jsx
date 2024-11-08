@@ -42,6 +42,7 @@ const Menu = () => {
       <NavItem link="/seat" type="Seat" content="좌석 현황" />
       <NavItem link="/message" type="Message" content="사내 메시지" />
       <NavItem link="/mypage" type="Mypage" content="마이페이지" />
+      <NavItem link="/attendance" type="Attendance" content="사원 관리" />
       <NavItem link="/logout" type="Logout" content="로그아웃" />
     </>
   );

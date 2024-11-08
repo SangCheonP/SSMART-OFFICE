@@ -82,6 +82,9 @@
   height: auto;
   max-height: 60px;
 }
+.file_icon {
+  cursor: pointer;
+}
 .send_button {
   background-color: var(--text-blue);
   border: none;
@@ -93,4 +96,5 @@
   border-radius: 5px;
   align-items: center;
   margin-left: 16px;
+  cursor: pointer;
 }
