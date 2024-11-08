@@ -1,12 +1,23 @@
 import MenuButton from "@/components/common/MenuButton";
 import HomeIcon from "@/assets/Menu/SSMART OFFICE.svg?react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import styles from "@/styles/Menu/Menu.module.css";
 import PropTypes from "prop-types";
 
+import useAuthStore from "@/store/authStore";
+
 const NavItem = ({ link, type, content }) => {
+  const clearAuth = useAuthStore((state) => state.clearAuth);
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (type === "Logout") {
+      clearAuth();
+      navigate("/login"); // 로그아웃 후 로그인 페이지로 리다이렉트
+    }
+  };
   return (
-    <NavLink to={link}>
+    <NavLink to={link} onClick={handleClick}>
       {({ isActive }) => {
         return (
           <MenuButton
