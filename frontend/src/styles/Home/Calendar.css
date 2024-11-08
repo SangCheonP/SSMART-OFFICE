@@ -38,6 +38,9 @@
 .rbc-row-bg {
   cursor: pointer;
 }
+.rbc-date-cell {
+  margin-top: 10px;
+}
 /* 연차 등 이벤트 */
 .rbc-event {
   height: 25px;
@@ -55,7 +58,7 @@
 }
 .rbc-show-more {
   color: var(--text-description);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   margin-left: 15px;
   cursor: pointer;
