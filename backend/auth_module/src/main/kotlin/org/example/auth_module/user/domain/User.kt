@@ -2,7 +2,7 @@ package org.example.auth_module.user.domain
 
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
-import org.example.auth_module.global.auth.Role
+import org.example.auth_module.global.auth.domain.Role
 import org.springframework.security.crypto.password.PasswordEncoder
 
 class User(
