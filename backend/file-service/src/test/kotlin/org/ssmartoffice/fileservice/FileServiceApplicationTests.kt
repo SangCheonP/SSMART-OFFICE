@@ -1,10 +1,10 @@
-package org.example.discovery
+package org.ssmartoffice.fileservice
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class DiscoveryApplicationTests {
+class FileServiceApplicationTests {
 
 	@Test
 	fun contextLoads() {

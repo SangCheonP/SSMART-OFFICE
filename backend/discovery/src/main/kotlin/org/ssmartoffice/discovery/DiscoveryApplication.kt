@@ -1,4 +1,4 @@
-package org.example.discovery
+package org.ssmartoffice.discovery
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
