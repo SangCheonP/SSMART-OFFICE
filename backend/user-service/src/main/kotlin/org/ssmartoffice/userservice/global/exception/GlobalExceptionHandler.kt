@@ -4,8 +4,8 @@ import org.ssmartoffice.userservice.global.dto.ErrorResponse
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.ssmartoffice.userservice.global.const.errorcode.CommonErrorCode
 import org.ssmartoffice.userservice.global.const.errorcode.ErrorCode
-import org.ssmartoffice.userservice.user.exception.UserErrorCode
-import org.ssmartoffice.userservice.user.exception.UserException
+import org.ssmartoffice.userservice.exception.UserErrorCode
+import org.ssmartoffice.userservice.exception.UserException
 import lombok.extern.slf4j.Slf4j
 import org.hibernate.exception.ConstraintViolationException
 import org.springframework.http.HttpHeaders

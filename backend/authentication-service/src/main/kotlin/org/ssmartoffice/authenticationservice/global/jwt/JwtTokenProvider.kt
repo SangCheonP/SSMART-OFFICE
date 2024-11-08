@@ -10,7 +10,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.stereotype.Component
-import org.ssmartoffice.authenticationservice.auth.domain.CustomUserDetails
+import org.ssmartoffice.authenticationservice.domain.CustomUserDetails
 import java.security.Key
 import java.util.*
 
@@ -33,7 +33,7 @@ class JwtTokenProvider(
 
         return Jwts.builder()
             .setSubject(user.email)
-            .claim(AUTHORITIES_KEY, user.authorities.first().authority.replace("ROLE_", ""))
+            .claim(AUTHORITIES_KEY, user.authorities.first().authority)
             .claim(ID_KEY, user.userId)
             .setIssuer("SSmartOffice")
             .setIssuedAt(now)
@@ -82,10 +82,12 @@ class JwtTokenProvider(
 
         val customUserDetails = CustomUserDetails(
             userId = userId,
-            role = role,  // ROLE_ prefix 없는 순수 role 값
+            role = role.replace("ROLE_", ""),  // ROLE_ prefix 없는 순수 role 값
             email = email,
             password = ""
         )
+
+        println("😮😮😮😮customUserDetails = ${customUserDetails}")
 
         return UsernamePasswordAuthenticationToken(customUserDetails, "", listOf(authority))
     }

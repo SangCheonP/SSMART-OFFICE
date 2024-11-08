@@ -1,6 +1,6 @@
 package org.ssmartoffice.userservice.global.jwt
 
-import org.ssmartoffice.userservice.user.service.port.UserRepository
+import org.ssmartoffice.userservice.service.port.UserRepository
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts

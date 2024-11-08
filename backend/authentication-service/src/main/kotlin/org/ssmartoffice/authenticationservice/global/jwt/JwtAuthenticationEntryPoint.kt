@@ -5,8 +5,8 @@ import jakarta.servlet.http.HttpServletResponse
 import org.springframework.security.core.AuthenticationException
 import org.springframework.security.web.AuthenticationEntryPoint
 import org.springframework.stereotype.Component
+import org.ssmartoffice.authenticationservice.exception.UserErrorCode
 import org.ssmartoffice.authenticationservice.global.const.errorcode.ErrorCode
-import org.ssmartoffice.authenticationservice.auth.exception.UserErrorCode
 import java.io.IOException
 
 @Component

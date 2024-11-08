@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity
 data class CommonResponse(
     val status: Int,
     val msg: String,
-    val data: Any?
+    val data: Any?=null
 ) {
     companion object {
 
