@@ -3,12 +3,12 @@ package org.ssmartoffice.authenticationservice.service
 import jakarta.servlet.http.HttpServletResponse
 import lombok.RequiredArgsConstructor
 import lombok.extern.slf4j.Slf4j
-import org.ssmartoffice.authenticationservice.global.jwt.JwtTokenProvider
+import org.ssmartoffice.authenticationservice.global.security.jwt.JwtTokenProvider
 import org.springframework.stereotype.Service
 import org.ssmartoffice.authenticationservice.controller.request.TokenRefreshRequest
 import org.ssmartoffice.authenticationservice.domain.CustomUserDetails
-import org.ssmartoffice.authenticationservice.exception.AuthErrorCode
-import org.ssmartoffice.authenticationservice.exception.AuthException
+import org.ssmartoffice.authenticationservice.global.const.errorcode.AuthErrorCode
+import org.ssmartoffice.authenticationservice.global.exception.AuthException
 
 @Slf4j
 @Service

@@ -15,7 +15,6 @@ import org.springframework.web.context.request.WebRequest
 import org.springframework.web.method.annotation.HandlerMethodValidationException
 import org.springframework.web.server.ResponseStatusException
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
-import org.ssmartoffice.authenticationservice.exception.AuthException
 import org.ssmartoffice.authenticationservice.global.const.errorcode.CommonErrorCode
 import org.ssmartoffice.authenticationservice.global.const.errorcode.ErrorCode
 import org.ssmartoffice.authenticationservice.global.dto.ErrorResponse

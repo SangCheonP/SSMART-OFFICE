@@ -1,4 +1,4 @@
-package org.ssmartoffice.authenticationservice.security.handler
+package org.ssmartoffice.authenticationservice.global.security.handler
 
 import jakarta.servlet.http.Cookie
 import jakarta.servlet.http.HttpServletRequest

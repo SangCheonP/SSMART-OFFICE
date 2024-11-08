@@ -15,7 +15,7 @@ class InternalUserController(
     val userService: UserService
 ) {
 
-    @GetMapping("/authentication") //TODO: 경로 수정하기
+    @GetMapping("/authentication")
     fun getIdAndRole(
         @RequestParam @Email(message = "유효한 이메일 주소를 입력해 주세요") email: String
     ): ResponseEntity<CommonResponse> {

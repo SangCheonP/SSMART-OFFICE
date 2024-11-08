@@ -1,9 +1,8 @@
-package org.ssmartoffice.authenticationservice.global.jwt
+package org.ssmartoffice.authenticationservice.global.security.jwt
 
 import io.jsonwebtoken.*
 import io.jsonwebtoken.io.Decoders
 import io.jsonwebtoken.security.Keys
-import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value

@@ -1,6 +1,5 @@
-package org.ssmartoffice.userservice.exception
+package org.ssmartoffice.userservice.global.const.errorcode
 
-import org.ssmartoffice.userservice.global.const.errorcode.ErrorCode
 import lombok.Getter
 import org.springframework.http.HttpStatus
 

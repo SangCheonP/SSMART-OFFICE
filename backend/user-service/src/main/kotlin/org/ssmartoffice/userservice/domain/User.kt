@@ -1,11 +1,11 @@
 package org.ssmartoffice.userservice.domain
 
 import org.ssmartoffice.userservice.controller.request.UserRegisterRequest
-import org.ssmartoffice.userservice.exception.UserException
+import org.ssmartoffice.userservice.global.exception.UserException
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
-import org.ssmartoffice.userservice.exception.UserErrorCode
 import org.springframework.security.crypto.password.PasswordEncoder
+import org.ssmartoffice.userservice.global.const.errorcode.UserErrorCode
 
 class User(
     val id: Long = 0,

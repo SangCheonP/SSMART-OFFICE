@@ -1,4 +1,4 @@
-package org.ssmartoffice.authenticationservice.exception
+package org.ssmartoffice.authenticationservice.global.const.errorcode
 
 import lombok.Getter
 import org.springframework.http.HttpStatus

@@ -11,7 +11,7 @@ import org.ssmartoffice.authenticationservice.client.response.UserLoginResponse
 import org.ssmartoffice.authenticationservice.domain.CustomUserDetails
 import org.ssmartoffice.authenticationservice.domain.OAuth2UserInfo
 import org.ssmartoffice.authenticationservice.domain.Role
-import org.ssmartoffice.authenticationservice.exception.AuthErrorCode
+import org.ssmartoffice.authenticationservice.global.const.errorcode.AuthErrorCode
 
 @Service
 class CustomOauth2UserService(

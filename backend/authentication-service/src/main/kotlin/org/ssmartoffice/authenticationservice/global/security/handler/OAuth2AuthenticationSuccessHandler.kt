@@ -1,10 +1,10 @@
-package org.ssmartoffice.authenticationservice.security.handler
+package org.ssmartoffice.authenticationservice.global.security.handler
 
 import jakarta.servlet.http.Cookie
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import lombok.extern.slf4j.Slf4j
-import org.ssmartoffice.authenticationservice.global.jwt.JwtTokenProvider
+import org.ssmartoffice.authenticationservice.global.security.jwt.JwtTokenProvider
 import org.ssmartoffice.authenticationservice.global.exception.RestApiException
 import org.ssmartoffice.authenticationservice.global.util.CookieUtil
 import org.springframework.beans.factory.annotation.Value
@@ -12,7 +12,7 @@ import org.springframework.security.core.Authentication
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler
 import org.springframework.stereotype.Component
 import org.springframework.web.util.UriComponentsBuilder
-import org.ssmartoffice.authenticationservice.exception.AuthErrorCode
+import org.ssmartoffice.authenticationservice.global.const.errorcode.AuthErrorCode
 import org.ssmartoffice.authenticationservice.global.const.errorcode.CommonErrorCode
 import org.ssmartoffice.authenticationservice.global.const.errorcode.ErrorCode
 import org.ssmartoffice.authenticationservice.infrastructure.CookieAuthorizationRequestRepository

@@ -16,12 +16,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.ssmartoffice.authenticationservice.client.UserServiceClient
-import org.ssmartoffice.authenticationservice.global.jwt.JwtTokenProvider
+import org.ssmartoffice.authenticationservice.global.security.jwt.JwtTokenProvider
 import org.ssmartoffice.authenticationservice.infrastructure.CookieAuthorizationRequestRepository
-import org.ssmartoffice.authenticationservice.security.filter.JwtAuthenticationFilter
-import org.ssmartoffice.authenticationservice.security.filter.LoginFilter
-import org.ssmartoffice.authenticationservice.security.handler.OAuth2AuthenticationFailureHandler
-import org.ssmartoffice.authenticationservice.security.handler.OAuth2AuthenticationSuccessHandler
+import org.ssmartoffice.authenticationservice.global.security.filter.JwtAuthenticationFilter
+import org.ssmartoffice.authenticationservice.global.security.filter.LoginFilter
+import org.ssmartoffice.authenticationservice.global.security.handler.OAuth2AuthenticationFailureHandler
+import org.ssmartoffice.authenticationservice.global.security.handler.OAuth2AuthenticationSuccessHandler
 import org.ssmartoffice.authenticationservice.service.CustomOauth2UserService
 
 @EnableWebSecurity

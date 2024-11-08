@@ -1,4 +1,4 @@
-package org.ssmartoffice.authenticationservice.security.filter
+package org.ssmartoffice.authenticationservice.global.security.filter
 
 import jakarta.servlet.FilterChain
 import jakarta.servlet.ServletException
@@ -8,7 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 import org.springframework.util.StringUtils
 import org.springframework.web.filter.OncePerRequestFilter
-import org.ssmartoffice.authenticationservice.global.jwt.JwtTokenProvider
+import org.ssmartoffice.authenticationservice.global.security.jwt.JwtTokenProvider
 import java.io.IOException
 
 @Component

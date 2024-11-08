@@ -1,4 +1,4 @@
-package org.ssmartoffice.authenticationservice.security.filter
+package org.ssmartoffice.authenticationservice.global.security.filter
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
@@ -7,7 +7,7 @@ import jakarta.servlet.FilterChain
 import jakarta.servlet.ServletException
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import org.ssmartoffice.authenticationservice.global.jwt.JwtTokenProvider
+import org.ssmartoffice.authenticationservice.global.security.jwt.JwtTokenProvider
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.AuthenticationServiceException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -20,11 +20,11 @@ import org.ssmartoffice.authenticationservice.client.request.UserLoginRequest
 import org.ssmartoffice.authenticationservice.client.response.UserLoginResponse
 import org.ssmartoffice.authenticationservice.domain.CustomUserDetails
 import org.ssmartoffice.authenticationservice.domain.Role
-import org.ssmartoffice.authenticationservice.exception.AuthErrorCode
-import org.ssmartoffice.authenticationservice.exception.AuthException
+import org.ssmartoffice.authenticationservice.global.const.errorcode.AuthErrorCode
+import org.ssmartoffice.authenticationservice.global.exception.AuthException
 import org.ssmartoffice.authenticationservice.global.const.successcode.SuccessCode
 import org.ssmartoffice.authenticationservice.global.dto.CommonResponse
-import org.ssmartoffice.authenticationservice.security.handler.CustomAuthenticationFailureHandler
+import org.ssmartoffice.authenticationservice.global.security.handler.CustomAuthenticationFailureHandler
 import java.io.IOException
 
 class LoginFilter(

@@ -5,8 +5,7 @@ import org.ssmartoffice.userservice.controller.request.PasswordUpdateRequest
 import org.ssmartoffice.userservice.controller.request.UserRegisterRequest
 import org.ssmartoffice.userservice.controller.request.UserUpdateRequest
 import org.ssmartoffice.userservice.domain.User
-import org.ssmartoffice.userservice.exception.UserErrorCode
-import org.ssmartoffice.userservice.exception.UserException
+import org.ssmartoffice.userservice.global.exception.UserException
 import org.ssmartoffice.userservice.service.port.UserRepository
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.dao.EmptyResultDataAccessException
@@ -15,6 +14,7 @@ import org.springframework.data.domain.Pageable
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import org.ssmartoffice.userservice.controller.request.UserLoginRequest
+import org.ssmartoffice.userservice.global.const.errorcode.UserErrorCode
 
 @Service
 class UserServiceImpl(

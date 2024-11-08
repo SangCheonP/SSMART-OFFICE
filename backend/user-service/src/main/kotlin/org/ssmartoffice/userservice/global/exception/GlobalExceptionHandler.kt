@@ -4,8 +4,6 @@ import org.ssmartoffice.userservice.global.dto.ErrorResponse
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.ssmartoffice.userservice.global.const.errorcode.CommonErrorCode
 import org.ssmartoffice.userservice.global.const.errorcode.ErrorCode
-import org.ssmartoffice.userservice.exception.UserErrorCode
-import org.ssmartoffice.userservice.exception.UserException
 import lombok.extern.slf4j.Slf4j
 import org.hibernate.exception.ConstraintViolationException
 import org.springframework.http.HttpHeaders
@@ -22,6 +20,7 @@ import org.springframework.web.context.request.WebRequest
 import org.springframework.web.method.annotation.HandlerMethodValidationException
 import org.springframework.web.server.ResponseStatusException
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
+import org.ssmartoffice.userservice.global.const.errorcode.UserErrorCode
 import java.util.stream.Collectors
 
 private val logger = KotlinLogging.logger {}

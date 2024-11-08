@@ -1,4 +1,4 @@
-package org.ssmartoffice.authenticationservice.security.handler
+package org.ssmartoffice.authenticationservice.global.security.handler
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
@@ -7,8 +7,8 @@ import jakarta.servlet.http.HttpServletResponse
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.AuthenticationException
 import org.springframework.security.web.authentication.AuthenticationFailureHandler
-import org.ssmartoffice.authenticationservice.exception.AuthErrorCode
-import org.ssmartoffice.authenticationservice.exception.AuthException
+import org.ssmartoffice.authenticationservice.global.const.errorcode.AuthErrorCode
+import org.ssmartoffice.authenticationservice.global.exception.AuthException
 import org.ssmartoffice.authenticationservice.global.dto.ErrorResponse
 
 class CustomAuthenticationFailureHandler : AuthenticationFailureHandler {
