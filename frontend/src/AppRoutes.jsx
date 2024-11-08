@@ -8,6 +8,7 @@ import Home from "@/pages/Home";
 import Seat from "@/pages/Seat";
 import MyPage from "@/pages/MyPage";
 import Message from "@/pages/Message";
+import Attendance from "@/pages/Attendance";
 import SeatingByFloor from "@/components/Seat/SeatingByFloor";
 import styles from "@/styles/App.module.css";
 
@@ -31,6 +32,7 @@ const AppRoutes = () => {
             </Route>
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/message" element={<Message />} />
+            {/* <Route path="/attendance" element={<Attendance />} /> */}
           </Route>
         </Routes>
       </div>
