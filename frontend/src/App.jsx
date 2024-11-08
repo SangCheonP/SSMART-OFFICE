@@ -1,7 +1,7 @@
 import AppRoutes from "@/AppRoutes.jsx";
 import Login from "@/pages/Login.jsx";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import "./styles/Reset.css";
+import "@/styles/Reset.css";
 
 import useAuthStore from "@/store/authStore";
 import { BrowserRouter, Route, Routes } from "react-router-dom";

@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import useAuthStore from "@/store/authStore";
 import { useLocation, useNavigate } from "react-router-dom";
+import styles from "@/styles/Login/GoogleLogin.module.css";
+import GoogleIcon from "@/assets/Login/GoogleIcon.svg?react";
 
 const GoogleLogin = () => {
   const setAuth = useAuthStore((state) => state.setAuth);
@@ -21,9 +23,10 @@ const GoogleLogin = () => {
     }
   }, [location.search, setAuth, navigate]);
   return (
-    <div>
-      <button onClick={handleGoogleLogin}>Google로 로그인</button>
-    </div>
+    <button onClick={handleGoogleLogin} className={styles.button}>
+      <GoogleIcon />
+      Google로 로그인
+    </button>
   );
 };
 
