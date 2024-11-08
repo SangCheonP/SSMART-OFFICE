@@ -1,0 +1,46 @@
+/* 달력 */
+.rbc-month-view {
+  background-color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border: none;
+}
+/* 일자 박스 */
+.rbc-month-header {
+  background-color: #dae4fc80;
+  height: 40px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+/* 일자 */
+.rbc-header {
+  font-size: 13px;
+  font-weight: 400;
+  color: #00000080;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* 지난 달 날짜 */
+.rbc-off-range-bg {
+  background-color: var(--text-description) 20;
+  color: var(--text-description);
+}
+.rbc-month-row {
+  color: #00000080;
+}
+/* 일자 클릭 */
+.rbc-button-link {
+  pointer-events: none;
+  cursor: default;
+}
+/* 일자 박스 */
+.rbc-row-bg {
+  cursor: pointer;
+}
+.rbc-event {
+  height: 25px;
+  background-color: #ffffff00;
+  color: #000000;
+  pointer-events: none;
+}

@@ -1,0 +1,15 @@
+# Primary Service (Headless)
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+  namespace: db
+spec:
+  type: NodePort
+  ports:
+    - port: 3306
+      targetPort: 3306
+      nodePort: 31000
+  selector:
+    app: mysql
+  externalTrafficPolicy: Cluster  # 외부 트래픽을 직접 전달하도록 설정
