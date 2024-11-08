@@ -1,13 +1,12 @@
 package org.example.auth_module.user.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.KotlinFeature
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
 import jakarta.validation.constraints.Email
-import org.example.auth_module.global.auth.CustomUserDetails
+import org.example.auth_module.global.auth.domain.CustomUserDetails
 import org.example.auth_module.user.controller.port.UserService
 import org.example.auth_module.user.domain.Test
 import org.example.auth_module.user.domain.User

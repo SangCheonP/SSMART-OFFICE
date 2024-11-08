@@ -5,7 +5,7 @@ import io.jsonwebtoken.io.Decoders
 import io.jsonwebtoken.security.Keys
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import org.example.auth_module.global.auth.CustomUserDetails
+import org.example.auth_module.global.auth.domain.CustomUserDetails
 import org.example.auth_module.global.exception.errorcode.UserErrorCode
 import org.example.auth_module.user.domain.User
 import org.example.auth_module.user.service.port.UserRepository

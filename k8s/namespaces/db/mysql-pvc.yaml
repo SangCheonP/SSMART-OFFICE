@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pvc  # 이름을 mysql-pvc로 변경
+  namespace: db
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: manual  # PV의 StorageClassName과 일치해야 합니다
+  resources:
+    requests:
+      storage: 10Gi  # PV의 용량과 일치해야 합니다
+

@@ -1,13 +1,13 @@
 package org.example.auth_module.global.config
 
-import org.example.auth_module.global.auth.CustomOauth2UserService
-import org.example.auth_module.global.auth.CustomUserDetailsService
-import org.example.auth_module.global.auth.LoginFilter
+import org.example.auth_module.global.auth.service.CustomOauth2UserService
+import org.example.auth_module.global.auth.service.CustomUserDetailsService
+import org.example.auth_module.global.auth.filter.LoginFilter
 import org.example.auth_module.global.auth.handler.OAuth2AuthenticationFailureHandler
 import org.example.auth_module.global.auth.handler.OAuth2AuthenticationSuccessHandler
-import org.example.auth_module.global.auth.jwt.JwtAccessDeniedHandler
+import org.example.auth_module.global.auth.handler.JwtAccessDeniedHandler
 import org.example.auth_module.global.auth.jwt.JwtAuthenticationEntryPoint
-import org.example.auth_module.global.auth.jwt.JwtAuthenticationFilter
+import org.example.auth_module.global.auth.filter.JwtAuthenticationFilter
 import org.example.auth_module.global.auth.jwt.JwtTokenProvider
 import org.example.auth_module.global.auth.repository.CookieAuthorizationRequestRepository
 import org.springframework.context.annotation.Bean
@@ -26,8 +26,6 @@ import org.springframework.security.config.annotation.web.configurers.HttpBasicC
 import org.springframework.security.config.annotation.web.configurers.RememberMeConfigurer
 import org.springframework.security.config.annotation.web.configurers.SessionManagementConfigurer
 import org.springframework.security.config.annotation.web.configurers.oauth2.client.OAuth2LoginConfigurer
-import org.springframework.security.config.annotation.web.configurers.oauth2.client.OAuth2LoginConfigurer.AuthorizationEndpointConfig
-import org.springframework.security.config.annotation.web.configurers.oauth2.client.OAuth2LoginConfigurer.UserInfoEndpointConfig
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.web.SecurityFilterChain

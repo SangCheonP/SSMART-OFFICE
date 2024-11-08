@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+  namespace: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      nodeSelector:
+        name: Worker2
+      containers:
+        - name: mysql
+          image: mysql:5.7
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "s11p31b202!"
+            - name: TZ
+              value: "Asia/Seoul"  # 타임존 설정
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: mysql-pvc
+              mountPath: /var/lib/mysql  # MySQL 데이터 저장 경로
+            - name: mysql-config-volume
+              mountPath: /etc/my.cnf       # ConfigMap의 my.cnf를 MySQL 설정 파일 경로에 마운트
+              subPath: my.cnf              # 단일 파일로 마운트
+            - name: mysql-config-volume
+              mountPath: /docker-entrypoint-initdb.d/init.sql
+              subPath: init.sql            # init.sql 파일을 초기화 디렉터리에 마운트
+      volumes:
+        - name: mysql-pvc
+          persistentVolumeClaim:
+            claimName: mysql-pvc
+        - name: mysql-config-volume
+          configMap:
+            name: mysql-config
+
