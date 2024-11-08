@@ -15,7 +15,7 @@ import org.springframework.web.context.request.WebRequest
 import org.springframework.web.method.annotation.HandlerMethodValidationException
 import org.springframework.web.server.ResponseStatusException
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
-import org.ssmartoffice.authenticationservice.exception.UserException
+import org.ssmartoffice.authenticationservice.exception.AuthException
 import org.ssmartoffice.authenticationservice.global.const.errorcode.CommonErrorCode
 import org.ssmartoffice.authenticationservice.global.const.errorcode.ErrorCode
 import org.ssmartoffice.authenticationservice.global.dto.ErrorResponse
@@ -51,8 +51,8 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
         return handleExceptionInternal(errorCode)
     }
 
-    @ExceptionHandler(UserException::class)
-    fun handleUserException(e: UserException): ResponseEntity<Any> {
+    @ExceptionHandler(AuthException::class)
+    fun handleUserException(e: AuthException): ResponseEntity<Any> {
         val errorCode: ErrorCode = e.errorCode
         return handleExceptionInternal(errorCode, e.message)
     }

@@ -7,8 +7,8 @@ import jakarta.servlet.http.HttpServletResponse
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.AuthenticationException
 import org.springframework.security.web.authentication.AuthenticationFailureHandler
-import org.ssmartoffice.authenticationservice.exception.UserErrorCode
-import org.ssmartoffice.authenticationservice.exception.UserException
+import org.ssmartoffice.authenticationservice.exception.AuthErrorCode
+import org.ssmartoffice.authenticationservice.exception.AuthException
 import org.ssmartoffice.authenticationservice.global.dto.ErrorResponse
 
 class CustomAuthenticationFailureHandler : AuthenticationFailureHandler {
@@ -23,10 +23,10 @@ class CustomAuthenticationFailureHandler : AuthenticationFailureHandler {
         response.contentType = "application/json;charset=UTF-8"
 
         val errorResponse = when {
-            exception.cause is UserException -> {
-                val userException = exception.cause as UserException
-                when (userException.errorCode) {
-                    UserErrorCode.USER_NOT_FOUND -> {
+            exception.cause is AuthException -> {
+                val authException = exception.cause as AuthException
+                when (authException.errorCode) {
+                    AuthErrorCode.USER_NOT_FOUND -> {
                         response.status = HttpStatus.NOT_FOUND.value()
                         ErrorResponse(
                             status = HttpStatus.NOT_FOUND.value(),
@@ -34,7 +34,7 @@ class CustomAuthenticationFailureHandler : AuthenticationFailureHandler {
                             message = "사용자를 찾을 수 없습니다."
                         )
                     }
-                    UserErrorCode.INVALID_OLD_PASSWORD -> {
+                    AuthErrorCode.INVALID_OLD_PASSWORD -> {
                         response.status = HttpStatus.CONFLICT.value()
                         ErrorResponse(
                             status = HttpStatus.CONFLICT.value(),

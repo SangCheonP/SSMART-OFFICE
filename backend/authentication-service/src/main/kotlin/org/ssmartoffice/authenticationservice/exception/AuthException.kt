@@ -1,4 +1,4 @@
 package org.ssmartoffice.authenticationservice.exception
 
-class UserException(val errorCode: UserErrorCode)
+class AuthException(val errorCode: AuthErrorCode)
     : RuntimeException(errorCode.message)

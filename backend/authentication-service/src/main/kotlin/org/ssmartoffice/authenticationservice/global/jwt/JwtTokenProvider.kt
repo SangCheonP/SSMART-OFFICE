@@ -3,6 +3,7 @@ package org.ssmartoffice.authenticationservice.global.jwt
 import io.jsonwebtoken.*
 import io.jsonwebtoken.io.Decoders
 import io.jsonwebtoken.security.Keys
+import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
@@ -56,10 +57,12 @@ class JwtTokenProvider(
     fun createRefreshToken(authentication: Authentication, response: HttpServletResponse) {
         val now = Date()
         val validity = Date(now.time + REFRESH_TOKEN_EXPIRE_LENGTH)
+        val userDetails = authentication.principal as CustomUserDetails
 
         val refreshToken = Jwts.builder()
             .signWith(SECRET_KEY, SignatureAlgorithm.HS256)
-            .setIssuer("bok")
+            .setSubject(userDetails.email)
+            .setIssuer("SSmartOffice")
             .setIssuedAt(now)
             .setExpiration(validity)
             .compact()
@@ -94,17 +97,6 @@ class JwtTokenProvider(
         return UsernamePasswordAuthenticationToken(customUserDetails, "", listOf(authority))
     }
 
-    fun validateToken(token: String?): Boolean {
-        return try {
-            Jwts.parserBuilder().setSigningKey(SECRET_KEY).build().parseClaimsJws(token)
-            true
-        } catch (e: ExpiredJwtException) {
-            false
-        } catch (e: JwtException) {
-            false
-        }
-    }
-
     private fun parseClaims(accessToken: String): Claims {
         return try {
             Jwts.parserBuilder().setSigningKey(SECRET_KEY).build().parseClaimsJws(accessToken).body
@@ -113,11 +105,24 @@ class JwtTokenProvider(
         }
     }
 
+    fun checkIsExistRefreshToken(userDetails: CustomUserDetails): Boolean {
+        return redisTemplate.hasKey("${userDetails.email}-refresh")
+    }
+
+    fun checkMatchRefreshToken(userDetails: CustomUserDetails, refreshToken: String): Boolean {
+        val storedToken = redisTemplate.opsForValue().get("${userDetails.email}-refresh")
+        return refreshToken == storedToken
+    }
+
+    fun deleteRefreshToken(userDetails: CustomUserDetails) {
+        val key = "${userDetails.email}-refresh"
+        redisTemplate.delete(key)
+    }
+
     companion object {
         private const val REFRESH_TOKEN_EXPIRE_LENGTH = 1000L * 60 * 60 * 24 * 7
         private const val ACCESS_TOKEN_EXPIRE_LENGTH = 1000L * 60 * 60 * 2 // 2시간
         private const val AUTHORITIES_KEY = "role"
-        private const val EMAIL_KEY = "email"
         private const val ID_KEY = "id"
     }
 }

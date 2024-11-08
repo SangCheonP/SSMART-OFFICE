@@ -12,7 +12,7 @@ import org.springframework.security.core.Authentication
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler
 import org.springframework.stereotype.Component
 import org.springframework.web.util.UriComponentsBuilder
-import org.ssmartoffice.authenticationservice.exception.UserErrorCode
+import org.ssmartoffice.authenticationservice.exception.AuthErrorCode
 import org.ssmartoffice.authenticationservice.global.const.errorcode.CommonErrorCode
 import org.ssmartoffice.authenticationservice.global.const.errorcode.ErrorCode
 import org.ssmartoffice.authenticationservice.infrastructure.CookieAuthorizationRequestRepository
@@ -57,7 +57,7 @@ class OAuth2AuthenticationSuccessHandler(
             .map { obj: Cookie -> obj.value }
 
         if (redirectUri.isPresent && !isAuthorizedRedirectUri(redirectUri.get())) {
-            val errorCode: ErrorCode = UserErrorCode.NOT_MATCHED_REDIRECT_URI
+            val errorCode: ErrorCode = AuthErrorCode.NOT_MATCHED_REDIRECT_URI
             try {
                 setResponse(response, errorCode)
             } catch (e: IOException) {

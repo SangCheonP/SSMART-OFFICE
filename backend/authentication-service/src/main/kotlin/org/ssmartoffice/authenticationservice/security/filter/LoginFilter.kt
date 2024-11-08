@@ -20,8 +20,8 @@ import org.ssmartoffice.authenticationservice.client.request.UserLoginRequest
 import org.ssmartoffice.authenticationservice.client.response.UserLoginResponse
 import org.ssmartoffice.authenticationservice.domain.CustomUserDetails
 import org.ssmartoffice.authenticationservice.domain.Role
-import org.ssmartoffice.authenticationservice.exception.UserErrorCode
-import org.ssmartoffice.authenticationservice.exception.UserException
+import org.ssmartoffice.authenticationservice.exception.AuthErrorCode
+import org.ssmartoffice.authenticationservice.exception.AuthException
 import org.ssmartoffice.authenticationservice.global.const.successcode.SuccessCode
 import org.ssmartoffice.authenticationservice.global.dto.CommonResponse
 import org.ssmartoffice.authenticationservice.security.handler.CustomAuthenticationFailureHandler
@@ -76,14 +76,14 @@ class LoginFilter(
         try {
             //user-service 에서 자체 로그인 후 정보 받아오기
             val commonResponse = userServiceClient.selfLogin(loginRequest)
-                ?: throw AuthenticationServiceException(UserErrorCode.USER_RESPONSE_EXCEPTION.toString())
+                ?: throw AuthenticationServiceException(AuthErrorCode.USER_RESPONSE_EXCEPTION.toString())
             val dataMap = commonResponse.body?.data as? Map<*, *>
             val userLoginResponse = dataMap?.let {
                 UserLoginResponse(
                     userId = (it["userId"] as? Number)?.toLong(),
                     role = it["role"] as? String ?: Role.USER.toString()
                 )
-            } ?: throw AuthenticationServiceException(UserErrorCode.USER_RESPONSE_EXCEPTION.toString())
+            } ?: throw AuthenticationServiceException(AuthErrorCode.USER_RESPONSE_EXCEPTION.toString())
 
 
             val customUserDetails = CustomUserDetails(
@@ -100,12 +100,12 @@ class LoginFilter(
             )
 
         } catch (e: FeignException) {
-            val userException = when (e) {
-                is FeignException.NotFound -> UserException(UserErrorCode.USER_NOT_FOUND)
-                is FeignException.Conflict -> UserException(UserErrorCode.INVALID_OLD_PASSWORD)
-                else -> UserException(UserErrorCode.SERVER_COMMUNICATION_EXCEPTION)
+            val authException = when (e) {
+                is FeignException.NotFound -> AuthException(AuthErrorCode.USER_NOT_FOUND)
+                is FeignException.Conflict -> AuthException(AuthErrorCode.INVALID_OLD_PASSWORD)
+                else -> AuthException(AuthErrorCode.SERVER_COMMUNICATION_EXCEPTION)
             }
-            throw AuthenticationServiceException(userException.message, userException)
+            throw AuthenticationServiceException(authException.message, authException)
         }
 
     }

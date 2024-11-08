@@ -11,7 +11,7 @@ import org.ssmartoffice.authenticationservice.client.response.UserLoginResponse
 import org.ssmartoffice.authenticationservice.domain.CustomUserDetails
 import org.ssmartoffice.authenticationservice.domain.OAuth2UserInfo
 import org.ssmartoffice.authenticationservice.domain.Role
-import org.ssmartoffice.authenticationservice.exception.UserErrorCode
+import org.ssmartoffice.authenticationservice.exception.AuthErrorCode
 
 @Service
 class CustomOauth2UserService(
@@ -32,7 +32,7 @@ class CustomOauth2UserService(
                 userId = (it["userId"] as? Number)?.toLong(),
                 role = it["role"] as? String ?: Role.USER.toString()
             )
-        } ?: throw AuthenticationServiceException(UserErrorCode.USER_RESPONSE_EXCEPTION.toString())
+        } ?: throw AuthenticationServiceException(AuthErrorCode.USER_RESPONSE_EXCEPTION.toString())
 
         return CustomUserDetails(
             userId = userLoginResponse.userId ?: throw AuthenticationServiceException("User ID is missing"),

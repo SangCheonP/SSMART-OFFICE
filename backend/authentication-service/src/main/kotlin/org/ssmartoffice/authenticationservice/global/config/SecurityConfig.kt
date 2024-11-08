@@ -18,6 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.ssmartoffice.authenticationservice.client.UserServiceClient
 import org.ssmartoffice.authenticationservice.global.jwt.JwtTokenProvider
 import org.ssmartoffice.authenticationservice.infrastructure.CookieAuthorizationRequestRepository
+import org.ssmartoffice.authenticationservice.security.filter.JwtAuthenticationFilter
 import org.ssmartoffice.authenticationservice.security.filter.LoginFilter
 import org.ssmartoffice.authenticationservice.security.handler.OAuth2AuthenticationFailureHandler
 import org.ssmartoffice.authenticationservice.security.handler.OAuth2AuthenticationSuccessHandler
@@ -34,6 +35,10 @@ class SecurityConfig(
     val userServiceClient: UserServiceClient
 ) {
 
+    private val skipUrls = arrayOf(
+        "/api/v1/auth/login",
+        "/api/v1/auth/token/refresh"
+    )
 
     @Bean
     @Throws(Exception::class)
@@ -44,9 +49,12 @@ class SecurityConfig(
             )
         val authenticationManager: AuthenticationManager = authenticationManagerBuilder.build()
 
-        val loginFilter = LoginFilter(authenticationManager, jwtTokenProvider, userServiceClient)
+        val jwtFilter = JwtAuthenticationFilter(jwtTokenProvider)
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter::class.java)
 
+        val loginFilter = LoginFilter(authenticationManager, jwtTokenProvider, userServiceClient)
         http.authenticationManager(authenticationManager)
+        http.addFilterAt(loginFilter, UsernamePasswordAuthenticationFilter::class.java)
 
         http
             .httpBasic { obj: HttpBasicConfigurer<HttpSecurity?> -> obj.disable() }
@@ -60,7 +68,8 @@ class SecurityConfig(
 
         http
             .authorizeHttpRequests { authz ->
-                authz.anyRequest().permitAll()
+                authz.requestMatchers(*skipUrls).permitAll()
+                    .anyRequest().authenticated()
             }
 
         //oauth2Login
@@ -80,8 +89,6 @@ class SecurityConfig(
                 .successHandler(oAuth2AuthenticationSuccessHandler)
                 .failureHandler(oAuth2AuthenticationFailureHandler)
         }
-
-        http.addFilterAt(loginFilter, UsernamePasswordAuthenticationFilter::class.java)
 
         return http.build()
     }

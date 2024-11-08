@@ -1,14 +1,17 @@
 package org.ssmartoffice.authenticationservice.controller
 
-import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import lombok.RequiredArgsConstructor
 import lombok.extern.slf4j.Slf4j
 import org.springframework.http.ResponseEntity
+import org.springframework.security.core.Authentication
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import org.ssmartoffice.authenticationservice.controller.request.TokenRefreshRequest
+import org.ssmartoffice.authenticationservice.domain.CustomUserDetails
+import org.ssmartoffice.authenticationservice.global.dto.CommonResponse
 import org.ssmartoffice.authenticationservice.service.AuthService
 
 @RestController
@@ -16,20 +19,22 @@ import org.ssmartoffice.authenticationservice.service.AuthService
 @Slf4j
 @RequestMapping("/api/v1/auth")
 class AuthController(
-    val authService: AuthService
+    val authService: AuthService,
+    val httpServletResponse: HttpServletResponse
 ) {
 
-    @PostMapping("/refresh")
-    fun refreshToken(
-        request: HttpServletRequest,
-        response: HttpServletResponse,
-        @RequestBody accessToken: Map<String, String>
-    ): ResponseEntity<Map<String, Any>> {
-        val token = authService.refreshToken(accessToken["accessToken"] ?: "")
-        val result: MutableMap<String, Any> = HashMap()
-        result["msg"] = "토큰 갱신에 성공했습니다."
-        result["data"] = token
+    @PostMapping("/token/refresh")
+    fun refreshToken(@RequestBody request: TokenRefreshRequest): ResponseEntity<CommonResponse> {
+        val newAccessToken = authService.refreshToken(request)
+        httpServletResponse.addHeader("Authorization", "Bearer $newAccessToken")
+        return CommonResponse.created("토큰 갱신에 성공했습니다.")
+    }
 
-        return ResponseEntity.ok().body(result)
+    @PostMapping("/logout")
+    fun refreshToken(authentication: Authentication): ResponseEntity<CommonResponse> {
+        val userDetails = authentication.principal as CustomUserDetails
+        println("userDetails = ${userDetails}")
+        authService.deleteToken(userDetails)
+        return CommonResponse.created("로그아웃에 성공했습니다.")
     }
 }
