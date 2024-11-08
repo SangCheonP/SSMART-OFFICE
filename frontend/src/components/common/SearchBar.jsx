@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "@/styles/Message/Message.module.css";
-import Search from "../../assets/Common/Search.svg?react";
+import Search from "@/assets/Common/Search.svg?react";
 
 const SearchBar = ({ placeholder = "직원을 검색하세요" }) => {
   return (

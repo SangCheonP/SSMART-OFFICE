@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import MemberList from "../components/Message/MemberList";
+import MemberList from "@/components/Message/MemberList";
 import styles from "@/styles/Message/Message.module.css";
 import AddMember from "@/assets/Message/AddMember.svg?react";
-import Chat from "../components/Message/Chat";
-import SearchBar from "../components/common/SearchBar";
+import Chat from "@/components/Message/Chat";
+import SearchBar from "@/components/common/SearchBar";
 
 const Message = () => {
   const [selectedMember, setSelectedMember] = useState(null);
