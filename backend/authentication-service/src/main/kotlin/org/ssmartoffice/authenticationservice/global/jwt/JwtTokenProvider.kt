@@ -4,7 +4,9 @@ import io.jsonwebtoken.*
 import io.jsonwebtoken.io.Decoders
 import io.jsonwebtoken.security.Keys
 import jakarta.servlet.http.HttpServletResponse
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.http.ResponseCookie
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Component
 import org.ssmartoffice.authenticationservice.domain.CustomUserDetails
 import java.security.Key
 import java.util.*
+import java.time.Duration
 
 
 @Component
@@ -20,8 +23,10 @@ class JwtTokenProvider(
     @Value("\${app.auth.token.secret-key}")
     val secretKey: String,
     @Value("\${app.auth.token.refresh-token-key}")
-    val COOKIE_REFRESH_TOKEN_KEY: String
+    val COOKIE_REFRESH_TOKEN_KEY: String,
 ) {
+    @Autowired
+    private lateinit var redisTemplate: RedisTemplate<String, String>
 
     final val SECRET_KEY: Key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey))
 
@@ -43,9 +48,9 @@ class JwtTokenProvider(
     }
 
     private fun saveRefreshToken(authentication: Authentication, refreshToken: String) {
-//        val userId: Long? = (authentication.principal as CustomUserDetails).userId
-        (authentication.principal as CustomUserDetails).updateRefreshToken(refreshToken)
-        //TODO: 리프레시 토큰 저장
+        val userDetails = authentication.principal as CustomUserDetails
+        val expireDuration = Duration.ofMillis(REFRESH_TOKEN_EXPIRE_LENGTH)
+        redisTemplate.opsForValue().set("${userDetails.email}-refresh", refreshToken, expireDuration)
     }
 
     fun createRefreshToken(authentication: Authentication, response: HttpServletResponse) {
@@ -86,9 +91,6 @@ class JwtTokenProvider(
             email = email,
             password = ""
         )
-
-        println("😮😮😮😮customUserDetails = ${customUserDetails}")
-
         return UsernamePasswordAuthenticationToken(customUserDetails, "", listOf(authority))
     }
 
