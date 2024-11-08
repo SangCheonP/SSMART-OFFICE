@@ -11,7 +11,9 @@ const MyInfo = () => {
       </div>
       <div className={styles.right}>
         <div className={styles.imageBox}>
-          <img src={Profile} alt="" />
+          <div>
+            <img src={Profile} alt="" />
+          </div>
         </div>
         <div className={styles.content}>
           <div className={styles.title}>
