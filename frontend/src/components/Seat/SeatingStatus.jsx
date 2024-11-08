@@ -1,7 +1,7 @@
 import { PropTypes } from "prop-types";
 import { memo, useMemo } from "react";
 
-import styles from "./../../styles/Seat/SeatingStatus.module.css";
+import styles from "@/styles/Seat/SeatingStatus.module.css";
 
 const SeatingStatus = memo(({ floor, occupant, totalNumber }) => {
   const occupantMap = useMemo(() => {
