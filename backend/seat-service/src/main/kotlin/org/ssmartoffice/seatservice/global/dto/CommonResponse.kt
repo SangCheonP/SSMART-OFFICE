@@ -1,10 +1,10 @@
-package org.ssmartoffice.userservice.global.dto
+package org.ssmartoffice.seatservice.global.dto
 
 import com.fasterxml.jackson.annotation.JsonInclude
-import org.ssmartoffice.userservice.global.const.successcode.SuccessCode
 import lombok.Builder
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.ssmartoffice.seatservice.global.const.successcode.SuccessCode
 
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
