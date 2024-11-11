@@ -119,8 +119,10 @@ class JwtTokenProvider(
     }
 
     companion object {
-        private const val REFRESH_TOKEN_EXPIRE_LENGTH = 1000L * 60 * 60 * 24 * 7
-        private const val ACCESS_TOKEN_EXPIRE_LENGTH = 1000L * 60 * 60 * 2 // 2시간
+        //        private const val REFRESH_TOKEN_EXPIRE_LENGTH = 1000L * 60 * 60 * 24 * 7
+//        private const val ACCESS_TOKEN_EXPIRE_LENGTH = 1000L * 60 * 60 * 2 // 2시간
+        private const val REFRESH_TOKEN_EXPIRE_LENGTH = 1000L * 60 * 60 * 24 * 15
+        private const val ACCESS_TOKEN_EXPIRE_LENGTH = 1000L * 60 * 60 * 24 * 15 // 15일
         private const val AUTHORITIES_KEY = "role"
         private const val ID_KEY = "id"
     }
