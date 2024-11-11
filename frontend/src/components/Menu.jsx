@@ -2,7 +2,7 @@ import MenuButton from "@/components/common/MenuButton";
 import HomeIcon from "@/assets/Menu/SSMART OFFICE.svg?react";
 import { NavLink, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import useAuthStore from "@/store/authStore";
+import useAuthStore from "@/store/useAuthStore";
 
 import styles from "@/styles/Menu/Menu.module.css";
 
