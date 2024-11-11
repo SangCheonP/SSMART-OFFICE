@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import useAuthStore from "@/store/authStore";
+import useAuthStore from "@/store/useAuthStore";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "@/styles/Login/GoogleLogin.module.css";
 import GoogleIcon from "@/assets/Login/GoogleIcon.svg?react";
