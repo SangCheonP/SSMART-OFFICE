@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-ingress-service
+  namespace: dev
+spec:
+  type: NodePort
+  selector:
+    app.kubernetes.io/name: nginx-ingress
+  ports:
+    - name: http          # HTTP 포트 이름
+      port: 80
+      targetPort: 80
+      protocol: TCP
+      nodePort: 30080     # HTTP용 NodePort
+    - name: https         # HTTPS 포트 이름
+      port: 443
+      targetPort: 443
+      protocol: TCP
+      nodePort: 30443     # HTTPS용 NodePort
+

@@ -18,14 +18,38 @@ class JwtAuthenticationFilter(
     private val tokenProvider: JwtTokenProvider
 ) : WebFilter {
 
+    companion object {
+        private val PUBLIC_PATHS = listOf(
+            // 인증 관련
+            "/api/v1/auth/login",
+            "/api/v1/auth/oauth2/authorization/**",
+            "/api/v1/auth/oauth2/code/**",
+            "/api/v1/auth/token/refresh",
+
+            // 내부 통신
+            "/api/v1/users/internal/**",
+        )
+    }
+
     override fun filter(exchange: ServerWebExchange, chain: WebFilterChain): Mono<Void> {
+        val path = exchange.request.uri.path
+        if (isPublicPath(path)) {
+            return chain.filter(exchange)
+        }
+
         val token = extractToken(exchange.request)
-
-        logger.info { "token: $token" }
-
         return tokenProvider.validateToken(token, exchange)
             .then(chain.filter(exchange))
+    }
 
+    private fun isPublicPath(path: String): Boolean {
+        return PUBLIC_PATHS.any { pattern ->
+            if (pattern.endsWith("/**")) {
+                path.startsWith(pattern.removeSuffix("/**"))
+            } else {
+                path == pattern
+            }
+        }
     }
 
     private fun extractToken(request: ServerHttpRequest): String? {
