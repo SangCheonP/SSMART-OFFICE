@@ -1,0 +1,31 @@
+controller:
+  # Jenkins UI에 접근할 포트 설정
+  serviceType: NodePort
+  nodePort: 30000  # Jenkins UI용 NodePort
+
+  # 관리자 계정 설정
+  admin:
+    username: "admin"       # 관리자 계정 ID
+    password: "a77981010!"  # 관리자 계정 비밀번호 (필요 시 더 강력한 비밀번호 사용)
+
+  # Jenkins 환경 변수 설정 (업데이트 센터 미러 사이트)
+  env:
+    - name: JENKINS_UC
+      value: "https://mirrors.jenkins.io/updates" # 업데이트 센터 미러 설정
+    - name: JENKINS_UC_EXPERIMENTAL
+      value: "https://mirrors.jenkins.io/experimental"
+    - name: JENKINS_INCREMENTALS_REPO_MIRROR
+      value: "https://repo.jenkins-ci.org/incrementals"
+
+  # 볼륨과 볼륨 마운트에서 jenkins-secrets 볼륨을 제거합니다.
+  volumes: []           # 불필요한 기본 볼륨을 명시적으로 비웁니다.
+  volumeMounts: []      # 불필요한 기본 볼륨 마운트를 명시적으로 비웁니다.
+
+# PVC 설정
+persistence:
+  enabled: true
+  existingClaim: "jenkins-pvc"  # 미리 생성한 PVC 이름을 참조
+
+# 추가적인 Jenkins 설정
+jenkinsHome: /var/jenkins_home  # Jenkins 데이터가 저장될 경로 (기본 경로 사용)
+

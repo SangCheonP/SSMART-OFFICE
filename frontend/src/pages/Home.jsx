@@ -9,12 +9,12 @@ const Home = () => {
 
   const monthData = [
     {
-      date: "2024-11-06",
+      date: "2024-11-29",
       name: "코드",
       type: "WORK",
     },
     {
-      date: "2024-11-06",
+      date: "2024-11-29",
       name: "코드 리뷰 반영 및 수정2",
       type: "WORK",
     },
@@ -34,9 +34,19 @@ const Home = () => {
       type: "HOLIDAY",
     },
     {
-      date: "2024-11-04",
+      date: "2024-11-29",
       name: "회의",
       type: "MEETING",
+    },
+    {
+      date: "2024-11-04",
+      name: "코드 리뷰 반영 및 수정",
+      type: "WORK",
+    },
+    {
+      date: "2024-11-04",
+      name: "코드 리뷰 반영 및 수정",
+      type: "WORK",
     },
     {
       date: "2024-11-04",

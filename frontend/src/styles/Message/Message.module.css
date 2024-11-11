@@ -11,11 +11,7 @@
   border-radius: 10px;
   padding: 35px;
 }
-.add_member {
-  position: absolute;
-  top: 30px;
-  right: 30px;
-}
+
 .member_list {
   display: flex;
   flex-direction: column;

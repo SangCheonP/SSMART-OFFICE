@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-pv
+  namespace: db
+spec:
+  capacity:
+    storage: 10Gi  # PVC와 일치하는 저장 용량
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: manual  # StorageClassName을 수동으로 설정
+  hostPath:
+    path: /home/ubuntu/storage/pv/mysql
+  nodeAffinity:  # 특정 노드에만 연결되도록 설정
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - ip-172-31-27-204  # Worker Node 2의 이름

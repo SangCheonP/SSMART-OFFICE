@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import MemberList from "@/components/Message/MemberList";
 import styles from "@/styles/Message/Message.module.css";
-import AddMember from "@/assets/Message/AddMember.svg?react";
 import Chat from "@/components/Message/Chat";
 import SearchBar from "@/components/common/SearchBar";
 
@@ -51,7 +50,7 @@ const Message = () => {
     <div className={styles.message_container}>
       <div className={styles.member_box}>
         <SearchBar />
-        {/* <AddMember className={styles.add_member} /> */}
+
         <MemberList
           memberData={memberData}
           onMemberSelect={handleMemberSelect}

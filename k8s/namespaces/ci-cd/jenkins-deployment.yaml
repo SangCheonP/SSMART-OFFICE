@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins-deployment
+  namespace: ci-cd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins
+  template:
+    metadata:
+      labels:
+        app: jenkins
+    spec:
+      dnsPolicy: None # Kubernetes의 기본 DNS 설정을 사용하지 않도록 설정
+      dnsConfig:
+        nameservers:
+          - 8.8.8.8
+          - 8.8.4.4
+        options:
+          - name: ndots
+            value: "5"
+      nodeSelector:
+        name: Worker1
+      containers:
+        - name: jenkins
+          image: jenkins/jenkins:lts
+          ports:
+            - containerPort: 8080  # Jenkins 기본 포트
+            - containerPort: 50000 # Jenkins 에이전트 포트
+          env:
+            - name: TZ
+              value: "Asia/Seoul"
+          volumeMounts:
+            - name: jenkins-pvc
+              mountPath: /var/jenkins_home  # Jenkins의 데이터 저장 경로
+      volumes:
+        - name: jenkins-pvc
+          persistentVolumeClaim:
+            claimName: jenkins-pvc # Connect With PVC
+

@@ -64,7 +64,11 @@
   text-decoration: underline;
 }
 .todoList {
-  margin-top: 41px;
+  margin-top: 51px;
+}
+.todoItem {
+  padding: 15px;
+  border-bottom: 1px solid #a0a0a050;
 }
 .todoItem label {
   display: flex;
