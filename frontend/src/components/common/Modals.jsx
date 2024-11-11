@@ -1,4 +1,4 @@
-import useModalStore from "@/store/modalStore";
+import useModalStore from "@/store/useModalStore";
 
 const Modals = () => {
   const { modals, closeModal } = useModalStore();

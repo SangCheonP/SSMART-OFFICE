@@ -2,7 +2,7 @@ import Home from "@/assets/Menu/SSMART OFFICE.svg?react";
 import Camera from "@/assets/Modals/Camera.svg?react";
 import Profile from "@/assets/Common/Profile.png";
 
-import useModalStore from "@/store/modalStore";
+import useModalStore from "@/store/useModalStore";
 import ChangePasswordModal from "@/components/Modals/ChangePasswordModal";
 import ChangeInfoModal from "@/components/Modals/ChangeInfoModal";
 import ChangeImageModal from "@/components/Modals/ChangeImageModal";

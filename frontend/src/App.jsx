@@ -3,7 +3,7 @@ import Login from "@/pages/Login.jsx";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "@/styles/Reset.css";
 
-import useAuthStore from "@/store/authStore";
+import useAuthStore from "@/store/useAuthStore";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Modals from "@/components/common/Modals";
 
