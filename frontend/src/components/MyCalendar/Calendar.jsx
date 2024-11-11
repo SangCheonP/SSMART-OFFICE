@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import { format, parse, startOfWeek, getDay } from "date-fns";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { ko } from "date-fns/locale";
+import { ko, enUS } from "date-fns/locale";
 import Toolbar from "./Toolbar";
 import styles from "@/styles/Home/Calendar.module.css";
 import "@/styles/Home/Calendar.css";
 
-const locales = { ko };
+const locales = { ko, enUS };
 const localizer = dateFnsLocalizer({
   format,
   parse,
@@ -15,6 +15,10 @@ const localizer = dateFnsLocalizer({
   getDay,
   locales,
 });
+const formats = {
+  weekdayFormat: (date, culture, localizer) =>
+    localizer.format(date, "EEE", culture === "ko" ? enUS : culture),
+};
 
 const CustomEvent = ({ event }) => {
   let circleColor = "";
@@ -86,7 +90,6 @@ const MyCalendar = ({ monthData, attendanceData, onDateSelect }) => {
       type: item.type,
     }));
 
-    // 출근/퇴근 이벤트가 상단에 오도록 정렬
     const allEvents = [...formattedAttendanceEvents, ...formattedMonthEvents];
 
     allEvents.sort((a, b) => {
@@ -107,6 +110,7 @@ const MyCalendar = ({ monthData, attendanceData, onDateSelect }) => {
       defaultView="month"
       events={events}
       className={styles.calendar}
+      formats={formats}
       components={{
         toolbar: Toolbar,
         event: CustomEvent,

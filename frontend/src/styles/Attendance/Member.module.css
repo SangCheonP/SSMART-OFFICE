@@ -1,3 +1,7 @@
+.member_container {
+  margin: 25px 67px 0 67px;
+  display: flex;
+}
 .member_box {
   position: relative;
   width: 30vw;
@@ -5,4 +9,86 @@
   background-color: white;
   border-radius: 10px;
   padding: 35px;
+}
+.search_box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search_bar {
+  flex: 1;
+  margin-right: 5px;
+}
+
+.add_member {
+  cursor: pointer;
+}
+
+.member_list {
+  display: flex;
+  flex-direction: column;
+}
+.todo_container {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 10px;
+  margin-left: 25px;
+  width: 30vw;
+  height: 800px;
+}
+.calendar_box {
+  width: 100%;
+  height: 450px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  margin-top: 35px;
+}
+.member_name {
+  text-align: start;
+  color: var(--text-blue);
+  font-size: 20px;
+  margin-right: 8px;
+}
+.todo_box {
+  margin: 10px 10px 10px 40px;
+  display: flex;
+  align-items: end;
+  font-weight: 500;
+}
+.toolbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.toolbarGroup {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 500;
+}
+.dateGroup {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+.leftButton {
+  border: none;
+  margin-right: 13px;
+  background-color: transparent;
+  cursor: pointer;
+}
+.rightButton {
+  fill: var(--text-description);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin-left: 13px;
+}
+.calendar_form {
+  width: 100%;
+  padding: 5%;
 }
