@@ -5,6 +5,7 @@ import "@/styles/Reset.css";
 
 import useAuthStore from "@/store/authStore";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Modals from "@/components/common/Modals";
 
 const App = () => {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
@@ -20,6 +21,7 @@ const App = () => {
           <Route path="/*" element={<AppRoutes />} />
         )}
       </Routes>
+      <Modals />
     </BrowserRouter>
   );
 };
