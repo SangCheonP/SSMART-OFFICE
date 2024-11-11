@@ -46,9 +46,13 @@ class JwtTokenProvider(
         errorAttributes["status"] = errorCode.httpStatus.value()
         errorAttributes["name"] = errorCode.name
         errorAttributes["message"] = errorCode.message
-        exchange.response.setStatusCode(errorCode.httpStatus)
-        exchange.response.headers.contentType = MediaType.APPLICATION_JSON
-        return exchange.response.writeWith(
-            Mono.just(exchange.response.bufferFactory().wrap(ObjectMapper().writeValueAsBytes(errorAttributes))))
+
+        val response = exchange.response
+        response.statusCode = errorCode.httpStatus
+        response.headers.contentType = MediaType.APPLICATION_JSON
+
+        val buffer = response.bufferFactory().wrap(ObjectMapper().writeValueAsBytes(errorAttributes))
+        return response.writeWith(Mono.just(buffer))
     }
+
 }

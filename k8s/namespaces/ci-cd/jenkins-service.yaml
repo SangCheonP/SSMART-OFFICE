@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-service
+  namespace: ci-cd
+spec:
+  type: NodePort
+  ports:
+    - name: http
+      port: 8080  # Jenkins의 기본 포트
+      targetPort: 8080
+      nodePort: 30000  # 외부에서 접근할 포트
+    - name: agent
+      port: 50000 # Jenkins 에이전트 포트
+      targetPort: 50000
+      nodePort: 30001
+  selector:
+    app: jenkins
+
