@@ -14,12 +14,19 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await api.post("https://k11b202.p.ssafy.io/api/v1/auth/login", {
-        email : email,
-        password : password,
-      });
-      setAuth(true, data.accessToken, data.user);
-      console.log("성공 : " + data)
+      const response = await axios.post(
+        "https://k11b202.p.ssafy.io/api/v1/auth/login",
+        {
+          email: email,
+          password: password,
+        }
+      );
+
+      const accessToken = response.headers["authorization"];
+      console.log(accessToken);
+      console.log(response);
+      console.log(response.headers);
+      setAuth(true, accessToken);
     } catch (error) {
       console.log("로그인 실패 : " + error);
     }
