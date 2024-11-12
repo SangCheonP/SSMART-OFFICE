@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface AssignmentJpaRepository : JpaRepository<AssignmentEntity, Long> {
     fun findByUserIdAndDate(userId: Long, date: String): List<AssignmentEntity>
+    fun findByUserIdAndDateBetween(userId: Long, startDate: String, endDate: String): List<AssignmentEntity>
 }

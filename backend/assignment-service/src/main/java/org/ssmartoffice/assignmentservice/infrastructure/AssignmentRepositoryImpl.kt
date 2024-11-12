@@ -17,4 +17,14 @@ class AssignmentRepositoryImpl(
             assignmentEntity.toModel()
         }
     }
+
+    override fun findByUserIdAndDateBetween(
+        userId: Long,
+        startDate: String,
+        endDate: String
+    ): List<Assignment> {
+        return assignmentJpaRepository.findByUserIdAndDateBetween(userId, startDate, endDate).map { assignmentEntity ->
+            assignmentEntity.toModel()
+        }
+    }
 }

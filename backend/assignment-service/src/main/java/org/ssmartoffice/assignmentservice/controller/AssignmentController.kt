@@ -5,14 +5,13 @@ import org.ssmartoffice.assignmentservice.controller.port.AssignmentService
 import org.ssmartoffice.assignmentservice.controller.request.AssignmentRegisterRequest
 import org.ssmartoffice.assignmentservice.controller.response.AssignmentDetailResponse
 import jakarta.validation.Valid
-import jakarta.validation.constraints.Max
-import jakarta.validation.constraints.Min
 import jakarta.validation.constraints.Pattern
 import org.springframework.security.core.Authentication
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
-import org.ssmartoffice.assignmentservice.controller.response.AssignmentInfoResponse
+import org.ssmartoffice.assignmentservice.controller.response.AssignmentSummaryResponse
+
 
 @RestController
 @RequestMapping("/api/v1/assignments")
@@ -56,11 +55,14 @@ class AssignmentController(
     fun getMyMonthlyAssignmentsSummary(
         @RequestParam @Pattern(regexp = "^\\d{6}$", message = "month는 YYYYMM 형식의 6자리여야 합니다.") month: String,
         authentication: Authentication
-    ): ResponseEntity<CommonResponse<AssignmentDetailResponse?>> {
+    ): ResponseEntity<CommonResponse<List<AssignmentSummaryResponse>?>> {
         val userId = authentication.principal as Long
-//        val user = assignmentService.findUserByUserId(userId)
+        val assignments = assignmentService.findUserAssignmentByDate(userId, month)
+        val assignmentSummaries: List<AssignmentSummaryResponse> = assignments.map { assignment ->
+            AssignmentSummaryResponse.fromModel(assignment)
+        }
         return CommonResponse.ok(
-//            data = AssignmentDetailResponse.fromModel(user),
+            data = assignmentSummaries,
             msg = "내 일정 월별 요약 조회에 성공했습니다."
         )
     }

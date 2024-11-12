@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository
 interface AssignmentRepository {
     fun save(assignment: Assignment): Assignment
     fun findByUserIdAndDate(userId: Long, date: String): List<Assignment>
+    fun findByUserIdAndDateBetween(userId: Long, startDate: String, endDate: String): List<Assignment>
 }

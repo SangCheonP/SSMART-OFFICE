@@ -5,7 +5,7 @@ import org.ssmartoffice.assignmentservice.domain.AssignmentType
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-data class AssignmentInfoResponse(
+data class AssignmentSummaryResponse(
     val id: Long = 0,
     var name: String,
     var date: LocalDate,
@@ -14,11 +14,11 @@ data class AssignmentInfoResponse(
     companion object {
         private val formatter = DateTimeFormatter.ofPattern("yyyyMMdd")
 
-        fun fromModel(assignment: Assignment): AssignmentInfoResponse {
-            return AssignmentInfoResponse(
+        fun fromModel(assignment: Assignment): AssignmentSummaryResponse {
+            return AssignmentSummaryResponse(
                 id = assignment.id,
                 name = assignment.name,
-                date = LocalDate.parse(assignment.date, formatter), // Parsing yyyyMMdd to LocalDate
+                date = LocalDate.parse(assignment.date, formatter),
                 type = assignment.type
             )
         }
