@@ -10,7 +10,8 @@ const GoogleLogin = () => {
   const navigate = useNavigate();
 
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:8081/oauth2/authorization/google";
+    window.location.href =
+      "https://k11b202.p.ssafy.io/oauth2/authorization/google";
   };
 
   useEffect(() => {
