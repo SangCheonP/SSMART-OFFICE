@@ -26,20 +26,34 @@ class OAuth2AuthenticationFailureHandler(
         response: HttpServletResponse,
         exception: AuthenticationException
     ) {
-        if (exception is OAuth2AuthenticationException) {
-            response.sendRedirect("http://localhost:3000/?approved=false")
-            return
-        }
+//        if (exception is OAuth2AuthenticationException) {
+//            response.sendRedirect("http://localhost:3000/error")
+//            return
+//        }
 
-        var targetUrl: String = cookieUtil.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME)
-            .map { obj: Cookie -> obj.value }
-            .orElse("")
+//        var targetUrl: String = cookieUtil.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME)
+//            .map { obj: Cookie -> obj.value }
+//            .orElse("")
+//
+//        targetUrl = UriComponentsBuilder.fromUriString(targetUrl)
+//            .queryParam("error", exception.localizedMessage)
+//            .build().toUriString()
 
-        targetUrl = UriComponentsBuilder.fromUriString(targetUrl)
+        // 무조건 특정 에러 페이지로 리다이렉트
+        val errorRedirectUrl = "https://k11b202.p.ssafy.io/error"
+
+        // 오류 메시지 추가
+        val redirectUrl = UriComponentsBuilder.fromUriString(errorRedirectUrl)
             .queryParam("error", exception.localizedMessage)
             .build().toUriString()
 
+        // 쿠키 정리
         authorizationRequestRepository.removeAuthorizationRequestCookies(request, response)
-        redirectStrategy.sendRedirect(request, response, targetUrl)
+
+        // 에러 페이지로 리다이렉트
+        redirectStrategy.sendRedirect(request, response, redirectUrl)
+
+//        authorizationRequestRepository.removeAuthorizationRequestCookies(request, response)
+//        redirectStrategy.sendRedirect(request, response, targetUrl)
     }
 }
