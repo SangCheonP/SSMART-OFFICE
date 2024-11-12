@@ -10,6 +10,7 @@
 .right {
   background-color: #fff;
   border-radius: 20px;
+  align-content: center;
 }
 
 .buttonContainer {

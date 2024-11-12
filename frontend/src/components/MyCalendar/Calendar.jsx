@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import { format, parse, startOfWeek, getDay } from "date-fns";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { ko } from "date-fns/locale";
+import { ko, enUS } from "date-fns/locale";
 import Toolbar from "./Toolbar";
 import styles from "@/styles/Home/Calendar.module.css";
 import "@/styles/Home/Calendar.css";
 
-const locales = { ko };
+const locales = { ko, enUS };
 const localizer = dateFnsLocalizer({
   format,
   parse,
@@ -15,10 +15,15 @@ const localizer = dateFnsLocalizer({
   getDay,
   locales,
 });
+const formats = {
+  weekdayFormat: (date, culture, localizer) =>
+    localizer.format(date, "EEE", culture === "ko" ? enUS : culture),
+};
 
 const CustomEvent = ({ event }) => {
   let circleColor = "";
   let displayTitle = "";
+  let textColor = "#000";
 
   switch (event.type) {
     case "HOLIDAY":
@@ -37,6 +42,14 @@ const CustomEvent = ({ event }) => {
       circleColor = "#32CD32"; // 녹색
       displayTitle = "TODO";
       break;
+    case "START":
+      displayTitle = `출근 ${format(event.start, "HH:mm")}`;
+      textColor = "#6D91F2";
+      break;
+    case "END":
+      displayTitle = `퇴근 ${format(event.start, "HH:mm")}`;
+      textColor = "#6D91F2";
+      break;
     default:
       circleColor = "#808080"; // 기본 회색
   }
@@ -53,23 +66,42 @@ const CustomEvent = ({ event }) => {
           marginRight: "5px",
         }}
       ></span>
-      <span style={{ fontSize: "13px" }}>{displayTitle}</span>
+      <span style={{ fontSize: "13px", color: textColor }}>{displayTitle}</span>
     </div>
   );
 };
 
-const MyCalendar = ({ monthData, onDateSelect }) => {
+const MyCalendar = ({ monthData, attendanceData, onDateSelect }) => {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    const formattedEvents = monthData.map((item) => ({
-      start: new Date(item.date),
-      end: new Date(item.date),
+    const formattedAttendanceEvents = attendanceData.map((item) => ({
+      start: new Date(item.attendanceTime),
+      end: new Date(item.attendanceTime),
+      title: item.attendanceType === "START" ? "출근" : "퇴근",
+      type: item.attendanceType,
+    }));
+
+    // 시간순 정렬이라 일정은 임의로 지정
+    const formattedMonthEvents = monthData.map((item) => ({
+      start: new Date(new Date(item.date).setHours(23, 59, 0)),
+      end: new Date(new Date(item.date).setHours(23, 59, 0)),
       title: item.name,
       type: item.type,
     }));
-    setEvents(formattedEvents);
-  }, [monthData]);
+
+    const allEvents = [...formattedAttendanceEvents, ...formattedMonthEvents];
+
+    allEvents.sort((a, b) => {
+      if (a.type === "START") return -1;
+      if (b.type === "START") return 1;
+      if (a.type === "END") return -1;
+      if (b.type === "END") return 1;
+      return a.start - b.start;
+    });
+
+    setEvents(allEvents);
+  }, [monthData, attendanceData]);
 
   return (
     <Calendar
@@ -78,12 +110,13 @@ const MyCalendar = ({ monthData, onDateSelect }) => {
       defaultView="month"
       events={events}
       className={styles.calendar}
+      formats={formats}
       components={{
         toolbar: Toolbar,
         event: CustomEvent,
       }}
       selectable
-      onSelectSlot={(slotInfo) => onDateSelect(slotInfo.start)} // 클릭된 날짜 전달
+      onSelectSlot={(slotInfo) => onDateSelect(slotInfo.start)}
       onSelectEvent={(event) => {
         alert(`클릭함 ${event.title}`);
       }}
