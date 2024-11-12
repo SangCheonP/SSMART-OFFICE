@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 
-import Profile from "@/assets/Common/profile.png";
+import Profile from "@/assets/Common/Profile.png";
 
 import styles from "@/styles/ImageUpload.module.css";
 

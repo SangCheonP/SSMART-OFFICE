@@ -1,49 +1,63 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MemberList from "@/components/Message/MemberList";
 import styles from "@/styles/Attendance/Member.module.css";
 import AddMember from "@/assets/Message/AddMember.svg?react";
 import SearchBar from "@/components/common/SearchBar";
 import AttendanceCalendar from "@/components/Attendance/AttendanceCalendar";
+import { fetchUserList } from "@/services/attendance.js";
 
 const Attendance = () => {
   const [selectedMember, setSelectedMember] = useState(null);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [memberData, setMemberData] = useState([]);
   // 임시 데이터
-  const memberData = [
-    {
-      userId: 1,
-      employeeNumber: "S000001",
-      email: "gildong@gmail.com",
-      name: "김진기",
-      position: "사장",
-      duty: "AI & 하드웨어",
-      profileImageUrl: "http://s3.gildong.png",
-      status: "ACTIVE",
-      createdAt: "2024-11-03T16:36:24.768188800",
-    },
-    {
-      userId: 2,
-      employeeNumber: "S000002",
-      email: "gildong@gmail.com",
-      name: "박상천",
-      position: "이사",
-      duty: "인프라",
-      profileImageUrl: "http://s3.gildong.png",
-      status: "OFF_DUTY",
-      createdAt: "2024-11-03T16:36:24.768188800",
-    },
-    {
-      userId: 3,
-      employeeNumber: "S000003",
-      email: "gildong@gmail.com",
-      name: "이소연",
-      position: "사원",
-      duty: "프론트엔드 & 디자인",
-      profileImageUrl: "http://s3.gildong.png",
-      status: "INACTIVE",
-      createdAt: "2024-11-03T16:36:24.768188800",
-    },
-  ];
+  // const memberData = [
+  //   {
+  //     userId: 1,
+  //     employeeNumber: "S000001",
+  //     email: "gildong@gmail.com",
+  //     name: "김진기",
+  //     position: "사장",
+  //     duty: "AI & 하드웨어",
+  //     profileImageUrl: "http://s3.gildong.png",
+  //     status: "ACTIVE",
+  //     createdAt: "2024-11-03T16:36:24.768188800",
+  //   },
+  //   {
+  //     userId: 2,
+  //     employeeNumber: "S000002",
+  //     email: "gildong@gmail.com",
+  //     name: "박상천",
+  //     position: "이사",
+  //     duty: "인프라",
+  //     profileImageUrl: "http://s3.gildong.png",
+  //     status: "OFF_DUTY",
+  //     createdAt: "2024-11-03T16:36:24.768188800",
+  //   },
+  //   {
+  //     userId: 3,
+  //     employeeNumber: "S000003",
+  //     email: "gildong@gmail.com",
+  //     name: "이소연",
+  //     position: "사원",
+  //     duty: "프론트엔드 & 디자인",
+  //     profileImageUrl: "http://s3.gildong.png",
+  //     status: "INACTIVE",
+  //     createdAt: "2024-11-03T16:36:24.768188800",
+  //   },
+  // ];
+
+  useEffect(() => {
+    fetchUserList()
+      .then((response) => {
+        console.log(response.data);
+        setMemberData(response.data.data.content);
+      })
+      .catch((error) => {
+        console.error("사용자 데이터를 가져오는 중 오류 발생:", error);
+      });
+  }, []);
+
   const handleMemberSelect = (name) => {
     const selected = memberData.find((member) => member.name === name);
     setSelectedMember(selected);
