@@ -37,4 +37,5 @@ class InternalUserController(
             msg = "자체 로그인에 성공했습니다."
         )
     }
+
 }
