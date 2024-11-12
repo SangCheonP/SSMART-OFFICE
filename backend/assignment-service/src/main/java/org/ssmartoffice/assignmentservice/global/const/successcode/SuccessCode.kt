@@ -1,4 +1,4 @@
-package org.ssmartoffice.userservice.global.const.successcode
+package org.ssmartoffice.assignmentservice.global.const.successcode
 
 import org.springframework.http.HttpStatus
 

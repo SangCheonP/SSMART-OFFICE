@@ -1,7 +1,7 @@
-package org.ssmartoffice.userservice.global.config
+package org.ssmartoffice.assignmentservice.global.config
 
-import org.ssmartoffice.userservice.global.jwt.JwtAuthenticationFilter
-import org.ssmartoffice.userservice.global.jwt.JwtUtil
+import org.ssmartoffice.assignmentservice.global.jwt.JwtAuthenticationFilter
+import org.ssmartoffice.assignmentservice.global.jwt.JwtUtil
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.Customizer
@@ -18,10 +18,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 class SecurityConfig(
     private val jwtUtil: JwtUtil
 ) {
-    private val skipUrls = arrayOf(
-        "/api/v1/users/internal/login",
-        "/api/v1/users/internal/authentication"
-    )
 
     @Bean
     @Throws(Exception::class)
@@ -37,12 +33,11 @@ class SecurityConfig(
                 http
                     .authorizeHttpRequests { authz ->
                         authz
-                            .requestMatchers(*skipUrls).permitAll()
                             .anyRequest().authenticated()
                     }
             }
             .addFilterBefore(
-                JwtAuthenticationFilter(jwtUtil, skipUrls),
+                JwtAuthenticationFilter(jwtUtil),
                 UsernamePasswordAuthenticationFilter::class.java
             )
 

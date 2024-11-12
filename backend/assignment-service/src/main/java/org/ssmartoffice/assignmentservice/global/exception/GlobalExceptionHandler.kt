@@ -1,9 +1,9 @@
-package org.ssmartoffice.userservice.global.exception
+package org.ssmartoffice.assignmentservice.global.exception
 
-import org.ssmartoffice.userservice.global.dto.ErrorResponse
+import org.ssmartoffice.assignmentservice.global.dto.ErrorResponse
 import io.github.oshai.kotlinlogging.KotlinLogging
-import org.ssmartoffice.userservice.global.const.errorcode.CommonErrorCode
-import org.ssmartoffice.userservice.global.const.errorcode.ErrorCode
+import org.ssmartoffice.assignmentservice.global.const.errorcode.CommonErrorCode
+import org.ssmartoffice.assignmentservice.global.const.errorcode.ErrorCode
 import lombok.extern.slf4j.Slf4j
 import org.hibernate.exception.ConstraintViolationException
 import org.springframework.http.HttpHeaders
@@ -20,7 +20,7 @@ import org.springframework.web.context.request.WebRequest
 import org.springframework.web.method.annotation.HandlerMethodValidationException
 import org.springframework.web.server.ResponseStatusException
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
-import org.ssmartoffice.userservice.global.const.errorcode.AssignmentErrorCode
+import org.ssmartoffice.assignmentservice.global.const.errorcode.AssignmentErrorCode
 import java.util.stream.Collectors
 
 private val logger = KotlinLogging.logger {}

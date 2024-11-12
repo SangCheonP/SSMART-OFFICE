@@ -1,6 +1,6 @@
-package org.ssmartoffice.userservice.global.jwt
+package org.ssmartoffice.assignmentservice.global.jwt
 
-import org.ssmartoffice.userservice.service.port.AssignmentRepository
+import org.ssmartoffice.assignmentservice.service.port.AssignmentRepository
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts

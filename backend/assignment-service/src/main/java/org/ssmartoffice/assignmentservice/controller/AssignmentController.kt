@@ -1,9 +1,9 @@
-package org.ssmartoffice.userservice.controller
+package org.ssmartoffice.assignmentservice.controller
 
-import org.ssmartoffice.userservice.global.dto.CommonResponse
-import org.ssmartoffice.userservice.controller.port.AssignmentService
+import org.ssmartoffice.assignmentservice.global.dto.CommonResponse
+import org.ssmartoffice.assignmentservice.controller.port.AssignmentService
 import org.ssmartoffice.assignmentservice.controller.request.AssignmentRegisterRequest
-import org.ssmartoffice.userservice.controller.response.AssignmentDetailResponse
+import org.ssmartoffice.assignmentservice.controller.response.AssignmentDetailResponse
 import jakarta.validation.Valid
 import org.springframework.security.core.Authentication
 import org.springframework.http.ResponseEntity
@@ -17,9 +17,12 @@ class AssignmentController(
     
     @PostMapping
     fun registerAssignment(
-        @RequestBody @Valid assignmentRegisterRequest: AssignmentRegisterRequest
+        @RequestBody @Valid assignmentRegisterRequest: AssignmentRegisterRequest,
+        authentication: Authentication
     ): ResponseEntity<CommonResponse<AssignmentDetailResponse?>> {
-        val registeredAssignment = assignmentService.addAssignment(assignmentRegisterRequest)
+        val userId = authentication.principal as Long
+        val registeredAssignment = assignmentService.addAssignment(userId,assignmentRegisterRequest)
+
         return CommonResponse.created(
             data = AssignmentDetailResponse.fromModel(registeredAssignment),
             msg = "일정 등록에 성공하였습니다."

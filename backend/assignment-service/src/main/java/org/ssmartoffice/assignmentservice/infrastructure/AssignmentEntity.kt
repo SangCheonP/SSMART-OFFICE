@@ -1,6 +1,6 @@
-package org.ssmartoffice.userservice.infrastructure
+package org.ssmartoffice.assignmentservice.infrastructure
 
-import org.ssmartoffice.userservice.domain.Assignment
+import org.ssmartoffice.assignmentservice.domain.Assignment
 import jakarta.persistence.*
 import org.ssmartoffice.assignmentservice.domain.AssignmentType
 import java.time.LocalDate

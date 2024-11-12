@@ -1,33 +1,24 @@
-package org.ssmartoffice.userservice.controller.response
+package org.ssmartoffice.assignmentservice.controller.response
 
 import org.ssmartoffice.userservice.domain.Role
-import org.ssmartoffice.userservice.domain.Assignment
+import org.ssmartoffice.assignmentservice.domain.Assignment
+import org.ssmartoffice.assignmentservice.domain.AssignmentType
 
 class AssignmentDetailResponse(
     val id: Long = 0,
-    val employeeNumber: String,
-    val email: String,
     val name: String,
-    val position: String,
-    val duty: String,
-    val profileImageUrl: String,
-    var role: Role,
-    val status: UserStatus,
-    val phoneNumber:String?
+    val description: String,
+    val type: AssignmentType,
+    val completed: Boolean
 ) {
     companion object {
         fun fromModel(assignment: Assignment): AssignmentDetailResponse {
             return AssignmentDetailResponse(
                 id = assignment.id,
-                email = assignment.email,
                 name = assignment.name,
-                position = assignment.position,
-                duty = assignment.duty,
-                profileImageUrl = assignment.profileImageUrl,
-                role = assignment.role,
-                employeeNumber = assignment.employeeNumber,
-                status = assignment.status,
-                phoneNumber = assignment.phoneNumber
+                description = assignment.description,
+                type = assignment.type,
+                completed = assignment.completed
             )
         }
     }

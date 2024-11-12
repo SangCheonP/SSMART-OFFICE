@@ -1,7 +1,7 @@
-package org.ssmartoffice.userservice.global.dto
+package org.ssmartoffice.assignmentservice.global.dto
 
 import com.fasterxml.jackson.annotation.JsonInclude
-import org.ssmartoffice.userservice.global.const.successcode.SuccessCode
+import org.ssmartoffice.assignmentservice.global.const.successcode.SuccessCode
 import lombok.Builder
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

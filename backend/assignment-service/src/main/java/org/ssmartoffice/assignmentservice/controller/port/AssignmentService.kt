@@ -1,11 +1,8 @@
-package org.ssmartoffice.userservice.controller.port
+package org.ssmartoffice.assignmentservice.controller.port
 
-import org.ssmartoffice.userservice.domain.Assignment
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable
+import org.ssmartoffice.assignmentservice.domain.Assignment
 import org.ssmartoffice.assignmentservice.controller.request.AssignmentRegisterRequest
-import org.ssmartoffice.userservice.controller.request.*
 
 interface AssignmentService {
-    fun addAssignment(assignmentRegisterRequest: AssignmentRegisterRequest): Assignment
+    fun addAssignment(userId: Long, assignmentRegisterRequest: AssignmentRegisterRequest): Assignment
 }

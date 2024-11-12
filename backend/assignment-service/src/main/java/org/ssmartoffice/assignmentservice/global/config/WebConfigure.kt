@@ -1,4 +1,4 @@
-package org.ssmartoffice.userservice.global.config
+package org.ssmartoffice.assignmentservice.global.config
 
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.servlet.config.annotation.CorsRegistry

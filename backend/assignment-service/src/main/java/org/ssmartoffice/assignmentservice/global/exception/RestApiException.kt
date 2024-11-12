@@ -1,6 +1,6 @@
-package org.ssmartoffice.userservice.global.exception
+package org.ssmartoffice.assignmentservice.global.exception
 
-import org.ssmartoffice.userservice.global.const.errorcode.ErrorCode
+import org.ssmartoffice.assignmentservice.global.const.errorcode.ErrorCode
 
 class RestApiException(val errorCode: ErrorCode) : RuntimeException() {
 

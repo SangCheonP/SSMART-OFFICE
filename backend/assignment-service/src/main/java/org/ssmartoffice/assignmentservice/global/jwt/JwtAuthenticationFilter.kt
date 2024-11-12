@@ -1,4 +1,4 @@
-package org.ssmartoffice.userservice.global.jwt
+package org.ssmartoffice.assignmentservice.global.jwt
 
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
@@ -7,19 +7,11 @@ import org.hibernate.query.sqm.tree.SqmNode.log
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 import org.springframework.web.filter.OncePerRequestFilter
 
 class JwtAuthenticationFilter(
     private val jwtUtil: JwtUtil,
-    private val skipUrls: Array<String>
 ) : OncePerRequestFilter() {
-
-    override fun shouldNotFilter(request: HttpServletRequest): Boolean {
-        return skipUrls.any { path ->
-            AntPathRequestMatcher(path).matches(request)
-        }
-    }
 
     override fun doFilterInternal(
         request: HttpServletRequest,

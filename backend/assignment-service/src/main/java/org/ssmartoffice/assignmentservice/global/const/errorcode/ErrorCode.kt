@@ -1,4 +1,4 @@
-package org.ssmartoffice.userservice.global.const.errorcode
+package org.ssmartoffice.assignmentservice.global.const.errorcode
 
 import org.springframework.http.HttpStatus
 import java.io.Serializable

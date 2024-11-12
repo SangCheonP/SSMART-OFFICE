@@ -1,7 +1,6 @@
-package org.ssmartoffice.userservice.domain
+package org.ssmartoffice.assignmentservice.domain
 
 import org.ssmartoffice.assignmentservice.controller.request.AssignmentRegisterRequest
-import org.ssmartoffice.assignmentservice.domain.AssignmentType
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -9,7 +8,7 @@ class Assignment(
     val id: Long = 0,
     val userId: Long = 0,
     val name: String = "",
-    val date: String = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")),
+    val date: String = "",
     val type: AssignmentType = AssignmentType.TASK,
     val description: String = "",
     val completed: Boolean = false,
@@ -19,17 +18,15 @@ class Assignment(
     companion object {
 
         fun fromRequest(
+            userId: Long,
             assignmentRegisterRequest: AssignmentRegisterRequest
         ): Assignment {
             return Assignment(
-                email = userRegisterRequest.email,
-                password = userRegisterRequest.password,
-                name = userRegisterRequest.name,
-                position = userRegisterRequest.position,
-                duty = userRegisterRequest.duty,
-                profileImageUrl = userRegisterRequest.profileImageUrl,
-                employeeNumber = userRegisterRequest.employeeNumber,
-                phoneNumber = userRegisterRequest.phoneNumber
+                userId = userId,
+                name = assignmentRegisterRequest.name,
+                date = assignmentRegisterRequest.date.format(DateTimeFormatter.ofPattern("yyyyMMdd")),
+                type = assignmentRegisterRequest.type,
+                description = assignmentRegisterRequest.description
             )
         }
     }

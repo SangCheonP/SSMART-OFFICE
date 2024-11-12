@@ -1,4 +1,4 @@
-package org.ssmartoffice.userservice.global.dto
+package org.ssmartoffice.assignmentservice.global.dto
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import org.springframework.validation.FieldError
