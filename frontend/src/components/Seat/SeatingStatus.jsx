@@ -1,7 +1,7 @@
 import { PropTypes } from "prop-types";
 import { memo, useMemo } from "react";
 
-import styles from "./../../styles/Seat/SeatingStatus.module.css";
+import styles from "@/styles/Seat/SeatingStatus.module.css";
 
 const SeatingStatus = memo(({ floor, occupant, totalNumber }) => {
   const occupantMap = useMemo(() => {
@@ -11,11 +11,12 @@ const SeatingStatus = memo(({ floor, occupant, totalNumber }) => {
     }, {});
   }, [occupant]);
 
+  console.log(occupantMap);
   const seatNumbers = Array.from({ length: totalNumber }, (_, i) => i + 1);
 
   return (
     <>
-      <h2>{floor}F</h2>
+      <h2 className={styles.floor}>{floor}F</h2>
       <div className={styles.container}>
         {seatNumbers.map((seatNumber) => {
           const seatData = occupantMap[seatNumber];
@@ -40,13 +41,14 @@ const SeatingStatus = memo(({ floor, occupant, totalNumber }) => {
           return (
             <div key={seatNumber} className={`${styles.seat} ${statusClass}`}>
               {seatData ? (
-                <>
-                  <div>{seatData.name}</div>
-                  <div>{seatData.position}</div>
-                  <div>{seatData.role}</div>
-                </>
+                <div className={styles.box}>
+                  <div className={styles.role}>{seatData.role}</div>
+                  <div className={styles.positionName}>
+                    {seatData.position} {seatData.name}
+                  </div>
+                </div>
               ) : (
-                <div>{seatNumber}</div>
+                <div className={styles.number}>{seatNumber}</div>
               )}
             </div>
           );

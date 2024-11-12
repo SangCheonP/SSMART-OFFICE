@@ -10,6 +10,7 @@ const Header = () => {
     "/seat": "좌석 현황",
     "/mypage": "마이페이지",
     "/message": "사내 메시지",
+    "/attendance": "사원 관리",
   };
 
   const currentKey = Object.keys(pageTitle).find((key) =>
