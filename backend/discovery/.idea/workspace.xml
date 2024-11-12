@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f47fd7da-4914-49a4-b27d-0472ddf6d08e" name="변경" comment="">
+      <change beforePath="$PROJECT_DIR$/../attendance-server/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/.gradle/8.10.2/checksums/checksums.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/.gradle/8.10.2/dependencies-accessors/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/.gradle/8.10.2/executionHistory/executionHistory.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/.gradle/8.10.2/executionHistory/executionHistory.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/.gradle/8.10.2/fileChanges/last-build.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/.gradle/8.10.2/fileHashes/fileHashes.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/.gradle/8.10.2/fileHashes/fileHashes.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/.gradle/8.10.2/fileHashes/resourceHashesCache.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/.gradle/8.10.2/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/.gradle/file-system.probe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/.gradle/vcs-1/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/.idea/git_toolbox_blame.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/.idea/kotlinc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/HELP.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/classes/kotlin/main/META-INF/attendance-server.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/classes/kotlin/main/org/ssmartoffice/attendanceserver/AttendanceServerApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/classes/kotlin/main/org/ssmartoffice/attendanceserver/AttendanceServerApplicationKt.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/classes/kotlin/main/org/ssmartoffice/attendanceserver/client/UserServiceClient.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/classes/kotlin/main/org/ssmartoffice/attendanceserver/controller/AttendanceController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/classes/kotlin/main/org/ssmartoffice/attendanceserver/controller/port/AttendanceService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/classes/kotlin/main/org/ssmartoffice/attendanceserver/controller/response/AttendanceResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/classes/kotlin/main/org/ssmartoffice/attendanceserver/domain/Attendance.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/classes/kotlin/main/org/ssmartoffice/attendanceserver/global/config/SecurityConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/classes/kotlin/main/org/ssmartoffice/attendanceserver/global/config/WebConfigure.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/classes/kotlin/main/org/ssmartoffice/attendanceserver/global/const/errorcode/CommonErrorCode.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/classes/kotlin/main/org/ssmartoffice/attendanceserver/global/const/errorcode/ErrorCode.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/classes/kotlin/main/org/ssmartoffice/attendanceserver/global/const/errorcode/UserErrorCode.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/classes/kotlin/main/org/ssmartoffice/attendanceserver/global/const/successcode/SuccessCode.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/classes/kotlin/main/org/ssmartoffice/attendanceserver/global/dto/CommonResponse$Companion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/classes/kotlin/main/org/ssmartoffice/attendanceserver/global/dto/CommonResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/classes/kotlin/main/org/ssmartoffice/attendanceserver/global/dto/ErrorResponse$ValidationError$Companion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/classes/kotlin/main/org/ssmartoffice/attendanceserver/global/dto/ErrorResponse$ValidationError.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/classes/kotlin/main/org/ssmartoffice/attendanceserver/global/dto/ErrorResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/classes/kotlin/main/org/ssmartoffice/attendanceserver/global/exception/GlobalExceptionHandler$makeErrorResponse$validationErrorList$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/classes/kotlin/main/org/ssmartoffice/attendanceserver/global/exception/GlobalExceptionHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/classes/kotlin/main/org/ssmartoffice/attendanceserver/global/exception/GlobalExceptionHandlerKt$logger$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/classes/kotlin/main/org/ssmartoffice/attendanceserver/global/exception/GlobalExceptionHandlerKt.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/classes/kotlin/main/org/ssmartoffice/attendanceserver/global/exception/RestApiException$Companion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/classes/kotlin/main/org/ssmartoffice/attendanceserver/global/exception/RestApiException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/classes/kotlin/main/org/ssmartoffice/attendanceserver/global/jwt/JwtAuthenticationFilter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/classes/kotlin/main/org/ssmartoffice/attendanceserver/global/jwt/JwtUtil$Companion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/classes/kotlin/main/org/ssmartoffice/attendanceserver/global/jwt/JwtUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/classes/kotlin/main/org/ssmartoffice/attendanceserver/infrastructure/AttendanceEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/classes/kotlin/main/org/ssmartoffice/attendanceserver/service/AttendanceServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/classes/kotlin/main/org/ssmartoffice/attendanceserver/service/port/AttendanceRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/inputs/source-to-output.tab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.keystream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.keystream.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.values.at" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/inputs/source-to-output.tab_i" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/inputs/source-to-output.tab_i.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.keystream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.keystream.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.values.at" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab_i" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab_i.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.keystream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.keystream.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.values.at" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab_i" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab_i.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/constants.tab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/constants.tab.keystream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/constants.tab.keystream.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/constants.tab.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/constants.tab.values.at" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/constants.tab_i" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/constants.tab_i.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.keystream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.keystream.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.values.at" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab_i" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab_i.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/package-parts.tab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/package-parts.tab.keystream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/package-parts.tab.keystream.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/package-parts.tab.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/package-parts.tab.values.at" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/package-parts.tab_i" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/package-parts.tab_i.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.keystream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.keystream.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.values.at" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab_i" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab_i.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.keystream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.keystream.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.values.at" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab_i" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab_i.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.keystream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.keystream.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.values.at" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab_i" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab_i.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.keystream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.keystream.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.values.at" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab_i" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab_i.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/counters.tab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/file-to-id.tab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.keystream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.keystream.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.values.at" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/file-to-id.tab_i" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/file-to-id.tab_i.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/id-to-file.tab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.keystream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.keystream.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.values.at" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/id-to-file.tab_i" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/id-to-file.tab_i.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/lookups.tab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/lookups.tab.keystream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/lookups.tab.keystream.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/lookups.tab.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/lookups.tab.values.at" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/lookups.tab_i" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/lookups.tab_i.len" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/cacheable/last-build.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/classpath-snapshot/shrunk-classpath-snapshot.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/kotlin/compileKotlin/local-state/build-history.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/build/resources/main/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/src/main/kotlin/org/ssmartoffice/attendanceserver/AttendanceServerApplication.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/src/main/kotlin/org/ssmartoffice/attendanceserver/client/UserServiceClient.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/src/main/kotlin/org/ssmartoffice/attendanceserver/client/response/UserAuthenticationResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/src/main/kotlin/org/ssmartoffice/attendanceserver/client/response/UserInfoResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/src/main/kotlin/org/ssmartoffice/attendanceserver/controller/AttendanceController.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/src/main/kotlin/org/ssmartoffice/attendanceserver/controller/port/AttendanceService.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/src/main/kotlin/org/ssmartoffice/attendanceserver/controller/response/AttendanceResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/src/main/kotlin/org/ssmartoffice/attendanceserver/domain/Attendance.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/src/main/kotlin/org/ssmartoffice/attendanceserver/domain/AttendanceType.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/src/main/kotlin/org/ssmartoffice/attendanceserver/domain/Role.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/src/main/kotlin/org/ssmartoffice/attendanceserver/global/config/SecurityConfig.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/src/main/kotlin/org/ssmartoffice/attendanceserver/global/config/WebConfigure.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/src/main/kotlin/org/ssmartoffice/attendanceserver/global/const/errorcode/AttendanceErrorCode.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/src/main/kotlin/org/ssmartoffice/attendanceserver/global/const/errorcode/CommonErrorCode.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/src/main/kotlin/org/ssmartoffice/attendanceserver/global/const/errorcode/ErrorCode.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/src/main/kotlin/org/ssmartoffice/attendanceserver/global/const/errorcode/UserErrorCode.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/src/main/kotlin/org/ssmartoffice/attendanceserver/global/const/successcode/SuccessCode.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/src/main/kotlin/org/ssmartoffice/attendanceserver/global/dto/CommonResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/src/main/kotlin/org/ssmartoffice/attendanceserver/global/dto/ErrorResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/src/main/kotlin/org/ssmartoffice/attendanceserver/global/exception/GlobalExceptionHandler.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/src/main/kotlin/org/ssmartoffice/attendanceserver/global/exception/RestApiException.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/src/main/kotlin/org/ssmartoffice/attendanceserver/global/jwt/JwtAuthenticationFilter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/src/main/kotlin/org/ssmartoffice/attendanceserver/global/jwt/JwtUtil.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/src/main/kotlin/org/ssmartoffice/attendanceserver/infrastructure/AttendanceEntity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/src/main/kotlin/org/ssmartoffice/attendanceserver/infrastructure/AttendanceJpaRepository.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/src/main/kotlin/org/ssmartoffice/attendanceserver/infrastructure/AttendanceRepositoryImpl.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/src/main/kotlin/org/ssmartoffice/attendanceserver/service/AttendanceServiceImpl.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/src/main/kotlin/org/ssmartoffice/attendanceserver/service/port/AttendanceRepository.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendance-server/src/test/kotlin/org/ssmartoffice/attendanceserver/AttendanceServerApplicationTests.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/ssmartoffice/discovery/DiscoveryApplication.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/org/ssmartoffice/discovery/DiscoveryApplicationTests.kt" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="discovery" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="backend" />
+                    <option name="lastUsedInstant" value="1731372423" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="backend-attendance" />
+                    <option name="lastUsedInstant" value="1731371431" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="backend-sem" />
+                    <option name="lastUsedInstant" value="1731050515" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="backend-nfc" />
+                    <option name="lastUsedInstant" value="1731028421" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="backend-file" />
+                    <option name="lastUsedInstant" value="1731024443" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$/../.." />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
+  </component>
+  <component name="PerforceDirect.Settings">
+    <option name="CHARSET" value="없음" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2oSHZvSkJXq7XX5cqCN2ILRbuxj" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showScratchesAndConsoles" value="false" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.Build discovery.executor": "Run",
+    "Gradle.discovery 빌드.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.DiscoveryApplication (1).executor": "Run",
+    "Spring Boot.DiscoveryApplication (2).executor": "Run",
+    "Spring Boot.DiscoveryApplication.executor": "Run",
+    "git-widget-placeholder": "backend",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/SSAFY/Desktop/자율 프로젝트/S11P31B202/backend/discovery/build.gradle",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "프로젝트",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "kotlin-gradle-user-dirs": [
+      "C:\\Users\\SSAFY\\.gradle"
+    ]
+  }
+}]]></component>
+  <component name="RunManager" selected="Spring Boot.DiscoveryApplication (1)">
+    <configuration name="DiscoveryApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="discovery.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.ssmartoffice.discovery.DiscoveryApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.ssmartoffice.discovery.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DiscoveryApplication (2)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="discovery.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.example.discovery.DiscoveryApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DiscoveryApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="Kotlin SDK" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <module name="discovery.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.ssmartoffice.discovery.DiscoveryApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Spring Boot.DiscoveryApplication (2)" />
+      <item itemvalue="Spring Boot.DiscoveryApplication" />
+      <item itemvalue="Spring Boot.DiscoveryApplication (1)" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.DiscoveryApplication (1)" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="디폴트 작업">
+      <changelist id="f47fd7da-4914-49a4-b27d-0472ddf6d08e" name="변경" comment="" />
+      <created>1730856116698</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1730856116698</updated>
+      <workItem from="1730856118135" duration="4090000" />
+      <workItem from="1730868005999" duration="3306000" />
+      <workItem from="1730872942002" duration="150000" />
+      <workItem from="1730873102718" duration="8987000" />
+      <workItem from="1731041293403" duration="2935000" />
+      <workItem from="1731196803893" duration="1917000" />
+      <workItem from="1731288509059" duration="1523000" />
+      <workItem from="1731305287062" duration="4031000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
