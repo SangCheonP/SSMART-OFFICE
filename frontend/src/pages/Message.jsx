@@ -4,7 +4,7 @@ import styles from "@/styles/Message/Message.module.css";
 import Chat from "@/components/Message/Chat";
 import SearchBar from "@/components/common/SearchBar";
 
-const Message = () => {
+function Message() {
   const [selectedMember, setSelectedMember] = useState(null);
   // 임시 데이터
   const memberData = [
@@ -64,6 +64,6 @@ const Message = () => {
       )}
     </div>
   );
-};
+}
 
 export default Message;
