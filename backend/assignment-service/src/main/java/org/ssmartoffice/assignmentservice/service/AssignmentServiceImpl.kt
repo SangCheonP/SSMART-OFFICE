@@ -15,4 +15,9 @@ class AssignmentServiceImpl(
         val assignment = Assignment.fromRequest(userId, assignmentRegisterRequest)
         return assignmentRepository.save(assignment)
     }
+
+    override fun findUserAssignmentByDate(userId: Long, month: String, day: String): List<Assignment> {
+        val formattedDate = "$month$day"
+        return assignmentRepository.findByUserIdAndDate(userId,formattedDate)
+    }
 }

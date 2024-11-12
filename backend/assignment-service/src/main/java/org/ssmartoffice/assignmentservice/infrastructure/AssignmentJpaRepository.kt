@@ -5,4 +5,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface AssignmentJpaRepository : JpaRepository<AssignmentEntity, Long> {
+    fun findByUserIdAndDate(userId: Long, date: String): List<AssignmentEntity>
 }

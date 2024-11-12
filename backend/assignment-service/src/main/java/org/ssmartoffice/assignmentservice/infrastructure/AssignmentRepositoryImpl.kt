@@ -11,4 +11,10 @@ class AssignmentRepositoryImpl(
     override fun save(assignment: Assignment): Assignment {
         return assignmentJpaRepository.save(AssignmentEntity.fromModel(assignment)).toModel()
     }
+
+    override fun findByUserIdAndDate(userId: Long, date: String): List<Assignment> {
+        return assignmentJpaRepository.findByUserIdAndDate(userId, date).map { assignmentEntity ->
+            assignmentEntity.toModel()
+        }
+    }
 }

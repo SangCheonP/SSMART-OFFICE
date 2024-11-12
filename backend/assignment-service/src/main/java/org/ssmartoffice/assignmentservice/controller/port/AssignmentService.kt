@@ -5,4 +5,5 @@ import org.ssmartoffice.assignmentservice.controller.request.AssignmentRegisterR
 
 interface AssignmentService {
     fun addAssignment(userId: Long, assignmentRegisterRequest: AssignmentRegisterRequest): Assignment
+    fun findUserAssignmentByDate(userId: Long, month: String, day: String): List<Assignment>
 }
