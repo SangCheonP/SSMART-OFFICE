@@ -5,6 +5,8 @@ import org.ssmartoffice.assignmentservice.domain.Assignment
 import org.ssmartoffice.assignmentservice.service.port.AssignmentRepository
 import org.springframework.stereotype.Service
 import org.ssmartoffice.assignmentservice.controller.request.AssignmentRegisterRequest
+import org.ssmartoffice.assignmentservice.global.const.errorcode.AssignmentErrorCode
+import org.ssmartoffice.assignmentservice.global.exception.AssignmentException
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 
@@ -28,5 +30,15 @@ class AssignmentServiceImpl(
         val startFormattedDate = "$month$01"
         val endFormattedDate = "$month${yearMonth.lengthOfMonth()}"
         return assignmentRepository.findByUserIdAndDateBetween(userId, startFormattedDate, endFormattedDate)
+    }
+
+    override fun toggleAssignmentStatus(userId: Long, assignmentId: Long): Assignment {
+        val assignment: Assignment = assignmentRepository.findById(assignmentId)
+        if (assignment.userId != userId) {
+            throw AssignmentException(AssignmentErrorCode.ACCESS_DENIED_ASSIGNMENT)
+        }
+        assignment.toggleCompleteStatus()
+        assignmentRepository.save(assignment)
+        return assignment
     }
 }

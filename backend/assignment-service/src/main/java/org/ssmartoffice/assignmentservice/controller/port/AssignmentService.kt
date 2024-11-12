@@ -7,4 +7,5 @@ interface AssignmentService {
     fun addAssignment(userId: Long, assignmentRegisterRequest: AssignmentRegisterRequest): Assignment
     fun findUserAssignmentByDate(userId: Long, month: String, day: String): List<Assignment>
     fun findUserAssignmentByDate(userId: Long, month: String): List<Assignment>
+    fun toggleAssignmentStatus(userId: Long, assignmentId: Long): Assignment
 }

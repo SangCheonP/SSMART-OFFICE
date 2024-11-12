@@ -11,9 +11,13 @@ class Assignment(
     val date: String = "",
     val type: AssignmentType = AssignmentType.TASK,
     val description: String = "",
-    val completed: Boolean = false,
+    var completed: Boolean = false,
     val deleted: Boolean = false
 ) {
+
+    fun toggleCompleteStatus() {
+        completed = !completed
+    }
 
     companion object {
 

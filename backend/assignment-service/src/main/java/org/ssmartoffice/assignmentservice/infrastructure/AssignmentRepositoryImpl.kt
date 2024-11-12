@@ -3,6 +3,8 @@ package org.ssmartoffice.assignmentservice.infrastructure
 import org.ssmartoffice.assignmentservice.domain.Assignment
 import org.ssmartoffice.assignmentservice.service.port.AssignmentRepository
 import org.springframework.stereotype.Repository
+import org.ssmartoffice.assignmentservice.global.const.errorcode.AssignmentErrorCode
+import org.ssmartoffice.assignmentservice.global.exception.AssignmentException
 
 @Repository
 class AssignmentRepositoryImpl(
@@ -26,5 +28,11 @@ class AssignmentRepositoryImpl(
         return assignmentJpaRepository.findByUserIdAndDateBetween(userId, startDate, endDate).map { assignmentEntity ->
             assignmentEntity.toModel()
         }
+    }
+
+    override fun findById(assignmentId: Long): Assignment {
+        return assignmentJpaRepository.findById(assignmentId)
+            .orElseThrow { AssignmentException(AssignmentErrorCode.NOT_FOUND_ASSIGNMENT) }
+            .toModel()
     }
 }
