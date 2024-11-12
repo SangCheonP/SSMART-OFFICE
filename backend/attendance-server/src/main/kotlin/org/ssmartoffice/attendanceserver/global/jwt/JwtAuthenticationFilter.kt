@@ -20,7 +20,6 @@ class JwtAuthenticationFilter(
         val authHeader = request.getHeader("Authorization")
         val claims = jwtUtil.parseClaims(authHeader.substring(7))
         val role = claims[JwtUtil.AUTHORITIES_KEY, String::class.java]
-        val id= claims[JwtUtil.ID_KEY, Integer::class.java].toLong()
         val email = claims.subject
 
         val authorities = listOf(SimpleGrantedAuthority(role))
