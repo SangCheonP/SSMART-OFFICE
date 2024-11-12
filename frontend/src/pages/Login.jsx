@@ -14,7 +14,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await api.post("http://k11b202.p.ssafy.io/api/v1/auth/login", {
+      const { data } = await api.post("https://k11b202.p.ssafy.io/api/v1/auth/login", {
         email : email,
         password : password,
       });
