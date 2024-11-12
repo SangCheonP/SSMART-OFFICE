@@ -3,7 +3,7 @@ import useAuthStore from "@/store/useAuthStore";
 import Cookies from "js-cookie";
 
 const api = axios.create({
-  baseURL: "http://localhost:8081", // 기본 URL
+  baseURL: "https://k11b202.p.ssafy.io", // 기본 URL
   withCredentials: true,
 });
 
