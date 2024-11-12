@@ -9,3 +9,27 @@ export const fetchCalendarData = (month, day) => {
 export const fetchAttendanceData = (month, day) => {
   return api.get(`/api/v1/attendances/me?month=${month}&day=${day}`);
 };
+
+// 일정 추가
+export const addCalendarEvent = (
+  assignmentName,
+  assignmentDate,
+  assignmentType,
+  description,
+  token
+) => {
+  return api.post(
+    "/api/v1/assignments/assignments",
+    {
+      assignmentName,
+      assignmentDate,
+      assignmentType,
+      description,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+};

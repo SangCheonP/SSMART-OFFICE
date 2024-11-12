@@ -26,11 +26,11 @@ const CustomEvent = ({ event }) => {
   let textColor = "#000";
 
   switch (event.type) {
-    case "HOLIDAY":
+    case "ANNUAL_LEAVE":
       circleColor = "#FF6347"; // 빨간색
       displayTitle = "연차";
       break;
-    case "SICK":
+    case "EARLY_LEAVE":
       circleColor = "#FFD700"; // 노란색
       displayTitle = "조퇴";
       break;
@@ -38,9 +38,13 @@ const CustomEvent = ({ event }) => {
       circleColor = "#1E90FF"; // 파란색
       displayTitle = "회의";
       break;
-    case "WORK":
+    case "TASK":
       circleColor = "#32CD32"; // 녹색
       displayTitle = "TODO";
+      break;
+    case "OTHER":
+      circleColor = "#A0A0A0"; // 회색
+      displayTitle = "기타";
       break;
     case "START":
       displayTitle = `출근 ${format(event.start, "HH:mm")}`;
