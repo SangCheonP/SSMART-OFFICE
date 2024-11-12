@@ -1,10 +1,10 @@
 import { useState } from "react";
 import Icon from "@/assets/Login/LoginImage.svg?react";
-import api from "@/services/api";
 import useAuthStore from "@/store/useAuthStore";
 
 import styles from "@/styles/Login/Login.module.css";
 import GoogleLogin from "@/components/Login/GoogleLogin";
+import axios from "axios";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -14,11 +14,18 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await api.post("/일반로그인 주소", {
-        email,
-        password,
-      });
-      setAuth(true, data.accessToken, data.user);
+      const response = await axios.post(
+        "https://k11b202.p.ssafy.io/api/v1/auth/login",
+        {
+          email: email,
+          password: password,
+        }
+      );
+
+      const accessToken = response.headers["authorization"];
+      console.log(accessToken);
+      console.log(response.headers);
+      setAuth(true, accessToken);
     } catch (error) {
       console.log("로그인 실패 : " + error);
     }

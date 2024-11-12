@@ -3,12 +3,14 @@ import useAuthStore from "@/store/useAuthStore";
 import Cookies from "js-cookie";
 
 const api = axios.create({
-  baseURL: "http://localhost:8081", // 기본 URL
+  baseURL: "https://k11b202.p.ssafy.io/api/v1", // 기본 URL
   withCredentials: true,
 });
 
 api.interceptors.request.use((config) => {
-  const { accessToken } = useAuthStore.getState();
+  // const { accessToken } = useAuthStore.getState();
+  const accessToken = "";
+
   if (accessToken) {
     config.headers["Authorization"] = `Bearer ${accessToken}`;
   }

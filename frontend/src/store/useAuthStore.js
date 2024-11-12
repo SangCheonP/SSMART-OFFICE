@@ -11,7 +11,6 @@ const useAuthStore = create(
         isAuthenticated: true,
         accessToken,
       });
-      console.log(accessToken);
     },
     clearAuth: () => {
       set({
