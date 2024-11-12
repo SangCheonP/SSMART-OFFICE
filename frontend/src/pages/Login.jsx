@@ -14,11 +14,12 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await api.post("/일반로그인 주소", {
-        email,
-        password,
+      const { data } = await api.post("http://k11b202.p.ssafy.io/api/v1/auth/login", {
+        email : email,
+        password : password,
       });
       setAuth(true, data.accessToken, data.user);
+      console.log("성공 : " + data)
     } catch (error) {
       console.log("로그인 실패 : " + error);
     }
