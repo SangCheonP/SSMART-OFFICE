@@ -4,11 +4,25 @@
   height: 80vh;
   padding: 35px;
   border-radius: 10px;
-  margin-left: 18px;
+  margin-left: 25px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
-.member_info {
+.chat_box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-y: auto;
+}
+.member_card {
   border-bottom: 1px solid #a0a0a060;
   padding: 15px;
+  display: flex;
+  align-items: center;
+}
+.member_info {
   display: flex;
   align-items: center;
 }
@@ -45,4 +59,42 @@
   font-size: 14px;
   margin-top: 9px;
   color: var(--text-description);
+}
+.message_box {
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #a0a0a060;
+  height: 70px;
+  position: sticky;
+  bottom: 0;
+  background-color: white;
+  overflow-y: auto;
+}
+.message_input {
+  border: none;
+  outline: none;
+  font-size: 16px;
+  width: 100%;
+  margin-left: 25px;
+  resize: none;
+  overflow-y: hidden;
+  resize: none;
+  height: auto;
+  max-height: 60px;
+}
+.file_icon {
+  cursor: pointer;
+}
+.send_button {
+  background-color: var(--text-blue);
+  border: none;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  width: 60px;
+  height: 30px;
+  border-radius: 5px;
+  align-items: center;
+  margin-left: 16px;
+  cursor: pointer;
 }

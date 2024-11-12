@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import styles from "@/styles/Seat/Seat.module.css";
-import FloorLink from "../components/common/FloorLink";
-import TimeDisplay from "../components/Seat/TimeDisplay";
+import FloorLink from "@/components/common/FloorLink";
+import TimeDisplay from "@/components/Seat/TimeDisplay";
 
 const Seat = () => {
   return (

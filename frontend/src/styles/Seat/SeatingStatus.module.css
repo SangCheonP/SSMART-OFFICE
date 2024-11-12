@@ -1,3 +1,9 @@
+.floor {
+  font-size: 1.88rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  margin-left: 1rem;
+}
 .container {
   width: 80%;
   height: 100%;
@@ -5,15 +11,37 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 10px;
-  justify-content: center;
   justify-items: center;
   align-content: center;
+}
+.box {
+  color: #fff;
+  height: 100%;
+  margin: 0 auto 0;
+  align-content: center;
+}
+.number {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+.positionName {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.role {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .seat {
   text-align: center;
-  width: 150px;
-  height: 110px;
+  width: 12vw;
+  height: 150px;
   border-radius: 20px;
 }
 .inUse {
