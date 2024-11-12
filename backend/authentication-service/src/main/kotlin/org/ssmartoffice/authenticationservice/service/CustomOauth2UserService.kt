@@ -26,13 +26,7 @@ class CustomOauth2UserService(
 
         //구글 로그인 정보 기반으로 user-service 에서 정보 받아오기
         val commonResponse = userServiceClient.getIdAndRole(oauth2UserInfo.email)
-        val dataMap = commonResponse.body?.data as? Map<*, *>
-        val userLoginResponse = dataMap?.let {
-            UserLoginResponse(
-                userId = (it["userId"] as? Number)?.toLong(),
-                role = it["role"] as? String ?: Role.USER.toString()
-            )
-        } ?: throw AuthenticationServiceException(AuthErrorCode.USER_RESPONSE_EXCEPTION.toString())
+        val userLoginResponse = commonResponse.body?.data!!
 
         return CustomUserDetails(
             userId = userLoginResponse.userId ?: throw AuthenticationServiceException("User ID is missing"),
