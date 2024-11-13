@@ -7,6 +7,7 @@ import jakarta.servlet.FilterChain
 import jakarta.servlet.ServletException
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
+import org.springframework.http.MediaType
 import org.ssmartoffice.authenticationservice.global.security.jwt.JwtTokenProvider
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.AuthenticationServiceException
@@ -19,11 +20,11 @@ import org.ssmartoffice.authenticationservice.client.UserServiceClient
 import org.ssmartoffice.authenticationservice.client.request.UserLoginRequest
 import org.ssmartoffice.authenticationservice.client.response.UserLoginResponse
 import org.ssmartoffice.authenticationservice.domain.CustomUserDetails
-import org.ssmartoffice.authenticationservice.domain.Role
 import org.ssmartoffice.authenticationservice.global.const.errorcode.AuthErrorCode
 import org.ssmartoffice.authenticationservice.global.exception.AuthException
 import org.ssmartoffice.authenticationservice.global.const.successcode.SuccessCode
 import org.ssmartoffice.authenticationservice.global.dto.CommonResponse
+import org.ssmartoffice.authenticationservice.global.dto.ErrorResponse
 import org.ssmartoffice.authenticationservice.global.security.handler.CustomAuthenticationFailureHandler
 import java.io.IOException
 
@@ -52,7 +53,11 @@ class LoginFilter(
         authentication: Authentication
     ) {
         val accessToken = jwtTokenProvider.createAccessToken(authentication)
-        jwtTokenProvider.createRefreshToken(authentication, response)
+        val refreshToken = jwtTokenProvider.createRefreshToken(authentication, response)
+        if (refreshToken == null) {
+            setErrorResponse(response, AuthErrorCode.CONNECTION_FAIL)
+            return
+        }
         sendLoginResponse(response, accessToken)
     }
 
@@ -106,4 +111,19 @@ class LoginFilter(
     companion object {
         private val antPathMatcher = AntPathRequestMatcher("/api/v1/auth/login", "POST")
     }
+
+    private fun setErrorResponse(response: HttpServletResponse, errorCode: AuthErrorCode) {
+        response.characterEncoding = "UTF-8"
+        response.status = errorCode.httpStatus.value()
+        response.contentType = MediaType.APPLICATION_JSON_VALUE
+
+        val errorResponse = ErrorResponse(
+            status = errorCode.httpStatus.value(),
+            error = errorCode.name,
+            message = errorCode.message
+        )
+        response.writer.write(objectMapper.writeValueAsString(errorResponse))
+        response.writer.flush()
+    }
+
 }
