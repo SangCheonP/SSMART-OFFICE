@@ -7,14 +7,15 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestParam
 import org.ssmartoffice.authenticationservice.client.request.UserLoginRequest
+import org.ssmartoffice.authenticationservice.client.response.UserLoginResponse
 import org.ssmartoffice.authenticationservice.global.dto.CommonResponse
 
-@FeignClient(name = "user-service")
+@FeignClient(name = "USER-SERVICE")
 interface UserServiceClient {
 
     @GetMapping("/api/v1/users/internal/authentication")
-    fun getIdAndRole(@RequestParam email: String): ResponseEntity<CommonResponse>
+    fun getIdAndRole(@RequestParam email: String): ResponseEntity<CommonResponse<UserLoginResponse>>
 
     @PostMapping("/api/v1/users/internal/login")
-    fun selfLogin(@RequestBody request: UserLoginRequest): ResponseEntity<CommonResponse>?
+    fun selfLogin(@RequestBody request: UserLoginRequest): ResponseEntity<CommonResponse<UserLoginResponse>>?
 }
