@@ -11,7 +11,7 @@ const GoogleLogin = () => {
 
   const handleGoogleLogin = () => {
     window.location.href =
-      "https://k11b202.p.ssafy.io/oauth2/authorization/google";
+      "https://k11b202.p.ssafy.io/api/v1/auth/oauth2/authorization/google";
   };
 
   useEffect(() => {
