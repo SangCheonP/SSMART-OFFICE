@@ -27,6 +27,7 @@ const AddTodoModal = ({ onSubmit, onClose }) => {
           right: 0,
           bottom: 0,
           backgroundColor: "rgba(0, 0, 0, 0.75)",
+          zIndex: 1000,
         },
         content: {
           position: "absolute",
@@ -36,7 +37,8 @@ const AddTodoModal = ({ onSubmit, onClose }) => {
           left: "50%",
           transform: "translate(-50%, -50%)",
           background: "#fff",
-          overflow: "auto",
+          // overflow: "auto",
+          overflow: "hidden",
           WebkitOverflowScrolling: "touch",
           borderRadius: "20px",
           outline: "none",
@@ -44,12 +46,7 @@ const AddTodoModal = ({ onSubmit, onClose }) => {
         },
       }}
     >
-      <button className={styles.close} onClick={handleClickCancel}>
-        <Close />
-      </button>
-
       <div className={styles.container}>
-        <h1 className={styles.title}>일정 날짜</h1>
         <DatePicker
           selected={selectedDate}
           onChange={(date) => setSelectedDate(date)}
@@ -59,7 +56,7 @@ const AddTodoModal = ({ onSubmit, onClose }) => {
 
         <h1 className={styles.title}>일정 이름</h1>
         <div>
-          <select>
+          <select className={styles.select}>
             <option>연차</option>
             <option>조퇴</option>
             <option>회의</option>
@@ -69,7 +66,10 @@ const AddTodoModal = ({ onSubmit, onClose }) => {
 
         <div>
           <h1 className={styles.title}>설명</h1>
-          <textarea placeholder="일정에 대해 설명해주세요."></textarea>
+          <textarea
+            className={styles.textarea}
+            placeholder="일정에 대해 설명해주세요."
+          ></textarea>
         </div>
 
         <div className={styles.buttonBox}>

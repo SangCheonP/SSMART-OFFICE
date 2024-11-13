@@ -3,7 +3,8 @@ import useAuthStore from "@/store/useAuthStore";
 import Cookies from "js-cookie";
 
 const api = axios.create({
-  baseURL: "https://k11b202.p.ssafy.io", // 기본 URL
+  // baseURL: "https://k11b202.p.ssafy.io", // 기본 URL
+  baseURL: import.meta.env.VITE_SERVER_BASE_URL,
   withCredentials: true,
 });
 
