@@ -8,14 +8,14 @@ import org.springframework.http.ResponseEntity
 
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-data class CommonResponse(
+data class CommonResponse<T>(
     val status: Int,
     val msg: String,
-    val data: Any?=null
+    val data: T?=null
 ) {
     companion object {
 
-        fun ok(msg: String, data: Any): ResponseEntity<CommonResponse> {
+        fun <T> ok(msg: String, data: T? = null): ResponseEntity<CommonResponse<T>> {
             return ResponseEntity(
                 CommonResponse(
                     status = SuccessCode.OK.getValue(),
@@ -26,34 +26,12 @@ data class CommonResponse(
             )
         }
 
-        fun ok(msg: String): ResponseEntity<CommonResponse> {
-            return ResponseEntity(
-                CommonResponse(
-                    status = SuccessCode.OK.getValue(),
-                    msg = msg,
-                    data = null
-                ),
-                HttpStatus.OK
-            )
-        }
-
-        fun created(msg: String, data: Any): ResponseEntity<CommonResponse> {
+        fun <T> created(msg: String, data: T? = null): ResponseEntity<CommonResponse<T>> {
             return ResponseEntity(
                 CommonResponse(
                     status = SuccessCode.CREATED.getValue(),
                     msg = msg,
                     data = data
-                ),
-                HttpStatus.OK
-            )
-        }
-
-        fun created(msg: String): ResponseEntity<CommonResponse> {
-            return ResponseEntity(
-                CommonResponse(
-                    status = SuccessCode.CREATED.getValue(),
-                    msg = msg,
-                    data = null
                 ),
                 HttpStatus.OK
             )
