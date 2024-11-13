@@ -10,7 +10,7 @@ import org.ssmartoffice.authenticationservice.client.request.UserLoginRequest
 import org.ssmartoffice.authenticationservice.client.response.UserLoginResponse
 import org.ssmartoffice.authenticationservice.global.dto.CommonResponse
 
-@FeignClient(name = "user-service")
+@FeignClient(name = "USER-SERVICE")
 interface UserServiceClient {
 
     @GetMapping("/api/v1/users/internal/authentication")
