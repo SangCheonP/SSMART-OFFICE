@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*
 import org.ssmartoffice.userservice.global.dto.CommonResponse
 import org.ssmartoffice.userservice.controller.port.UserService
 import org.ssmartoffice.userservice.controller.request.UserLoginRequest
+import org.ssmartoffice.userservice.controller.response.SeatUserResponse
 import org.ssmartoffice.userservice.controller.response.UserLoginResponse
 
 
@@ -18,7 +19,7 @@ class InternalUserController(
     @GetMapping("/authentication")
     fun getIdAndRole(
         @RequestParam @Email(message = "유효한 이메일 주소를 입력해 주세요") email: String
-    ): ResponseEntity<CommonResponse> {
+    ): ResponseEntity<CommonResponse<UserLoginResponse?>> {
         val user = userService.findByUserEmail(email)
         return CommonResponse.ok(
             data = UserLoginResponse.fromModel(user),
@@ -29,11 +30,12 @@ class InternalUserController(
     @PostMapping("/login")
     fun selfLogin(
         @RequestBody request: UserLoginRequest
-    ): ResponseEntity<CommonResponse> {
+    ): ResponseEntity<CommonResponse<UserLoginResponse?>> {
         val user = userService.authenticateUser(request)
         return CommonResponse.ok(
             data = UserLoginResponse.fromModel(user),
             msg = "자체 로그인에 성공했습니다."
         )
     }
+
 }
