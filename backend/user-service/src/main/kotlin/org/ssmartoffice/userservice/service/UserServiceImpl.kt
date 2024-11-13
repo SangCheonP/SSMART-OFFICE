@@ -1,6 +1,9 @@
 package org.ssmartoffice.userservice.service
 
 import org.ssmartoffice.userservice.controller.port.UserService
+import org.ssmartoffice.userservice.controller.request.PasswordUpdateRequest
+import org.ssmartoffice.userservice.controller.request.UserRegisterRequest
+import org.ssmartoffice.userservice.controller.request.UserUpdateRequest
 import org.ssmartoffice.userservice.domain.User
 import org.ssmartoffice.userservice.global.exception.UserException
 import org.ssmartoffice.userservice.service.port.UserRepository
@@ -10,7 +13,7 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
-import org.ssmartoffice.userservice.controller.request.*
+import org.ssmartoffice.userservice.controller.request.UserLoginRequest
 import org.ssmartoffice.userservice.global.const.errorcode.UserErrorCode
 
 @Service
@@ -75,13 +78,9 @@ class UserServiceImpl(
         userRepository.save(user)
     }
 
-    override fun authenticateUser(userLoginRequest: UserLoginRequest): User {
-        val user: User = findByUserEmail(userLoginRequest.email)
-        user.validatePassword(passwordEncoder, userLoginRequest.password)
+    override fun authenticateUser(request: UserLoginRequest): User {
+        val user: User = findByUserEmail(request.email)
+        user.validatePassword(passwordEncoder, request.password)
         return user
-    }
-
-    override fun findAllByIds(userIds: List<Long>): List<User> {
-        return userRepository.findAllByIdIn(userIds)
     }
 }
