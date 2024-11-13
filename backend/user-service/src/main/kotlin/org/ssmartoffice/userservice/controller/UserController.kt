@@ -8,14 +8,11 @@ import org.ssmartoffice.userservice.controller.request.UserUpdateRequest
 import org.ssmartoffice.userservice.controller.response.UserInfoResponse
 import jakarta.validation.Valid
 import jakarta.validation.constraints.Positive
-import org.springframework.data.domain.Page
 import org.springframework.security.core.Authentication
 import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
-import org.ssmartoffice.userservice.controller.response.SeatUserResponse
-import org.ssmartoffice.userservice.domain.User
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -27,7 +24,7 @@ class UserController(
     @PostMapping
     fun join(
         @RequestBody @Valid userRegisterRequest: UserRegisterRequest
-    ): ResponseEntity<CommonResponse<UserInfoResponse?>> {
+    ): ResponseEntity<CommonResponse> {
         val registeredUser = userService.addUser(userRegisterRequest)
         return CommonResponse.created(
             data = UserInfoResponse.fromModel(registeredUser),
@@ -36,7 +33,7 @@ class UserController(
     }
 
     @GetMapping("/me")
-    fun getMyInfo(authentication: Authentication): ResponseEntity<CommonResponse<UserInfoResponse?>> {
+    fun getMyInfo(authentication: Authentication): ResponseEntity<CommonResponse> {
         val userId = authentication.principal as Long
         val user = userService.findUserByUserId(userId)
         return CommonResponse.ok(
@@ -49,7 +46,7 @@ class UserController(
     fun getEmployeeInfo(
         @Positive(message = "유효한 사용자 ID를 입력해주세요.")
         @PathVariable userId: Long
-    ): ResponseEntity<CommonResponse<UserInfoResponse?>> {
+    ): ResponseEntity<CommonResponse> {
         val user = userService.findUserByUserId(userId)
         return CommonResponse.ok(
             data = UserInfoResponse.fromModel(user),
@@ -60,13 +57,12 @@ class UserController(
     @GetMapping
     fun getEmployees(
         pageable: Pageable
-    ): ResponseEntity<CommonResponse<Page<UserInfoResponse>?>> {
-        val userPage: Page<User> = userService.getAllUsersByPage(pageable)
-        val userInfoResponsePage: Page<UserInfoResponse> = userPage.map { user ->
+    ): ResponseEntity<CommonResponse> {
+        val userList = userService.getAllUsersByPage(pageable).map { user ->
             UserInfoResponse.fromModel(user)
         }
         return CommonResponse.ok(
-            data = userInfoResponsePage,
+            data = userList,
             msg = "전체 사원 조회에 성공했습니다."
         )
     }
@@ -77,7 +73,7 @@ class UserController(
         @RequestBody @Valid userUpdateRequest: UserUpdateRequest,
         @Positive(message = "유효한 사용자 ID를 입력해주세요.")
         @PathVariable userId: Long
-    ): ResponseEntity<CommonResponse<UserInfoResponse?>> {
+    ): ResponseEntity<CommonResponse> {
         val updatedUser = userService.updateUser(userId, userUpdateRequest);
         return CommonResponse.ok(
             data = UserInfoResponse.fromModel(updatedUser),
@@ -89,7 +85,7 @@ class UserController(
     fun updateMe(
         authentication: Authentication,
         @RequestBody @Valid userUpdateRequest: UserUpdateRequest
-    ): ResponseEntity<CommonResponse<UserInfoResponse?>> {
+    ): ResponseEntity<CommonResponse> {
         val userId = authentication.principal as Long
         val updatedUser = userService.updateUser(userId, userUpdateRequest);
         return CommonResponse.ok(
@@ -102,7 +98,7 @@ class UserController(
     fun updateMyPassword(
         authentication: Authentication,
         @RequestBody @Valid passwordUpdateRequest: PasswordUpdateRequest
-    ): ResponseEntity<CommonResponse<Any?>> {
+    ): ResponseEntity<CommonResponse> {
         val userId = authentication.principal as Long
         userService.updatePassword(userId, passwordUpdateRequest);
         return CommonResponse.ok(
@@ -110,17 +106,5 @@ class UserController(
         )
     }
 
-    @GetMapping("/search")
-    fun searchUsersByIds(
-        @RequestParam userIds: List<Long>
-    ): ResponseEntity<CommonResponse<List<SeatUserResponse>?>> {
-        val userList = userService.findAllByIds(userIds).map { user ->
-            SeatUserResponse.fromModel(user)
-        }
-        return CommonResponse.ok(
-            data = userList,
-            msg = "좌석 조회에 필요한 회원 정보 조회에 성공했습니다."
-        )
-    }
 
 }

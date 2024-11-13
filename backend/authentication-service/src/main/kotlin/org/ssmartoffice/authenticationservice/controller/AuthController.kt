@@ -24,14 +24,14 @@ class AuthController(
 ) {
 
     @PostMapping("/token/refresh")
-    fun refreshToken(@RequestBody request: TokenRefreshRequest): ResponseEntity<CommonResponse<Any>> {
+    fun refreshToken(@RequestBody request: TokenRefreshRequest): ResponseEntity<CommonResponse> {
         val newAccessToken = authService.refreshToken(request)
         httpServletResponse.addHeader("Authorization", "Bearer $newAccessToken")
         return CommonResponse.created("토큰 갱신에 성공했습니다.")
     }
 
     @PostMapping("/logout")
-    fun refreshToken(authentication: Authentication): ResponseEntity<CommonResponse<Any>> {
+    fun refreshToken(authentication: Authentication): ResponseEntity<CommonResponse> {
         val userDetails = authentication.principal as CustomUserDetails
         println("userDetails = ${userDetails}")
         authService.deleteToken(userDetails)
