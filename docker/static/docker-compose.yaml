@@ -19,6 +19,20 @@ services:
     networks:
       - app-network
 
+  redis:
+    build: ./redis
+    image: redis-image:latest
+    container_name: redis-container
+    ports:
+      - "6379:6379"
+    volumes:
+      - "./redis/data:/data"
+    environment:
+      - TZ=Asia/Seoul
+    restart: always
+    networks:
+      - app-network
+
   jenkins:
     build: ./jenkins
     image: jenkins-image:latest

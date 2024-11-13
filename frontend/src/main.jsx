@@ -1,9 +1,7 @@
 import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
-import { BrowserRouter } from "react-router-dom";
+import ReactModal from "react-modal";
 
-createRoot(document.getElementById("root")).render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
-);
+ReactModal.setAppElement("#root");
+
+createRoot(document.getElementById("root")).render(<App />);

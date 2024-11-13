@@ -60,6 +60,7 @@ class LoginFilter(
     private fun sendLoginResponse(response: HttpServletResponse, accessToken: String) {
         response.characterEncoding = "UTF-8"
         response.contentType = "application/json;charset=UTF-8"
+        response.addHeader("Access-Control-Expose-Headers", "Authorization")
         response.addHeader("Authorization", "Bearer $accessToken")
 
         val responseBody = CommonResponse<Any>(
