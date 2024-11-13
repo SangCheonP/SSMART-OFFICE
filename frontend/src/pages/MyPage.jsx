@@ -1,5 +1,5 @@
-import MyInfo from "../components/MyPage/MyInfo";
-import WelfareList from "../components/MyPage/WelfareList";
+import MyInfo from "@/components/MyPage/MyInfo";
+import WelfareList from "@/components/MyPage/WelfareList";
 
 const MyPage = () => {
   return (

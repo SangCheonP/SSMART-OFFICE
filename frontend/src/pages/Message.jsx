@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import MemberList from "../components/Message/MemberList";
+import MemberList from "@/components/Message/MemberList";
 import styles from "@/styles/Message/Message.module.css";
-import AddMember from "./../assets/Message/AddMember.svg?react";
-import Chat from "../components/Message/Chat";
-import SearchBar from "../components/common/SearchBar";
+import Chat from "@/components/Message/Chat";
+import SearchBar from "@/components/common/SearchBar";
 
-const Message = () => {
+function Message() {
   const [selectedMember, setSelectedMember] = useState(null);
   // 임시 데이터
   const memberData = [
@@ -51,16 +50,20 @@ const Message = () => {
     <div className={styles.message_container}>
       <div className={styles.member_box}>
         <SearchBar />
-        {/* <AddMember className={styles.add_member} /> */}
-        {/* 검색창 */}
+
         <MemberList
           memberData={memberData}
           onMemberSelect={handleMemberSelect}
         />
       </div>
-      <Chat selectedMember={selectedMember} className={styles.chat_container} />
+      {selectedMember && (
+        <Chat
+          selectedMember={selectedMember}
+          className={styles.chat_container}
+        />
+      )}
     </div>
   );
-};
+}
 
 export default Message;

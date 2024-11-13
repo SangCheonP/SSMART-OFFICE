@@ -26,7 +26,8 @@ import java.util.*
 @Component
 class OAuth2AuthenticationSuccessHandler(
     val tokenProvider: JwtTokenProvider,
-    val authorizationRequestRepository: CookieAuthorizationRequestRepository
+    val authorizationRequestRepository: CookieAuthorizationRequestRepository,
+    @Value("\${app.oauth2.successRedirectUri}") val successRedirectUri: String
 ) : SimpleUrlAuthenticationSuccessHandler() {
 
     @Value("\${app.oauth2.authorizedRedirectUri}")
@@ -65,7 +66,7 @@ class OAuth2AuthenticationSuccessHandler(
             }
         }
         // String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
-        val targetUrl = redirectUri.orElse("http://localhost:3000")
+        val targetUrl = redirectUri.orElse(successRedirectUri)
         val accessToken: String = tokenProvider.createAccessToken(authentication)
         tokenProvider.createRefreshToken(authentication, response)
 

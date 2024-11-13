@@ -19,5 +19,11 @@ FloorLink.propTypes = {
   to: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   className: PropTypes.string.isRequired,
+  isIndex: PropTypes.bool,
 };
+
+FloorLink.defaultProps = {
+  isIndex: false,
+};
+
 export default FloorLink;
