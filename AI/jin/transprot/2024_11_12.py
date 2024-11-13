@@ -11,7 +11,7 @@ audio_server_url = "http://k11b202.p.ssafy.io/gpu/audio_process"  # 음성 처�
 image_server_url = "http://k11b202.p.ssafy.io/gpu/image_process"  # 얼굴 인식 서버 URL
 
 # 샘플링 속도 및 녹음 시간 설정
-sample_rate = 16000  # 16 kHz 샘플링 속도
+sample_rate = 16000  # 16 kHz 샘플링 속도.
 audio_duration = 3  # 음성 녹음 시간 (초)
 volume_threshold = 0.02  # 음성 감지 임계값
 
