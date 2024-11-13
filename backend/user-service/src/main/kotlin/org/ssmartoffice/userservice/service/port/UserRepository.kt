@@ -13,4 +13,5 @@ interface UserRepository {
     fun findAll(pageable: Pageable): Page<User>
     fun findMaxEmployeeNumberByYear(s: String): String?
     fun existsByEmail(adminEmail: String): Boolean
+    fun findAllByIdIn(ids: List<Long>): List<User>
 }
