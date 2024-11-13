@@ -37,9 +37,10 @@ class CustomOauth2UserService(
                 password = ""
             )
         } catch (e: FeignException.NotFound) {
-            logger.error("User not found for email: ${oauth2UserInfo.email}")
-            throw AuthException(AuthErrorCode.USER_NOT_FOUND)
+            logger.error("이메일 찾을 수 없음: ${oauth2UserInfo.email}")
+            throw AuthException(AuthErrorCode.USER_NOT_FOUND) //TODO: 사용자 없는 에러와 그냥 에러 구분해서 쿼리 파라미터 실어 보내기
         } catch (e: Exception) {
+            logger.error(e.message)
             throw AuthException(AuthErrorCode.SERVER_COMMUNICATION_EXCEPTION)
         }
     }
