@@ -4,7 +4,11 @@ import useAuthStore from "@/store/useAuthStore";
 
 import styles from "@/styles/Login/Login.module.css";
 import GoogleLogin from "@/components/Login/GoogleLogin";
+
 import axios from "axios";
+import api from "@/services/api";
+
+const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -14,18 +18,18 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "https://k11b202.p.ssafy.io/api/v1/auth/login",
-        {
-          email: email,
-          password: password,
-        }
-      );
+      const response = await axios.post(`${BASE_URL}/auth/login`, {
+        email: email,
+        password: password,
+      });
 
       const accessToken = response.headers["authorization"];
-      console.log(accessToken);
-      console.log(response.headers);
       setAuth(true, accessToken);
+
+      // 로그인을 성공했다면 유저 정보를 다시 요청
+      const userInformation = await api.get(`${BASE_URL}/users/me`);
+      const userData = userInformation.data.data;
+      console.log(userData);
     } catch (error) {
       console.log("로그인 실패 : " + error);
     }

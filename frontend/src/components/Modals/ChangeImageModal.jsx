@@ -49,7 +49,7 @@ const ChangeImageModal = ({ onSubmit, onClose }) => {
       <div className={styles.container}>
         <h1 className={styles.title}>프로필 이미지 변경</h1>
         <h3 className={styles.subTitle}>나를 표현하는 이미지를 등록하세요</h3>
-        <form>
+        <form encType="multipart/form-data">
           <div className={styles.imageBox}>
             <ImageUpload />
           </div>
