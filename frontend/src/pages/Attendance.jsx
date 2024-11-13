@@ -5,7 +5,7 @@ import AddMember from "@/assets/Message/AddMember.svg?react";
 import SearchBar from "@/components/common/SearchBar";
 import AttendanceCalendar from "@/components/Attendance/AttendanceCalendar";
 import useAttendanceStore from "@/store/useAttendanceStore"; // store에서 불러오는 거..
-import { fetchUserAttendance } from "@/services/attendance"; // 출퇴근 정보 조회는 store에 저장할 필요 없을 것 같아서 빼둠
+import { fetchUserAttendance } from "@/services/attendanceApi"; // 출퇴근 정보 조회는 store에 저장할 필요 없을 것 같아서 빼둠
 
 const Attendance = () => {
   const [selectedMember, setSelectedMember] = useState(null);

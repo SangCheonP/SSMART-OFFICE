@@ -1,4 +1,3 @@
-// store/useAttendanceStore.js
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import api from "../services/api";
@@ -16,6 +15,10 @@ const useAttendanceStore = create(
         try {
           const response = await api.get("/api/v1/users");
           set({ memberData: response.data.data.content });
+          console.log(
+            "전체 사용자 목록 조회 성공:",
+            response.data.data.content
+          );
         } catch (error) {
           console.error("사용자 데이터를 가져오는 중 오류 발생:", error);
         }

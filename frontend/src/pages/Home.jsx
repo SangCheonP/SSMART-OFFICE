@@ -2,46 +2,39 @@ import React, { useEffect, useState } from "react";
 import MyCalendar from "@/components/MyCalendar/Calendar";
 import styles from "@/styles/Home/Home.module.css";
 import Todo from "@/components/Todo/Todo";
-import { fetchCalendarData, fetchAttendanceData } from "@/services/homeApi";
+import {
+  fetchCalendarData,
+  fetchTodoData,
+  fetchAttendanceData,
+} from "@/services/homeApi";
 const Home = () => {
   const [monthData, setMonthData] = useState([]);
   const [attendanceData, setAttendanceData] = useState([]);
+  const [todoData, setTodoData] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
-
-  // // 임시 데이터
-  // const monthData = [
-  //   {
-  //     date: "2024-11-29",
-  //     name: "코드",
-  //     type: "WORK",
-  //   },
-  // ];
-  // const handleDateSelect = (date) => {
-  //   setSelectedDate(date);
-  // };
-
-  // // 출퇴근 정보
-  // const attendanceData = [
-  //   {
-  //     attendanceId: 1,
-  //     userId: 1,
-  //     attendanceType: "START",
-  //     attendanceTime: "2024-11-06T09:40:00",
-  //   },
-  // ];
 
   useEffect(() => {
     const month = "202412"; // 조회할 month 값
     const day = "31"; // 조회할 day 값
 
-    // 캘린더 정보 전체 조회
+    // 캘린더 일정 월별 조회
     fetchCalendarData(month, day)
       .then((response) => {
-        console.log(response.data);
+        console.log(response.data.data.attendances);
         setMonthData(response.data.data.attendances);
       })
       .catch((error) => {
         console.error("캘린더 데이터를 가져오는 중 오류 발생:", error);
+      });
+
+    // 캘린더 일정 일별 조회
+    fetchTodoData(month, day)
+      .then((response) => {
+        console.log(response.data.data);
+        setTodoData(response.data.data);
+      })
+      .catch((error) => {
+        console.error("일별 일정을 가져오는 중 오류 발생:", error);
       });
 
     // 출퇴근 정보 조회
@@ -69,7 +62,11 @@ const Home = () => {
         />
       </div>
       <div>
-        <Todo selectedDate={selectedDate} monthData={monthData} />
+        <Todo
+          selectedDate={selectedDate}
+          monthData={monthData}
+          todoData={todoData}
+        />
       </div>
     </div>
   );

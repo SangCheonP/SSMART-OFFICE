@@ -8,9 +8,17 @@ import styles from "@/styles/Modals/AddTodoModal.module.css";
 
 const AddTodoModal = ({ onSubmit, onClose }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [assignmentName, setAssignmentName] = useState("");
+  const [assignmentType, setAssignmentType] = useState("연차");
+  const [description, setDescription] = useState("");
 
   const handleClickSubmit = () => {
-    onSubmit();
+    onSubmit({
+      assignmentName,
+      assignmentDate: selectedDate,
+      assignmentType,
+      description,
+    });
   };
   const handleClickCancel = () => {
     onClose();
