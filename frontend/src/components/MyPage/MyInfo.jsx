@@ -65,7 +65,7 @@ const MyInfo = () => {
             <p className={styles.subTitle1}>반갑습니다!</p>
           </div>
           <div>{email}</div>
-          <div>{phoneNumber ? phoneNumber : "핸드폰 번호를 등록해주세요"}</div>
+          <div>{phoneNumber ? phoneNumber : "연락처를 등록해주세요"}</div>
           <div className={styles.welfare}>
             <p className={styles.subWelfare}>복지포인트 : </p>
             <p className={styles.subWelfare1}>34023</p>
