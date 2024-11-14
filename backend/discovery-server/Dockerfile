@@ -1,4 +1,4 @@
-# Run stage: 실제 실행 단계
+# Run stage: 실제 실행 단계.
 FROM openjdk:17-jdk-slim
 
 # 작업 디렉토리 설정
