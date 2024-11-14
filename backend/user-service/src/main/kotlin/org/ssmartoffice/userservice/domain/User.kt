@@ -28,10 +28,6 @@ class User(
     val deleted: Boolean = false,
 ) {
 
-    fun encodePassword(encoder: PasswordEncoder) {
-        this.password = encoder.encode(password)
-    }
-
     fun update(
         email: String? = null,
         password: String? = null,
@@ -54,8 +50,8 @@ class User(
         this.password = encodedNewPassword
     }
 
-    fun isSamePassword(encodedPassword: String): Boolean {
-        return this.password == encodedPassword
+    fun isSamePassword(rawPassword: String, encoder: PasswordEncoder): Boolean {
+        return encoder.matches(rawPassword, this.password)
     }
 
     companion object {
