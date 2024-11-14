@@ -6,7 +6,7 @@ import Close from "@/assets/Modals/Close.svg?react";
 import styles from "@/styles/Modals/ChangeInfoModal.module.css";
 import useMyInfoStore from "@/store/useMyInfoStore";
 import { useState } from "react";
-import { updateTelNumber } from "@/services/MyInfoAPI";
+import { updateTelNumber } from "@/services/myInfoAPI";
 
 const ChangeInfoModal = ({ onSubmit, onClose }) => {
   const updatePhoneNumber = useMyInfoStore((state) => state.updatePhoneNumber);
