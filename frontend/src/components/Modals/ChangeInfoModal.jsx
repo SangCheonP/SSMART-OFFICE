@@ -4,12 +4,42 @@ import ReactModal from "react-modal";
 import Close from "@/assets/Modals/Close.svg?react";
 
 import styles from "@/styles/Modals/ChangeInfoModal.module.css";
+import useMyInfoStore from "@/store/useMyInfoStore";
+import { useState } from "react";
 
 const ChangeInfoModal = ({ onSubmit, onClose }) => {
+  const { name, email, phoneNumber } = useMyInfoStore();
+  const [telNumber, setTelNumber] = useState("");
+
+  // 입력된 값을 3-4-4 형식으로 포맷팅
+  const formatPhoneNumber = (value) => {
+    const digits = value.replace(/\D/g, "");
+
+    if (digits.length <= 3) return digits;
+    if (digits.length <= 7) return `${digits.slice(0, 3)}-${digits.slice(3)}`;
+    return `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(7, 11)}`;
+  };
+
+  // 입력 핸들러
+  const handleInputChange = (e) => {
+    const formattedNumber = formatPhoneNumber(e.target.value);
+    setTelNumber(formattedNumber);
+  };
+
+  // 서버 전송용 변환 함수
+  const getPhoneNumberForServer = () => {
+    return telNumber.replace(/\D/g, ""); // 숫자만 남기기
+  };
+
+  // 변경 버튼
   const handleClickSubmit = () => {
+    console.log();
+
+    console.log(getPhoneNumberForServer());
     onSubmit();
   };
 
+  // 모달 닫기 버튼
   const handleClickCancel = () => {
     onClose();
   };
@@ -53,7 +83,7 @@ const ChangeInfoModal = ({ onSubmit, onClose }) => {
             type="text"
             className={`${styles.input} ${styles.readOnly}`}
             readOnly
-            value={"김성민"}
+            value={name}
           />
         </div>
         <div>
@@ -61,15 +91,19 @@ const ChangeInfoModal = ({ onSubmit, onClose }) => {
           <input
             type="text"
             className={`${styles.input} ${styles.readOnly}`}
+            value={email}
             readOnly
           />
         </div>
         <div>
           <div className={styles.text}>휴대전화</div>
           <input
-            type="password"
+            type="text"
             className={styles.input}
             placeholder="연락처를 입력해주세요"
+            value={phoneNumber ? phoneNumber : telNumber}
+            onChange={handleInputChange}
+            maxLength={13}
           />
         </div>
         <div className={styles.buttonBox}>

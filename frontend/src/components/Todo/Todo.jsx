@@ -13,9 +13,12 @@ import { addCalendarEvent } from "@/services/homeApi";
 
 const Todo = ({ selectedDate, monthData }) => {
   // 선택된 날짜에 해당하는 일정 필터링
-  const filteredDate = monthData.filter(
-    (item) => item.date === dayjs(selectedDate).format("YYYY-MM-DD")
-  );
+  const filteredDate = Array.isArray(monthData)
+    ? monthData.filter(
+        (item) => item?.date === dayjs(selectedDate).format("YYYY-MM-DD")
+      )
+    : [];
+
   const openModal = useModalStore((state) => state.openModal);
 
   const handleAddTodoClick = () => {

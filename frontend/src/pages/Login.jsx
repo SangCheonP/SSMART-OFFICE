@@ -1,23 +1,20 @@
 import { useState } from "react";
 import Icon from "@/assets/Login/LoginImage.svg?react";
-import api from "@/services/api";
-import useAuthStore from "@/store/useAuthStore";
 import styles from "@/styles/Login/Login.module.css";
 import GoogleLogin from "@/components/Login/GoogleLogin";
+
+import { setLogin } from "@/services/authAPI";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const setAuth = useAuthStore((state) => state.setAuth);
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await api.post("/auth/login", {
-        email,
-        password,
-      });
-      setAuth(true, data.accessToken, data.user);
+      await setLogin(email, password, navigate);
     } catch (error) {
       console.log("로그인 실패 : " + error);
     }

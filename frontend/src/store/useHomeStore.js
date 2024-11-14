@@ -10,7 +10,7 @@ import {
 const useHomeStore = create(
   persist(
     (set) => ({
-      calendarData: null,
+      calendarData: { data: { attendances: [] } },
       todoData: null,
       attendanceData: null,
 

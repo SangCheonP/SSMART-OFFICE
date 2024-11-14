@@ -5,15 +5,15 @@ import PropTypes from "prop-types";
 import useAuthStore from "@/store/useAuthStore";
 
 import styles from "@/styles/Menu/Menu.module.css";
+import { setLogout } from "@/services/authAPI";
 
 const NavItem = ({ link, type, content }) => {
   const clearAuth = useAuthStore((state) => state.clearAuth);
   const navigate = useNavigate();
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (type === "Logout") {
-      clearAuth();
-      navigate("/login"); // 로그아웃 후 로그인 페이지로 리다이렉트
+      setLogout(clearAuth, navigate);
     }
   };
   return (
