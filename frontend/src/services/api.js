@@ -26,7 +26,7 @@ api.interceptors.response.use(
       const refreshToken = Cookies.get("refreshToken");
       if (refreshToken) {
         try {
-          const { data } = await axios.post("/api/v1/auth/refresh", {
+          const { data } = await axios.post("/auth/refresh", {
             refreshToken,
           });
           useAuthStore.getState().setAuth(true, data.accessToken);

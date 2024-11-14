@@ -13,7 +13,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await api.post("/일반로그인 주소", {
+      const { data } = await api.post("/auth/login", {
         email,
         password,
       });
