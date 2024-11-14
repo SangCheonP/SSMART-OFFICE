@@ -8,9 +8,11 @@ import ChangeInfoModal from "@/components/Modals/ChangeInfoModal";
 import ChangeImageModal from "@/components/Modals/ChangeImageModal";
 
 import styles from "@/styles/MyPage/MyInfo.module.css";
+import useMyInfoStore from "@/store/useMyInfoStore";
 
 const MyInfo = () => {
   const openModal = useModalStore((state) => state.openModal);
+  const { name, email, position, profileImage, phoneNumber } = useMyInfoStore();
 
   const hadleChangeImageClick = () => {
     openModal(ChangeImageModal, {
@@ -42,7 +44,11 @@ const MyInfo = () => {
       <div className={styles.right}>
         <div className={styles.imageBox}>
           <div className={styles.subBox}>
-            <img src={Profile} alt="이미지" className={styles.profileImage} />
+            <img
+              src={profileImage ? profileImage : Profile}
+              alt="이미지"
+              className={styles.profileImage}
+            />
             <button
               className={styles.changeImage}
               onClick={hadleChangeImageClick}
@@ -53,11 +59,13 @@ const MyInfo = () => {
         </div>
         <div className={styles.content}>
           <div className={styles.title}>
-            <p className={styles.subTitle}>김진기 사장님</p>
+            <p className={styles.subTitle}>
+              {name} {position}님
+            </p>
             <p className={styles.subTitle1}>반갑습니다!</p>
           </div>
-          <div>test@gmail.com</div>
-          <div>010-0101-1010</div>
+          <div>{email}</div>
+          <div>{phoneNumber ? phoneNumber : "핸드폰 번호를 등록해주세요"}</div>
           <div className={styles.welfare}>
             <p className={styles.subWelfare}>복지포인트 : </p>
             <p className={styles.subWelfare1}>34023</p>

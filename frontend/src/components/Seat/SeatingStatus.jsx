@@ -3,13 +3,13 @@ import { memo, useMemo } from "react";
 
 import styles from "@/styles/Seat/SeatingStatus.module.css";
 
-const SeatingStatus = memo(({ floor, occupant, totalNumber }) => {
+const SeatingStatus = memo(({ floor, seats, totalNumber }) => {
   const occupantMap = useMemo(() => {
-    return occupant.reduce((acc, item) => {
+    return seats.reduce((acc, item) => {
       acc[item.number] = item;
       return acc;
     }, {});
-  }, [occupant]);
+  }, [seats]);
 
   console.log(occupantMap);
   const seatNumbers = Array.from({ length: totalNumber }, (_, i) => i + 1);
@@ -62,7 +62,7 @@ SeatingStatus.displayName = "SeatingStatus";
 
 SeatingStatus.propTypes = {
   floor: PropTypes.string.isRequired,
-  occupant: PropTypes.array.isRequired,
+  seats: PropTypes.array.isRequired,
   totalNumber: PropTypes.number.isRequired,
 };
 
