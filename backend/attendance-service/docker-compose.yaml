@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  attendance-service:
+    image: "parksangcheon/backend-repo-attendance-service:${COMMIT_HASH:-latest}"
+    container_name: attendance-service-container
+    depends_on:
+      - config-server
+      - discovery-server
+    env_file:
+      - .env
+    networks:
+      - app-network
+    restart: always
+
+networks:
+  app-network:
+    external: true
+
