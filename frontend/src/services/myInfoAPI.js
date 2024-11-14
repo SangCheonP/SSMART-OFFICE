@@ -1,5 +1,5 @@
 import api from "@/services/api";
-import useMyInfoStore from "../store/useMyInfoStore";
+import useMyInfoStore from "@/store/useMyInfoStore";
 
 // 비밀번호 업데이트
 export const updatePassword = async (currentPassword, newPassword) => {
