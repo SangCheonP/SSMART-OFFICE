@@ -124,9 +124,13 @@ class JwtTokenProvider(
         return refreshToken == storedToken
     }
 
-    fun deleteRefreshToken(userDetails: CustomUserDetails) {
+    fun deleteRefreshToken(userDetails: CustomUserDetails): Boolean {
         val key = "${userDetails.email}-refresh"
+        if (redisTemplate.opsForValue().get("${userDetails.email}-refresh") == null) {
+            return false
+        }
         redisTemplate.delete(key)
+        return true
     }
 
     companion object {

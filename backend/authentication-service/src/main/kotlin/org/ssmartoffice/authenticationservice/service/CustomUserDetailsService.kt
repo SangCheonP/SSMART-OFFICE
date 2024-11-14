@@ -5,7 +5,6 @@ import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Service
 import org.ssmartoffice.authenticationservice.client.UserServiceClient
-import org.ssmartoffice.authenticationservice.client.response.UserLoginResponse
 import org.ssmartoffice.authenticationservice.domain.CustomUserDetails
 
 

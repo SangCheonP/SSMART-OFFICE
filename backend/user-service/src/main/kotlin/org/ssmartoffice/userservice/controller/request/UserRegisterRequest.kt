@@ -28,5 +28,6 @@ data class UserRegisterRequest(
     @field:NotBlank(message = "사원 번호를 입력해주세요.")
     val employeeNumber: String,
 
-    var phoneNumber: String?
+    @field:Pattern(message = "유효한 전화번호 형식이 아닙니다.", regexp = "^\\d{3}-\\d{4}-\\d{4}$")
+    val phoneNumber: String? = null,
 )

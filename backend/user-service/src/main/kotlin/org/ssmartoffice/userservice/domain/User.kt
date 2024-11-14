@@ -1,6 +1,5 @@
 package org.ssmartoffice.userservice.domain
 
-import org.ssmartoffice.userservice.controller.request.UserRegisterRequest
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -28,47 +27,12 @@ class User(
     val deleted: Boolean = false,
 ) {
 
-    fun update(
-        email: String? = null,
-        password: String? = null,
-        name: String? = null,
-        position: String? = null,
-        duty: String? = null,
-        profileImageUrl: String? = null,
-        phoneNumber: String? = null,
-    ) {
-        email?.let { this.email = it }
-        password?.let { this.password = it }
-        name?.let { this.name = it }
-        position?.let { this.position = it }
-        duty?.let { this.duty = it }
-        profileImageUrl?.let { this.profileImageUrl = it }
-        phoneNumber?.let { this.phoneNumber = it }
-    }
-
-    fun updatePassword(encodedNewPassword: String) {
-        this.password = encodedNewPassword
-    }
-
-    fun isSamePassword(rawPassword: String, encoder: PasswordEncoder): Boolean {
+    fun checkPassword(rawPassword: String, encoder: PasswordEncoder): Boolean {
         return encoder.matches(rawPassword, this.password)
     }
 
-    companion object {
-
-        fun fromRequest(
-            userRegisterRequest: UserRegisterRequest
-        ): User {
-            return User(
-                email = userRegisterRequest.email,
-                password = userRegisterRequest.password,
-                name = userRegisterRequest.name,
-                position = userRegisterRequest.position,
-                duty = userRegisterRequest.duty,
-                profileImageUrl = userRegisterRequest.profileImageUrl,
-                employeeNumber = userRegisterRequest.employeeNumber,
-                phoneNumber = userRegisterRequest.phoneNumber
-            )
-        }
+    fun changePassword(newPassword: String, encoder: PasswordEncoder) {
+        this.password = encoder.encode(newPassword)
     }
+
 }
