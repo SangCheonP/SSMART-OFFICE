@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import org.ssmartoffice.userservice.controller.request.*
+import org.ssmartoffice.userservice.domain.Role
 import org.ssmartoffice.userservice.global.const.errorcode.UserErrorCode
 
 private val logger = KotlinLogging.logger {}
@@ -20,13 +21,12 @@ private val logger = KotlinLogging.logger {}
 class UserServiceImpl(
     val passwordEncoder: BCryptPasswordEncoder,
     val userRepository: UserRepository,
+    private val userMapper: UserMapper,
 ) : UserService {
 
     override fun addUser(userRegisterRequest: UserRegisterRequest): User {
         try {
-            val user = User.fromRequest(userRegisterRequest)
-            val encodedPassword = passwordEncoder.encode(userRegisterRequest.password)
-            user.updatePassword(encodedPassword)
+            val user = userMapper.toUser(userRegisterRequest)
             return userRepository.save(user)
         } catch (ex: DataIntegrityViolationException) {
             throw UserException(UserErrorCode.DUPLICATED_VALUE)
@@ -52,39 +52,30 @@ class UserServiceImpl(
     }
 
     override fun getAllUsersByPage(pageable: Pageable): Page<User> {
-        return userRepository.findAll(pageable)
+        return userRepository.findByRoleNot(Role.ADMIN, pageable)
     }
 
     override fun updateUser(userId: Long, userUpdateRequest: UserUpdateRequest): User {
         val user: User = findUserByUserId(userId)
-        user.update(
-            password = userUpdateRequest.password?.let { passwordEncoder.encode(it) },
-            name = userUpdateRequest.name,
-            position = userUpdateRequest.position,
-            duty = userUpdateRequest.duty,
-            profileImageUrl = userUpdateRequest.profileImageUrl,
-            phoneNumber = userUpdateRequest.phoneNumber
-        )
+        userMapper.updateUser(user, userUpdateRequest)
         return userRepository.save(user)
     }
 
     override fun updatePassword(userId: Long, passwordUpdateRequest: PasswordUpdateRequest) {
         val user: User = findUserByUserId(userId)
-        logger.info { user.password }
-        if (!user.isSamePassword(passwordUpdateRequest.oldPassword, passwordEncoder)) {
+        if (!user.checkPassword(passwordUpdateRequest.oldPassword, passwordEncoder)) {
             throw UserException(UserErrorCode.INVALID_PASSWORD)
         }
         if (passwordUpdateRequest.isSamePassword()) {
             throw UserException(UserErrorCode.DUPLICATE_PASSWORD)
         }
-        val encodedNewPassword = passwordEncoder.encode(passwordUpdateRequest.newPassword)
-        user.updatePassword(encodedNewPassword)
+        user.changePassword(passwordUpdateRequest.newPassword, passwordEncoder)
         userRepository.save(user)
     }
 
     override fun authenticateUser(userLoginRequest: UserLoginRequest): User {
         val user: User = findByUserEmail(userLoginRequest.email)
-        if (!user.isSamePassword(userLoginRequest.password, passwordEncoder)) {
+        if (!user.checkPassword(userLoginRequest.password, passwordEncoder)) {
             throw UserException(UserErrorCode.INVALID_PASSWORD)
         }
         return user

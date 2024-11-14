@@ -3,7 +3,6 @@ package org.ssmartoffice.userservice.controller.request
 import jakarta.validation.constraints.Pattern
 
 data class UserUpdateRequest(
-    val password: String? = null,
     val name: String? = null,
     val position: String? = null,
     val duty: String? = null,
