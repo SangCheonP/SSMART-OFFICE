@@ -96,16 +96,16 @@ const ChangePasswordModal = ({ onSubmit, onClose }) => {
         </div>
         <div className={styles.buttonBox}>
           <button
-            onClick={handleClickCancel}
-            className={`${styles.cancel} ${styles.button}`}
-          >
-            취소
-          </button>
-          <button
             onClick={handleClickSubmit}
             className={`${styles.confirm} ${styles.button}`}
           >
             수정
+          </button>
+          <button
+            onClick={handleClickCancel}
+            className={`${styles.cancel} ${styles.button}`}
+          >
+            취소
           </button>
         </div>
       </div>

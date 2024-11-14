@@ -27,9 +27,13 @@ export const updateProfileImage = (profileImage) => {
 };
 
 // 핸드폰 번호 업데이트
-export const updatePhoneNumber = async () => {
+export const updateTelNumber = async (phoneNumber) => {
+  console.log(phoneNumber);
   try {
-    console.log("핸드폰 번호 업데이트가 없어...");
+    const response = api.patch("/users/me", {
+      phoneNumber: phoneNumber,
+    });
+    console.log(response);
   } catch (e) {
     console.log(e);
   }

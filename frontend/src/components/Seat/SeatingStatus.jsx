@@ -6,13 +6,16 @@ import styles from "@/styles/Seat/SeatingStatus.module.css";
 const SeatingStatus = memo(({ floor, seats, totalNumber }) => {
   const occupantMap = useMemo(() => {
     return seats.reduce((acc, item) => {
-      acc[item.number] = item;
+      acc[item.info] = item;
       return acc;
     }, {});
   }, [seats]);
 
-  console.log(occupantMap);
-  const seatNumbers = Array.from({ length: totalNumber }, (_, i) => i + 1);
+  const prefix = String.fromCharCode(65 + parseInt(floor, 10) - 1);
+  const seatNumbers = Array.from(
+    { length: totalNumber },
+    (_, i) => `${prefix}${i + 1}`
+  );
 
   return (
     <>
@@ -40,11 +43,11 @@ const SeatingStatus = memo(({ floor, seats, totalNumber }) => {
 
           return (
             <div key={seatNumber} className={`${styles.seat} ${statusClass}`}>
-              {seatData ? (
+              {seatData?.userId ? (
                 <div className={styles.box}>
-                  <div className={styles.role}>{seatData.role}</div>
+                  <div className={styles.role}>{seatData?.role}</div>
                   <div className={styles.positionName}>
-                    {seatData.position} {seatData.name}
+                    {seatData?.position} {seatData?.name}
                   </div>
                 </div>
               ) : (

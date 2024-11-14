@@ -6,16 +6,28 @@ import SeatingStatus from "./SeatingStatus";
 import styles from "@/styles/Seat/SeatingByFloor.module.css";
 import { useOutletContext } from "react-router-dom";
 
-const SeatingByFloor = ({ floor }) => {
-  const seats = useOutletContext();
+const SeatingByFloor = () => {
+  const { floor, seats } = useOutletContext();
+
+  let number = 0;
+  for (let i = 0; i < seats?.length; i++) {
+    if (
+      seats[i].status === "IN_USE" ||
+      seats[i].status === "UNAVAILABLE" ||
+      seats[i].status === "NOT_OCCUPIED"
+    ) {
+      number++;
+      console.log(seats[i]);
+    }
+  }
 
   return (
     <div className={styles.container}>
       <div className={styles.left}>
-        <SeatingStatus floor={floor} seats={seats} totalNumber={6} />
+        {seats && <SeatingStatus floor={floor} seats={seats} totalNumber={6} />}
       </div>
       <div className={styles.right}>
-        <DonutChart number={seats.length} totalNumber={6} />
+        {seats && <DonutChart number={number} totalNumber={6} />}
         <div className={styles.buttonContainer}>
           <SeatButton color="grey" content="사용 가능" />
           <SeatButton color="blue" content="사용중" />
