@@ -5,7 +5,7 @@ import {
   fetchTodoData,
   fetchAttendanceData,
   addCalendarEvent,
-} from "../services/homeApi";
+} from "@/services/homeApi";
 
 const useHomeStore = create(
   persist(
