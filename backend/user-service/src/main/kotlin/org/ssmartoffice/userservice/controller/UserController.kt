@@ -7,6 +7,7 @@ import org.ssmartoffice.userservice.controller.request.UserRegisterRequest
 import org.ssmartoffice.userservice.controller.request.UserUpdateRequest
 import org.ssmartoffice.userservice.controller.response.UserInfoResponse
 import jakarta.validation.Valid
+import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.Positive
 import org.springframework.data.domain.Page
 import org.springframework.security.core.Authentication
@@ -14,7 +15,9 @@ import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
+import org.ssmartoffice.userservice.controller.request.UserLoginRequest
 import org.ssmartoffice.userservice.controller.response.SeatUserResponse
+import org.ssmartoffice.userservice.controller.response.UserLoginResponse
 import org.ssmartoffice.userservice.domain.User
 
 @RestController
@@ -122,5 +125,28 @@ class UserController(
             msg = "좌석 조회에 필요한 회원 정보 조회에 성공했습니다."
         )
     }
+
+    @GetMapping("/authentication")
+    fun getIdAndRole(
+        @RequestParam @Email(message = "유효한 이메일 주소를 입력해 주세요") email: String
+    ): ResponseEntity<CommonResponse<UserLoginResponse?>> {
+        val user = userService.findByUserEmail(email)
+        return CommonResponse.ok(
+            data = UserLoginResponse.fromModel(user),
+            msg = "회원 아이디 및 역할 정보 조회 성공했습니다."
+        )
+    }
+
+    @PostMapping("/login")
+    fun selfLogin(
+        @RequestBody request: UserLoginRequest
+    ): ResponseEntity<CommonResponse<UserLoginResponse?>> {
+        val user = userService.authenticateUser(request)
+        return CommonResponse.ok(
+            data = UserLoginResponse.fromModel(user),
+            msg = "자체 로그인에 성공했습니다."
+        )
+    }
+
 
 }
