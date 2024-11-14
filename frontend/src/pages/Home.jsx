@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import MyCalendar from "@/components/MyCalendar/Calendar";
 import styles from "@/styles/Home/Home.module.css";
 import Todo from "@/components/Todo/Todo";
-import useHomeStore from "../store/useHomeStore";
+import useHomeStore from "@/store/useHomeStore";
 
 const Home = () => {
   const [selectedDate, setSelectedDate] = useState(null);
