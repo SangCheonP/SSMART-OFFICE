@@ -5,7 +5,7 @@ import FloorLink from "@/components/common/FloorLink";
 import TimeDisplay from "@/components/Seat/TimeDisplay";
 import { useEffect, useState } from "react";
 
-import { fetchSeat } from "@/services/seatAPI";
+import { fetchSeats } from "@/services/seatAPI";
 
 const Seat = () => {
   const [seats, setSeats] = useState(null);
@@ -13,20 +13,19 @@ const Seat = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!floor) {
-      navigate("/seat/1", { replace: true });
-      return;
-    }
-
     const loadSeats = async () => {
       try {
-        const data = await fetchSeat(floor);
+        const data = await fetchSeats(floor);
         setSeats(data);
       } catch (e) {
         console.log(e);
       }
     };
-    loadSeats();
+    if (floor) {
+      loadSeats();
+    } else {
+      navigate("/seat/1", { replace: true });
+    }
   }, [floor, navigate]);
 
   return (
@@ -42,7 +41,7 @@ const Seat = () => {
           <FloorLink to="1" label="1F" className={styles.floor1} />
         </div>
       </div>
-      <Outlet context={seats} />
+      <Outlet context={{ seats, floor }} />
     </div>
   );
 };
