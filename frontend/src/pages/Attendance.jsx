@@ -4,9 +4,13 @@ import styles from "@/styles/Attendance/Member.module.css";
 import AddMember from "@/assets/Message/AddMember.svg?react";
 import SearchBar from "@/components/common/SearchBar";
 import AttendanceCalendar from "@/components/Attendance/AttendanceCalendar";
+import AddMemberModal from "@/components/Modals/AddMemberModal";
+
+import useModalStore from "@/store/useModalStore";
 import { fetchUserList } from "@/services/attendance.js";
 
 const Attendance = () => {
+  const openModal = useModalStore((state) => state.openModal);
   const [selectedMember, setSelectedMember] = useState(null);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [memberData, setMemberData] = useState([]);
@@ -62,6 +66,14 @@ const Attendance = () => {
     const selected = memberData.find((member) => member.name === name);
     setSelectedMember(selected);
   };
+
+  const handleAddMemberClick = () => {
+    openModal(AddMemberModal, {
+      onSubmit: () => {
+        console.log("비밀번호 수정 모달입니다.");
+      },
+    });
+  };
   // 선택된 날짜 변경 핸들러 함수
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -72,7 +84,10 @@ const Attendance = () => {
       <div className={styles.member_box}>
         <div className={styles.search_box}>
           <SearchBar className={styles.search_bar} />
-          <AddMember className={styles.add_member} />
+          <AddMember
+            className={styles.add_member}
+            onClick={handleAddMemberClick}
+          />
         </div>
         <MemberList
           memberData={memberData}

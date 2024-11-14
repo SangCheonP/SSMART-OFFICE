@@ -24,7 +24,7 @@ const ImageUpload = () => {
   };
 
   return (
-    <diV onClick={handleImageClick}>
+    <div onClick={handleImageClick}>
       <img
         src={image || Profile}
         alt="클릭하여 파일 선택"
@@ -36,7 +36,7 @@ const ImageUpload = () => {
         onChange={handleFileChange}
         className={styles.input}
       />
-    </diV>
+    </div>
   );
 };
 
