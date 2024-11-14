@@ -7,27 +7,18 @@ import axios from "axios";
 import styles from "@/styles/Login/Login.module.css";
 import GoogleLogin from "@/components/Login/GoogleLogin";
 
+import { setLogin } from "@/services/authAPI";
+import { useNavigate } from "react-router-dom";
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const setAuth = useAuthStore((state) => state.setAuth);
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "https://k11b202.p.ssafy.io/api/v1/auth/login",
-        {
-          email: email,
-          password: password,
-        }
-      );
-
-      const accessToken = response.headers["authorization"];
-      console.log(accessToken);
-      console.log(response);
-      console.log(response.headers);
-      setAuth(true, accessToken);
+      await setLogin(email, password, navigate);
     } catch (error) {
       console.log("로그인 실패 : " + error);
     }
