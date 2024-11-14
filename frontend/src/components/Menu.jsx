@@ -1,11 +1,12 @@
 import MenuButton from "@/components/common/MenuButton";
 import HomeIcon from "@/assets/Menu/SSMART OFFICE.svg?react";
 import { NavLink, useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
 import useAuthStore from "@/store/useAuthStore";
+import { setLogout } from "@/services/authAPI";
+import useMyInfoStore from "@/store/useMyInfoStore";
 
 import styles from "@/styles/Menu/Menu.module.css";
-import { setLogout } from "@/services/authAPI";
+import PropTypes from "prop-types";
 
 const NavItem = ({ link, type, content }) => {
   const clearAuth = useAuthStore((state) => state.clearAuth);
@@ -33,6 +34,7 @@ const NavItem = ({ link, type, content }) => {
 };
 
 const Menu = () => {
+  const { name } = useMyInfoStore();
   return (
     <>
       <NavLink to="/" className={styles.temp}>
@@ -42,7 +44,10 @@ const Menu = () => {
       <NavItem link="/seat" type="Seat" content="좌석 현황" />
       <NavItem link="/message" type="Message" content="사내 메시지" />
       <NavItem link="/mypage" type="Mypage" content="마이페이지" />
-      <NavItem link="/attendance" type="Attendance" content="사원 관리" />
+      {name === "admin" && (
+        <NavItem link="/attendance" type="Attendance" content="사원 관리" />
+      )}
+
       <NavItem link="/logout" type="Logout" content="로그아웃" />
     </>
   );

@@ -11,11 +11,6 @@ const SeatingStatus = memo(({ floor, seats, totalNumber }) => {
     }, {});
   }, [seats]);
 
-  // const startNumber = (parseInt(floor, 10) - 1) * totalNumber + 1;
-  // const seatNumbers = Array.from(
-  //   { length: totalNumber },
-  //   (_, i) => startNumber + i
-  // );
   const prefix = String.fromCharCode(65 + parseInt(floor, 10) - 1);
   const seatNumbers = Array.from(
     { length: totalNumber },

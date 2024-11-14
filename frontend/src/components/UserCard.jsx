@@ -5,7 +5,7 @@ import styles from "@/styles/Header.module.css";
 import Down from "@/assets/Common/Arrow_down.svg?react";
 import { setLogout } from "@/services/authAPI";
 import useAuthStore from "@/store/useAuthStore";
-import useMyInfoStore from "../store/useMyInfoStore";
+import useMyInfoStore from "@/store/useMyInfoStore";
 
 const UserCard = () => {
   const clearAuth = useAuthStore((state) => state.clearAuth);
