@@ -16,4 +16,5 @@ interface UserService {
     fun updatePassword(userId: Long, passwordUpdateRequest: PasswordUpdateRequest)
     fun authenticateUser(userLoginRequest: UserLoginRequest): User
     fun findAllByIds(userIds: List<Long>): List<User>
+    fun existsById(userId: Long): Boolean
 }

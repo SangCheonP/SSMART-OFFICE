@@ -1,5 +1,6 @@
 package org.ssmartoffice.userservice.controller
 
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.ssmartoffice.userservice.global.dto.CommonResponse
 import org.ssmartoffice.userservice.controller.port.UserService
 import org.ssmartoffice.userservice.controller.request.PasswordUpdateRequest
@@ -19,6 +20,8 @@ import org.ssmartoffice.userservice.controller.request.UserLoginRequest
 import org.ssmartoffice.userservice.controller.response.SeatUserResponse
 import org.ssmartoffice.userservice.controller.response.UserAuthenticationResponse
 import org.ssmartoffice.userservice.domain.User
+
+private val logger = KotlinLogging.logger {}
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -124,9 +127,11 @@ class UserController(
     fun searchUsersByIds(
         @RequestParam userIds: List<Long>
     ): ResponseEntity<CommonResponse<List<SeatUserResponse>?>> {
+        logger.info { "userIds: $userIds" }
         val userList = userService.findAllByIds(userIds).map { user ->
             userResponseMapper.toSeatUserResponse(user)
         }
+        logger.info { "Fetched user list: $userList" }
         return CommonResponse.ok(
             data = userList,
             msg = "좌석 조회에 필요한 회원 정보 조회에 성공했습니다."
@@ -154,6 +159,16 @@ class UserController(
         return CommonResponse.ok(
             data = response,
             msg = "자체 로그인에 성공했습니다."
+        )
+    }
+
+    @GetMapping("/{userId}/exists")
+    fun existsById(
+        @Positive @PathVariable userId: Long
+    ): ResponseEntity<CommonResponse<Boolean?>> {
+        return CommonResponse.ok(
+            data = userService.existsById(userId),
+            msg = "회원 존재 여부 체크에 성공했습니다."
         )
     }
 

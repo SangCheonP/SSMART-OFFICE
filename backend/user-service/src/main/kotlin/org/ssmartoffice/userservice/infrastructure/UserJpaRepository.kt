@@ -11,6 +11,6 @@ import org.ssmartoffice.userservice.domain.User
 interface UserJpaRepository : JpaRepository<UserEntity, Long> {
     fun findByEmail(email: String): UserEntity
     fun existsByEmail(adminEmail: String): Boolean
-    fun findAllByIdIn(ids: List<Long>): List<UserEntity>
+    fun findByIdIn(ids: List<Long>): List<UserEntity>
     fun findByRoleNot(admin: Role, pageable: Pageable): Page<User>
 }

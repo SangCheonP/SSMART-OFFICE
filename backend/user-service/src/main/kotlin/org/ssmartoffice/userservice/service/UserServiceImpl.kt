@@ -98,7 +98,11 @@ class UserServiceImpl(
     }
 
     override fun findAllByIds(userIds: List<Long>): List<User> {
-        return userRepository.findAllByIdIn(userIds)
+        return userRepository.findByIdIn(userIds)
+    }
+
+    override fun existsById(userId: Long): Boolean {
+        return userRepository.existsById(userId)
     }
 
     private fun checkAdminAccess(authentication: Authentication) {

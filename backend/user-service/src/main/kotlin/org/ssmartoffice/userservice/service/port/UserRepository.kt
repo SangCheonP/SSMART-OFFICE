@@ -13,6 +13,7 @@ interface UserRepository {
     fun findByEmail(email: String): User?
     fun findAll(pageable: Pageable): Page<User>
     fun existsByEmail(adminEmail: String): Boolean
-    fun findAllByIdIn(ids: List<Long>): List<User>
+    fun findByIdIn(ids: List<Long>): List<User>
     fun findByRoleNot(role: Role, pageable: Pageable): Page<User>
+    fun existsById(userId: Long): Boolean
 }

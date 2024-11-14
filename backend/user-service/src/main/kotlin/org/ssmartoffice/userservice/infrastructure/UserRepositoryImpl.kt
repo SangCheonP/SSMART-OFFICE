@@ -29,14 +29,17 @@ class UserRepositoryImpl(
         return userJpaRepository.findAll(pageable).map { userEntity -> userEntity.toModel() }
     }
 
-    override fun findAllByIdIn(ids: List<Long>): List<User> {
-        return userJpaRepository.findAllByIdIn(ids).map { userEntity -> userEntity.toModel() }
+    override fun findByIdIn(ids: List<Long>): List<User> {
+        return userJpaRepository.findByIdIn(ids).map { userEntity -> userEntity.toModel() }
     }
 
     override fun findByRoleNot(role: Role, pageable: Pageable): Page<User> {
         return userJpaRepository.findByRoleNot(Role.ADMIN, pageable)
     }
 
+    override fun existsById(userId: Long): Boolean {
+        return userJpaRepository.existsById(userId)
+    }
 
     override fun existsByEmail(adminEmail: String): Boolean {
         return userJpaRepository.existsByEmail(adminEmail)
