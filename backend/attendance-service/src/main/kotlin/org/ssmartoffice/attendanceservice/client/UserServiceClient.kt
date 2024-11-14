@@ -9,7 +9,7 @@ import org.ssmartoffice.attendanceservice.global.dto.CommonResponse
 
 @FeignClient(name = "user-service")
 interface UserServiceClient {
-    @GetMapping("/api/v1/users/internal/authentication")
+    @GetMapping("/api/v1/users/authentication")
     fun getIdAndRole(@RequestParam email: String): ResponseEntity<CommonResponse<UserAuthenticationResponse>>
 
 }
