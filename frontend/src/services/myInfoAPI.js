@@ -3,8 +3,9 @@ import useMyInfoStore from "../store/useMyInfoStore";
 
 // 비밀번호 업데이트
 export const updatePassword = async (currentPassword, newPassword) => {
+  console.log(currentPassword, newPassword);
   try {
-    const response = await api.post("/users/me/password", {
+    const response = await api.patch("/users/me/password", {
       oldPassword: currentPassword,
       newPassword: newPassword,
     });
