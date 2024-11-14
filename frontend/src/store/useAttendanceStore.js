@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import api from "../services/api";
-import { fetchUserTodo, fetchUserList } from "../services/attendanceApi";
+import api from "@/services/api";
+import { fetchUserTodo, fetchUserList } from "@/services/attendanceApi";
 
 const useAttendanceStore = create(
   persist(

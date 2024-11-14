@@ -8,7 +8,7 @@ import TodoList from "./TodoList";
 import AddButton from "@/assets/Todo/AddButton.svg?react";
 import dayjs from "dayjs";
 import useModalStore from "@/store/useModalStore";
-import AddTodoModal from "../Modals/AddTodoModal";
+import AddTodoModal from "@/components/Modals/AddTodoModal";
 import { addCalendarEvent } from "@/services/homeApi";
 import useMyInfoStore from "@/store/useMyInfoStore";
 
