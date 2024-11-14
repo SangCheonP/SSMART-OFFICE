@@ -5,8 +5,7 @@ import PropTypes from "prop-types";
 import useAuthStore from "@/store/useAuthStore";
 
 import styles from "@/styles/Menu/Menu.module.css";
-
-import api from "@/services/api";
+import { setLogout } from "@/services/authAPI";
 
 const NavItem = ({ link, type, content }) => {
   const clearAuth = useAuthStore((state) => state.clearAuth);
@@ -14,18 +13,7 @@ const NavItem = ({ link, type, content }) => {
 
   const handleClick = async () => {
     if (type === "Logout") {
-      try {
-        const response = await api.post("/auth/logout");
-        console.log(response.data);
-        if (response.data.status === 200) {
-          clearAuth();
-          navigate("/login");
-        } else {
-          console.error("Unexpected status code:", response.data.status);
-        }
-      } catch (error) {
-        console.error("Logout failed:", error);
-      }
+      setLogout(clearAuth, navigate);
     }
   };
   return (

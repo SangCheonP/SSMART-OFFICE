@@ -5,8 +5,17 @@ import Close from "@/assets/Modals/Close.svg?react";
 import Profile from "@/assets/Common/Profile.png";
 import styles from "@/styles/Modals/AddMemberModal.module.css";
 import api from "@/services/api";
+import { useState } from "react";
 
 const AddMemberModal = ({ onSubmit, onClose }) => {
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [imageFile, setImageFile] = useState(null);
+  const [position, setPosition] = useState("");
+  const [duty, setDuty] = useState("");
+  const [employeeNumber, setEmployeeNumber] = useState("");
+
   const handleClickSubmit = () => {
     try {
       const response = api.get("/users/me");
@@ -37,7 +46,7 @@ const AddMemberModal = ({ onSubmit, onClose }) => {
         content: {
           position: "absolute",
           width: "400px",
-          height: "500px",
+          height: "600px",
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
@@ -53,7 +62,7 @@ const AddMemberModal = ({ onSubmit, onClose }) => {
       <button className={styles.close} onClick={handleClickCancel}>
         <Close />
       </button>
-      <div className={styles.container}>
+      <form className={styles.container}>
         <h1 className={styles.title}>사원 정보 등록</h1>
         <div className={styles.imageBox}>
           <img src={Profile} alt="" className={styles.image} />
@@ -62,31 +71,85 @@ const AddMemberModal = ({ onSubmit, onClose }) => {
           <label htmlFor="name" className={styles.text}>
             이름
           </label>
-          <input type="text" id="name" className={styles.input} />
+          <input
+            type="text"
+            id="name"
+            className={styles.input}
+            value={name}
+            onChange={(e) => {
+              setName(e.target.value);
+            }}
+          />
         </div>
         <div className={styles.textBox}>
-          <label htmlFor="name" className={styles.text}>
+          <label htmlFor="password" className={styles.text}>
+            비밀번호
+          </label>
+          <input
+            type="password"
+            id="password"
+            className={styles.input}
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+        </div>
+        <div className={styles.textBox}>
+          <label htmlFor="position" className={styles.text}>
             직책
           </label>
-          <input type="text" id="name" className={styles.input} />
+          <input
+            type="text"
+            id="position"
+            className={styles.input}
+            value={position}
+            onChange={(e) => {
+              setPosition(e.target.value);
+            }}
+          />
         </div>
         <div className={styles.textBox}>
-          <label htmlFor="name" className={styles.text}>
+          <label htmlFor="position" className={styles.text}>
             직무
           </label>
-          <input type="text" id="name" className={styles.input} />
+          <input
+            type="text"
+            id="name"
+            className={styles.input}
+            value={duty}
+            onChange={(e) => {
+              setDuty(e.target.value);
+            }}
+          />
         </div>
         <div className={styles.textBox}>
-          <label htmlFor="name" className={styles.text}>
+          <label htmlFor="email" className={styles.text}>
             이메일
           </label>
-          <input type="text" id="name" className={styles.input} />
+          <input
+            type="text"
+            id="email"
+            className={styles.input}
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+          />
         </div>
         <div className={styles.textBox}>
-          <label htmlFor="name" className={styles.text}>
+          <label htmlFor="employeeNumber" className={styles.text}>
             사원번호
           </label>
-          <input type="text" id="name" className={styles.input} />
+          <input
+            type="text"
+            id="employeeNumber"
+            className={styles.input}
+            value={employeeNumber}
+            onChange={(e) => {
+              setEmployeeNumber(e.target.value);
+            }}
+          />
         </div>
 
         <div className={styles.buttonBox}>
@@ -103,7 +166,7 @@ const AddMemberModal = ({ onSubmit, onClose }) => {
             수정
           </button>
         </div>
-      </div>
+      </form>
     </ReactModal>
   );
 };
