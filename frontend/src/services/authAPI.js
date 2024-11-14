@@ -14,9 +14,7 @@ export const setLogin = async (email, password, navigate) => {
       password: password,
     });
     if (response.data.status === 200 || response.data.status === 201) {
-      // const accessToken = response.headers["authorization"];
-      const accessToken =
-        "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImlkIjoxLCJpc3MiOiJTU21hcnRPZmZpY2UiLCJpYXQiOjE3MzE1MDQzMzMsImV4cCI6MTczMjgwMDMzM30.mITy-ODa7MdME9XPY2pKxgftC1Fl-0jLYG3c4udDz8A";
+      const accessToken = response.headers["authorization"];
       setAuth(accessToken);
 
       await fetchMyInfo();

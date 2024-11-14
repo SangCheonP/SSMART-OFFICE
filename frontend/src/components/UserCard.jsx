@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { replace, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ProfileImage from "@/assets/Login/ProfileImage.svg?react";
 import styles from "@/styles/Header.module.css";
 import Down from "@/assets/Common/Arrow_down.svg?react";
