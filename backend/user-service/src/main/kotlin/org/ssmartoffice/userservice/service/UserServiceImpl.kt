@@ -1,5 +1,6 @@
 package org.ssmartoffice.userservice.service
 
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.ssmartoffice.userservice.controller.port.UserService
 import org.ssmartoffice.userservice.domain.User
 import org.ssmartoffice.userservice.global.exception.UserException
@@ -12,6 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import org.ssmartoffice.userservice.controller.request.*
 import org.ssmartoffice.userservice.global.const.errorcode.UserErrorCode
+
+private val logger = KotlinLogging.logger {}
 
 @Service
 class UserServiceImpl(
@@ -67,22 +70,21 @@ class UserServiceImpl(
 
     override fun updatePassword(userId: Long, passwordUpdateRequest: PasswordUpdateRequest) {
         val user: User = findUserByUserId(userId)
-        val encodedOldPassword = passwordEncoder.encode(passwordUpdateRequest.oldPassword)
-        if (!user.isSamePassword(encodedOldPassword)) {
+        logger.info { user.password }
+        if (!user.isSamePassword(passwordUpdateRequest.oldPassword, passwordEncoder)) {
             throw UserException(UserErrorCode.INVALID_PASSWORD)
         }
-        val encodedNewPassword = passwordEncoder.encode(passwordUpdateRequest.newPassword)
-        if (user.isSamePassword(encodedNewPassword)) {
+        if (passwordUpdateRequest.isSamePassword()) {
             throw UserException(UserErrorCode.DUPLICATE_PASSWORD)
         }
+        val encodedNewPassword = passwordEncoder.encode(passwordUpdateRequest.newPassword)
         user.updatePassword(encodedNewPassword)
         userRepository.save(user)
     }
 
     override fun authenticateUser(userLoginRequest: UserLoginRequest): User {
         val user: User = findByUserEmail(userLoginRequest.email)
-        val encodedPassword = passwordEncoder.encode(userLoginRequest.password)
-        if (!user.isSamePassword(encodedPassword)) {
+        if (!user.isSamePassword(userLoginRequest.password, passwordEncoder)) {
             throw UserException(UserErrorCode.INVALID_PASSWORD)
         }
         return user
