@@ -19,8 +19,8 @@ class SecurityConfig(
     private val jwtUtil: JwtUtil
 ) {
     private val skipUrls = arrayOf(
-        "/api/v1/users/internal/login",
-        "/api/v1/users/internal/authentication"
+        "/api/v1/users/login",
+        "/api/v1/users/authentication"
     )
 
     @Bean

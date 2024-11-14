@@ -26,7 +26,7 @@ class AuthController(
     @PostMapping("/token/refresh")
     fun refreshToken(@RequestBody request: TokenRefreshRequest): ResponseEntity<CommonResponse<Any>> {
         val newAccessToken = authService.refreshToken(request)
-        httpServletResponse.addHeader("Authorization", "Bearer $newAccessToken")
+        httpServletResponse.addHeader("Authorization", newAccessToken)
         return CommonResponse.created("토큰 갱신에 성공했습니다.")
     }
 
