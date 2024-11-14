@@ -31,10 +31,11 @@ class AdminAccountInitializer(
                     position = "주임",
                     duty = "인사팀",
                     profileImageUrl = "이미지 url",
-                    employeeNumber = "S000000"
+                    employeeNumber = "S24000000"
                 )
                 userRepository.save(adminUser)
                 logger.info { "관리자 계정이 성공적으로 생성되었습니다. (email: $adminEmail)" }
+                logger.info { adminUser.password }
             } else {
                 logger.info { "관리자 계정이 이미 존재합니다. (email: $adminEmail)" }
             }
