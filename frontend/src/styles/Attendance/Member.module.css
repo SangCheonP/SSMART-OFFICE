@@ -52,12 +52,23 @@
   font-size: 20px;
   margin-right: 8px;
 }
-.todo_box {
+.attendance_info {
   margin: 10px 10px 10px 40px;
+}
+.todo_box {
   display: flex;
   align-items: end;
   font-weight: 500;
 }
+.attendance_data {
+  margin-top: 15px;
+  list-style: none;
+  color: var(--text-description);
+}
+.attendance_data li {
+  margin-bottom: 8px;
+}
+
 .toolbar {
   display: flex;
   justify-content: center;

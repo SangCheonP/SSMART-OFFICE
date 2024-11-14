@@ -6,6 +6,7 @@ import { ko, enUS } from "date-fns/locale";
 import Toolbar from "./Toolbar";
 import styles from "@/styles/Home/Calendar.module.css";
 import "@/styles/Home/Calendar.css";
+import useHomeStore from "@/store/useHomeStore";
 
 const locales = { ko, enUS };
 const localizer = dateFnsLocalizer({
@@ -86,7 +87,6 @@ const MyCalendar = ({ monthData, attendanceData, onDateSelect }) => {
       type: item.attendanceType,
     }));
 
-    // 시간순 정렬이라 일정은 임의로 지정
     const formattedMonthEvents = monthData.map((item) => ({
       start: new Date(new Date(item.date).setHours(23, 59, 0)),
       end: new Date(new Date(item.date).setHours(23, 59, 0)),
@@ -94,17 +94,7 @@ const MyCalendar = ({ monthData, attendanceData, onDateSelect }) => {
       type: item.type,
     }));
 
-    const allEvents = [...formattedAttendanceEvents, ...formattedMonthEvents];
-
-    allEvents.sort((a, b) => {
-      if (a.type === "START") return -1;
-      if (b.type === "START") return 1;
-      if (a.type === "END") return -1;
-      if (b.type === "END") return 1;
-      return a.start - b.start;
-    });
-
-    setEvents(allEvents);
+    setEvents([...formattedAttendanceEvents, ...formattedMonthEvents]);
   }, [monthData, attendanceData]);
 
   return (

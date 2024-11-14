@@ -16,25 +16,37 @@ const Home = () => {
   } = useHomeStore();
 
   useEffect(() => {
-    const month = "202412"; // 조회할 month 값
-    const day = "31"; // 조회할 day 값
+    const today = new Date();
+    const month = "202412";
+    const day = "31";
 
     // 캘린더 데이터 조회
     fetchCalendarData(month);
     fetchTodoData(month, day);
     fetchAttendanceData(month, day);
+
+    console.log("Fetched Attendance Data:", attendanceData); // 디버깅 확인용
   }, [fetchCalendarData, fetchTodoData, fetchAttendanceData]);
 
   const handleDateSelect = (date) => {
     setSelectedDate(date);
+    const month = date.getFullYear() * 100 + (date.getMonth() + 1);
+    const day = date.getDate();
+    fetchTodoData(month, day);
+    fetchAttendanceData(month, day); // 선택한 날짜의 출퇴근 정보 조회
   };
-
   return (
     <div className={styles.home}>
       <div className={styles.calendar}>
         <MyCalendar
-          monthData={calendarData?.data?.attendances || []}
-          attendanceData={attendanceData || []}
+          monthData={
+            Array.isArray(calendarData?.data?.attendances)
+              ? calendarData.data.attendances
+              : []
+          }
+          attendanceData={
+            Array.isArray(attendanceData?.data) ? attendanceData.data : []
+          }
           onDateSelect={handleDateSelect}
         />
       </div>

@@ -8,9 +8,9 @@ export const fetchUserList = () => {
 
 // 사원 일정 일별 조회
 export const fetchUserTodo = (userId, month, day) => {
-  return api.get(`/assignments`, {
+  const url = `/assignments/${userId}`;
+  return api.get(`/assignments/${userId}`, {
     params: {
-      userId: userId,
       month: month,
       day: day,
     },
@@ -19,9 +19,8 @@ export const fetchUserTodo = (userId, month, day) => {
 
 // 출퇴근 정보 조회(관리자)
 export const fetchUserAttendance = (userId, month, day) => {
-  return api.get(`/attendances`, {
+  return api.get(`/attendances/users/${userId}`, {
     params: {
-      userId: userId,
       month: month,
       day: day,
     },

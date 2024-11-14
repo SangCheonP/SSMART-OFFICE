@@ -2,7 +2,7 @@ import api from "./api";
 
 // 캘린더 일정 월별 조회
 export const fetchCalendarData = (month) => {
-  return api.get(`/assignments/me/summary`, {
+  return api.get(`/assignments/summary`, {
     params: { month: month },
   });
 };
@@ -29,10 +29,16 @@ export const addCalendarEvent = (
   description,
   token
 ) => {
-  return api.post("/assignments/assignments", {
-    assignmentName,
-    assignmentDate,
-    assignmentType,
-    description,
+  return api.post("/assignments", {
+    name: assignmentName,
+    date: assignmentDate,
+    type: assignmentType,
+    description: description,
+    completed: false,
   });
+};
+
+// 일정 완료
+export const checkEvent = (assignmentId) => {
+  return api.patch(`/assignments/${assignmentId}`);
 };
