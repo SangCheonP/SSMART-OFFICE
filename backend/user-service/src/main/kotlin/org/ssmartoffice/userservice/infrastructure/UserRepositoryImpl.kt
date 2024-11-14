@@ -28,6 +28,10 @@ class UserRepositoryImpl(
         return userJpaRepository.findAll(pageable).map { userEntity -> userEntity.toModel() }
     }
 
+    override fun findAllByIdIn(ids: List<Long>): List<User> {
+        return userJpaRepository.findAllByIdIn(ids).map { userEntity -> userEntity.toModel() }
+    }
+
     override fun findMaxEmployeeNumberByYear(prefix: String): String? {
         return userJpaRepository.findTopByEmployeeNumberStartingWithOrderByEmployeeNumberDesc(prefix)
             ?.employeeNumber

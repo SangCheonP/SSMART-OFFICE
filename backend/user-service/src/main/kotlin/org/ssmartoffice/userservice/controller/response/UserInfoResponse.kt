@@ -1,11 +1,10 @@
 package org.ssmartoffice.userservice.controller.response
 
 import org.ssmartoffice.userservice.domain.Role
-import org.ssmartoffice.userservice.domain.User
 import org.ssmartoffice.userservice.domain.UserStatus
 
 class UserInfoResponse(
-    val id: Long = 0,
+    val userId: Long = 0,
     val employeeNumber: String,
     val email: String,
     val name: String,
@@ -14,22 +13,5 @@ class UserInfoResponse(
     val profileImageUrl: String,
     var role: Role,
     val status: UserStatus,
-    val phoneNumber:String?
-) {
-    companion object {
-        fun fromModel(user: User): UserInfoResponse {
-            return UserInfoResponse(
-                id = user.id,
-                email = user.email,
-                name = user.name,
-                position = user.position,
-                duty = user.duty,
-                profileImageUrl = user.profileImageUrl,
-                role = user.role,
-                employeeNumber = user.employeeNumber,
-                status = user.status,
-                phoneNumber = user.phoneNumber
-            )
-        }
-    }
-}
+    val phoneNumber: String?
+)

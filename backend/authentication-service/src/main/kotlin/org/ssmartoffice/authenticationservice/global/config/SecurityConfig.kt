@@ -37,8 +37,11 @@ class SecurityConfig(
 
     private val skipUrls = arrayOf(
         "/api/v1/auth/login",
-        "/api/v1/auth/token/refresh"
+        "/api/v1/auth/token/refresh",
+        "/api/v1/auth/oauth2/authorization",
+        "/api/v1/auth/oauth2/code/*"
     )
+
 
     @Bean
     @Throws(Exception::class)

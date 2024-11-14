@@ -1,9 +1,7 @@
 package org.ssmartoffice.userservice.service
 
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.ssmartoffice.userservice.controller.port.UserService
-import org.ssmartoffice.userservice.controller.request.PasswordUpdateRequest
-import org.ssmartoffice.userservice.controller.request.UserRegisterRequest
-import org.ssmartoffice.userservice.controller.request.UserUpdateRequest
 import org.ssmartoffice.userservice.domain.User
 import org.ssmartoffice.userservice.global.exception.UserException
 import org.ssmartoffice.userservice.service.port.UserRepository
@@ -13,8 +11,10 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
-import org.ssmartoffice.userservice.controller.request.UserLoginRequest
+import org.ssmartoffice.userservice.controller.request.*
 import org.ssmartoffice.userservice.global.const.errorcode.UserErrorCode
+
+private val logger = KotlinLogging.logger {}
 
 @Service
 class UserServiceImpl(
@@ -25,7 +25,8 @@ class UserServiceImpl(
     override fun addUser(userRegisterRequest: UserRegisterRequest): User {
         try {
             val user = User.fromRequest(userRegisterRequest)
-            user.encodePassword(passwordEncoder)
+            val encodedPassword = passwordEncoder.encode(userRegisterRequest.password)
+            user.updatePassword(encodedPassword)
             return userRepository.save(user)
         } catch (ex: DataIntegrityViolationException) {
             throw UserException(UserErrorCode.DUPLICATED_VALUE)
@@ -57,7 +58,6 @@ class UserServiceImpl(
     override fun updateUser(userId: Long, userUpdateRequest: UserUpdateRequest): User {
         val user: User = findUserByUserId(userId)
         user.update(
-            email = userUpdateRequest.email,
             password = userUpdateRequest.password?.let { passwordEncoder.encode(it) },
             name = userUpdateRequest.name,
             position = userUpdateRequest.position,
@@ -70,17 +70,27 @@ class UserServiceImpl(
 
     override fun updatePassword(userId: Long, passwordUpdateRequest: PasswordUpdateRequest) {
         val user: User = findUserByUserId(userId)
-        user.updatePassword(
-            oldPassword = passwordUpdateRequest.oldPassword,
-            newPassword = passwordUpdateRequest.newPassword,
-            encoder = passwordEncoder
-        )
+        logger.info { user.password }
+        if (!user.isSamePassword(passwordUpdateRequest.oldPassword, passwordEncoder)) {
+            throw UserException(UserErrorCode.INVALID_PASSWORD)
+        }
+        if (passwordUpdateRequest.isSamePassword()) {
+            throw UserException(UserErrorCode.DUPLICATE_PASSWORD)
+        }
+        val encodedNewPassword = passwordEncoder.encode(passwordUpdateRequest.newPassword)
+        user.updatePassword(encodedNewPassword)
         userRepository.save(user)
     }
 
-    override fun authenticateUser(request: UserLoginRequest): User {
-        val user: User = findByUserEmail(request.email)
-        user.validatePassword(passwordEncoder, request.password)
+    override fun authenticateUser(userLoginRequest: UserLoginRequest): User {
+        val user: User = findByUserEmail(userLoginRequest.email)
+        if (!user.isSamePassword(userLoginRequest.password, passwordEncoder)) {
+            throw UserException(UserErrorCode.INVALID_PASSWORD)
+        }
         return user
+    }
+
+    override fun findAllByIds(userIds: List<Long>): List<User> {
+        return userRepository.findAllByIdIn(userIds)
     }
 }

@@ -1,5 +1,6 @@
 package org.ssmartoffice.authenticationservice.global.security.jwt
 
+import io.github.oshai.kotlinlogging.KotlinLogging
 import io.jsonwebtoken.*
 import io.jsonwebtoken.io.Decoders
 import io.jsonwebtoken.security.Keys
@@ -17,6 +18,7 @@ import java.security.Key
 import java.util.*
 import java.time.Duration
 
+private val logger = KotlinLogging.logger {}
 
 @Component
 class JwtTokenProvider(
@@ -53,7 +55,7 @@ class JwtTokenProvider(
         redisTemplate.opsForValue().set("${userDetails.email}-refresh", refreshToken, expireDuration)
     }
 
-    fun createRefreshToken(authentication: Authentication, response: HttpServletResponse) {
+    fun createRefreshToken(authentication: Authentication, response: HttpServletResponse): String? {
         val now = Date()
         val validity = Date(now.time + REFRESH_TOKEN_EXPIRE_LENGTH)
         val userDetails = authentication.principal as CustomUserDetails
@@ -66,17 +68,26 @@ class JwtTokenProvider(
             .setExpiration(validity)
             .compact()
 
-        saveRefreshToken(authentication, refreshToken)
-        val cookie = ResponseCookie.from(COOKIE_REFRESH_TOKEN_KEY, refreshToken)
-            .httpOnly(false)
-            .secure(true)
-            .sameSite("None")
-            .maxAge(REFRESH_TOKEN_EXPIRE_LENGTH)
-            .path("/")
-            .build()
+        return try {
+            saveRefreshToken(authentication, refreshToken)
 
-        response.addHeader("Set-Cookie", cookie.toString())
+            // 쿠키 설정
+            val cookie = ResponseCookie.from(COOKIE_REFRESH_TOKEN_KEY, refreshToken)
+                .httpOnly(false)
+                .secure(true)
+                .sameSite("None")
+                .maxAge(REFRESH_TOKEN_EXPIRE_LENGTH)
+                .path("/")
+                .build()
+
+            response.addHeader("Set-Cookie", cookie.toString())
+            refreshToken  // 성공 시 refreshToken 반환
+        } catch (e: Exception) {
+            logger.error(e) { "Failed to save refresh token" }
+            null  // 예외 발생 시 null 반환
+        }
     }
+
 
     fun getAuthentication(accessToken: String): Authentication {
         val claims: Claims = parseClaims(accessToken)
@@ -119,8 +130,10 @@ class JwtTokenProvider(
     }
 
     companion object {
-        private const val REFRESH_TOKEN_EXPIRE_LENGTH = 1000L * 60 * 60 * 24 * 7
-        private const val ACCESS_TOKEN_EXPIRE_LENGTH = 1000L * 60 * 60 * 2 // 2시간
+        //        private const val REFRESH_TOKEN_EXPIRE_LENGTH = 1000L * 60 * 60 * 24 * 7
+//        private const val ACCESS_TOKEN_EXPIRE_LENGTH = 1000L * 60 * 60 * 2 // 2시간
+        private const val REFRESH_TOKEN_EXPIRE_LENGTH = 1000L * 60 * 60 * 24 * 15
+        private const val ACCESS_TOKEN_EXPIRE_LENGTH = 1000L * 60 * 60 * 24 * 15 // 15일
         private const val AUTHORITIES_KEY = "role"
         private const val ID_KEY = "id"
     }

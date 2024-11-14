@@ -7,4 +7,8 @@ data class PasswordUpdateRequest(
     val oldPassword: String,
     @field:NotBlank(message = "새 비밀번호를 입력해주세요.")
     val newPassword: String,
-)
+) {
+    fun isSamePassword(): Boolean {
+        return oldPassword == newPassword
+    }
+}
