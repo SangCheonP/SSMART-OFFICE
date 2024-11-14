@@ -7,19 +7,51 @@ import ReadCard from "./ReadCard";
 import TodoList from "./TodoList";
 import AddButton from "@/assets/Todo/AddButton.svg?react";
 import dayjs from "dayjs";
+import useModalStore from "@/store/useModalStore";
+import AddTodoModal from "../Modals/AddTodoModal";
+import { addCalendarEvent } from "@/services/homeApi";
+import useMyInfoStore from "@/store/useMyInfoStore";
 
 const Todo = ({ selectedDate, monthData }) => {
-  // 선택된 날짜에 해당하는 일정 필터링
-  const filteredDate = monthData.filter(
-    (item) => item.date === dayjs(selectedDate).format("YYYY-MM-DD")
-  );
+  const filteredDate = Array.isArray(monthData)
+    ? monthData.filter(
+        (item) => item?.date === dayjs(selectedDate).format("YYYY-MM-DD")
+      )
+    : [];
+
+  const openModal = useModalStore((state) => state.openModal);
+  const { name } = useMyInfoStore();
+
+  const handleAddTodoClick = () => {
+    openModal(AddTodoModal, {
+      onSubmit: async ({
+        assignmentName,
+        assignmentDate,
+        assignmentType,
+        description,
+      }) => {
+        try {
+          await addCalendarEvent(
+            assignmentName,
+            assignmentDate,
+            assignmentType,
+            description
+          );
+          console.log("일정 추가 성공");
+        } catch (error) {
+          console.error("일정 추가 실패:", error);
+        }
+      },
+    });
+  };
+
   return (
     <div>
       <section className={styles.todo_box}>
         <div className={styles.contentWrapper}>
           <header className={styles.name_tag}>
             <Month className={styles.month} />
-            <span className={styles.name}>복현우</span>
+            <span className={styles.name}>{name}</span>
             <span className={styles.name_text}>님의 일과</span>
           </header>
 
@@ -43,10 +75,7 @@ const Todo = ({ selectedDate, monthData }) => {
           <TodoList monthData={filteredDate} />
 
           {/* 일정 추가 버튼 클릭 시 모달 띄우기 */}
-          <button
-            className={styles.add_todo}
-            onClick={() => alert("일정을 추가하시겠습니까?")}
-          >
+          <button className={styles.add_todo} onClick={handleAddTodoClick}>
             <div className={styles.add_inner}>
               <AddButton />
               <span className={styles.add_text}>일정 추가</span>

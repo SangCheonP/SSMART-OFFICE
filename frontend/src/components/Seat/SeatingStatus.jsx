@@ -3,16 +3,19 @@ import { memo, useMemo } from "react";
 
 import styles from "@/styles/Seat/SeatingStatus.module.css";
 
-const SeatingStatus = memo(({ floor, occupant, totalNumber }) => {
+const SeatingStatus = memo(({ floor, seats, totalNumber }) => {
   const occupantMap = useMemo(() => {
-    return occupant.reduce((acc, item) => {
-      acc[item.number] = item;
+    return seats.reduce((acc, item) => {
+      acc[item.info] = item;
       return acc;
     }, {});
-  }, [occupant]);
+  }, [seats]);
 
-  console.log(occupantMap);
-  const seatNumbers = Array.from({ length: totalNumber }, (_, i) => i + 1);
+  const prefix = String.fromCharCode(65 + parseInt(floor, 10) - 1);
+  const seatNumbers = Array.from(
+    { length: totalNumber },
+    (_, i) => `${prefix}${i + 1}`
+  );
 
   return (
     <>
@@ -40,11 +43,11 @@ const SeatingStatus = memo(({ floor, occupant, totalNumber }) => {
 
           return (
             <div key={seatNumber} className={`${styles.seat} ${statusClass}`}>
-              {seatData ? (
+              {seatData?.userId ? (
                 <div className={styles.box}>
-                  <div className={styles.role}>{seatData.role}</div>
+                  <div className={styles.role}>{seatData?.role}</div>
                   <div className={styles.positionName}>
-                    {seatData.position} {seatData.name}
+                    {seatData?.position} {seatData?.name}
                   </div>
                 </div>
               ) : (
@@ -62,7 +65,7 @@ SeatingStatus.displayName = "SeatingStatus";
 
 SeatingStatus.propTypes = {
   floor: PropTypes.string.isRequired,
-  occupant: PropTypes.array.isRequired,
+  seats: PropTypes.array.isRequired,
   totalNumber: PropTypes.number.isRequired,
 };
 
