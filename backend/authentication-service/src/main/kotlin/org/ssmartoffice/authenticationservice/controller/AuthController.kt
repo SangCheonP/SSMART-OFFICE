@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import org.ssmartoffice.authenticationservice.controller.port.AuthService
 import org.ssmartoffice.authenticationservice.controller.request.TokenRefreshRequest
 import org.ssmartoffice.authenticationservice.domain.CustomUserDetails
 import org.ssmartoffice.authenticationservice.global.dto.CommonResponse
-import org.ssmartoffice.authenticationservice.service.AuthService
 
 @RestController
 @RequiredArgsConstructor
@@ -33,8 +33,9 @@ class AuthController(
     @PostMapping("/logout")
     fun refreshToken(authentication: Authentication): ResponseEntity<CommonResponse<Any>> {
         val userDetails = authentication.principal as CustomUserDetails
-        println("userDetails = ${userDetails}")
-        authService.deleteToken(userDetails)
-        return CommonResponse.created("로그아웃에 성공했습니다.")
+        if(authService.deleteToken(userDetails)){
+            return CommonResponse.created("로그아웃에 성공했습니다.")
+        }
+        return CommonResponse.created("이미 로그아웃이 완료되었습니다.")
     }
 }

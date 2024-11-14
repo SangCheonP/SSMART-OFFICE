@@ -18,7 +18,7 @@ import org.springframework.security.web.authentication.AbstractAuthenticationPro
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 import org.ssmartoffice.authenticationservice.client.UserServiceClient
 import org.ssmartoffice.authenticationservice.client.request.UserLoginRequest
-import org.ssmartoffice.authenticationservice.client.response.UserLoginResponse
+import org.ssmartoffice.authenticationservice.client.response.UserAuthenticationResponse
 import org.ssmartoffice.authenticationservice.domain.CustomUserDetails
 import org.ssmartoffice.authenticationservice.global.const.errorcode.AuthErrorCode
 import org.ssmartoffice.authenticationservice.global.exception.AuthException
@@ -81,12 +81,12 @@ class LoginFilter(
 
         try {
             //user-service 에서 자체 로그인 후 정보 받아오기
-            val userLoginResponse: UserLoginResponse = userServiceClient.selfLogin(loginRequest)?.body?.data
+            val userAuthenticationResponse: UserAuthenticationResponse = userServiceClient.selfLogin(loginRequest)?.body?.data
                 ?: throw AuthenticationServiceException(AuthErrorCode.USER_RESPONSE_EXCEPTION.toString())
 
             val customUserDetails = CustomUserDetails(
-                userId = userLoginResponse.userId,
-                role = userLoginResponse.role,
+                userId = userAuthenticationResponse.userId,
+                role = userAuthenticationResponse.role,
                 email = loginRequest.email,
                 password = loginRequest.password
             )
