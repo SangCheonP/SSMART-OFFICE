@@ -22,7 +22,8 @@ class UserServiceImpl(
     override fun addUser(userRegisterRequest: UserRegisterRequest): User {
         try {
             val user = User.fromRequest(userRegisterRequest)
-            user.encodePassword(passwordEncoder)
+            val encodedPassword = passwordEncoder.encode(userRegisterRequest.password)
+            user.updatePassword(encodedPassword)
             return userRepository.save(user)
         } catch (ex: DataIntegrityViolationException) {
             throw UserException(UserErrorCode.DUPLICATED_VALUE)
@@ -54,7 +55,6 @@ class UserServiceImpl(
     override fun updateUser(userId: Long, userUpdateRequest: UserUpdateRequest): User {
         val user: User = findUserByUserId(userId)
         user.update(
-            email = userUpdateRequest.email,
             password = userUpdateRequest.password?.let { passwordEncoder.encode(it) },
             name = userUpdateRequest.name,
             position = userUpdateRequest.position,
@@ -67,17 +67,24 @@ class UserServiceImpl(
 
     override fun updatePassword(userId: Long, passwordUpdateRequest: PasswordUpdateRequest) {
         val user: User = findUserByUserId(userId)
-        user.updatePassword(
-            oldPassword = passwordUpdateRequest.oldPassword,
-            newPassword = passwordUpdateRequest.newPassword,
-            encoder = passwordEncoder
-        )
+        val encodedOldPassword = passwordEncoder.encode(passwordUpdateRequest.oldPassword)
+        if (!user.isSamePassword(encodedOldPassword)) {
+            throw UserException(UserErrorCode.INVALID_PASSWORD)
+        }
+        val encodedNewPassword = passwordEncoder.encode(passwordUpdateRequest.newPassword)
+        if (user.isSamePassword(encodedNewPassword)) {
+            throw UserException(UserErrorCode.DUPLICATE_PASSWORD)
+        }
+        user.updatePassword(encodedNewPassword)
         userRepository.save(user)
     }
 
     override fun authenticateUser(userLoginRequest: UserLoginRequest): User {
         val user: User = findByUserEmail(userLoginRequest.email)
-        user.validatePassword(passwordEncoder, userLoginRequest.password)
+        val encodedPassword = passwordEncoder.encode(userLoginRequest.password)
+        if (!user.isSamePassword(encodedPassword)) {
+            throw UserException(UserErrorCode.INVALID_PASSWORD)
+        }
         return user
     }
 
