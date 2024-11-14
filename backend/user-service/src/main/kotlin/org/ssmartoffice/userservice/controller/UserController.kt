@@ -17,13 +17,14 @@ import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 import org.ssmartoffice.userservice.controller.request.UserLoginRequest
 import org.ssmartoffice.userservice.controller.response.SeatUserResponse
-import org.ssmartoffice.userservice.controller.response.UserLoginResponse
+import org.ssmartoffice.userservice.controller.response.UserAuthenticationResponse
 import org.ssmartoffice.userservice.domain.User
 
 @RestController
 @RequestMapping("/api/v1/users")
 class UserController(
-    val userService: UserService
+    val userService: UserService,
+    val userResponseMapper: UserResponseMapper
 ) {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -32,8 +33,9 @@ class UserController(
         @RequestBody @Valid userRegisterRequest: UserRegisterRequest
     ): ResponseEntity<CommonResponse<UserInfoResponse?>> {
         val registeredUser = userService.addUser(userRegisterRequest)
+        val response = userResponseMapper.toUserInfoResponse(registeredUser)
         return CommonResponse.created(
-            data = UserInfoResponse.fromModel(registeredUser),
+            data = response,
             msg = "직원등록에 성공하였습니다."
         )
     }
@@ -42,8 +44,9 @@ class UserController(
     fun getMyInfo(authentication: Authentication): ResponseEntity<CommonResponse<UserInfoResponse?>> {
         val userId = authentication.principal as Long
         val user = userService.findUserByUserId(userId)
+        val response = userResponseMapper.toUserInfoResponse(user)
         return CommonResponse.ok(
-            data = UserInfoResponse.fromModel(user),
+            data = response,
             msg = "내 정보 조회에 성공했습니다."
         )
     }
@@ -54,8 +57,9 @@ class UserController(
         @PathVariable userId: Long
     ): ResponseEntity<CommonResponse<UserInfoResponse?>> {
         val user = userService.findUserByUserId(userId)
+        val response = userResponseMapper.toUserInfoResponse(user)
         return CommonResponse.ok(
-            data = UserInfoResponse.fromModel(user),
+            data = response,
             msg = "사원 조회에 성공했습니다."
         )
     }
@@ -66,7 +70,7 @@ class UserController(
     ): ResponseEntity<CommonResponse<Page<UserInfoResponse>?>> {
         val userPage: Page<User> = userService.getAllUsersByPage(pageable)
         val userInfoResponsePage: Page<UserInfoResponse> = userPage.map { user ->
-            UserInfoResponse.fromModel(user)
+            userResponseMapper.toUserInfoResponse(user)
         }
         return CommonResponse.ok(
             data = userInfoResponsePage,
@@ -81,9 +85,10 @@ class UserController(
         @Positive(message = "유효한 사용자 ID를 입력해주세요.")
         @PathVariable userId: Long
     ): ResponseEntity<CommonResponse<UserInfoResponse?>> {
-        val updatedUser = userService.updateUser(userId, userUpdateRequest);
+        val updatedUser = userService.updateUser(userId, userUpdateRequest)
+        val response = userResponseMapper.toUserInfoResponse(updatedUser)
         return CommonResponse.ok(
-            data = UserInfoResponse.fromModel(updatedUser),
+            data = response,
             msg = "사원 수정에 성공했습니다."
         )
     }
@@ -94,9 +99,10 @@ class UserController(
         @RequestBody @Valid userUpdateRequest: UserUpdateRequest
     ): ResponseEntity<CommonResponse<UserInfoResponse?>> {
         val userId = authentication.principal as Long
-        val updatedUser = userService.updateUser(userId, userUpdateRequest);
+        val updatedUser = userService.updateUser(userId, userUpdateRequest)
+        val response = userResponseMapper.toUserInfoResponse(updatedUser)
         return CommonResponse.ok(
-            data = UserInfoResponse.fromModel(updatedUser),
+            data = response,
             msg = "내 정보 수정에 성공했습니다."
         )
     }
@@ -118,7 +124,7 @@ class UserController(
         @RequestParam userIds: List<Long>
     ): ResponseEntity<CommonResponse<List<SeatUserResponse>?>> {
         val userList = userService.findAllByIds(userIds).map { user ->
-            SeatUserResponse.fromModel(user)
+            userResponseMapper.toSeatUserResponse(user)
         }
         return CommonResponse.ok(
             data = userList,
@@ -129,10 +135,11 @@ class UserController(
     @GetMapping("/authentication")
     fun getIdAndRole(
         @RequestParam @Email(message = "유효한 이메일 주소를 입력해 주세요") email: String
-    ): ResponseEntity<CommonResponse<UserLoginResponse?>> {
+    ): ResponseEntity<CommonResponse<UserAuthenticationResponse?>> {
         val user = userService.findByUserEmail(email)
+        val response = userResponseMapper.toUserAuthenticationResponse(user)
         return CommonResponse.ok(
-            data = UserLoginResponse.fromModel(user),
+            data = response,
             msg = "회원 아이디 및 역할 정보 조회 성공했습니다."
         )
     }
@@ -140,13 +147,13 @@ class UserController(
     @PostMapping("/login")
     fun selfLogin(
         @RequestBody request: UserLoginRequest
-    ): ResponseEntity<CommonResponse<UserLoginResponse?>> {
+    ): ResponseEntity<CommonResponse<UserAuthenticationResponse?>> {
         val user = userService.authenticateUser(request)
+        val response = userResponseMapper.toUserAuthenticationResponse(user)
         return CommonResponse.ok(
-            data = UserLoginResponse.fromModel(user),
+            data = response,
             msg = "자체 로그인에 성공했습니다."
         )
     }
-
 
 }
