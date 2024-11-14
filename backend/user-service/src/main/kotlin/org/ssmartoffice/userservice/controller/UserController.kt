@@ -54,9 +54,10 @@ class UserController(
     @GetMapping("/{userId}")
     fun getEmployeeInfo(
         @Positive(message = "유효한 사용자 ID를 입력해주세요.")
-        @PathVariable userId: Long
+        @PathVariable userId: Long,
+        authentication: Authentication
     ): ResponseEntity<CommonResponse<UserInfoResponse?>> {
-        val user = userService.findUserByUserId(userId)
+        val user = userService.findUserByUserIdWithAuth(userId, authentication)
         val response = userResponseMapper.toUserInfoResponse(user)
         return CommonResponse.ok(
             data = response,

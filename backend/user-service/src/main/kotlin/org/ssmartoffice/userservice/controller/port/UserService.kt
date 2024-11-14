@@ -3,10 +3,12 @@ package org.ssmartoffice.userservice.controller.port
 import org.ssmartoffice.userservice.domain.User
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable
+import org.springframework.security.core.Authentication
 import org.ssmartoffice.userservice.controller.request.*
 
 interface UserService {
     fun addUser(userRegisterRequest: UserRegisterRequest): User
+    fun findUserByUserIdWithAuth(userId: Long, authentication: Authentication): User
     fun findUserByUserId(userId: Long): User
     fun findByUserEmail(userEmail: String): User
     fun getAllUsersByPage(pageable: Pageable): Page<User>

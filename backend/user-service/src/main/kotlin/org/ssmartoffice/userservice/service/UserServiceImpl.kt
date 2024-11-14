@@ -9,6 +9,7 @@ import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.dao.EmptyResultDataAccessException
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
+import org.springframework.security.core.Authentication
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import org.ssmartoffice.userservice.controller.request.*
@@ -30,6 +31,21 @@ class UserServiceImpl(
             return userRepository.save(user)
         } catch (ex: DataIntegrityViolationException) {
             throw UserException(UserErrorCode.DUPLICATED_VALUE)
+        }
+    }
+
+    override fun findUserByUserIdWithAuth(userId: Long, authentication: Authentication): User {
+        try {
+            val user = userRepository.findById(userId)
+                ?: throw UserException(UserErrorCode.USER_NOT_FOUND)
+            if (user.role.isAdmin()) {
+                checkAdminAccess(authentication)
+            }
+            return user
+        } catch (ex: EmptyResultDataAccessException) {
+            throw UserException(UserErrorCode.USER_NOT_FOUND)
+        } catch (ex: IllegalArgumentException) {
+            throw UserException(UserErrorCode.INVALID_ROLE)
         }
     }
 
@@ -84,4 +100,14 @@ class UserServiceImpl(
     override fun findAllByIds(userIds: List<Long>): List<User> {
         return userRepository.findAllByIdIn(userIds)
     }
+
+    private fun checkAdminAccess(authentication: Authentication) {
+        val hasAdminRole = authentication.authorities.any { authority ->
+            Role.fromAuthority(authority.authority).isAdmin()
+        }
+        if (!hasAdminRole) {
+            throw UserException(UserErrorCode.UNAUTHORIZED_ACCESS)
+        }
+    }
+
 }
