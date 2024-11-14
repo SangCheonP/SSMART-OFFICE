@@ -13,9 +13,9 @@ import org.ssmartoffice.authenticationservice.global.dto.CommonResponse
 @FeignClient(name = "USER-SERVICE")
 interface UserServiceClient {
 
-    @GetMapping("/api/v1/users/internal/authentication")
+    @GetMapping("/api/v1/users/authentication")
     fun getIdAndRole(@RequestParam email: String): ResponseEntity<CommonResponse<UserLoginResponse>>
 
-    @PostMapping("/api/v1/users/internal/login")
+    @PostMapping("/api/v1/users/login")
     fun selfLogin(@RequestBody request: UserLoginRequest): ResponseEntity<CommonResponse<UserLoginResponse>>?
 }
