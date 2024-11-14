@@ -17,4 +17,8 @@ enum class SeatErrorCode(override val httpStatus: HttpStatus, override val messa
     INVALID_OLD_PASSWORD(HttpStatus.CONFLICT, "비밀번호가 일치하지 않습니다."),
     DUPLICATE_PASSWORD(HttpStatus.CONFLICT, "기존 비밀번호와 동일합니다"),
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "사용자를 찾을 수 없습니다."),
+    SEAT_NOT_FOUND(HttpStatus.NOT_FOUND, "좌석을 찾을 수 없습니다."),
+    DUPLICATE_STATUS(HttpStatus.CONFLICT, "기존 좌석 해제 후 다시 앉아주세요"),
+    OCCUPIED_BY_ANOTHER_USER(HttpStatus.CONFLICT, "다른 이용자가 사용 중입니다. 다른 좌석을 이용해주세요."),
+    SEAT_UNAVAILABLE(HttpStatus.BAD_REQUEST, "사용 불가한 좌석입니다."),
 }

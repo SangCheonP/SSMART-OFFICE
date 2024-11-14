@@ -3,7 +3,7 @@ package org.ssmartoffice.seatservice.domain
 import jakarta.validation.constraints.NotBlank
 
 class User(
-    val id: Long = 0,
+    val userId: Long = 0,
     @field:NotBlank(message = "이름을 입력해주세요.")
     var name: String,
     @field:NotBlank(message = "직급을 입력해주세요.")
