@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  file-service:
+    image: "parksangcheon/backend-repo-file-service:${COMMIT_HASH}"
+    container_name: file-service-container
+    depends_on:
+      - config-server
+      - discovery-server
+    env_file:
+      - .env
+    networks:
+      - app-network
+    restart: always
+
+networks:
+  app-network:
+    external: true
+
