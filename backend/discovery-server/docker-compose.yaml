@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  discovery-server:
+    image: "parksangcheon/backend-repo-discovery-server:${COMMIT_HASH:-latest}"
+    container_name: discovery-server-container
+    depends_on:
+      - config-server
+    ports:
+      - "8761:8761"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8761/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - app-network
+    restart: always
+
+networks:
+  app-network:
+    external: true
+
