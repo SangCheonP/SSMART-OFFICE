@@ -5,7 +5,7 @@ import styles from "@/styles/Login/GoogleLogin.module.css";
 import GoogleIcon from "@/assets/Login/GoogleIcon.svg?react";
 import { fetchMyInfo } from "@/services/MyInfoAPI";
 
-const GOOGLE_LOGIN_URL = import.meta.env.VITE_GOOGLE_LOGIN_URL;
+const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
 const GoogleLogin = () => {
   const setAuth = useAuthStore((state) => state.setAuth);
@@ -13,7 +13,7 @@ const GoogleLogin = () => {
   const navigate = useNavigate();
 
   const handleGoogleLogin = () => {
-    window.location.href = GOOGLE_LOGIN_URL;
+    window.location.href = `${BASE_URL}/auth/oauth2/authorization/google`;
   };
 
   useEffect(() => {
