@@ -1,12 +1,15 @@
 import React from "react";
+import useAttendanceStore from "@/store/useAttendanceStore";
 import styles from "@/styles/Home/Todo.module.css";
 
-const TodoList = ({ monthData }) => {
+const TodoList = () => {
+  const userTodoData = useAttendanceStore((state) => state.userTodoData);
+  const todos = Array.isArray(userTodoData) ? userTodoData : [];
   return (
     <div>
       <ul className={styles.todoList}>
-        {monthData && monthData.length > 0 ? (
-          monthData.map((item, index) => (
+        {todos.length > 0 ? (
+          todos.map((item, index) => (
             <li key={index} className={styles.todoItem}>
               <label>
                 <input type="checkbox" className={styles.checkIcon} />

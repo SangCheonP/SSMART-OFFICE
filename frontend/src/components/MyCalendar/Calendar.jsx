@@ -6,6 +6,7 @@ import { ko, enUS } from "date-fns/locale";
 import Toolbar from "./Toolbar";
 import styles from "@/styles/Home/Calendar.module.css";
 import "@/styles/Home/Calendar.css";
+import useHomeStore from "@/store/useHomeStore";
 
 const locales = { ko, enUS };
 const localizer = dateFnsLocalizer({
@@ -26,11 +27,11 @@ const CustomEvent = ({ event }) => {
   let textColor = "#000";
 
   switch (event.type) {
-    case "HOLIDAY":
+    case "ANNUAL_LEAVE":
       circleColor = "#FF6347"; // 빨간색
       displayTitle = "연차";
       break;
-    case "SICK":
+    case "EARLY_LEAVE":
       circleColor = "#FFD700"; // 노란색
       displayTitle = "조퇴";
       break;
@@ -38,9 +39,13 @@ const CustomEvent = ({ event }) => {
       circleColor = "#1E90FF"; // 파란색
       displayTitle = "회의";
       break;
-    case "WORK":
+    case "TASK":
       circleColor = "#32CD32"; // 녹색
       displayTitle = "TODO";
+      break;
+    case "OTHER":
+      circleColor = "#A0A0A0"; // 회색
+      displayTitle = "기타";
       break;
     case "START":
       displayTitle = `출근 ${format(event.start, "HH:mm")}`;
@@ -82,7 +87,6 @@ const MyCalendar = ({ monthData, attendanceData, onDateSelect }) => {
       type: item.attendanceType,
     }));
 
-    // 시간순 정렬이라 일정은 임의로 지정
     const formattedMonthEvents = monthData.map((item) => ({
       start: new Date(new Date(item.date).setHours(23, 59, 0)),
       end: new Date(new Date(item.date).setHours(23, 59, 0)),
@@ -90,17 +94,7 @@ const MyCalendar = ({ monthData, attendanceData, onDateSelect }) => {
       type: item.type,
     }));
 
-    const allEvents = [...formattedAttendanceEvents, ...formattedMonthEvents];
-
-    allEvents.sort((a, b) => {
-      if (a.type === "START") return -1;
-      if (b.type === "START") return 1;
-      if (a.type === "END") return -1;
-      if (b.type === "END") return 1;
-      return a.start - b.start;
-    });
-
-    setEvents(allEvents);
+    setEvents([...formattedAttendanceEvents, ...formattedMonthEvents]);
   }, [monthData, attendanceData]);
 
   return (

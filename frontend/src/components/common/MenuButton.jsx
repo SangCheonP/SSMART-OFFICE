@@ -27,6 +27,7 @@ const MenuButton = ({ type, content, isActive, isLogout }) => {
       break;
     case "Seat":
       Icon = Seat;
+      break;
     case "Attendance":
       Icon = Attendance;
       break;

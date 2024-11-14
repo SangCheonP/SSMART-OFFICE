@@ -4,10 +4,27 @@ import ReactModal from "react-modal";
 import Close from "@/assets/Modals/Close.svg?react";
 
 import styles from "@/styles/Modals/ChangePasswordModal.module.css";
+import { useState } from "react";
+import { updatePassword } from "@/services/myInfoAPI";
 
 const ChangePasswordModal = ({ onSubmit, onClose }) => {
-  const handleClickSubmit = () => {
-    onSubmit();
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleClickSubmit = async () => {
+    if (newPassword !== confirmPassword) {
+      setError("비밀번호가 일치하지 않습니다.");
+      return;
+    }
+    try {
+      await updatePassword(currentPassword, newPassword);
+      onSubmit();
+      // onClose();
+    } catch (e) {
+      setError(e.message);
+    }
   };
 
   const handleClickCancel = () => {
@@ -53,6 +70,8 @@ const ChangePasswordModal = ({ onSubmit, onClose }) => {
             type="password"
             className={`${styles.input} ${styles.currentPassword}`}
             placeholder="현재 비밀번호를 입력해주세요"
+            value={currentPassword}
+            onChange={(e) => setCurrentPassword(e.target.value)}
           />
         </div>
         <div>
@@ -61,6 +80,8 @@ const ChangePasswordModal = ({ onSubmit, onClose }) => {
             type="password"
             className={styles.input}
             placeholder="신규 비밀번호를 입력해주세요"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
           />
         </div>
         <div>
@@ -69,20 +90,22 @@ const ChangePasswordModal = ({ onSubmit, onClose }) => {
             type="password"
             className={styles.input}
             placeholder="비밀번호를 확인해주세요"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </div>
         <div className={styles.buttonBox}>
-          <button
-            onClick={handleClickCancel}
-            className={`${styles.cancel} ${styles.button}`}
-          >
-            취소
-          </button>
           <button
             onClick={handleClickSubmit}
             className={`${styles.confirm} ${styles.button}`}
           >
             수정
+          </button>
+          <button
+            onClick={handleClickCancel}
+            className={`${styles.cancel} ${styles.button}`}
+          >
+            취소
           </button>
         </div>
       </div>
