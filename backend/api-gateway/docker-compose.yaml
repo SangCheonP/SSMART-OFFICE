@@ -5,6 +5,8 @@ services:
     container_name: api-gateway-container
     env_file:
       - .env
+    ports:
+      - "8080:8080"
     depends_on:
       - config-server
       - discovery-server
