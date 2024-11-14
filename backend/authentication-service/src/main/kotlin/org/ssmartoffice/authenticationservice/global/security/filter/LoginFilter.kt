@@ -66,7 +66,7 @@ class LoginFilter(
         response.characterEncoding = "UTF-8"
         response.contentType = "application/json;charset=UTF-8"
         response.addHeader("Access-Control-Expose-Headers", "Authorization")
-        response.addHeader("Authorization", "Bearer $accessToken")
+        response.addHeader("Authorization", accessToken)
 
         val responseBody = CommonResponse<Any>(
             status = SuccessCode.CREATED.getValue(),
@@ -81,7 +81,7 @@ class LoginFilter(
 
         try {
             //user-service 에서 자체 로그인 후 정보 받아오기
-            val userLoginResponse : UserLoginResponse = userServiceClient.selfLogin(loginRequest)?.body?.data
+            val userLoginResponse: UserLoginResponse = userServiceClient.selfLogin(loginRequest)?.body?.data
                 ?: throw AuthenticationServiceException(AuthErrorCode.USER_RESPONSE_EXCEPTION.toString())
 
             val customUserDetails = CustomUserDetails(
