@@ -14,7 +14,7 @@ api.interceptors.request.use((config) => {
   const { accessToken } = useAuthStore.getState();
 
   if (accessToken) {
-    config.headers["Authorization"] = `${accessToken}`;
+    config.headers["Authorization"] = `Bearer ${accessToken}`;
   }
   return config;
 });
