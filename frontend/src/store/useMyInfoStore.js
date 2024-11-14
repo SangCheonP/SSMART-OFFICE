@@ -24,6 +24,17 @@ const useMyInfoStore = create(
           phoneNumber: data.phoneNumber,
         }),
 
+      clearMyInfoData: () =>
+        set({
+          employeeNumber: null,
+          name: null,
+          email: null,
+          duty: null,
+          position: null,
+          profileImageUrl: null,
+          phoneNumber: null,
+        }),
+
       // 전화번호 업데이트 함수
       updatePhoneNumber: (phoneNumber) =>
         set(() => ({ phoneNumber: phoneNumber })),

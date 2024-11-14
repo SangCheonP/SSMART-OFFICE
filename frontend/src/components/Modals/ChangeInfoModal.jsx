@@ -6,10 +6,12 @@ import Close from "@/assets/Modals/Close.svg?react";
 import styles from "@/styles/Modals/ChangeInfoModal.module.css";
 import useMyInfoStore from "@/store/useMyInfoStore";
 import { useState } from "react";
+import { updateTelNumber } from "@/services/MyInfoAPI";
 
 const ChangeInfoModal = ({ onSubmit, onClose }) => {
+  const updatePhoneNumber = useMyInfoStore((state) => state.updatePhoneNumber);
   const { name, email, phoneNumber } = useMyInfoStore();
-  const [telNumber, setTelNumber] = useState("");
+  const [telNumber, setTelNumber] = useState(phoneNumber);
 
   // 입력된 값을 3-4-4 형식으로 포맷팅
   const formatPhoneNumber = (value) => {
@@ -26,16 +28,10 @@ const ChangeInfoModal = ({ onSubmit, onClose }) => {
     setTelNumber(formattedNumber);
   };
 
-  // 서버 전송용 변환 함수
-  const getPhoneNumberForServer = () => {
-    return telNumber.replace(/\D/g, ""); // 숫자만 남기기
-  };
-
   // 변경 버튼
   const handleClickSubmit = () => {
-    console.log();
-
-    console.log(getPhoneNumberForServer());
+    updatePhoneNumber(telNumber);
+    updateTelNumber(telNumber);
     onSubmit();
   };
 
@@ -101,23 +97,23 @@ const ChangeInfoModal = ({ onSubmit, onClose }) => {
             type="text"
             className={styles.input}
             placeholder="연락처를 입력해주세요"
-            value={phoneNumber ? phoneNumber : telNumber}
+            value={telNumber}
             onChange={handleInputChange}
             maxLength={13}
           />
         </div>
         <div className={styles.buttonBox}>
           <button
-            onClick={handleClickCancel}
-            className={`${styles.cancel} ${styles.button}`}
-          >
-            취소
-          </button>
-          <button
             onClick={handleClickSubmit}
             className={`${styles.confirm} ${styles.button}`}
           >
             수정
+          </button>
+          <button
+            onClick={handleClickCancel}
+            className={`${styles.cancel} ${styles.button}`}
+          >
+            취소
           </button>
         </div>
       </div>

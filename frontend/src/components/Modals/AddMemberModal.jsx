@@ -66,6 +66,17 @@ const AddMemberModal = ({ onSubmit, onClose }) => {
         <h1 className={styles.title}>사원 정보 등록</h1>
         <div className={styles.imageBox}>
           <img src={Profile} alt="" className={styles.image} />
+          <input
+            type="file"
+            value={imageFile}
+            onChange={(e) => {
+              e.target.files;
+            }}
+          />
+          <button
+            className={styles.changeImage}
+            // onClick={hadleChangeImageClick}
+          ></button>
         </div>
         <div className={styles.textBox}>
           <label htmlFor="name" className={styles.text}>
