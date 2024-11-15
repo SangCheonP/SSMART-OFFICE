@@ -1,11 +1,8 @@
 package org.ssmartoffice.userservice.controller.request
 
-import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.Pattern
 
 data class UserUpdateRequest(
-    @field:Email(message = "이메일 형식이 올바르지 않습니다.", regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
-    val email: String? = null,
     val password: String? = null,
     val name: String? = null,
     val position: String? = null,

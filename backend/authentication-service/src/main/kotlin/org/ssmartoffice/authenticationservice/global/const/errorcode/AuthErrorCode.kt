@@ -18,6 +18,8 @@ enum class AuthErrorCode(override val httpStatus: HttpStatus, override val messa
     INVALID_OLD_PASSWORD(HttpStatus.CONFLICT, "비밀번호가 일치하지 않습니다."),
     DUPLICATE_PASSWORD(HttpStatus.CONFLICT, "기존 비밀번호와 동일합니다"),
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "사용자를 찾을 수 없습니다."),
+    CONNECTION_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, "외부 커넥션에 실패했습니다."),
     USER_RESPONSE_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR, "user role과 id가 없이 반환되었습니다."),
+    AUTHENTICATION_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, "인증에 실패했습니다."),
     SERVER_COMMUNICATION_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR, "user-service와 통신 중 문제 발생했습니다."),
 }

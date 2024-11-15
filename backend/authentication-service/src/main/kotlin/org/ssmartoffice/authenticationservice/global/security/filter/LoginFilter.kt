@@ -7,6 +7,7 @@ import jakarta.servlet.FilterChain
 import jakarta.servlet.ServletException
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
+import org.springframework.http.MediaType
 import org.ssmartoffice.authenticationservice.global.security.jwt.JwtTokenProvider
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.AuthenticationServiceException
@@ -19,11 +20,11 @@ import org.ssmartoffice.authenticationservice.client.UserServiceClient
 import org.ssmartoffice.authenticationservice.client.request.UserLoginRequest
 import org.ssmartoffice.authenticationservice.client.response.UserLoginResponse
 import org.ssmartoffice.authenticationservice.domain.CustomUserDetails
-import org.ssmartoffice.authenticationservice.domain.Role
 import org.ssmartoffice.authenticationservice.global.const.errorcode.AuthErrorCode
 import org.ssmartoffice.authenticationservice.global.exception.AuthException
 import org.ssmartoffice.authenticationservice.global.const.successcode.SuccessCode
 import org.ssmartoffice.authenticationservice.global.dto.CommonResponse
+import org.ssmartoffice.authenticationservice.global.dto.ErrorResponse
 import org.ssmartoffice.authenticationservice.global.security.handler.CustomAuthenticationFailureHandler
 import java.io.IOException
 
@@ -52,7 +53,11 @@ class LoginFilter(
         authentication: Authentication
     ) {
         val accessToken = jwtTokenProvider.createAccessToken(authentication)
-        jwtTokenProvider.createRefreshToken(authentication, response)
+        val refreshToken = jwtTokenProvider.createRefreshToken(authentication, response)
+        if (refreshToken == null) {
+            setErrorResponse(response, AuthErrorCode.CONNECTION_FAIL)
+            return
+        }
         sendLoginResponse(response, accessToken)
     }
 
@@ -60,9 +65,10 @@ class LoginFilter(
     private fun sendLoginResponse(response: HttpServletResponse, accessToken: String) {
         response.characterEncoding = "UTF-8"
         response.contentType = "application/json;charset=UTF-8"
-        response.addHeader("Authorization", "Bearer $accessToken")
+        response.addHeader("Access-Control-Expose-Headers", "Authorization")
+        response.addHeader("Authorization", accessToken)
 
-        val responseBody = CommonResponse(
+        val responseBody = CommonResponse<Any>(
             status = SuccessCode.CREATED.getValue(),
             msg = "로그인에 성공했습니다."
         )
@@ -75,16 +81,8 @@ class LoginFilter(
 
         try {
             //user-service 에서 자체 로그인 후 정보 받아오기
-            val commonResponse = userServiceClient.selfLogin(loginRequest)
+            val userLoginResponse: UserLoginResponse = userServiceClient.selfLogin(loginRequest)?.body?.data
                 ?: throw AuthenticationServiceException(AuthErrorCode.USER_RESPONSE_EXCEPTION.toString())
-            val dataMap = commonResponse.body?.data as? Map<*, *>
-            val userLoginResponse = dataMap?.let {
-                UserLoginResponse(
-                    userId = (it["userId"] as? Number)?.toLong(),
-                    role = it["role"] as? String ?: Role.USER.toString()
-                )
-            } ?: throw AuthenticationServiceException(AuthErrorCode.USER_RESPONSE_EXCEPTION.toString())
-
 
             val customUserDetails = CustomUserDetails(
                 userId = userLoginResponse.userId,
@@ -113,4 +111,19 @@ class LoginFilter(
     companion object {
         private val antPathMatcher = AntPathRequestMatcher("/api/v1/auth/login", "POST")
     }
+
+    private fun setErrorResponse(response: HttpServletResponse, errorCode: AuthErrorCode) {
+        response.characterEncoding = "UTF-8"
+        response.status = errorCode.httpStatus.value()
+        response.contentType = MediaType.APPLICATION_JSON_VALUE
+
+        val errorResponse = ErrorResponse(
+            status = errorCode.httpStatus.value(),
+            error = errorCode.name,
+            message = errorCode.message
+        )
+        response.writer.write(objectMapper.writeValueAsString(errorResponse))
+        response.writer.flush()
+    }
+
 }

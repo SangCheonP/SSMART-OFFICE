@@ -17,7 +17,6 @@ const SeatingByFloor = () => {
       seats[i].status === "NOT_OCCUPIED"
     ) {
       number++;
-      console.log(seats[i]);
     }
   }
 
@@ -40,7 +39,7 @@ const SeatingByFloor = () => {
 };
 
 SeatingByFloor.propTypes = {
-  floor: PropTypes.string.isRequired,
+  floor: PropTypes.string,
 };
 
 export default SeatingByFloor;

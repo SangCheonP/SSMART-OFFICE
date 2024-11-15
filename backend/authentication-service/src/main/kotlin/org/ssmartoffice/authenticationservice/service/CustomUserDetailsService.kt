@@ -16,7 +16,7 @@ class CustomUserDetailsService(
 
     override fun loadUserByUsername(email: String): UserDetails {
         val commonResponse = userServiceClient.getIdAndRole(email)
-        val userLoginResponse = commonResponse.body?.data as? UserLoginResponse
+        val userLoginResponse = commonResponse.body?.data
             ?: throw AuthenticationServiceException("Invalid login response structure")
 
         return CustomUserDetails(
