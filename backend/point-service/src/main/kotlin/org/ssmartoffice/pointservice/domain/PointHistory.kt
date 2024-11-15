@@ -29,7 +29,7 @@ data class PointHistory(
             return PointHistory(
                 userId = userId,
                 marketName = transaction.marketName,
-                amount = transaction.amount,
+                amount = transaction.amount * -1,
                 balance = balance - transaction.amount,
                 item = transaction.item,
                 quantity = transaction.quantity,
