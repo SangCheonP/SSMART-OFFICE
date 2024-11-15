@@ -28,4 +28,8 @@ class PointHistoryHistoryRepositoryImpl(
         return pointHistoryJpaRepository.findTop1ByUserIdOrderByCreatedDateTimeDesc(userId).toModel()
     }
 
+    override fun save(pointHistory: PointHistory) {
+        pointHistoryJpaRepository.save(PointHistoryEntity.fromModel(pointHistory))
+    }
+
 }
