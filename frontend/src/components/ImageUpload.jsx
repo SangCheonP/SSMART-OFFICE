@@ -5,7 +5,7 @@ import Profile from "@/assets/Common/Profile.png";
 import styles from "@/styles/ImageUpload.module.css";
 import PropTypes from "prop-types";
 
-const ImageUpload = ({ onImageSelect }) => {
+const ImageUpload = ({ onImageSelect, classNameValue }) => {
   const [image, setImage] = useState(null);
   const fileInputRef = useRef(null);
 
@@ -27,7 +27,7 @@ const ImageUpload = ({ onImageSelect }) => {
   };
 
   return (
-    <div onClick={handleImageClick}>
+    <div onClick={handleImageClick} className={classNameValue}>
       <img
         src={image ? image : Profile}
         alt="클릭하여 파일 선택"
@@ -46,6 +46,7 @@ const ImageUpload = ({ onImageSelect }) => {
 
 ImageUpload.propTypes = {
   onImageSelect: PropTypes.file,
+  classNameValue: PropTypes.string,
 };
 
 export default ImageUpload;

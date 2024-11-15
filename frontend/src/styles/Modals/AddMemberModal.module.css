@@ -27,10 +27,6 @@
   justify-content: center;
   margin-bottom: 20px;
 }
-.image {
-  width: 120px;
-  height: 120px;
-}
 
 .textBox {
   display: flex;
