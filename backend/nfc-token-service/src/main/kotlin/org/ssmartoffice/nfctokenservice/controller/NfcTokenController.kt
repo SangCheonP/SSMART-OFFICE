@@ -18,8 +18,8 @@ class NfcTokenController(val nfcTokenService: NfcTokenService) {
 
     @PostMapping("/tokens")
     fun createToken(@Valid @RequestBody tokenCreateRequest: TokenCreateRequest): ResponseEntity<CommonResponse> {
-        nfcTokenService.createToken(tokenCreateRequest)
-        return CommonResponse.created("토큰 생성에 성공하였습니다.")
+        val token :String = nfcTokenService.createToken(tokenCreateRequest)
+        return CommonResponse.created("토큰 생성에 성공하였습니다.", token)
     }
 
     @DeleteMapping("/tokens")

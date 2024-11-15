@@ -22,7 +22,7 @@ class NfcTokenServiceImpl(
     val authCode: String,
     val userClient: UserClient,
 ) : NfcTokenService {
-    override fun createToken(nfcTokenCreateRequest: TokenCreateRequest) {
+    override fun createToken(nfcTokenCreateRequest: TokenCreateRequest): String {
 
         val email = nfcTokenCreateRequest.email
 
@@ -33,6 +33,7 @@ class NfcTokenServiceImpl(
         //userClient.getAuthentication(email, nfcTokenCreateRequest.authCode)
 
         nfcTokenRepository.saveToken(email, token)
+        return token
     }
 
     override fun deleteToken(nfcTokenDeleteRequest: TokenDeleteRequest) {
