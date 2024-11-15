@@ -19,7 +19,7 @@ import java.time.LocalDate
 @RequestMapping("/api/v1/points")
 class PointController(
     val pointService: PointService,
-    val pointHistoryMapper: PointHistoryMapper
+    val pointHistoryMapper: PointHistoryMapper,
 ) {
 
     @GetMapping("/history")
@@ -32,11 +32,24 @@ class PointController(
         val userId = authentication.principal as Long
         val pointPage: Page<PointHistory> = pointService.getPointsByDateRangeAndId(startDate, endDate, pageable, userId)
         val pointInfoResponsePage: Page<PointInfoResponse> = pointPage.map { pointHistory ->
-            pointHistoryMapper.toPointHistory(pointHistory)
+            pointHistoryMapper.toPointInfoResponse(pointHistory)
         }
         return CommonResponse.ok(
             msg = "기간별 포인트 내역 조회에 성공했습니다.",
             data = pointInfoResponsePage
+        )
+    }
+
+    @GetMapping
+    fun getPointBalance(
+        authentication: Authentication
+    ): ResponseEntity<CommonResponse<PointInfoResponse?>> {
+        val userId = authentication.principal as Long
+        val balance = pointService.getMyPointBalance(userId)
+        val response = pointHistoryMapper.toPointInfoResponse(balance)
+        return CommonResponse.ok(
+            msg = "포인트 잔액 조회에 성공했습니다.",
+            data = response
         )
     }
 }

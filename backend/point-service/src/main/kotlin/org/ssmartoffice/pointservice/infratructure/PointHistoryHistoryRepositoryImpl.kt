@@ -24,4 +24,8 @@ class PointHistoryHistoryRepositoryImpl(
             .map { pointHistoryEntity -> pointHistoryEntity.toModel() }
     }
 
+    override fun findTop1ByUserIdOrderByCreatedDateTimeDesc(userId: Long): PointHistory {
+        return pointHistoryJpaRepository.findTop1ByUserIdOrderByCreatedDateTimeDesc(userId).toModel()
+    }
+
 }

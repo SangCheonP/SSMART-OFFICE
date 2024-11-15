@@ -14,4 +14,6 @@ interface PointService {
         userId: Long
     ): Page<PointHistory>
 
+    fun getMyPointBalance(userId: Long): Int
+
 }

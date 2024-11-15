@@ -17,5 +17,5 @@ data class PointHistory(
     @field:NotNull(message = "거래 시간이 없습니다.")
     val transactionTime: LocalDateTime,
     val item: String? = null,
-    val quantity: Int = 0
+    val quantity: Int? = null
 )

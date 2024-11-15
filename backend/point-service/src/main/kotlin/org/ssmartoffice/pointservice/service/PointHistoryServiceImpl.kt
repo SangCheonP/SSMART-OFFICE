@@ -22,4 +22,8 @@ class PointHistoryServiceImpl(
         return pointHistoryRepository.findByUserIdAndTransactionTimeBetween(userId, startDate, endDate, pageable)
     }
 
+    override fun getMyPointBalance(userId: Long): Int {
+        return pointHistoryRepository.findTop1ByUserIdOrderByCreatedDateTimeDesc(userId).balance
+    }
+
 }

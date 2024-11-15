@@ -6,7 +6,7 @@ import org.ssmartoffice.pointservice.domain.PointHistory
 
 @Component
 class PointHistoryMapper {
-    fun toPointHistory(pointHistory: PointHistory): PointInfoResponse {
+    fun toPointInfoResponse(pointHistory: PointHistory): PointInfoResponse {
         return PointInfoResponse(
             id = pointHistory.id,
             marketName = pointHistory.marketName,
@@ -15,6 +15,12 @@ class PointHistoryMapper {
             transactionTime = pointHistory.transactionTime,
             item = pointHistory.item,
             quantity = pointHistory.quantity
+        )
+    }
+
+    fun toPointInfoResponse(balance: Int): PointInfoResponse {
+        return PointInfoResponse(
+            balance = balance
         )
     }
 }

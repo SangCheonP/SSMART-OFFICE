@@ -20,7 +20,7 @@ data class PointHistoryEntity(
     @Column(nullable = false)
     val transactionTime: LocalDateTime = LocalDateTime.now(),
     val item: String? = null,
-    val quantity: Int = 0
+    val quantity: Int? = null
 ) {
 
     @Column(nullable = false, updatable = false)
