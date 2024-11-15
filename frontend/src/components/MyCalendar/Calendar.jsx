@@ -80,14 +80,14 @@ const MyCalendar = ({ monthData, attendanceData, onDateSelect }) => {
   const [selectedDate, setSelectedDate] = useState(null);
 
   useEffect(() => {
-    const formattedAttendanceEvents = attendanceData.map((item) => ({
+    const formattedAttendanceEvents = (attendanceData || []).map((item) => ({
       start: new Date(item.attendanceTime),
       end: new Date(item.attendanceTime),
       title: item.attendanceType === "START" ? "출근" : "퇴근",
       type: item.attendanceType,
     }));
 
-    const formattedMonthEvents = monthData.map((item) => {
+    const formattedMonthEvents = (monthData || []).map((item) => {
       const date = new Date(item.date);
       date.setHours(23, 59, 59); // 시간순 정렬이라 일정 23:59:59로 설정
       return {
