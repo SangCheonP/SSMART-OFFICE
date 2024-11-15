@@ -22,4 +22,8 @@ data class Seat(
     fun isOccupiedByAnotherUser(requestUserId: Long): Boolean {
         return this.status.isActive() && this.userId != requestUserId
     }
+
+    fun isInUse(): Boolean {
+        return this.status.isInUse();
+    }
 }
