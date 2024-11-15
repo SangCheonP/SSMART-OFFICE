@@ -5,22 +5,36 @@ import Close from "@/assets/Modals/Close.svg?react";
 import Profile from "@/assets/Common/Profile.png";
 import styles from "@/styles/Modals/AddMemberModal.module.css";
 import api from "@/services/api";
+import { updateImageFile } from "@/services/fileAPI";
+import { registerUser } from "@/services/userAPI";
 import { useState } from "react";
 
 const AddMemberModal = ({ onSubmit, onClose }) => {
+  const [imageFile, setImageFile] = useState(null);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [imageFile, setImageFile] = useState(null);
   const [position, setPosition] = useState("");
   const [duty, setDuty] = useState("");
   const [employeeNumber, setEmployeeNumber] = useState("");
 
-  const handleClickSubmit = () => {
+  const handleClickSubmit = async () => {
     try {
-      const response = api.get("/users/me");
-      console.log(response);
+      let profileImageUrl = Profile;
 
+      if (imageFile) {
+        profileImageUrl = await updateImageFile(imageFile);
+      }
+      const userData = {
+        name,
+        password,
+        email,
+        position,
+        duty,
+        employeeNumber,
+        profileImageUrl,
+      };
+      await registerUser(userData);
       onSubmit();
     } catch (error) {
       console.log(error);
