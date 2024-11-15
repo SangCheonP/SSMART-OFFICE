@@ -9,12 +9,7 @@ const WelfareList = () => {
       <div className={styles.table}>
         <div className={styles.dateBox}>
           <WelfareDatePicker />
-          {/* <input
-            type="date"
-            className={`${styles.datePicker} ${styles.firstDate} `}
-          /> */}
-          <div>~</div>
-          {/* <input type="date" className={styles.datePicker} /> */}
+          <p>~</p>
           <WelfareDatePicker />
           <button className={styles.welfareSearch}>검색</button>
         </div>

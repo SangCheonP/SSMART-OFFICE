@@ -1,5 +1,5 @@
 import DatePicker from "react-datepicker";
-import styles from "@/styles/WelfareDatePicker.module.css";
+import styles from "@/styles/MyPage/WelfareDatePicker.module.css";
 import { useState } from "react";
 
 const WelfareDatePicker = () => {

@@ -2,15 +2,14 @@ import { PropTypes } from "prop-types";
 import ReactModal from "react-modal";
 
 import Close from "@/assets/Modals/Close.svg?react";
-import Profile from "@/assets/Common/Profile.png";
 import styles from "@/styles/Modals/AddMemberModal.module.css";
-import api from "@/services/api";
 import { updateImageFile } from "@/services/fileAPI";
 import { registerUser } from "@/services/userAPI";
 import { useState } from "react";
+import ImageUpload from "@/components/ImageUpload";
 
 const AddMemberModal = ({ onSubmit, onClose }) => {
-  const [imageFile, setImageFile] = useState(null);
+  const [selectedImage, setSelectedImage] = useState();
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -18,24 +17,48 @@ const AddMemberModal = ({ onSubmit, onClose }) => {
   const [duty, setDuty] = useState("");
   const [employeeNumber, setEmployeeNumber] = useState("");
 
-  const handleClickSubmit = async () => {
-    try {
-      let profileImageUrl = Profile;
+  const handleImageSelect = (file) => {
+    setSelectedImage(file);
+  };
 
-      if (imageFile) {
-        profileImageUrl = await updateImageFile(imageFile);
+  const handleClickSubmit = async () => {
+    const userData = {
+      name: name,
+      password: password,
+      email: email,
+      position: position,
+      duty: duty,
+      employeeNumber: employeeNumber,
+      profileImageUrl: selectedImage,
+    };
+
+    try {
+      const maxFileSize = 5 * 1024 * 1024; // 5MB
+      if (!selectedImage) {
+        alert("이미지를 선택해주세요.");
+        return;
+      } else if (selectedImage.size > maxFileSize) {
+        alert("이미지 파일 크기는 5MB 이하여야 합니다.");
+        return;
       }
-      const userData = {
-        name,
-        password,
-        email,
-        position,
-        duty,
-        employeeNumber,
-        profileImageUrl,
-      };
-      await registerUser(userData);
-      onSubmit();
+      try {
+        const response = await updateImageFile(selectedImage);
+        const imageUrl = response.data;
+        userData.profileImageUrl = imageUrl;
+        if (response.status === 200 || response.status === 201) {
+          console.log(userData);
+          const temp = await registerUser(userData);
+          console.log(temp);
+          if (temp.status === 201) {
+            alert("사원 등록이 완료되었습니다.");
+            onSubmit();
+          } else {
+            alert("사원 등록에 실패했습니다.");
+          }
+        }
+      } catch (error) {
+        console.error("이미지 업로드 실패:", error);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -76,21 +99,13 @@ const AddMemberModal = ({ onSubmit, onClose }) => {
       <button className={styles.close} onClick={handleClickCancel}>
         <Close />
       </button>
-      <form className={styles.container}>
+      <div className={styles.container}>
         <h1 className={styles.title}>사원 정보 등록</h1>
         <div className={styles.imageBox}>
-          <img src={Profile} alt="" className={styles.image} />
-          <input
-            type="file"
-            value={imageFile}
-            onChange={(e) => {
-              e.target.files;
-            }}
+          <ImageUpload
+            classNameValue={styles.image}
+            onImageSelect={handleImageSelect}
           />
-          <button
-            className={styles.changeImage}
-            // onClick={hadleChangeImageClick}
-          ></button>
         </div>
         <div className={styles.textBox}>
           <label htmlFor="name" className={styles.text}>
@@ -179,19 +194,19 @@ const AddMemberModal = ({ onSubmit, onClose }) => {
 
         <div className={styles.buttonBox}>
           <button
+            onClick={handleClickSubmit}
+            className={`${styles.confirm} ${styles.button}`}
+          >
+            등록
+          </button>
+          <button
             onClick={handleClickCancel}
             className={`${styles.cancel} ${styles.button}`}
           >
             취소
           </button>
-          <button
-            onClick={handleClickSubmit}
-            className={`${styles.confirm} ${styles.button}`}
-          >
-            수정
-          </button>
         </div>
-      </form>
+      </div>
     </ReactModal>
   );
 };
