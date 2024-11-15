@@ -6,7 +6,6 @@ import { ko, enUS } from "date-fns/locale";
 import Toolbar from "./Toolbar";
 import styles from "@/styles/Home/Calendar.module.css";
 import "@/styles/Home/Calendar.css";
-import useHomeStore from "@/store/useHomeStore";
 
 const locales = { ko, enUS };
 const localizer = dateFnsLocalizer({
@@ -87,14 +86,18 @@ const MyCalendar = ({ monthData, attendanceData, onDateSelect }) => {
       type: item.attendanceType,
     }));
 
-    const formattedMonthEvents = monthData.map((item) => ({
-      start: new Date(new Date(item.date).setHours(23, 59, 0)),
-      end: new Date(new Date(item.date).setHours(23, 59, 0)),
-      title: item.name,
-      type: item.type,
-    }));
-
-    setEvents([...formattedAttendanceEvents, ...formattedMonthEvents]);
+    const formattedMonthEvents = monthData.map((item) => {
+      const date = new Date(item.date);
+      date.setHours(23, 59, 59); // 시간순 정렬이라 일정 23:59:59로 설정
+      return {
+        start: date,
+        end: date,
+        title: item.name,
+        type: item.type,
+      };
+    });
+    const allEvents = [...formattedAttendanceEvents, ...formattedMonthEvents];
+    setEvents(allEvents);
   }, [monthData, attendanceData]);
 
   return (

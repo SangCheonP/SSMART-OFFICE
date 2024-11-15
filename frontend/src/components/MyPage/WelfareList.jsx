@@ -1,4 +1,5 @@
 import styles from "@/styles/MyPage/WelfareList.module.css";
+import WelfareDatePicker from "@/components/common/WelfareDatePicker";
 
 const WelfareList = () => {
   const num = 20000;
@@ -7,13 +8,10 @@ const WelfareList = () => {
       <div className={styles.title}>복지 포인트 내역</div>
       <div className={styles.table}>
         <div className={styles.dateBox}>
-          <input
-            type="date"
-            className={`${styles.datePicker} ${styles.firstDate} `}
-          />
-          <div>~</div>
-          <input type="date" className={styles.datePicker} />
-          <button>검색</button>
+          <WelfareDatePicker />
+          <p>~</p>
+          <WelfareDatePicker />
+          <button className={styles.welfareSearch}>검색</button>
         </div>
         <div className={styles.tableHeader}>
           <div className={styles.first}>설명</div>

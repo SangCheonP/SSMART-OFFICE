@@ -22,6 +22,7 @@ const SeatingStatus = memo(({ floor, seats, totalNumber }) => {
       <h2 className={styles.floor}>{floor}F</h2>
       <div className={styles.container}>
         {seatNumbers.map((seatNumber) => {
+          console.log(occupantMap[seatNumber]);
           const seatData = occupantMap[seatNumber];
           let statusClass = styles.vacant;
           if (seatData) {
@@ -45,9 +46,9 @@ const SeatingStatus = memo(({ floor, seats, totalNumber }) => {
             <div key={seatNumber} className={`${styles.seat} ${statusClass}`}>
               {seatData?.userId ? (
                 <div className={styles.box}>
-                  <div className={styles.role}>{seatData?.role}</div>
+                  <div className={styles.role}>{seatData?.userPosition}</div>
                   <div className={styles.positionName}>
-                    {seatData?.position} {seatData?.name}
+                    {seatData?.userDuty} {seatData?.userName}
                   </div>
                 </div>
               ) : (

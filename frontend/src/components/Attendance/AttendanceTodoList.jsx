@@ -1,7 +1,10 @@
 import React from "react";
+import useAttendanceStore from "@/store/useAttendanceStore";
 import styles from "@/styles/Home/Todo.module.css";
 
-const TodoList = ({ todos = [] }) => {
+const TodoList = () => {
+  const userTodoData = useAttendanceStore((state) => state.userTodoData);
+  const todos = Array.isArray(userTodoData) ? userTodoData : [];
   return (
     <div>
       <ul className={styles.todoList}>

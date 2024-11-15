@@ -27,10 +27,6 @@
   justify-content: center;
   margin-bottom: 20px;
 }
-.image {
-  width: 120px;
-  height: 120px;
-}
 
 .textBox {
   display: flex;
@@ -86,4 +82,10 @@
 .cancel {
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 5px;
+}
+.confirm:hover {
+  background-color: var(--hover);
+}
+.cancel:hover {
+  background-color: var(--whitehover);
 }
