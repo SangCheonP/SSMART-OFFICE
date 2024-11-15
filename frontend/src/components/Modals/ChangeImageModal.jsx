@@ -5,10 +5,43 @@ import Close from "@/assets/Modals/Close.svg?react";
 
 import styles from "@/styles/Modals/ChangeImageModal.module.css";
 import ImageUpload from "@/components/ImageUpload";
+import { useState } from "react";
+import { updateImageFile } from "@/services/fileAPI";
+import { updateProfile } from "@/services/myInfoAPI";
+import useMyInfoStore from "@/store/useMyInfoStore";
 
 const ChangeImageModal = ({ onSubmit, onClose }) => {
-  const handleClickSubmit = () => {
-    onSubmit();
+  const [selectedImage, setSelectedImage] = useState();
+  const updateProfileImage = useMyInfoStore(
+    (state) => state.updateProfileImage
+  );
+
+  const handleImageSelect = (file) => {
+    setSelectedImage(file);
+  };
+
+  const handleClickSubmit = async () => {
+    const maxFileSize = 5 * 1024 * 1024; // 5MB
+    if (!selectedImage) {
+      alert("이미지를 선택해주세요.");
+      return;
+    } else if (selectedImage.size > maxFileSize) {
+      alert("이미지 파일 크기는 5MB 이하여야 합니다.");
+      return;
+    } else {
+      try {
+        const response = await updateImageFile(selectedImage);
+        let imageUrl = response.data;
+        if (response.status === 200 || response.status === 201) {
+          await updateProfile(imageUrl);
+          // store 사진 업데이트 하기
+          updateProfileImage(imageUrl);
+        }
+        onSubmit();
+      } catch (error) {
+        console.error("이미지 업로드 실패:", error);
+      }
+    }
   };
 
   const handleClickCancel = () => {
@@ -49,11 +82,11 @@ const ChangeImageModal = ({ onSubmit, onClose }) => {
       <div className={styles.container}>
         <h1 className={styles.title}>프로필 이미지 변경</h1>
         <h3 className={styles.subTitle}>나를 표현하는 이미지를 등록하세요</h3>
-        <form encType="multipart/form-data">
+        <div>
           <div className={styles.imageBox}>
-            <ImageUpload />
+            <ImageUpload onImageSelect={handleImageSelect} />
           </div>
-        </form>
+        </div>
         <div className={styles.buttonBox}>
           <button
             onClick={handleClickSubmit}

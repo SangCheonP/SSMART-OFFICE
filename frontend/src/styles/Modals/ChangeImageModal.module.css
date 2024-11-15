@@ -75,3 +75,6 @@
   border-radius: 5px;
   color: #fff;
 }
+.confirm:hover {
+  background-color: var(--hover);
+}
