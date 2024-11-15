@@ -77,16 +77,17 @@ const CustomEvent = ({ event }) => {
 
 const MyCalendar = ({ monthData, attendanceData, onDateSelect }) => {
   const [events, setEvents] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(null);
 
   useEffect(() => {
-    const formattedAttendanceEvents = attendanceData.map((item) => ({
+    const formattedAttendanceEvents = (attendanceData || []).map((item) => ({
       start: new Date(item.attendanceTime),
       end: new Date(item.attendanceTime),
       title: item.attendanceType === "START" ? "출근" : "퇴근",
       type: item.attendanceType,
     }));
 
-    const formattedMonthEvents = monthData.map((item) => {
+    const formattedMonthEvents = (monthData || []).map((item) => {
       const date = new Date(item.date);
       date.setHours(23, 59, 59); // 시간순 정렬이라 일정 23:59:59로 설정
       return {
@@ -99,6 +100,16 @@ const MyCalendar = ({ monthData, attendanceData, onDateSelect }) => {
     const allEvents = [...formattedAttendanceEvents, ...formattedMonthEvents];
     setEvents(allEvents);
   }, [monthData, attendanceData]);
+
+  const dayPropGetter = (date) => {
+    const isSelected =
+      selectedDate && date.toDateString() === selectedDate.toDateString();
+    return {
+      style: {
+        backgroundColor: isSelected ? "#D3E4FF60" : "transparent", // 선택된 날짜 배경색 설정
+      },
+    };
+  };
 
   return (
     <Calendar
@@ -113,10 +124,14 @@ const MyCalendar = ({ monthData, attendanceData, onDateSelect }) => {
         event: CustomEvent,
       }}
       selectable
-      onSelectSlot={(slotInfo) => onDateSelect(slotInfo.start)}
+      onSelectSlot={(slotInfo) => {
+        setSelectedDate(slotInfo.start);
+        onDateSelect(slotInfo.start);
+      }}
       onSelectEvent={(event) => {
         alert(`클릭함 ${event.title}`);
       }}
+      dayPropGetter={dayPropGetter}
     />
   );
 };
