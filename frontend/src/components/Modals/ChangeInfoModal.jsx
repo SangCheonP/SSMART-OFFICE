@@ -29,9 +29,9 @@ const ChangeInfoModal = ({ onSubmit, onClose }) => {
   };
 
   // 변경 버튼
-  const handleClickSubmit = () => {
+  const handleClickSubmit = async () => {
     updatePhoneNumber(telNumber);
-    updateTelNumber(telNumber);
+    await updateTelNumber(telNumber);
     onSubmit();
   };
 

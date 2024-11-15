@@ -12,27 +12,22 @@ import useMyInfoStore from "@/store/useMyInfoStore";
 
 const MyInfo = () => {
   const openModal = useModalStore((state) => state.openModal);
-  const { name, email, position, profileImage, phoneNumber } = useMyInfoStore();
+  const { name, email, position, profileImageUrl, phoneNumber } =
+    useMyInfoStore();
 
   const hadleChangeImageClick = () => {
     openModal(ChangeImageModal, {
-      onSubmit: () => {
-        console.log("비밀번호 수정 모달입니다.");
-      },
+      onSubmit: () => {},
     });
   };
   const hadleChangePasswordClick = () => {
     openModal(ChangePasswordModal, {
-      onSubmit: () => {
-        console.log("비밀번호 수정 모달입니다.");
-      },
+      onSubmit: () => {},
     });
   };
   const hadleChangeInfoClick = () => {
     openModal(ChangeInfoModal, {
-      onSubmit: () => {
-        console.log("정보수정 모달입니다.");
-      },
+      onSubmit: () => {},
     });
   };
 
@@ -45,7 +40,7 @@ const MyInfo = () => {
         <div className={styles.imageBox}>
           <div className={styles.subBox}>
             <img
-              src={profileImage ? profileImage : Profile}
+              src={profileImageUrl ? profileImageUrl : Profile}
               alt="이미지"
               className={styles.profileImage}
             />
