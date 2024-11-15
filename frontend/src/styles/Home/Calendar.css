@@ -35,7 +35,7 @@
 /* 일자 클릭 */
 .rbc-button-link {
   pointer-events: none;
-  cursor: default;
+  /* cursor: default; */
 }
 /* 일자 박스 */
 .rbc-row-bg {

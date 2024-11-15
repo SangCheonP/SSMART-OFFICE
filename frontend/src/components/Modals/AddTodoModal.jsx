@@ -4,7 +4,8 @@ import ReactModal from "react-modal";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "@/styles/Modals/AddTodoModal.module.css";
-import useHomeStore from "@/store/useHomeStore"; // store import
+import useHomeStore from "@/store/useHomeStore";
+import Down from "@/assets/Common/arrow_down.svg?react";
 
 const AddTodoModal = ({ onSubmit, onClose }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -29,7 +30,7 @@ const AddTodoModal = ({ onSubmit, onClose }) => {
         return "EARLY_LEAVE";
       case "회의":
         return "MEETING";
-      case "할일":
+      case "TODO":
         return "TASK";
       default:
         return "OTHER";
@@ -98,13 +99,16 @@ const AddTodoModal = ({ onSubmit, onClose }) => {
       }}
     >
       <div className={styles.container}>
-        <DatePicker
-          selected={selectedDate}
-          onChange={(date) => setSelectedDate(date)}
-          dateFormat="yyyy년 MM월 dd일"
-          className={styles.datePicker}
-        />
-
+        <div className={styles.datePickerContainer}>
+          <DatePicker
+            selected={selectedDate}
+            onChange={(date) => setSelectedDate(date)}
+            dateFormat="yyyy년 MM월 dd일"
+            className={styles.datePicker}
+            popperPlacement="bottom-end"
+          />
+          <Down />
+        </div>
         <h1 className={styles.title}>일정 유형</h1>
         <div>
           <select
@@ -116,6 +120,7 @@ const AddTodoModal = ({ onSubmit, onClose }) => {
             <option>조퇴</option>
             <option>회의</option>
             <option>할일</option>
+            <option>기타</option>
           </select>
         </div>
         <h1 className={styles.title}>일정 이름</h1>
