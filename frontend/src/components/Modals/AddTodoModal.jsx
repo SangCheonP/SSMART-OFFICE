@@ -5,7 +5,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "@/styles/Modals/AddTodoModal.module.css";
 import useHomeStore from "@/store/useHomeStore";
-import Down from "@/assets/Common/arrow_down.svg?react";
+import Down from "@/assets/Common/Arrow_down.svg?react";
 
 const AddTodoModal = ({ onSubmit, onClose }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
