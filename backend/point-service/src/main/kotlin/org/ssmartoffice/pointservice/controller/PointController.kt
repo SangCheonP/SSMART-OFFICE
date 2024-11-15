@@ -10,15 +10,16 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import org.ssmartoffice.pointservice.controller.port.PointService
-import org.ssmartoffice.pointservice.domain.Point
 import org.ssmartoffice.pointservice.controller.response.PointInfoResponse
+import org.ssmartoffice.pointservice.domain.PointHistory
 import org.ssmartoffice.pointservice.global.dto.CommonResponse
 import java.time.LocalDate
 
 @RestController
 @RequestMapping("/api/v1/points")
 class PointController(
-    val pointService: PointService
+    val pointService: PointService,
+    val pointHistoryMapper: PointHistoryMapper,
 ) {
 
     @GetMapping("/history")
@@ -29,13 +30,26 @@ class PointController(
         authentication: Authentication
     ): ResponseEntity<CommonResponse<Page<PointInfoResponse>?>> {
         val userId = authentication.principal as Long
-        val pointPage: Page<Point> = pointService.getPointsByDateRangeAndId(startDate, endDate, pageable, userId)
-        val pointInfoResponsePage: Page<PointInfoResponse> = pointPage.map { point ->
-            PointInfoResponse.fromModel(point)
+        val pointPage: Page<PointHistory> = pointService.getPointsByDateRangeAndId(startDate, endDate, pageable, userId)
+        val pointInfoResponsePage: Page<PointInfoResponse> = pointPage.map { pointHistory ->
+            pointHistoryMapper.toPointInfoResponse(pointHistory)
         }
         return CommonResponse.ok(
             msg = "기간별 포인트 내역 조회에 성공했습니다.",
             data = pointInfoResponsePage
+        )
+    }
+
+    @GetMapping
+    fun getPointBalance(
+        authentication: Authentication
+    ): ResponseEntity<CommonResponse<PointInfoResponse?>> {
+        val userId = authentication.principal as Long
+        val balance = pointService.getMyPointBalance(userId)
+        val response = pointHistoryMapper.toPointInfoResponse(balance)
+        return CommonResponse.ok(
+            msg = "포인트 잔액 조회에 성공했습니다.",
+            data = response
         )
     }
 }
