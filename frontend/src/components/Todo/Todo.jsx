@@ -12,25 +12,27 @@ import AddTodoModal from "../Modals/AddTodoModal";
 import { addCalendarEvent } from "@/services/homeApi";
 import useMyInfoStore from "@/store/useMyInfoStore";
 
-const Todo = ({ selectedDate, monthData }) => {
-  const filteredDate = Array.isArray(monthData)
-    ? monthData.filter(
-        (item) => item?.date === dayjs(selectedDate).format("YYYY-MM-DD")
-      )
-    : [];
-
+const Todo = ({ selectedDate, todoData }) => {
   const openModal = useModalStore((state) => state.openModal);
   const { name } = useMyInfoStore();
 
   const handleAddTodoClick = () => {
     openModal(AddTodoModal, {
-      onSubmit: async ({
-        assignmentName,
-        assignmentDate,
-        assignmentType,
-        description,
-      }) => {
+      onSubmit: async (data) => {
         try {
+          if (!data) {
+            console.error("데이터 없음");
+            return;
+          }
+          const {
+            assignmentName,
+            assignmentDate,
+            assignmentType,
+            description,
+          } = data;
+
+          console.log("보내질 데이터:", data);
+
           await addCalendarEvent(
             assignmentName,
             assignmentDate,
@@ -72,7 +74,7 @@ const Todo = ({ selectedDate, monthData }) => {
             linkUrl="#"
           />
 
-          <TodoList monthData={filteredDate} />
+          <TodoList todos={todoData.data} />
 
           {/* 일정 추가 버튼 클릭 시 모달 띄우기 */}
           <button className={styles.add_todo} onClick={handleAddTodoClick}>

@@ -15,10 +15,9 @@ export const fetchTodoData = (month, day) => {
 };
 
 // 내 출퇴근 정보 조회
-export const fetchAttendanceData = (month, day) => {
-  return api.get(`/attendances/me`, {
-    params: { month: month, day: day },
-  });
+export const fetchAttendanceData = (month, day = null) => {
+  const params = day ? { month: month, day: day } : { month: month };
+  return api.get(`/attendances/me`, { params });
 };
 
 // 일정 추가
@@ -26,8 +25,7 @@ export const addCalendarEvent = (
   assignmentName,
   assignmentDate,
   assignmentType,
-  description,
-  token
+  description
 ) => {
   return api.post("/assignments", {
     name: assignmentName,
