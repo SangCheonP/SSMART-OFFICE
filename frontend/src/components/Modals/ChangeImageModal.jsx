@@ -5,7 +5,7 @@ import Close from "@/assets/Modals/Close.svg?react";
 
 import styles from "@/styles/Modals/ChangeImageModal.module.css";
 import ImageUpload from "@/components/ImageUpload";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { updateImageFile } from "@/services/fileAPI";
 import { updateProfile } from "@/services/myInfoAPI";
 import useMyInfoStore from "@/store/useMyInfoStore";
@@ -32,14 +32,12 @@ const ChangeImageModal = ({ onSubmit, onClose }) => {
       try {
         const response = await updateImageFile(selectedImage);
         let imageUrl = response.data;
-        console.log(response.data);
-        console.log(response.status);
         if (response.status === 200 || response.status === 201) {
           await updateProfile(imageUrl);
           // store 사진 업데이트 하기
           updateProfileImage(imageUrl);
         }
-        onSubmit(); // 업로드 성공 시 이 부분 호출
+        onSubmit();
       } catch (error) {
         console.error("이미지 업로드 실패:", error);
       }
