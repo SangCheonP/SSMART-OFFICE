@@ -9,6 +9,7 @@ export const updatePassword = async (currentPassword, newPassword) => {
       oldPassword: currentPassword,
       newPassword: newPassword,
     });
+    console.log(response.data);
     return response.data;
   } catch (e) {
     throw e.response ? e.response.data : new Error("비밀번호 변경 실패");
@@ -16,11 +17,12 @@ export const updatePassword = async (currentPassword, newPassword) => {
 };
 
 // 프로필 이미지 업데이트
-export const updateProfileImage = (profileImage) => {
+export const updateProfile = (profileImage) => {
   try {
     const response = api.patch("/users/me", {
       profileImageUrl: profileImage,
     });
+    console.log("myInfoAPI : ", response);
     return response;
   } catch (e) {
     console.log(e);
@@ -29,7 +31,6 @@ export const updateProfileImage = (profileImage) => {
 
 // 핸드폰 번호 업데이트
 export const updateTelNumber = async (phoneNumber) => {
-  console.log(phoneNumber);
   try {
     const response = api.patch("/users/me", {
       phoneNumber: phoneNumber,
@@ -40,9 +41,7 @@ export const updateTelNumber = async (phoneNumber) => {
   }
 };
 
-// 유저 등록
-export const registerUser = () => {};
-
+// 내 정보 가져오기
 export const fetchMyInfo = async () => {
   try {
     const response = await api.get("/users/me");

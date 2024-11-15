@@ -27,7 +27,11 @@ const UserCard = () => {
   return (
     <div className={styles.userCardContainer}>
       <div className={styles.userInfo} onClick={toggleMenu}>
-        {profileImageUrl ? <img src={profileImageUrl} /> : <ProfileImage />}
+        {profileImageUrl ? (
+          <img src={profileImageUrl} className={styles.profileImage} />
+        ) : (
+          <ProfileImage />
+        )}
         <div className={styles.info}>
           <div className={styles.userNumber}>{employeeNumber}</div>
           <div className={styles.nameTag}>
