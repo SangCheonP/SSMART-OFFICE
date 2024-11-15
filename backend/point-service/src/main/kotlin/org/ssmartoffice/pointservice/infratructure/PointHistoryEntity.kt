@@ -33,6 +33,22 @@ data class PointHistoryEntity(
         createdDateTime = currentTime
     }
 
+
+    companion object {
+        fun fromModel(pointHistory: PointHistory): PointHistoryEntity {
+            return PointHistoryEntity(
+                id = pointHistory.id,
+                userId = pointHistory.userId,
+                marketName = pointHistory.marketName,
+                amount = pointHistory.amount,
+                balance = pointHistory.balance,
+                transactionTime = pointHistory.transactionTime,
+                item = pointHistory.item,
+                quantity = pointHistory.quantity
+            )
+        }
+    }
+
     fun toModel(): PointHistory {
         return PointHistory(
             id = id,

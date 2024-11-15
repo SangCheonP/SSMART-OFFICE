@@ -5,11 +5,12 @@ import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.ssmartoffice.pointservice.controller.port.PointService
 import org.ssmartoffice.pointservice.domain.PointHistory
+import org.ssmartoffice.pointservice.domain.Transaction
 import org.ssmartoffice.pointservice.infratructure.PointHistoryHistoryRepositoryImpl
 import java.time.LocalDate
 
 @Service
-class PointHistoryServiceImpl(
+class PointServiceImpl(
     private val pointHistoryRepository: PointHistoryHistoryRepositoryImpl,
 ) : PointService {
 
@@ -24,6 +25,13 @@ class PointHistoryServiceImpl(
 
     override fun getMyPointBalance(userId: Long): Int {
         return pointHistoryRepository.findTop1ByUserIdOrderByCreatedDateTimeDesc(userId).balance
+    }
+
+    override fun createTransaction(userId: Long, transaction: Transaction): PointHistory {
+        val balance = getMyPointBalance(userId)
+        val pointHistory = PointHistory.createPointHistory(transaction, balance, userId)
+        pointHistoryRepository.save(pointHistory)
+        return pointHistory
     }
 
 }
