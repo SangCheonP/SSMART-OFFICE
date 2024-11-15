@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  api-gateway:
+    image: "parksangcheon/backend-repo-api-gateway:${COMMIT_HASH:-latest}"
+    container_name: api-gateway-container
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+    depends_on:
+      - config-server
+      - discovery-server
+    networks:
+      - app-network
+    restart: always
+
+networks:
+  app-network:
+    external: true

@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  seat-service:
+    image: "parksangcheon/backend-repo-seat-service:${COMMIT_HASH:-latest}"
+    container_name: seat-service-container
+    depends_on:
+      - config-server
+      - discovery-server
+    env_file:
+      - .env
+    networks:
+      - app-network
+    restart: always
+
+networks:
+  app-network:
+    external: true

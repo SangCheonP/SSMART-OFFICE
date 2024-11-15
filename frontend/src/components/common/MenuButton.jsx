@@ -3,6 +3,7 @@ import Logout from "@/assets/Menu/Logout.svg?react";
 import Message from "@/assets/Menu/Message.svg?react";
 import Mypage from "@/assets/Menu/Mypage.svg?react";
 import Seat from "@/assets/Menu/Seat.svg?react";
+import Attendance from "@/assets/Menu/Attendance.svg?react";
 
 import styles from "@/styles/Menu/MenuButton.module.css";
 
@@ -26,6 +27,9 @@ const MenuButton = ({ type, content, isActive, isLogout }) => {
       break;
     case "Seat":
       Icon = Seat;
+      break;
+    case "Attendance":
+      Icon = Attendance;
       break;
   }
   const buttonClass = classNames(styles.button, classNames, {

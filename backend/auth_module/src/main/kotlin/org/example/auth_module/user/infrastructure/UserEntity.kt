@@ -4,7 +4,7 @@ import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
-import org.example.auth_module.global.auth.Role
+import org.example.auth_module.global.auth.domain.Role
 import org.example.auth_module.user.domain.User
 import org.springframework.security.crypto.password.PasswordEncoder
 

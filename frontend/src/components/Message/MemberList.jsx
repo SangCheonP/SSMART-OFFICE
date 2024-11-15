@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "@/styles/Message/Message.module.css";
 
 const MemberList = ({ memberData, onMemberSelect }) => {
+  const [selectedMemberId, setSelectedMemberId] = useState(null);
+
+  const handleMemberClick = (member) => {
+    setSelectedMemberId(member.userId);
+    onMemberSelect(member.name);
+  };
   return (
     <div className={styles.member_list}>
       {memberData.map((member) => (
         <div
           key={member.userId}
-          className={styles.member_card}
-          onClick={() => onMemberSelect(member.name)}
+          className={`${styles.member_card} ${
+            selectedMemberId === member.userId ? styles.selected_card : ""
+          }`}
+          onClick={() => handleMemberClick(member)}
         >
           <img
             src={member.profileImageUrl}

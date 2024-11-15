@@ -4,7 +4,66 @@
   font-size: 1.25rem;
   font-weight: bold;
 }
+.dateBox {
+  display: flex;
+  height: 50px;
+  align-items: center;
+  column-gap: 10px;
+  border-radius: 10px 10px 0 0;
+  margin-left: 13px;
+}
+
+.datePicker {
+  cursor: pointer;
+  height: 30px;
+  width: 150px;
+}
+.firstDate {
+  margin-left: 20px;
+}
 
 .table {
-  border: 1px solid;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  background-color: #fff;
+  margin-bottom: 40px;
+}
+
+.tableHeader {
+  display: grid;
+  grid-template-columns: 5fr 2fr 1.5fr 1.5fr;
+  height: 50px;
+  align-content: center;
+  background-color: #ddd;
+  font-size: 16px;
+  font-weight: bold;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 5fr 2fr 1.5fr 1.5fr;
+  height: 50px;
+  align-content: center;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.first {
+  padding-left: 30px;
+}
+
+.welfareSearch {
+  font-weight: bold;
+  background: inherit;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+  overflow: visible;
+  cursor: pointer;
+  width: 50px;
+  height: 31px;
+  background-color: var(--blue);
+  border-radius: 5px;
+  color: #fff;
 }

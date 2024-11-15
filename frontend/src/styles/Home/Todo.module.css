@@ -11,6 +11,7 @@
   display: flex;
   flex-direction: column;
 }
+
 .contentWrapper {
   height: calc(100% - 80px);
   margin: 40px 0 0 40px;
@@ -64,11 +65,16 @@
   text-decoration: underline;
 }
 .todoList {
-  margin-top: 41px;
+  margin-top: 10px;
+}
+.todoItem {
+  padding: 15px;
+  border-bottom: 1px solid #a0a0a050;
 }
 .todoItem label {
   display: flex;
   align-items: center;
+  justify-content: start;
 }
 .checkIcon {
   width: 18px;
@@ -85,9 +91,9 @@
   border: none;
   border-radius: 13px;
   cursor: pointer;
-  position: fixed;
   top: 80%;
 }
+
 .add_inner {
   margin-left: 1vw;
   display: flex;

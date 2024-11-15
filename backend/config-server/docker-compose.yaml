@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  config-server:
+    image: "parksangcheon/backend-repo-config-server:${COMMIT_HASH:-latest}"
+    container_name: config-server-container
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8888/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - app-network
+    restart: always
+
+networks:
+  app-network:
+    external: true
+

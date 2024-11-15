@@ -13,9 +13,6 @@
   align-items: center;
 }
 
-.date {
-}
-
 .floor {
   width: 160px;
   height: 40px;
@@ -43,4 +40,11 @@
 
 .floor4 {
   border-radius: 10px 0 0 10px;
+}
+
+.floor1:hover,
+.floor2:hover,
+.floor3:hover,
+.floor4:hover {
+  background-color: var(--whitehover);
 }

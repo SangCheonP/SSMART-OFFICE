@@ -1,12 +1,12 @@
 import React from "react";
 import styles from "@/styles/Home/Todo.module.css";
 
-const TodoList = ({ monthData }) => {
+const TodoList = ({ todos = [] }) => {
   return (
     <div>
       <ul className={styles.todoList}>
-        {monthData && monthData.length > 0 ? (
-          monthData.map((item, index) => (
+        {todos.length > 0 ? (
+          todos.map((item, index) => (
             <li key={index} className={styles.todoItem}>
               <label>
                 <input type="checkbox" className={styles.checkIcon} />
