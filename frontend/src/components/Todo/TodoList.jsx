@@ -1,7 +1,5 @@
 import React from "react";
-import useAttendanceStore from "@/store/useAttendanceStore";
 import styles from "@/styles/Home/Todo.module.css";
-import Modify from "@/assets/Common/Modify.svg?react";
 
 const TodoList = ({ todos = [] }) => {
   return (
@@ -13,7 +11,6 @@ const TodoList = ({ todos = [] }) => {
               <label>
                 <input type="checkbox" className={styles.checkIcon} />
                 <span className={styles.labelText}>{item.name}</span>
-                <Modify className={styles.modifyIcon} />
               </label>
             </li>
           ))

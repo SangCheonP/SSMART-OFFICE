@@ -6,7 +6,7 @@
 .member_box {
   position: relative;
   width: 30vw;
-  height: 80vh;
+  height: auto;
   background-color: white;
   border-radius: 10px;
   padding: 35px;
