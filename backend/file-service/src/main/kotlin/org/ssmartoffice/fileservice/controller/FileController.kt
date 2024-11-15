@@ -1,8 +1,7 @@
 package org.ssmartoffice.fileservice.controller
 
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.ExceptionHandler
-import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
@@ -14,7 +13,7 @@ import org.ssmartoffice.fileservice.dto.CommonResponse
 @RequestMapping("api/v1/files")
 class FileController(val fileService: FileService) {
 
-    @GetMapping("/upload")
+    @PostMapping("/upload")
     fun uploadFile(@RequestParam("file") file: MultipartFile) : ResponseEntity<CommonResponse> {
         val fileName = fileService.uploadFile(file)
         return CommonResponse.created("파일 업로드 성공", fileName)
