@@ -8,41 +8,16 @@ import TodoList from "./TodoList";
 import AddButton from "@/assets/Todo/AddButton.svg?react";
 import dayjs from "dayjs";
 import useModalStore from "@/store/useModalStore";
-import AddTodoModal from "@/components/Modals/AddTodoModal";
+import AddTodoModal from "../Modals/AddTodoModal";
 import { addCalendarEvent } from "@/services/homeApi";
 import useMyInfoStore from "@/store/useMyInfoStore";
 
-const Todo = ({ selectedDate, monthData }) => {
-  const filteredDate = Array.isArray(monthData)
-    ? monthData.filter(
-        (item) => item?.date === dayjs(selectedDate).format("YYYY-MM-DD")
-      )
-    : [];
-
+const Todo = ({ selectedDate, todoData }) => {
   const openModal = useModalStore((state) => state.openModal);
   const { name } = useMyInfoStore();
 
   const handleAddTodoClick = () => {
-    openModal(AddTodoModal, {
-      onSubmit: async ({
-        assignmentName,
-        assignmentDate,
-        assignmentType,
-        description,
-      }) => {
-        try {
-          await addCalendarEvent(
-            assignmentName,
-            assignmentDate,
-            assignmentType,
-            description
-          );
-          console.log("일정 추가 성공");
-        } catch (error) {
-          console.error("일정 추가 실패:", error);
-        }
-      },
-    });
+    openModal(AddTodoModal, {});
   };
 
   return (
@@ -72,7 +47,7 @@ const Todo = ({ selectedDate, monthData }) => {
             linkUrl="#"
           />
 
-          <TodoList monthData={filteredDate} />
+          <TodoList todos={todoData.data} />
 
           {/* 일정 추가 버튼 클릭 시 모달 띄우기 */}
           <button className={styles.add_todo} onClick={handleAddTodoClick}>
