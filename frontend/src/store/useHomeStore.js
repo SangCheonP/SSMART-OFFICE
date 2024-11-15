@@ -41,7 +41,6 @@ const useHomeStore = create(
           const response = await fetchAttendanceData(month, day);
           console.log("출퇴근 조회:", response.data);
           set({ attendanceData: response.data });
-          console.log("출퇴근 상태 업데이트 후:", attendanceData);
         } catch (error) {
           console.error("출퇴근 정보 조회 오류", error);
         }
@@ -62,18 +61,27 @@ const useHomeStore = create(
             description
           );
           set((state) => ({
-            calendarData: [...(state.calendarData || []), response.data],
+            calendarData: {
+              ...state.calendarData,
+              data: {
+                ...state.calendarData.data,
+                attendances: [
+                  ...(state.calendarData.data.attendances || []),
+                  response.data,
+                ],
+              },
+            },
           }));
           return response.data;
         } catch (error) {
-          console.error("Failed to add calendar event", error);
+          console.error("일정 추가 실패 store:", error);
           throw error;
         }
       },
     }),
     {
-      name: "home-storage", // localStorage에 저장될 키 이름
-      getStorage: () => localStorage, // default: localStorage
+      name: "home-storage",
+      getStorage: () => localStorage,
     }
   )
 );

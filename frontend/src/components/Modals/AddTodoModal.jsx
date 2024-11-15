@@ -4,6 +4,7 @@ import ReactModal from "react-modal";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "@/styles/Modals/AddTodoModal.module.css";
+import useHomeStore from "@/store/useHomeStore"; // store import
 
 const AddTodoModal = ({ onSubmit, onClose }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -12,31 +13,57 @@ const AddTodoModal = ({ onSubmit, onClose }) => {
   const [description, setDescription] = useState("");
   const [isSubmitEnabled, setIsSubmitEnabled] = useState(false);
 
+  const addCalendarEvent = useHomeStore((state) => state.addCalendarEvent);
+
   useEffect(() => {
     const isFormValid =
       assignmentName.trim() !== "" && description.trim() !== "" && selectedDate;
     setIsSubmitEnabled(isFormValid);
   }, [assignmentName, description, selectedDate]);
 
-  const handleClickSubmit = () => {
+  const typeChange = (type) => {
+    switch (type) {
+      case "연차":
+        return "ANNUAL_LEAVE";
+      case "조퇴":
+        return "EARLY_LEAVE";
+      case "회의":
+        return "MEETING";
+      case "할일":
+        return "TASK";
+      default:
+        return "OTHER";
+    }
+  };
+
+  // 완료 버튼
+  const handleClickSubmit = async () => {
     if (isSubmitEnabled) {
       const dataToSubmit = {
-        assignmentName,
-        assignmentDate: selectedDate,
-        assignmentType,
-        description,
+        name: assignmentName,
+        date: selectedDate.toISOString().split("T")[0],
+        type: typeChange(assignmentType),
+        description: description,
       };
       console.log("데이터 AddTodoModal:", dataToSubmit);
 
-      if (onSubmit) {
-        onSubmit(dataToSubmit);
-        console.log("modal에서는 보내짐");
-      } else {
-        console.error("addtodoModal 완료 실패");
+      try {
+        await addCalendarEvent(
+          dataToSubmit.name,
+          dataToSubmit.date,
+          dataToSubmit.type,
+          dataToSubmit.description
+        );
+        console.log("일정 추가 성공");
+
+        onClose();
+      } catch (error) {
+        console.error("일정 추가 실패:", error);
       }
     }
   };
 
+  // 닫기 버튼
   const handleClickCancel = () => {
     onClose();
   };
@@ -62,7 +89,6 @@ const AddTodoModal = ({ onSubmit, onClose }) => {
           left: "50%",
           transform: "translate(-50%, -50%)",
           background: "#fff",
-          // overflow: "auto",
           overflow: "hidden",
           WebkitOverflowScrolling: "touch",
           borderRadius: "20px",
@@ -123,7 +149,7 @@ const AddTodoModal = ({ onSubmit, onClose }) => {
           <button
             onClick={handleClickSubmit}
             className={`${styles.confirm} ${styles.button}`}
-            disabled={!isSubmitEnabled} // 모든 필드가 입력되지 않으면 버튼 비활성화
+            disabled={!isSubmitEnabled} // 모든 필드가 입력되지 않으면 버튼 비활성화 TODO 에러메시지 띄우기
           >
             완료
           </button>

@@ -8,7 +8,7 @@ import TodoList from "./TodoList";
 import AddButton from "@/assets/Todo/AddButton.svg?react";
 import dayjs from "dayjs";
 import useModalStore from "@/store/useModalStore";
-import AddTodoModal from "@/components/Modals/AddTodoModal";
+import AddTodoModal from "../Modals/AddTodoModal";
 import { addCalendarEvent } from "@/services/homeApi";
 import useMyInfoStore from "@/store/useMyInfoStore";
 
@@ -17,34 +17,7 @@ const Todo = ({ selectedDate, todoData }) => {
   const { name } = useMyInfoStore();
 
   const handleAddTodoClick = () => {
-    openModal(AddTodoModal, {
-      onSubmit: async (data) => {
-        try {
-          if (!data) {
-            console.error("데이터 없음");
-            return;
-          }
-          const {
-            assignmentName,
-            assignmentDate,
-            assignmentType,
-            description,
-          } = data;
-
-          console.log("보내질 데이터:", data);
-
-          await addCalendarEvent(
-            assignmentName,
-            assignmentDate,
-            assignmentType,
-            description
-          );
-          console.log("일정 추가 성공");
-        } catch (error) {
-          console.error("일정 추가 실패:", error);
-        }
-      },
-    });
+    openModal(AddTodoModal, {});
   };
 
   return (

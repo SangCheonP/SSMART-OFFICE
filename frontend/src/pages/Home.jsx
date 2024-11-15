@@ -34,7 +34,7 @@ const Home = () => {
     const selected = new Date(date);
     setSelectedDate(selected);
     const month = date.getFullYear() * 100 + (date.getMonth() + 1);
-    const day = date.getDate();
+    const day = date.getDate().toString().padStart(2, "0");
     fetchTodoData(month, day);
     console.log("클릭 날짜:", setSelectedDate);
   };
