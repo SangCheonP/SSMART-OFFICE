@@ -2,7 +2,6 @@ package org.ssmartoffice.seatservice.infratructure
 
 import org.springframework.stereotype.Repository
 import org.ssmartoffice.seatservice.domain.Seat
-import org.ssmartoffice.seatservice.domain.SeatStatus
 import org.ssmartoffice.seatservice.service.port.SeatRepository
 
 @Repository
@@ -21,8 +20,8 @@ class SeatRepositoryImpl(
         seatJpaRepository.save(SeatEntity.fromModel(seat))
     }
 
-    override fun existsByUserIdAndStatus(userId: Long, status: SeatStatus): Boolean {
-        return seatJpaRepository.existsByUserIdAndStatus(userId, status)
+    override fun existsByUserIdAndIdNot(userId: Long, id: Long): Boolean {
+        return seatJpaRepository.existsByUserIdAndIdNot(userId, id)
     }
 
 }
