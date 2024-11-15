@@ -1,7 +1,6 @@
 package org.ssmartoffice.assignmentservice.domain
 
 import org.ssmartoffice.assignmentservice.controller.request.AssignmentRegisterRequest
-import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class Assignment(

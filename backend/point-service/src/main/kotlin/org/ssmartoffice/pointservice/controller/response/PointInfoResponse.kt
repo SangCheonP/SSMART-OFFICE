@@ -1,24 +1,15 @@
 package org.ssmartoffice.pointservice.controller.response
 
-import org.ssmartoffice.pointservice.domain.Point
+import com.fasterxml.jackson.annotation.JsonInclude
 import java.time.LocalDateTime
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 data class PointInfoResponse(
-    val id: Long = 0,
-    val pointUsed: Int,
-    val description: String,
-    val currentPoint: Int,
-    val useDate: LocalDateTime?
-) {
-    companion object {
-        fun fromModel(point: Point): PointInfoResponse {
-            return PointInfoResponse(
-                id = point.id,
-                pointUsed = point.pointUsed,
-                description = point.description,
-                currentPoint = point.currentPoint,
-                useDate = point.useDate
-            )
-        }
-    }
-}
+    val id: Long? = null,
+    val marketName: String? = null,
+    val amount: Int? = null,
+    val balance: Int? = null,
+    val transactionTime: LocalDateTime? = null,
+    val item: String? = null,
+    val quantity: Int? = null,
+)
