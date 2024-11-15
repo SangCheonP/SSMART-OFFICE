@@ -10,4 +10,5 @@ import java.time.LocalDate
 interface PointHistoryRepository {
     fun findByUserIdAndTransactionTimeBetween(userId: Long, startDate: LocalDate, endDate: LocalDate, pageable: Pageable): Page<PointHistory>
     fun findTop1ByUserIdOrderByCreatedDateTimeDesc(userId: Long): PointHistory
+    fun save(pointHistory: PointHistory)
 }
