@@ -1,0 +1,11 @@
+.example-custom-input {
+  background-color: #282c34;
+  color: white;
+  cursor: pointer;
+  width: 240px;
+  padding: 10px;
+  margin-bottom: 5px;
+}
+.react-datepicker__current-month {
+  background-color: red;
+}
