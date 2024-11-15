@@ -28,6 +28,9 @@ class JwtAuthenticationFilter(
 
             // 내부 통신
             "/api/v1/users/internal/**",
+
+            //하드웨어 통신
+            "/api/v1/nfc-tokens/**",
         )
     }
 
