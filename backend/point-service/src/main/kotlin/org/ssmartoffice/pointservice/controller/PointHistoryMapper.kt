@@ -6,6 +6,7 @@ import org.ssmartoffice.pointservice.domain.PointHistory
 
 @Component
 class PointHistoryMapper {
+
     fun toPointInfoResponse(pointHistory: PointHistory): PointInfoResponse {
         return PointInfoResponse(
             id = pointHistory.id,
