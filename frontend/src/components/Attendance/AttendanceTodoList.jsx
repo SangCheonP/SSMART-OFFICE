@@ -1,9 +1,10 @@
 import React from "react";
 import useAttendanceStore from "@/store/useAttendanceStore";
 import styles from "@/styles/Home/Todo.module.css";
-import Modify from "@/assets/Common/Modify.svg?react";
 
-const TodoList = ({ todos = [] }) => {
+const TodoList = () => {
+  const userTodoData = useAttendanceStore((state) => state.userTodoData);
+  const todos = Array.isArray(userTodoData) ? userTodoData : [];
   return (
     <div>
       <ul className={styles.todoList}>
@@ -13,7 +14,6 @@ const TodoList = ({ todos = [] }) => {
               <label>
                 <input type="checkbox" className={styles.checkIcon} />
                 <span className={styles.labelText}>{item.name}</span>
-                <Modify className={styles.modifyIcon} />
               </label>
             </li>
           ))
