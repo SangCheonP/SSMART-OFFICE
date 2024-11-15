@@ -21,7 +21,7 @@ data class UserRegisterRequest(
     @field:NotBlank(message = "직무를 입력해주세요.")
     val duty: String,
 
-    @field:Pattern(message = "유효한 URL 형식이 아닙니다.", regexp = "(http|https)://[a-zA-Z0-9./]+")
+    @field:Pattern(message = "유효한 URL 형식이 아닙니다.", regexp = "(http|https)://[a-zA-Z0-9./\\-_~:%]+")
     @field:NotBlank(message = "이미지를 입력해주세요.")
     val profileImageUrl: String,
 
