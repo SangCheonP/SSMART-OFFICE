@@ -74,7 +74,7 @@
 .todoItem label {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: start;
 }
 .checkIcon {
   width: 18px;
@@ -91,9 +91,9 @@
   border: none;
   border-radius: 13px;
   cursor: pointer;
-  position: fixed;
   top: 80%;
 }
+
 .add_inner {
   margin-left: 1vw;
   display: flex;

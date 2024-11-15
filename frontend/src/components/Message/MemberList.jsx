@@ -5,8 +5,8 @@ const MemberList = ({ memberData, onMemberSelect }) => {
   const [selectedMemberId, setSelectedMemberId] = useState(null);
 
   const handleMemberClick = (member) => {
-    setSelectedMemberId(member.userId); // 클릭된 member의 ID를 상태에 저장
-    onMemberSelect(member.name); // 부모 컴포넌트로 선택된 멤버 이름 전달
+    setSelectedMemberId(member.userId);
+    onMemberSelect(member.name);
   };
   return (
     <div className={styles.member_list}>
