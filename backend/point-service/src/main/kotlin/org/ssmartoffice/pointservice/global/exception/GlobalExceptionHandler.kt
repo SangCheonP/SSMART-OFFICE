@@ -47,8 +47,8 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
         return handleExceptionInternal(errorCode, e.message)
     }
 
-    @ExceptionHandler(SeatException::class)
-    fun handleUserException(e: SeatException): ResponseEntity<Any> {
+    @ExceptionHandler(PointException::class)
+    fun handleUserException(e: PointException): ResponseEntity<Any> {
         val errorCode: ErrorCode = e.errorCode
         return handleExceptionInternal(errorCode, e.message)
     }
