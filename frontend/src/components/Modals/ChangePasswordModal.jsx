@@ -21,7 +21,6 @@ const ChangePasswordModal = ({ onSubmit, onClose }) => {
     try {
       await updatePassword(currentPassword, newPassword);
       onSubmit();
-      // onClose();
     } catch (e) {
       setError(e.message);
     }
