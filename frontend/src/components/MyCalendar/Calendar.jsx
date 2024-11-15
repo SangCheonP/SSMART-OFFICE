@@ -77,6 +77,7 @@ const CustomEvent = ({ event }) => {
 
 const MyCalendar = ({ monthData, attendanceData, onDateSelect }) => {
   const [events, setEvents] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(null);
 
   useEffect(() => {
     const formattedAttendanceEvents = attendanceData.map((item) => ({
@@ -100,6 +101,16 @@ const MyCalendar = ({ monthData, attendanceData, onDateSelect }) => {
     setEvents(allEvents);
   }, [monthData, attendanceData]);
 
+  const dayPropGetter = (date) => {
+    const isSelected =
+      selectedDate && date.toDateString() === selectedDate.toDateString();
+    return {
+      style: {
+        backgroundColor: isSelected ? "#D3E4FF60" : "transparent", // 선택된 날짜 배경색 설정
+      },
+    };
+  };
+
   return (
     <Calendar
       localizer={localizer}
@@ -113,10 +124,14 @@ const MyCalendar = ({ monthData, attendanceData, onDateSelect }) => {
         event: CustomEvent,
       }}
       selectable
-      onSelectSlot={(slotInfo) => onDateSelect(slotInfo.start)}
+      onSelectSlot={(slotInfo) => {
+        setSelectedDate(slotInfo.start);
+        onDateSelect(slotInfo.start);
+      }}
       onSelectEvent={(event) => {
         alert(`클릭함 ${event.title}`);
       }}
+      dayPropGetter={dayPropGetter}
     />
   );
 };
