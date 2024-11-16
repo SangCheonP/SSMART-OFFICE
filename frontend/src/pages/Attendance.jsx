@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import MemberList from "@/components/Message/MemberList";
+import MemberList from "@/components/Attendance/AttendanceMemberList";
 import styles from "@/styles/Attendance/Member.module.css";
 import AddMember from "@/assets/Message/AddMember.svg?react";
 import SearchBar from "@/components/common/SearchBar";

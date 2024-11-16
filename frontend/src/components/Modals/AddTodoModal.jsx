@@ -4,7 +4,8 @@ import ReactModal from "react-modal";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "@/styles/Modals/AddTodoModal.module.css";
-import useHomeStore from "@/store/useHomeStore"; // store import
+import useHomeStore from "@/store/useHomeStore";
+import Down from "@/assets/Common/arrow_down.svg?react";
 
 const AddTodoModal = ({ onSubmit, onClose }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -29,7 +30,7 @@ const AddTodoModal = ({ onSubmit, onClose }) => {
         return "EARLY_LEAVE";
       case "회의":
         return "MEETING";
-      case "할일":
+      case "TODO":
         return "TASK";
       default:
         return "OTHER";
@@ -84,7 +85,7 @@ const AddTodoModal = ({ onSubmit, onClose }) => {
         content: {
           position: "absolute",
           width: "400px",
-          height: "500px",
+          height: "550px",
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
@@ -98,14 +99,17 @@ const AddTodoModal = ({ onSubmit, onClose }) => {
       }}
     >
       <div className={styles.container}>
-        <DatePicker
-          selected={selectedDate}
-          onChange={(date) => setSelectedDate(date)}
-          dateFormat="yyyy년 MM월 dd일"
-          className={styles.datePicker}
-        />
-
-        <h1 className={styles.title}>일정 유형</h1>
+        <div className={styles.datePickerContainer}>
+          <DatePicker
+            selected={selectedDate}
+            onChange={(date) => setSelectedDate(date)}
+            dateFormat="yyyy년 MM월 dd일"
+            className={styles.datePicker}
+            popperPlacement="bottom-end"
+          />
+          <Down />
+        </div>
+        <h1 className={styles.titleBox}>일정 유형</h1>
         <div>
           <select
             className={styles.select}
@@ -116,24 +120,35 @@ const AddTodoModal = ({ onSubmit, onClose }) => {
             <option>조퇴</option>
             <option>회의</option>
             <option>할일</option>
+            <option>기타</option>
           </select>
         </div>
-        <h1 className={styles.title}>일정 이름</h1>
+        <div className={styles.titleBox}>
+          <h1 className={styles.title}>일정 이름</h1>
+          <h1 className={styles.titlePoint}>*</h1>
+        </div>
         <input
           type="text"
           value={assignmentName}
           onChange={(e) => setAssignmentName(e.target.value)}
-          className={styles.input}
+          className={`${styles.input} ${
+            !assignmentName.trim() ? styles.inputError : ""
+          }`}
           placeholder="일정 이름을 입력해주세요."
           required
         />
 
         <div>
-          <h1 className={styles.title}>설명</h1>
+          <div className={styles.titleBox}>
+            <h1 className={styles.title}>설명</h1>
+            <h1 className={styles.titlePoint}>*</h1>
+          </div>
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className={styles.textarea}
+            className={`${styles.textarea} ${
+              !description.trim() ? styles.inputError : ""
+            }`}
             placeholder="일정에 대해 설명해주세요."
             required
           ></textarea>

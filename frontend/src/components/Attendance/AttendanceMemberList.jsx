@@ -1,23 +1,12 @@
-import { useState } from "react";
-import styles from "@/styles/Message/Message.module.css";
-import Modify from "@/assets/Common/Modify.svg?react";
-import ModifyMemberModal from "@/components/Modals/ModifyMemberModal";
-import useModalStore from "@/store/useModalStore";
+import React, { useState } from "react";
+import styles from "@/styles/Attendance/MemberList.module.css";
 
 const MemberList = ({ memberData, onMemberSelect }) => {
-  const openModal = useModalStore((state) => state.openModal);
   const [selectedMemberId, setSelectedMemberId] = useState(null);
 
   const handleMemberClick = (member) => {
     setSelectedMemberId(member.userId);
     onMemberSelect(member.name);
-  };
-
-  const hadleModifyInfoClick = (userId) => {
-    openModal(ModifyMemberModal, {
-      userId: userId,
-      onSubmit: () => {},
-    });
   };
   return (
     <div className={styles.member_list}>
@@ -46,12 +35,6 @@ const MemberList = ({ memberData, onMemberSelect }) => {
             </div>
             <div className={styles.duty}>{member.duty}</div>
             <div className={styles.location}>2층임</div>
-          </div>
-          <div
-            className={styles.editMember}
-            onClick={() => hadleModifyInfoClick(member.userId)}
-          >
-            <Modify />
           </div>
         </div>
       ))}

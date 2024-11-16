@@ -6,10 +6,8 @@ import MessageIcon from "@/assets/Todo/Message.svg?react";
 import ReadCard from "./ReadCard";
 import TodoList from "./TodoList";
 import AddButton from "@/assets/Todo/AddButton.svg?react";
-import dayjs from "dayjs";
 import useModalStore from "@/store/useModalStore";
 import AddTodoModal from "../Modals/AddTodoModal";
-import { addCalendarEvent } from "@/services/homeApi";
 import useMyInfoStore from "@/store/useMyInfoStore";
 
 const Todo = ({ selectedDate, todoData }) => {
@@ -47,7 +45,7 @@ const Todo = ({ selectedDate, todoData }) => {
             linkUrl="#"
           />
 
-          <TodoList todos={todoData.data} />
+          <TodoList todos={todoData?.data || []} />
 
           {/* 일정 추가 버튼 클릭 시 모달 띄우기 */}
           <button className={styles.add_todo} onClick={handleAddTodoClick}>

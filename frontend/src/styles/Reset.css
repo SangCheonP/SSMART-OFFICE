@@ -147,3 +147,7 @@ body {
   --hover: #3a5ebf;
   --whitehover: #eee;
 }
+
+div::-webkit-scrollbar {
+  display: none;
+}

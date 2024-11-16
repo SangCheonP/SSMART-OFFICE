@@ -10,6 +10,7 @@
   border-bottom-left-radius: 10px;
   display: flex;
   flex-direction: column;
+  z-index: 1000;
 }
 
 .contentWrapper {
@@ -28,11 +29,6 @@
   color: var(--text-blue);
   font-size: 22px;
   font-weight: 500;
-}
-.modifyIcon {
-  color: var(--text-description);
-  margin-left: auto;
-  cursor: pointer;
 }
 .name_text {
   margin: 5px 0 0 8px;
@@ -79,7 +75,7 @@
 .todoItem label {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: start;
 }
 .checkIcon {
   width: 18px;
@@ -89,6 +85,11 @@
 .labelText {
   font-size: 15px;
 }
+.description_text {
+  color: var(--text-description);
+  margin-right: 20px;
+  font-size: 13px;
+}
 .add_todo {
   background-color: var(--blue);
   height: 65px;
@@ -96,9 +97,9 @@
   border: none;
   border-radius: 13px;
   cursor: pointer;
-  position: fixed;
   top: 80%;
 }
+
 .add_inner {
   margin-left: 1vw;
   display: flex;
