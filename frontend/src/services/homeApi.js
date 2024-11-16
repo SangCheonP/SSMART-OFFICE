@@ -9,6 +9,7 @@ export const fetchCalendarData = (month) => {
 
 // 캘린더 일정 일별 조회
 export const fetchTodoData = (month, day) => {
+  console.log("fetchTodoData 호출됨:", { month, day });
   return api.get(`/assignments`, {
     params: { month: month, day: day },
   });
