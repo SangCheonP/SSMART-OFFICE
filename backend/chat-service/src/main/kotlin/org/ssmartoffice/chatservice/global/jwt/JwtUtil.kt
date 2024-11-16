@@ -6,6 +6,9 @@ import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.io.Decoders
 import io.jsonwebtoken.security.Keys
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.Authentication
+import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.stereotype.Component
 import java.security.Key
 
@@ -40,6 +43,17 @@ class JwtUtil(
         } catch (e: ExpiredJwtException) {
             e.claims
         }
+    }
+
+    fun getAuthentication(accessToken: String): Authentication {
+        val claims: Claims = parseClaims(accessToken)
+
+        val role = claims[AUTHORITIES_KEY, String::class.java]
+        val id= claims[ID_KEY, Integer::class.java].toLong()
+        val authorities = listOf(SimpleGrantedAuthority(role))
+        val authentication = UsernamePasswordAuthenticationToken(id, null, authorities)
+
+        return authentication
     }
 
     companion object {
