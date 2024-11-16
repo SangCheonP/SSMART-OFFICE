@@ -85,7 +85,7 @@ const AddTodoModal = ({ onSubmit, onClose }) => {
         content: {
           position: "absolute",
           width: "400px",
-          height: "500px",
+          height: "550px",
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
