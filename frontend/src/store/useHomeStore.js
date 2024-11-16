@@ -11,8 +11,8 @@ const useHomeStore = create(
   persist(
     (set) => ({
       calendarData: { data: [] },
-      todoData: null,
-      attendanceData: null,
+      todoData: [],
+      attendanceData: [],
 
       // 캘린더 데이터 초기화
       resetCalendarData: () =>
@@ -35,7 +35,7 @@ const useHomeStore = create(
       fetchCalendarData: async (month) => {
         try {
           const response = await fetchCalendarData(month);
-          set({ calendarData: response.data });
+          set({ calendarData: response?.data || { data: [] } });
         } catch (error) {
           console.error("캘린더 데이터 월별 조회 오류", error);
         }
@@ -46,9 +46,10 @@ const useHomeStore = create(
         try {
           const response = await fetchTodoData(month, day);
           console.log("캘린더 일별 조회:", response.data);
-          set({ todoData: response.data });
+          set({ todoData: response?.data || [] });
         } catch (error) {
           console.error("캘린더 일정 일별 조회 오류", error);
+          set({ todoData: [] });
         }
       },
 
@@ -57,9 +58,10 @@ const useHomeStore = create(
         try {
           const response = await fetchAttendanceData(month, day);
           console.log("출퇴근 조회:", response.data);
-          set({ attendanceData: response.data });
+          set({ attendanceData: response?.data || [] });
         } catch (error) {
           console.error("출퇴근 정보 조회 오류", error);
+          set({ attendanceData: [] });
         }
       },
 

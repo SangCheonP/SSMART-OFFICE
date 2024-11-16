@@ -45,7 +45,7 @@ const Todo = ({ selectedDate, todoData }) => {
             linkUrl="#"
           />
 
-          <TodoList todos={todoData.data} />
+          <TodoList todos={todoData?.data || []} />
 
           {/* 일정 추가 버튼 클릭 시 모달 띄우기 */}
           <button className={styles.add_todo} onClick={handleAddTodoClick}>

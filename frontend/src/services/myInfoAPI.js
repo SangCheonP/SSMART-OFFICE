@@ -45,6 +45,7 @@ export const updateTelNumber = async (phoneNumber) => {
 export const fetchMyInfo = async () => {
   try {
     const response = await api.get("/users/me");
+    console.log("드렁오니?");
     useMyInfoStore.getState().setMyInfoData(response.data.data);
   } catch (e) {
     console.log(e);

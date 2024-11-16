@@ -84,6 +84,11 @@
 .labelText {
   font-size: 15px;
 }
+.description_text {
+  color: var(--text-description);
+  margin-right: 20px;
+  font-size: 13px;
+}
 .add_todo {
   background-color: var(--blue);
   height: 65px;
