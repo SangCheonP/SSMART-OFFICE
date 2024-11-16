@@ -109,7 +109,7 @@ const AddTodoModal = ({ onSubmit, onClose }) => {
           />
           <Down />
         </div>
-        <h1 className={styles.title}>일정 유형</h1>
+        <h1 className={styles.titleBox}>일정 유형</h1>
         <div>
           <select
             className={styles.select}
@@ -123,22 +123,32 @@ const AddTodoModal = ({ onSubmit, onClose }) => {
             <option>기타</option>
           </select>
         </div>
-        <h1 className={styles.title}>일정 이름</h1>
+        <div className={styles.titleBox}>
+          <h1 className={styles.title}>일정 이름</h1>
+          <h1 className={styles.titlePoint}>*</h1>
+        </div>
         <input
           type="text"
           value={assignmentName}
           onChange={(e) => setAssignmentName(e.target.value)}
-          className={styles.input}
+          className={`${styles.input} ${
+            !assignmentName.trim() ? styles.inputError : ""
+          }`}
           placeholder="일정 이름을 입력해주세요."
           required
         />
 
         <div>
-          <h1 className={styles.title}>설명</h1>
+          <div className={styles.titleBox}>
+            <h1 className={styles.title}>설명</h1>
+            <h1 className={styles.titlePoint}>*</h1>
+          </div>
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className={styles.textarea}
+            className={`${styles.textarea} ${
+              !description.trim() ? styles.inputError : ""
+            }`}
             placeholder="일정에 대해 설명해주세요."
             required
           ></textarea>
