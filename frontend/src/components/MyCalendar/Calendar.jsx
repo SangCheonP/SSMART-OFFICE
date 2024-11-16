@@ -77,7 +77,7 @@ const CustomEvent = ({ event }) => {
 
 const MyCalendar = ({ monthData, attendanceData, onDateSelect }) => {
   const [events, setEvents] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(new Date()); // 오늘 날짜로 기본 초기화
 
   useEffect(() => {
     const formattedAttendanceEvents = (attendanceData || []).map((item) => ({

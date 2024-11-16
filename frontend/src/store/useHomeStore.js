@@ -5,6 +5,7 @@ import {
   fetchTodoData,
   fetchAttendanceData,
   addCalendarEvent,
+  checkEvent,
 } from "@/services/homeApi";
 
 const useHomeStore = create(
@@ -89,9 +90,47 @@ const useHomeStore = create(
           // 상태 업데이트: 월별 데이터 갱신
           set({ calendarData: updatedResponse.data });
 
+          // 일정이 추가된 날짜 데이터 갱신
+          const addedDay = new Date(assignmentDate).getDate();
+          const updatedDayResponse = await fetchTodoData(addedMonth, addedDay);
+
+          // 상태 업데이트: 일별 데이터 갱신
+          set({ todoData: updatedDayResponse?.data || [] });
+
           return response.data;
         } catch (error) {
           console.error("일정 추가 실패 store:", error);
+          throw error;
+        }
+      },
+
+      // 일정 완료
+      checkEvent: async (assignmentId, assignmentDate) => {
+        try {
+          // isNaN으로 오는 에러 처리
+          if (!assignmentDate || isNaN(new Date(assignmentDate))) {
+            throw new Error("유효하지 않은 날짜 값입니다.");
+          }
+          // 일정 완료 API 호출
+          const response = await checkEvent(assignmentId);
+
+          // 일정이 완료된 날짜 데이터 갱신
+          const updatedMonth =
+            new Date(assignmentDate).getFullYear() * 100 +
+            (new Date(assignmentDate).getMonth() + 1);
+          const updatedDay = new Date(assignmentDate).getDate();
+
+          const updatedDayResponse = await fetchTodoData(
+            updatedMonth,
+            updatedDay
+          );
+          console.log("fetchTodoData 응답:", updatedDayResponse?.data);
+          // 상태 업데이트: 일별 데이터 갱신
+          set({ todoData: updatedDayResponse?.data || [] });
+
+          return response.data;
+        } catch (error) {
+          console.error("일정 완료 처리 실패:", error);
           throw error;
         }
       },
