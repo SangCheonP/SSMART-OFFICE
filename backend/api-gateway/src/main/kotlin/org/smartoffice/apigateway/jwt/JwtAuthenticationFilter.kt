@@ -31,6 +31,7 @@ class JwtAuthenticationFilter(
 
             //하드웨어 통신
             "/api/v1/nfc-tokens/**",
+            "/api/v1/chats/ws/**",
         )
     }
 
