@@ -26,7 +26,7 @@
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   background-color: #fff;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .tableHeader {
@@ -35,7 +35,7 @@
   height: 50px;
   align-content: center;
   text-align: center;
-  background-color: #ddd;
+  background-color: #eee;
   font-size: 16px;
   font-weight: bold;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -76,4 +76,10 @@
 }
 .minus {
   color: var(--red);
+}
+
+.none {
+  display: grid;
+  justify-content: center;
+  margin: 40px 0;
 }

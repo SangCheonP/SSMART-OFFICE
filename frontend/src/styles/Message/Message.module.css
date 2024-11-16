@@ -125,8 +125,3 @@
 .search_icon {
   margin-right: 10px;
 }
-.editMember {
-  flex: 1;
-  text-align: end;
-  color: rgba(0, 0, 0, 0.5);
-}

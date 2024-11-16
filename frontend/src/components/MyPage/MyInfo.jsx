@@ -12,12 +12,13 @@ import styles from "@/styles/MyPage/MyInfo.module.css";
 import useMyInfoStore from "@/store/useMyInfoStore";
 import { fetchMyWelfarePoint } from "@/services/myInfoAPI";
 import { useEffect } from "react";
+import { set } from "date-fns";
 
 const MyInfo = () => {
   const openModal = useModalStore((state) => state.openModal);
   const { name, email, position, profileImageUrl, phoneNumber } =
     useMyInfoStore();
-  const [welfarePoint, setWelfarePont] = useState(0);
+  const [welfarePoint, setWelfarePoint] = useState(0);
 
   const hadleChangeImageClick = () => {
     openModal(ChangeImageModal, {
@@ -35,9 +36,12 @@ const MyInfo = () => {
     });
   };
 
-  // 내 포인트 가져오기
   useEffect(() => {
-    // setWelfarePont(fetchMyWelfarePoint());
+    const getMyPoint = async () => {
+      const point = await fetchMyWelfarePoint();
+      setWelfarePoint(point);
+    };
+    getMyPoint();
   }, []);
 
   // 포인트에 콤마 붙이기

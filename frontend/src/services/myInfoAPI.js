@@ -51,23 +51,46 @@ export const fetchMyInfo = async () => {
 };
 
 // 포인트 사용내역 가져오기
+// export const fetchMyWelfarePointList = async ({
+//   startDate = "2024-11-15",
+//   endDate = "2024-11-16",
+//   page = 0,
+//   size = 10,
+//   sort = "transactionTime,desc",
+// }) => {
+//   try {
+//     const response = await api.get("/points/history", {
+//       params: {
+//         startDate: startDate,
+//         endDate: endDate,
+//         page: page,
+//         size: size,
+//         sort: sort,
+//       },
+//     });
+//     return response.data;
+//   } catch (e) {
+//     console.error(e);
+//   }
+// };
 export const fetchMyWelfarePointList = async ({
-  startDate = "2024-11-15",
-  endDate = "2024-11-16",
+  startDate,
+  endDate,
   page = 0,
   size = 10,
-  sort = "transactionTime,desc",
+  sort = "id,desc",
 }) => {
   try {
     const response = await api.get("/points/history", {
       params: {
-        startDate: startDate,
-        endDate: endDate,
-        page: page,
-        size: size,
-        sort: sort,
+        startDate,
+        endDate,
+        page,
+        size,
+        sort,
       },
     });
+    console.log(response.data);
     return response.data;
   } catch (e) {
     console.error(e);
@@ -78,8 +101,8 @@ export const fetchMyWelfarePointList = async ({
 export const fetchMyWelfarePoint = async () => {
   try {
     const response = await api.get("/points");
-    console.log(response.data.balance);
-    return response.data.balance;
+    console.log(response.data.data.balance);
+    return response.data.data.balance;
   } catch (e) {
     console.error(e);
   }

@@ -1,46 +1,42 @@
 import styles from "@/styles/MyPage/Pagination.module.css";
-import { Link } from "react-router-dom";
 
 const Pagination = ({ totalPages, currentPage, onPageChange }) => {
-  const pageCount = 5;
-  const start = Math.floor((currentPage - 1) / pageCount) * pageCount + 1;
-  const noPrev = start === 1;
-  const noNext = start + pageCount > totalPages;
+  const pageCount = 5; // 표시할 페이지 수
+  const startPage = Math.floor((currentPage - 1) / pageCount) * pageCount + 1;
+  const endPage = Math.min(startPage + pageCount - 1, totalPages);
+
+  const handlePageClick = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      onPageChange(page);
+    }
+  };
 
   return (
     <div className={styles.wrapper}>
-      <ul>
-        <li
-          className={`${styles.move} ${noPrev && styles.invisible}`}
-          onClick={() => !noPrev && onPageChange(start - 1)}
+      <button
+        disabled={currentPage === 1}
+        onClick={() => handlePageClick(currentPage - 1)}
+      >
+        이전
+      </button>
+      {Array.from(
+        { length: endPage - startPage + 1 },
+        (_, i) => startPage + i
+      ).map((page) => (
+        <button
+          key={page}
+          className={`${styles.page} ${currentPage === page && styles.active}`}
+          onClick={() => handlePageClick(page)}
         >
-          이전
-        </li>
-        {[...Array(pageCount)].map((_, i) => {
-          const pageNumber = start + i;
-          return (
-            pageNumber <= totalPages && (
-              <li key={i}>
-                <Link
-                  className={`${styles.page} ${
-                    currentPage === pageNumber && styles.active
-                  }`}
-                  to={`?page=${pageNumber}`}
-                  onClick={() => onPageChange(pageNumber)}
-                >
-                  {pageNumber}
-                </Link>
-              </li>
-            )
-          );
-        })}
-        <li
-          className={`${styles.move} ${noNext && styles.invisible}`}
-          onClick={() => !noNext && onPageChange(start + pageCount)}
-        >
-          다음
-        </li>
-      </ul>
+          {page}
+        </button>
+      ))}
+      <button
+        disabled={currentPage === totalPages}
+        onClick={() => handlePageClick(currentPage + 1)}
+      >
+        다음
+      </button>
     </div>
   );
 };

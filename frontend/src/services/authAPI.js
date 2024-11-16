@@ -3,6 +3,7 @@ import axios from "axios";
 import useAuthStore from "@/store/useAuthStore";
 import useMyInfoStore from "@/store/useMyInfoStore";
 import { fetchMyInfo } from "@/services/myInfoAPI";
+import Swal from "sweetalert2";
 
 const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
@@ -20,7 +21,6 @@ export const setLogin = async (email, password, navigate) => {
 
       console.log("일반로그인");
       await fetchMyInfo();
-
       navigate("/", { replace: true });
     }
   } catch (error) {
