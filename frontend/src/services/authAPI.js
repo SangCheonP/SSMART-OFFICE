@@ -18,6 +18,7 @@ export const setLogin = async (email, password, navigate) => {
       const accessToken = response.headers["authorization"];
       setAuth(accessToken);
 
+      console.log("일반로그인");
       await fetchMyInfo();
 
       navigate("/", { replace: true });

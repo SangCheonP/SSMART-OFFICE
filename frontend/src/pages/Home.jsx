@@ -48,7 +48,7 @@ const Home = () => {
         />
       </div>
       <div>
-        <Todo selectedDate={selectedDate} todoData={todoData || []} />
+        <Todo selectedDate={selectedDate} todoData={todoData || { data: [] }} />
       </div>
     </div>
   );
