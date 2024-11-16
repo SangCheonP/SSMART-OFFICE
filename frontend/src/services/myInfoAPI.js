@@ -3,16 +3,14 @@ import useMyInfoStore from "@/store/useMyInfoStore";
 
 // 비밀번호 업데이트
 export const updatePassword = async (currentPassword, newPassword) => {
-  console.log(currentPassword, newPassword);
   try {
     const response = await api.patch("/users/me/password", {
       oldPassword: currentPassword,
       newPassword: newPassword,
     });
-    console.log(response.data);
     return response.data;
   } catch (e) {
-    throw e.response ? e.response.data : new Error("비밀번호 변경 실패");
+    console.error(e);
   }
 };
 
@@ -22,10 +20,10 @@ export const updateProfile = (profileImage) => {
     const response = api.patch("/users/me", {
       profileImageUrl: profileImage,
     });
-    console.log("myInfoAPI : ", response);
+    console.error("myInfoAPI : ", response);
     return response;
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 };
 
@@ -35,9 +33,9 @@ export const updateTelNumber = async (phoneNumber) => {
     const response = api.patch("/users/me", {
       phoneNumber: phoneNumber,
     });
-    console.log(response);
+    console.error(response);
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 };
 
@@ -47,6 +45,41 @@ export const fetchMyInfo = async () => {
     const response = await api.get("/users/me");
     useMyInfoStore.getState().setMyInfoData(response.data.data);
   } catch (e) {
-    console.log(e);
+    console.error(e);
+  }
+};
+
+// 포인트 사용내역 가져오기
+export const fetchMyWelfarePointList = async ({
+  startDate = "2024-11-15",
+  endDate = "2024-11-16",
+  page = 0,
+  size = 10,
+  sort = "transactionTime,desc",
+}) => {
+  try {
+    const response = await api.get("/points/history", {
+      params: {
+        startDate: startDate,
+        endDate: endDate,
+        page: page,
+        size: size,
+        sort: sort,
+      },
+    });
+    return response.data;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+// 내 포인트 조회
+export const fetchMyWelfarePoint = async () => {
+  try {
+    const response = await api.get("/points");
+    console.log(response.data.balance);
+    return response.data.balance;
+  } catch (e) {
+    console.error(e);
   }
 };

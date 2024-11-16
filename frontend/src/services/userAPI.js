@@ -10,3 +10,23 @@ export const registerUser = async (userData) => {
     console.log(error);
   }
 };
+
+// 유저 정보 가져오기
+export const getUser = async (userId) => {
+  try {
+    const response = await api.get(`/users/${userId}`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// 유저 수정
+export const modifyUser = async (userId, userData) => {
+  try {
+    const response = await api.patch(`/users/${userId}`, userData);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

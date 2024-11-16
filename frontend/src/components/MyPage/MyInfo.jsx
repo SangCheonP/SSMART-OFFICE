@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Home from "@/assets/Menu/SSMART OFFICE.svg?react";
 import Camera from "@/assets/Modals/Camera.svg?react";
 import Profile from "@/assets/Common/Profile.png";
@@ -9,11 +10,14 @@ import ChangeImageModal from "@/components/Modals/ChangeImageModal";
 
 import styles from "@/styles/MyPage/MyInfo.module.css";
 import useMyInfoStore from "@/store/useMyInfoStore";
+import { fetchMyWelfarePoint } from "@/services/myInfoAPI";
+import { useEffect } from "react";
 
 const MyInfo = () => {
   const openModal = useModalStore((state) => state.openModal);
   const { name, email, position, profileImageUrl, phoneNumber } =
     useMyInfoStore();
+  const [welfarePoint, setWelfarePont] = useState(0);
 
   const hadleChangeImageClick = () => {
     openModal(ChangeImageModal, {
@@ -29,6 +33,19 @@ const MyInfo = () => {
     openModal(ChangeInfoModal, {
       onSubmit: () => {},
     });
+  };
+
+  // 내 포인트 가져오기
+  useEffect(() => {
+    // setWelfarePont(fetchMyWelfarePoint());
+  }, []);
+
+  // 포인트에 콤마 붙이기
+  const formatWithCommas = (num) => {
+    if (typeof num !== "number" || typeof num === "string") {
+      return 0;
+    }
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   return (
@@ -63,7 +80,9 @@ const MyInfo = () => {
           <div>{phoneNumber ? phoneNumber : "연락처를 등록해주세요"}</div>
           <div className={styles.welfare}>
             <p className={styles.subWelfare}>복지포인트 : </p>
-            <p className={styles.subWelfare1}>34023</p>
+            <p className={styles.subWelfare1}>
+              {formatWithCommas(welfarePoint)}
+            </p>
           </div>
           <div className={styles.buttonBox}>
             <button

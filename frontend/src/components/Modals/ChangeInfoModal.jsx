@@ -30,8 +30,8 @@ const ChangeInfoModal = ({ onSubmit, onClose }) => {
 
   // 변경 버튼
   const handleClickSubmit = async () => {
-    updatePhoneNumber(telNumber);
     await updateTelNumber(telNumber);
+    updatePhoneNumber(telNumber);
     onSubmit();
   };
 

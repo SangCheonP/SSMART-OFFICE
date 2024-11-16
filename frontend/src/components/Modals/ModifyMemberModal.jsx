@@ -2,60 +2,58 @@ import { PropTypes } from "prop-types";
 import ReactModal from "react-modal";
 
 import Close from "@/assets/Modals/Close.svg?react";
-import styles from "@/styles/Modals/AddMemberModal.module.css";
+import styles from "@/styles/Modals/ModifyMemberModal.module.css";
 import { updateImageFile } from "@/services/fileAPI";
-import { registerUser } from "@/services/userAPI";
-import { useState } from "react";
+import { getUser, modifyUser } from "@/services/userAPI";
+import { useEffect, useState } from "react";
 import ImageUpload from "@/components/ImageUpload";
 
-const AddMemberModal = ({ onSubmit, onClose }) => {
+const ModifyMemberModal = ({ userId, onSubmit, onClose }) => {
   const [selectedImage, setSelectedImage] = useState();
+  const [isImageFile, setIsImageFile] = useState(false);
   const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
   const [position, setPosition] = useState("");
   const [duty, setDuty] = useState("");
-  const [employeeNumber, setEmployeeNumber] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   const handleImageSelect = (file) => {
     setSelectedImage(file);
+    setIsImageFile(file instanceof File);
   };
 
   const handleClickSubmit = async () => {
     const userData = {
       name: name,
-      password: password,
-      email: email,
       position: position,
       duty: duty,
-      employeeNumber: employeeNumber,
       profileImageUrl: selectedImage,
+      phoneNumber: phoneNumber,
     };
 
     try {
-      const maxFileSize = 5 * 1024 * 1024; // 5MB
-      if (!selectedImage) {
-        alert("이미지를 선택해주세요.");
-        return;
-      } else if (selectedImage.size > maxFileSize) {
-        alert("이미지 파일 크기는 5MB 이하여야 합니다.");
-        return;
-      }
-      try {
+      if (isImageFile) {
+        const maxFileSize = 5 * 1024 * 1024; // 5MB
+        if (!selectedImage) {
+          alert("이미지를 선택해주세요.");
+          return;
+        } else if (selectedImage.size > maxFileSize) {
+          alert("이미지 파일 크기는 5MB 이하여야 합니다.");
+          return;
+        }
         const response = await updateImageFile(selectedImage);
         const imageUrl = response.data;
         userData.profileImageUrl = imageUrl;
-        if (response.status === 200 || response.status === 201) {
-          const temp = await registerUser(userData);
-          if (temp.status === 201) {
-            alert("사원 등록이 완료되었습니다.");
-            onSubmit();
-          } else {
-            alert("사원 등록에 실패했습니다.");
-          }
+      }
+      try {
+        const temp = await modifyUser(userId, userData);
+        if (temp.status === 200) {
+          alert("수정이 완료되었습니다.");
+          onSubmit();
+        } else {
+          alert("수정에 실패했습니다.");
         }
       } catch (error) {
-        console.error("이미지 업로드 실패:", error);
+        console.error("제출 중 오류 발생:", error);
       }
     } catch (error) {
       console.log(error);
@@ -65,6 +63,20 @@ const AddMemberModal = ({ onSubmit, onClose }) => {
   const handleClickCancel = () => {
     onClose();
   };
+
+  useEffect(() => {
+    getUser(userId)
+      .then((response) => {
+        setName(response.data.name);
+        setPosition(response.data.position);
+        setDuty(response.data.duty);
+        setSelectedImage(response.data.profileImageUrl);
+        setPhoneNumber(response.data.phoneNumber);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [userId]);
 
   return (
     <ReactModal
@@ -99,11 +111,12 @@ const AddMemberModal = ({ onSubmit, onClose }) => {
         <Close />
       </button>
       <div className={styles.container}>
-        <h1 className={styles.title}>사원 정보 등록</h1>
+        <h1 className={styles.title}>사원 정보 수정</h1>
         <div className={styles.imageBox}>
           <ImageUpload
             classNameValue={styles.image}
             onImageSelect={handleImageSelect}
+            defaultImage={selectedImage}
           />
         </div>
         <div className={styles.textBox}>
@@ -117,20 +130,6 @@ const AddMemberModal = ({ onSubmit, onClose }) => {
             value={name}
             onChange={(e) => {
               setName(e.target.value);
-            }}
-          />
-        </div>
-        <div className={styles.textBox}>
-          <label htmlFor="password" className={styles.text}>
-            비밀번호
-          </label>
-          <input
-            type="password"
-            id="password"
-            className={styles.input}
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
             }}
           />
         </div>
@@ -163,34 +162,19 @@ const AddMemberModal = ({ onSubmit, onClose }) => {
           />
         </div>
         <div className={styles.textBox}>
-          <label htmlFor="email" className={styles.text}>
-            이메일
+          <label htmlFor="phoneNumber" className={styles.text}>
+            연락처
           </label>
           <input
             type="text"
-            id="email"
+            id="phoneNumber"
             className={styles.input}
-            value={email}
+            value={phoneNumber}
             onChange={(e) => {
-              setEmail(e.target.value);
+              setPhoneNumber(e.target.value);
             }}
           />
         </div>
-        <div className={styles.textBox}>
-          <label htmlFor="employeeNumber" className={styles.text}>
-            사원번호
-          </label>
-          <input
-            type="text"
-            id="employeeNumber"
-            className={styles.input}
-            value={employeeNumber}
-            onChange={(e) => {
-              setEmployeeNumber(e.target.value);
-            }}
-          />
-        </div>
-
         <div className={styles.buttonBox}>
           <button
             onClick={handleClickSubmit}
@@ -210,8 +194,9 @@ const AddMemberModal = ({ onSubmit, onClose }) => {
   );
 };
 
-AddMemberModal.propTypes = {
+ModifyMemberModal.propTypes = {
+  userId: PropTypes.number,
   onSubmit: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
 };
-export default AddMemberModal;
+export default ModifyMemberModal;

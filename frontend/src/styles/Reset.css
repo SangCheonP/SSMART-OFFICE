@@ -132,6 +132,7 @@ html,
 body {
   height: 100%;
   background-color: #f5f6fa;
+  font-family: "Noto Sans KR", sans-serif;
 }
 
 :root {
