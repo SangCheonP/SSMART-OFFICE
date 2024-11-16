@@ -9,16 +9,15 @@
   display: flex;
   justify-self: end;
 }
-
 .container {
   height: 90%;
   width: 100%;
-  margin: 20px;
+  margin: 10px 10px;
 }
 .datePickerContainer {
   display: flex;
   align-items: center;
-  gap: 8px; /* 아이콘과 DatePicker 간격 */
+  gap: 8px;
 }
 .datePicker {
   color: var(--text-blue);
@@ -69,10 +68,6 @@
   padding-left: 10px;
   font-size: 0.8rem;
 }
-.inputError {
-  border: 1.5px solid var(--text-blue);
-}
-
 .readOnly {
   background-color: #eee;
   color: #777;
@@ -95,6 +90,9 @@
   cursor: pointer;
   width: 130px;
   height: 40px;
+}
+.button:disabled {
+  opacity: 0.5;
 }
 .confirm {
   background-color: var(--blue);

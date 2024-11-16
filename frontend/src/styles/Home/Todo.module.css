@@ -10,6 +10,7 @@
   border-bottom-left-radius: 10px;
   display: flex;
   flex-direction: column;
+  z-index: 1000;
 }
 
 .contentWrapper {
