@@ -1,6 +1,6 @@
 .button {
   all: unset;
-  width: 175px;
+  /* width: 175px; */
   height: 45px;
   border-radius: 5px;
   border: 1px solid var(--text-description);
@@ -8,7 +8,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  column-gap: 10px;
 }
 .button:hover {
   cursor: pointer;

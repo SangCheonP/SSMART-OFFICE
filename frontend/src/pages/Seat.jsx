@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 
 import { fetchSeats } from "@/services/seatAPI";
 
+import { handleError } from "@/utils/errorHandler";
+
 const Seat = () => {
   const [seats, setSeats] = useState(null);
   const { floor } = useParams();
@@ -18,7 +20,7 @@ const Seat = () => {
         const data = await fetchSeats(floor);
         setSeats(data);
       } catch (e) {
-        console.log(e);
+        handleError(e);
       }
     };
     if (floor) {

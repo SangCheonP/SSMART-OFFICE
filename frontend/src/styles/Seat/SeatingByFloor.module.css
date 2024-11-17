@@ -15,4 +15,6 @@
 
 .buttonContainer {
   display: grid;
+  column-gap: 10px;
+  margin: 0 auto;
 }

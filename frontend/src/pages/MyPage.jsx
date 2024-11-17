@@ -3,7 +3,7 @@ import WelfareList from "@/components/MyPage/WelfareList";
 
 const MyPage = () => {
   return (
-    <div style={{ width: "65vw", margin: "11vh auto 0" }}>
+    <div style={{ width: "90%", margin: "40px auto 0" }}>
       <MyInfo />
       <WelfareList />
     </div>

@@ -12,7 +12,10 @@
   justify-content: space-between;
   align-items: center;
 }
-
+.date {
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 18px;
+}
 .floor {
   width: 160px;
   height: 40px;
