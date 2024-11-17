@@ -55,6 +55,9 @@
 .input:focus {
   outline: none;
 }
+.input::placeholder {
+  color: #bbb;
+}
 
 .buttonBox {
   display: flex;

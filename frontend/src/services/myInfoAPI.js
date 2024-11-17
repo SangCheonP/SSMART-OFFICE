@@ -21,7 +21,6 @@ export const updateProfile = (profileImage) => {
     const response = api.patch("/users/me", {
       profileImageUrl: profileImage,
     });
-    console.error("myInfoAPI : ", response);
     return response;
   } catch (e) {
     handleError(e);
@@ -31,10 +30,9 @@ export const updateProfile = (profileImage) => {
 // 핸드폰 번호 업데이트
 export const updateTelNumber = async (phoneNumber) => {
   try {
-    const response = api.patch("/users/me", {
+    api.patch("/users/me", {
       phoneNumber: phoneNumber,
     });
-    console.error(response);
   } catch (e) {
     handleError(e);
   }
@@ -44,7 +42,6 @@ export const updateTelNumber = async (phoneNumber) => {
 export const fetchMyInfo = async () => {
   try {
     const response = await api.get("/users/me");
-    console.log("드렁오니?");
     useMyInfoStore.getState().setMyInfoData(response.data.data);
   } catch (e) {
     handleError(e);
@@ -68,7 +65,6 @@ export const fetchMyWelfarePointList = async ({
         sort,
       },
     });
-    console.log(response.data);
     return response.data;
   } catch (e) {
     handleError(e);
@@ -79,7 +75,6 @@ export const fetchMyWelfarePointList = async ({
 export const fetchMyWelfarePoint = async () => {
   try {
     const response = await api.get("/points");
-    console.log(response.data.data.balance);
     return response.data.data.balance;
   } catch (e) {
     handleError(e);

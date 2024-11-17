@@ -13,6 +13,8 @@ import useMyInfoStore from "@/store/useMyInfoStore";
 import { handleError } from "@/utils/errorHandler";
 import { handleSuccess } from "@/utils/successHandler";
 
+import Swal from "sweetalert2";
+
 const ChangeImageModal = ({ onSubmit, onClose }) => {
   const [selectedImage, setSelectedImage] = useState();
   const updateProfileImage = useMyInfoStore(
@@ -26,10 +28,22 @@ const ChangeImageModal = ({ onSubmit, onClose }) => {
   const handleClickSubmit = async () => {
     const maxFileSize = 5 * 1024 * 1024; // 5MB
     if (!selectedImage) {
-      alert("이미지를 선택해주세요.");
+      Swal.fire({
+        icon: "error",
+        title: "오류",
+        text: "이미지를 선택해주세요.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       return;
     } else if (selectedImage.size > maxFileSize) {
-      alert("이미지 파일 크기는 5MB 이하여야 합니다.");
+      Swal.fire({
+        icon: "error",
+        title: "오류",
+        text: "이미지는 5MB 이하여야합니다.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       return;
     } else {
       try {
@@ -37,7 +51,6 @@ const ChangeImageModal = ({ onSubmit, onClose }) => {
         let imageUrl = response.data;
         if (response.status === 200 || response.status === 201) {
           await updateProfile(imageUrl);
-          // store 사진 업데이트 하기
           updateProfileImage(imageUrl);
         }
         handleSuccess("프로필 변경 성공");

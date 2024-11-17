@@ -52,6 +52,9 @@
   border-bottom: 1px solid;
   background: transparent;
 }
+.input::placeholder {
+  color: #bbb;
+}
 .input:focus {
   outline: none;
 }

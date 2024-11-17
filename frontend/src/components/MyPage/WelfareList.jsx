@@ -8,6 +8,8 @@ import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import Pagination from "@/components/common/Pagination";
 
+import Swal from "sweetalert2";
+
 dayjs.locale("ko");
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -24,7 +26,6 @@ const WelfareList = () => {
 
   useEffect(() => {
     fetchWelfarePointListWithPage(page);
-    console.log(welfarePointList);
   }, [page]);
 
   const handlePageChange = (newPage) => {
@@ -48,7 +49,13 @@ const WelfareList = () => {
 
   const handleListClick = () => {
     if (startDate > endDate) {
-      alert("시작 날짜는 종료 날짜보다 이전이어야 합니다.");
+      Swal.fire({
+        icon: "error",
+        title: "날짜 입력 오류",
+        text: "시작 날짜는 종료 날짜보다 이전이어야 합니다.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       setStartDate(new Date(new Date().setDate(new Date().getDate() - 7)));
       setEndDate(new Date());
       return;
@@ -109,7 +116,6 @@ const WelfareList = () => {
             <div>사용 내역이 존재하지 않습니다</div>
           </div>
         )}
-        {/* <div className={styles.bottom}></div> */}
       </div>
       <Pagination
         totalPages={totalPages}

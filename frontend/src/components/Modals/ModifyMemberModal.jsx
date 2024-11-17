@@ -5,8 +5,13 @@ import Close from "@/assets/Modals/Close.svg?react";
 import styles from "@/styles/Modals/ModifyMemberModal.module.css";
 import { updateImageFile } from "@/services/fileAPI";
 import { getUser, modifyUser } from "@/services/userAPI";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ImageUpload from "@/components/ImageUpload";
+
+import { handleError } from "@/utils/errorHandler";
+import { handleSuccess } from "@/utils/successHandler";
+
+import Swal from "sweetalert2";
 
 const ModifyMemberModal = ({ userId, onSubmit, onClose }) => {
   const [selectedImage, setSelectedImage] = useState();
@@ -15,6 +20,11 @@ const ModifyMemberModal = ({ userId, onSubmit, onClose }) => {
   const [position, setPosition] = useState("");
   const [duty, setDuty] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+
+  const nameRef = useRef();
+  const positionRef = useRef();
+  const dutyRef = useRef();
+  const phoneNumberRef = useRef();
 
   const handleImageSelect = (file) => {
     setSelectedImage(file);
@@ -31,13 +41,79 @@ const ModifyMemberModal = ({ userId, onSubmit, onClose }) => {
     };
 
     try {
+      if (!userData.name) {
+        Swal.fire({
+          icon: "error",
+          title: "이름 입력 오류",
+          text: "이름을 입력해주세요.",
+          showConfirmButton: false,
+          timer: 1500,
+          didClose: () => {
+            nameRef.current.focus();
+          },
+        });
+        return;
+      }
+      if (!userData.position) {
+        Swal.fire({
+          icon: "error",
+          title: "직책 입력 오류",
+          text: "직책을 입력해주세요.",
+          timer: 1500,
+          showConfirmButton: false,
+          didClose: () => {
+            positionRef.current.focus();
+          },
+        });
+        return;
+      }
+      if (!userData.duty) {
+        Swal.fire({
+          icon: "error",
+          title: "직무 입력 오류",
+          text: "직무를 입력해주세요.",
+          timer: 1500,
+          showConfirmButton: false,
+          didClose: () => {
+            dutyRef.current.focus();
+          },
+        });
+        return;
+      }
+      const digits = (phoneNumber || "").replace(/\D/g, "");
+      console.log(digits);
+      if (digits.length < 10 || digits.length > 11) {
+        Swal.fire({
+          icon: "error",
+          title: "연락처 입력 오류",
+          showConfirmButton: false,
+          timer: 1500,
+          text: "연락처는 10자 이상의 숫자만 입력가능합니다.",
+          didClose: () => {
+            phoneNumberRef.current.focus();
+          },
+        });
+        return;
+      }
       if (isImageFile) {
         const maxFileSize = 5 * 1024 * 1024; // 5MB
         if (!selectedImage) {
-          alert("이미지를 선택해주세요.");
+          Swal.fire({
+            icon: "error",
+            title: "오류",
+            text: "이미지를 선택해주세요.",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           return;
         } else if (selectedImage.size > maxFileSize) {
-          alert("이미지 파일 크기는 5MB 이하여야 합니다.");
+          Swal.fire({
+            icon: "error",
+            title: "오류",
+            text: "이미지는 5MB 이하여야합니다.",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           return;
         }
         const response = await updateImageFile(selectedImage);
@@ -47,17 +123,42 @@ const ModifyMemberModal = ({ userId, onSubmit, onClose }) => {
       try {
         const temp = await modifyUser(userId, userData);
         if (temp.status === 200) {
-          alert("수정이 완료되었습니다.");
+          handleSuccess("수정이 완료되었습니다.");
           onSubmit();
-        } else {
-          alert("수정에 실패했습니다.");
         }
       } catch (error) {
-        console.error("제출 중 오류 발생:", error);
+        handleError(error);
       }
     } catch (error) {
-      console.log(error);
+      handleError(error);
     }
+  };
+
+  const formatPhoneNumber = (value) => {
+    const digits = value.replace(/\D/g, ""); // 숫자만 추출
+    if (digits.length <= 3) {
+      return digits;
+    }
+
+    if (digits.length <= 7) {
+      return `${digits.slice(0, 3)}-${digits.slice(3)}`;
+    }
+
+    if (digits.length === 10) {
+      // 10자리: 010-XXX-XXXX
+      return `${digits.slice(0, 3)}-${digits.slice(3, 6)}-${digits.slice(
+        6,
+        10
+      )}`;
+    }
+    if (digits.length === 11) {
+      // 11자리: 010-XXXX-XXXX
+      return `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(
+        7,
+        11
+      )}`;
+    }
+    return `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(7, 11)}`;
   };
 
   const handleClickCancel = () => {
@@ -126,7 +227,9 @@ const ModifyMemberModal = ({ userId, onSubmit, onClose }) => {
           <input
             type="text"
             id="name"
+            ref={nameRef}
             className={styles.input}
+            placeholder="이름을 입력해주세요"
             value={name}
             onChange={(e) => {
               setName(e.target.value);
@@ -140,6 +243,8 @@ const ModifyMemberModal = ({ userId, onSubmit, onClose }) => {
           <input
             type="text"
             id="position"
+            ref={positionRef}
+            placeholder="직책을 입력해주세요"
             className={styles.input}
             value={position}
             onChange={(e) => {
@@ -154,6 +259,8 @@ const ModifyMemberModal = ({ userId, onSubmit, onClose }) => {
           <input
             type="text"
             id="name"
+            ref={dutyRef}
+            placeholder="직무를 입력해주세요"
             className={styles.input}
             value={duty}
             onChange={(e) => {
@@ -168,10 +275,13 @@ const ModifyMemberModal = ({ userId, onSubmit, onClose }) => {
           <input
             type="text"
             id="phoneNumber"
+            ref={phoneNumberRef}
+            placeholder="연락처를 입력해주세요"
             className={styles.input}
             value={phoneNumber}
             onChange={(e) => {
-              setPhoneNumber(e.target.value);
+              const formattedPhone = formatPhoneNumber(e.target.value);
+              setPhoneNumber(formattedPhone);
             }}
           />
         </div>

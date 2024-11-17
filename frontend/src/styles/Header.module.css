@@ -67,7 +67,7 @@
   border-radius: 8px;
   overflow: hidden;
   z-index: 1000;
-  margin-right: 45px;
+  /* margin-right: 45px; */
 }
 .menuItem {
   padding: 10px 20px;

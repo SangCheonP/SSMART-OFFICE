@@ -2,7 +2,6 @@ import Swal from "sweetalert2";
 
 export const handleError = (error) => {
   if (error.response) {
-    console.log(error.response);
     const { status, data } = error.response;
 
     // 서버에서 제공한 에러 메시지
@@ -12,48 +11,48 @@ export const handleError = (error) => {
 
     // 상태 코드별 SweetAlert로 사용자 피드백 제공
     switch (status) {
-      case 400:
-        Swal.fire({
-          icon: "error",
-          title: "잘못된 요청",
-          timer: 2000,
-          text: "입력 정보를 확인하세요.",
-        });
-        break;
-      case 401:
-        Swal.fire({
-          icon: "warning",
-          title: "인증 필요",
-          timer: 2000,
-          text: "인증이 만료되었습니다. 다시 로그인하세요.",
-        }).then(() => {
-          window.location.href = "/login";
-        });
-        break;
-      case 403:
-        Swal.fire({
-          icon: "error",
-          title: "접근 권한 없음",
-          timer: 2000,
-          text: "이 작업을 수행할 권한이 없습니다.",
-        });
-        break;
-      case 404:
-        Swal.fire({
-          icon: "info",
-          title: "정보 없음",
-          timer: 2000,
-          text: "요청한 정보를 찾을 수 없습니다.",
-        });
-        break;
-      case 500:
-        Swal.fire({
-          icon: "error",
-          title: "서버 오류",
-          timer: 2000,
-          text: "서버에 문제가 발생했습니다. 관리자에게 문의하세요.",
-        });
-        break;
+      // case 400:
+      //   Swal.fire({
+      //     icon: "error",
+      //     title: "잘못된 요청",
+      //     timer: 2000,
+      //     text: "입력 정보를 확인하세요.",
+      //   });
+      //   break;
+      // case 401:
+      //   Swal.fire({
+      //     icon: "warning",
+      //     title: "인증 필요",
+      //     timer: 2000,
+      //     text: "인증이 만료되었습니다. 다시 로그인하세요.",
+      //   }).then(() => {
+      //     window.location.href = "/login";
+      //   });
+      //   break;
+      // case 403:
+      //   Swal.fire({
+      //     icon: "error",
+      //     title: "접근 권한 없음",
+      //     timer: 2000,
+      //     text: "이 작업을 수행할 권한이 없습니다.",
+      //   });
+      //   break;
+      // case 404:
+      //   Swal.fire({
+      //     icon: "info",
+      //     title: "정보 없음",
+      //     timer: 2000,
+      //     text: "요청한 정보를 찾을 수 없습니다.",
+      //   });
+      //   break;
+      // case 500:
+      //   Swal.fire({
+      //     icon: "error",
+      //     title: "서버 오류",
+      //     timer: 2000,
+      //     text: "서버에 문제가 발생했습니다. 관리자에게 문의하세요.",
+      //   });
+      //   break;
       default:
         Swal.fire({
           icon: "error",

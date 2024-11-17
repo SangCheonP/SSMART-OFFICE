@@ -5,11 +5,12 @@ import Close from "@/assets/Modals/Close.svg?react";
 import styles from "@/styles/Modals/AddMemberModal.module.css";
 import { updateImageFile } from "@/services/fileAPI";
 import { registerUser } from "@/services/userAPI";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import ImageUpload from "@/components/ImageUpload";
 
 import { handleError } from "@/utils/errorHandler";
-import { handleSuccess } from "@/utils/successHandler";
+
+import Swal from "sweetalert2";
 
 const AddMemberModal = ({ onSubmit, onClose }) => {
   const [selectedImage, setSelectedImage] = useState();
@@ -19,6 +20,13 @@ const AddMemberModal = ({ onSubmit, onClose }) => {
   const [position, setPosition] = useState("");
   const [duty, setDuty] = useState("");
   const [employeeNumber, setEmployeeNumber] = useState("");
+
+  const nameRef = useRef();
+  const passwordRef = useRef();
+  const emailRef = useRef();
+  const positionRef = useRef();
+  const dutyRef = useRef();
+  const employeeNumberRef = useRef();
 
   const handleImageSelect = (file) => {
     setSelectedImage(file);
@@ -35,13 +43,107 @@ const AddMemberModal = ({ onSubmit, onClose }) => {
       profileImageUrl: selectedImage,
     };
 
+    if (!userData.name) {
+      Swal.fire({
+        icon: "error",
+        title: "이름 입력 오류",
+        text: "이름을 입력해주세요.",
+        showConfirmButton: false,
+        timer: 1500,
+        didClose: () => {
+          nameRef.current.focus();
+        },
+      });
+      return;
+    }
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,20}$/;
+    if (!userData.password || !passwordRegex.test(userData.password)) {
+      Swal.fire({
+        icon: "error",
+        title: "비밀번호 입력 오류",
+        showConfirmButton: false,
+        timer: 2000,
+        text: "비밀번호는 4-20자 이내의 영문 숫자 조합이어야 합니다.",
+        didClose: () => {
+          positionRef.current.focus();
+        },
+      });
+      return;
+    }
+
+    if (!userData.position) {
+      Swal.fire({
+        icon: "error",
+        title: "직책 입력 오류",
+        text: "직책을 입력해주세요.",
+        timer: 1500,
+        showConfirmButton: false,
+        didClose: () => {
+          positionRef.current.focus();
+        },
+      });
+      return;
+    }
+    if (!userData.duty) {
+      Swal.fire({
+        icon: "error",
+        title: "직무 입력 오류",
+        text: "직무를 입력해주세요.",
+        timer: 1500,
+        showConfirmButton: false,
+        didClose: () => {
+          dutyRef.current.focus();
+        },
+      });
+      return;
+    }
+    const emailRegex = /^[^\s@]+@gmail\.com$/;
+    if (!emailRegex.test(userData.email)) {
+      Swal.fire({
+        icon: "error",
+        title: "이메일 입력 오류",
+        text: "이메일 주소를 다시한번 확인해주세요.",
+        timer: 1500,
+        showConfirmButton: false,
+        didClose: () => {
+          emailRef.current.focus();
+        },
+      });
+      return;
+    }
+    if (!userData.employeeNumber || !/^S\d{8}$/.test(userData.employeeNumber)) {
+      Swal.fire({
+        icon: "error",
+        title: "사원번호 입력 오류",
+        text: "유효한 사원번호를 입력해주세요. 예시) S24000000",
+        timer: 1500,
+        showConfirmButton: false,
+        didClose: () => {
+          employeeNumberRef.current.focus();
+        },
+      });
+      return;
+    }
+
     try {
-      const maxFileSize = 5 * 1024 * 1024; // 5MB
+      const maxFileSize = 5 * 1024 * 1024;
       if (!selectedImage) {
-        alert("이미지를 선택해주세요.");
+        Swal.fire({
+          icon: "error",
+          title: "프로필 이미지",
+          text: "이미지를 선택해주세요.",
+          timer: 1500,
+          showConfirmButton: false,
+        });
         return;
       } else if (selectedImage.size > maxFileSize) {
-        alert("이미지 파일 크기는 5MB 이하여야 합니다.");
+        Swal.fire({
+          icon: "error",
+          title: "이미지 용량 제한",
+          text: "이미지는 5MB 이하여야합니다.",
+          timer: 1500,
+          showConfirmButton: false,
+        });
         return;
       }
       try {
@@ -111,8 +213,10 @@ const AddMemberModal = ({ onSubmit, onClose }) => {
           <input
             type="text"
             id="name"
+            ref={nameRef}
             className={styles.input}
             value={name}
+            placeholder="이름을 입력해주세요"
             onChange={(e) => {
               setName(e.target.value);
             }}
@@ -125,6 +229,8 @@ const AddMemberModal = ({ onSubmit, onClose }) => {
           <input
             type="password"
             id="password"
+            placeholder="비밀번호를 입력해주세요"
+            ref={passwordRef}
             className={styles.input}
             value={password}
             onChange={(e) => {
@@ -139,6 +245,8 @@ const AddMemberModal = ({ onSubmit, onClose }) => {
           <input
             type="text"
             id="position"
+            placeholder="직책을 입력해주세요"
+            ref={positionRef}
             className={styles.input}
             value={position}
             onChange={(e) => {
@@ -147,12 +255,14 @@ const AddMemberModal = ({ onSubmit, onClose }) => {
           />
         </div>
         <div className={styles.textBox}>
-          <label htmlFor="position" className={styles.text}>
+          <label htmlFor="duty" className={styles.text}>
             직무
           </label>
           <input
             type="text"
-            id="name"
+            id="duty"
+            placeholder="직무를 입력해주세요"
+            ref={dutyRef}
             className={styles.input}
             value={duty}
             onChange={(e) => {
@@ -167,6 +277,8 @@ const AddMemberModal = ({ onSubmit, onClose }) => {
           <input
             type="text"
             id="email"
+            placeholder="이메일을 입력해주세요"
+            ref={emailRef}
             className={styles.input}
             value={email}
             onChange={(e) => {
@@ -181,6 +293,8 @@ const AddMemberModal = ({ onSubmit, onClose }) => {
           <input
             type="text"
             id="employeeNumber"
+            placeholder="입력 예시.) S24000000"
+            ref={employeeNumberRef}
             className={styles.input}
             value={employeeNumber}
             onChange={(e) => {
