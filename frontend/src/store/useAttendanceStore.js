@@ -41,10 +41,6 @@ const useAttendanceStore = create(
 
           // 필터링된 데이터 저장
           set({ memberData: filteredMembers });
-          console.log(
-            "로그인한 유저 제외한 사용자 목록 조회 성공:",
-            filteredMembers
-          );
         } catch (error) {
           console.error("사용자 데이터를 가져오는 중 오류 발생:", error);
         }
@@ -54,7 +50,6 @@ const useAttendanceStore = create(
       fetchUserTodo: async (userId, month, day) => {
         try {
           const response = await fetchUserTodo(userId, month, day);
-          console.log("fetchUserTodo 응답 데이터:", response.data);
           set({
             userTodoData: Array.isArray(response.data.data)
               ? response.data.data
@@ -69,7 +64,6 @@ const useAttendanceStore = create(
       fetchFindUser: async (searchQuery) => {
         try {
           const response = await fetchFindUser(searchQuery);
-          console.log("사원 검색 응답 데이터:", response.data.data.content);
           set({
             searchResults: Array.isArray(response.data.data.content)
               ? response.data.data.content
@@ -84,7 +78,6 @@ const useAttendanceStore = create(
       fetchUserSeats: async (userId) => {
         try {
           const response = await fetchUserSeats(userId);
-          console.log("사원 좌석 조회 응답 데이터:", response.data.data);
           set((state) => ({
             memberSeats: {
               ...state.memberSeats,
