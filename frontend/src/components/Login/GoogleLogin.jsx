@@ -14,12 +14,12 @@ const GoogleLogin = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleGoogleLogin = () => {
-    window.location.href = `${BASE_URL}/auth/oauth2/authorization/google`;
-  };
   // const handleGoogleLogin = () => {
-  //   navigate(`/auth/oauth2/authorization/google`);
+  //   window.location.href = `${BASE_URL}/auth/oauth2/authorization/google`;
   // };
+  const handleGoogleLogin = () => {
+    navigate(`/auth/oauth2/authorization/google`);
+  };
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
