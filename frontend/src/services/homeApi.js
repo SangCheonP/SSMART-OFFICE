@@ -1,4 +1,5 @@
 import api from "./api";
+import { handleError } from "@/utils/errorHandler";
 
 // 캘린더 일정 월별 조회
 export const fetchCalendarData = (month) => {

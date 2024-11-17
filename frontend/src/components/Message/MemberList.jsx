@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styles from "@/styles/Message/Message.module.css";
 
 const MemberList = ({ memberData, onMemberSelect }) => {
@@ -8,6 +8,7 @@ const MemberList = ({ memberData, onMemberSelect }) => {
     setSelectedMemberId(member.userId);
     onMemberSelect(member.name);
   };
+
   return (
     <div className={styles.member_list}>
       {memberData.map((member) => (

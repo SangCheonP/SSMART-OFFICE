@@ -65,3 +65,8 @@
   margin-top: 9px;
   color: #404040;
 }
+.editMember {
+  flex: 1;
+  text-align: end;
+  color: rgba(0, 0, 0, 0.5);
+}

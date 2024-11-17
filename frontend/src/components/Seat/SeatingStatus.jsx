@@ -22,7 +22,6 @@ const SeatingStatus = memo(({ floor, seats, totalNumber }) => {
       <h2 className={styles.floor}>{floor}F</h2>
       <div className={styles.container}>
         {seatNumbers.map((seatNumber) => {
-          console.log(occupantMap[seatNumber]);
           const seatData = occupantMap[seatNumber];
           let statusClass = styles.vacant;
           if (seatData) {
