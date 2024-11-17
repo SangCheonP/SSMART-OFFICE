@@ -31,8 +31,7 @@ class PointServiceImpl(
     override fun createTransaction(userId: Long, transaction: Transaction): PointHistory {
         val balance = getMyPointBalance(userId)
         val pointHistory = PointHistory.createPointHistory(transaction, balance, userId)
-        pointHistoryRepository.save(pointHistory)
-        return pointHistory
+        return pointHistoryRepository.save(pointHistory)
     }
 
 }

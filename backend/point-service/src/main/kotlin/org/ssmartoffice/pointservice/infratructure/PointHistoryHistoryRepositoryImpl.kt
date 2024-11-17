@@ -29,9 +29,9 @@ class PointHistoryHistoryRepositoryImpl(
             ?.toModel()
     }
 
-
-    override fun save(pointHistory: PointHistory) {
-        pointHistoryJpaRepository.save(PointHistoryEntity.fromModel(pointHistory))
+    override fun save(pointHistory: PointHistory): PointHistory {
+        val savedEntity = pointHistoryJpaRepository.save(PointHistoryEntity.fromModel(pointHistory))
+        return savedEntity.toModel()
     }
 
 }

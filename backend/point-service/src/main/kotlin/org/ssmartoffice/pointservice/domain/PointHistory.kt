@@ -29,13 +29,12 @@ data class PointHistory(
             return PointHistory(
                 userId = userId,
                 marketName = transaction.marketName,
-                amount = transaction.amount * -1,
-                balance = balance - transaction.amount,
+                amount = transaction.amount,
+                balance = balance + transaction.amount,
                 item = transaction.item,
                 quantity = transaction.quantity,
                 transactionTime = transaction.transactionTime
             )
         }
-
     }
 }
