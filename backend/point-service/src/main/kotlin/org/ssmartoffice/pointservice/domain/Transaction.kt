@@ -6,10 +6,10 @@ data class Transaction(
     val marketName: String,
     val amount: Int,
     val transactionTime: LocalDateTime,
-    val item: String,
-    val quantity: Int,
+    val item: String?,
+    val quantity: Int?,
 ) {
     fun checkEnoughBalance(balance: Int): Boolean {
-        return amount <= balance
+        return amount + balance >= 0
     }
 }

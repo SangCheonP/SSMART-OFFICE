@@ -16,6 +16,6 @@ interface PointHistoryJpaRepository : JpaRepository<PointHistoryEntity, Long> {
         pageable: Pageable
     ): Page<PointHistoryEntity>
 
-    fun findTop1ByUserIdOrderByCreatedDateTimeDesc(userId: Long): PointHistoryEntity
+    fun findTop1ByUserIdOrderByCreatedDateTimeDesc(userId: Long): PointHistoryEntity?
 
 }
