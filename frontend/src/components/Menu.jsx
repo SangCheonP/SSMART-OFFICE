@@ -37,18 +37,21 @@ const Menu = () => {
   const { name } = useMyInfoStore();
   return (
     <>
-      <NavLink to="/" className={styles.temp}>
-        <HomeIcon className={styles.icon} />
-      </NavLink>
-      <NavItem link="/" type="Home" content="홈" />
-      <NavItem link="/seat" type="Seat" content="좌석 현황" />
-      <NavItem link="/message" type="Message" content="사내 메시지" />
-      <NavItem link="/mypage" type="Mypage" content="마이페이지" />
-      {name === "admin" && (
-        <NavItem link="/attendance" type="Attendance" content="사원 관리" />
-      )}
-
-      <NavItem link="/logout" type="Logout" content="로그아웃" />
+      <div className={styles.top}>
+        <NavLink to="/" className={styles.temp}>
+          <HomeIcon className={styles.icon} />
+        </NavLink>
+        <NavItem link="/" type="Home" content="홈" />
+        <NavItem link="/seat" type="Seat" content="좌석 현황" />
+        <NavItem link="/message" type="Message" content="사내 메시지" />
+        <NavItem link="/mypage" type="Mypage" content="마이페이지" />
+        {name === "admin" && (
+          <NavItem link="/attendance" type="Attendance" content="사원 관리" />
+        )}
+      </div>
+      <div className={styles.bottom}>
+        <NavItem link="/logout" type="Logout" content="로그아웃" />
+      </div>
     </>
   );
 };

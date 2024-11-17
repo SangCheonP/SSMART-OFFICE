@@ -1,7 +1,6 @@
 .container {
   display: grid;
-  grid-template-columns: 3fr 7fr;
-  min-height: 300px;
+  grid-template-columns: 3fr 6fr;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -17,14 +16,14 @@
   border-radius: 0 10px 10px 0;
   background-color: #91adf5;
   display: grid;
-  grid-template-columns: 3fr 4fr;
-  padding: 20px;
+  grid-template-columns: 2fr 3fr;
+  padding: 30px;
   gap: 20px;
 }
 
 .image {
-  width: 70%;
-  height: 70%;
+  width: 65%;
+  height: 65%;
 }
 
 .imageBox {
@@ -36,57 +35,64 @@
 }
 .profileImage {
   border-radius: 50%;
-  width: 65%;
+  width: 220px;
   aspect-ratio: 1 / 1;
   object-fit: fill;
 }
+
 .subBox {
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 220px;
+  height: 220px;
+  margin: 0 auto;
+}
+
+.profileImage {
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
 }
 
 .changeImage {
   position: absolute;
+  bottom: 10px;
+  right: 10px;
   background: inherit;
   border: none;
-  box-shadow: none;
-  overflow: visible;
-  cursor: pointer;
-  bottom: 2%;
-  right: 15%;
-  background-color: #ffffff;
-  border-radius: 50%;
-  padding: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  border: none;
-  width: 3vw;
-  height: 3vw;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
   background-color: var(--blue);
-  align-content: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: #fff;
-  transform: scale(1);
+  pointer-events: auto; /* 이벤트 처리 가능 */
 }
+
 .changeImage:hover {
   background-color: var(--hover);
 }
+
 .cameraImage {
-  width: 2vw;
-  height: 2vw;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
   background-color: transparent;
   border: none;
-  cursor: pointer;
 }
+
 .content {
   display: grid;
   grid-template-rows: repeat(5, 1fr);
   text-align: left;
   color: #fff;
   align-items: center;
-  padding: 1.13rem;
 }
 
 .buttonBox {
@@ -94,11 +100,12 @@
   grid-template-columns: 1fr 1fr;
   gap: 20px;
   text-align: center;
+  height: 100%;
 }
 
 .button {
   all: unset;
-  padding: 15px 10px;
+  padding: 15px 0px;
   border-radius: 5px;
   cursor: pointer;
 }
@@ -126,6 +133,7 @@
   align-items: baseline;
   font-weight: bold;
   color: #fff;
+  flex-wrap: wrap;
 }
 .subTitle {
   font-size: 1.6rem;
@@ -137,7 +145,6 @@
 .welfare {
   display: flex;
   column-gap: 10px;
-  align-items: baseline;
   font-weight: bold;
   color: #fff157;
   justify-self: right;
