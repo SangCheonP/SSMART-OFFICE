@@ -172,4 +172,15 @@ class UserController(
         )
     }
 
+    @GetMapping("/find/{keyword}")
+    fun findUser(
+        @PathVariable keyword: String,
+        pageable: Pageable
+    ): ResponseEntity<CommonResponse<Page<UserInfoResponse>?>>{
+        return CommonResponse.ok(
+            data = userService.findUser(keyword, pageable),
+            msg = "사원 검색에 성공했습니다."
+        )
+    }
+
 }
