@@ -125,3 +125,14 @@
 .search_icon {
   margin-right: 10px;
 }
+.time {
+  color: var(--text-description);
+  font-size: 12px;
+  margin-left: 50px;
+}
+.last_message {
+  color: gray;
+  margin-top: 5px;
+  /* margin-left: 10px; */
+  font-size: 15px;
+}
