@@ -16,4 +16,5 @@ interface UserRepository {
     fun findByIdIn(ids: List<Long>): List<User>
     fun findByRoleNot(role: Role, pageable: Pageable): Page<User>
     fun existsById(userId: Long): Boolean
+    fun findUser(keyword: String, pageable: Pageable): Page<User>
 }

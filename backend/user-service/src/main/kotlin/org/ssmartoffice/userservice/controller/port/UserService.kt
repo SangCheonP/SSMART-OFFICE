@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable
 import org.springframework.security.core.Authentication
 import org.ssmartoffice.userservice.controller.request.*
+import org.ssmartoffice.userservice.controller.response.UserInfoResponse
 
 interface UserService {
     fun addUser(userRegisterRequest: UserRegisterRequest): User
@@ -17,4 +18,5 @@ interface UserService {
     fun authenticateUser(userLoginRequest: UserLoginRequest): User
     fun findAllByIds(userIds: List<Long>): List<User>
     fun existsById(userId: Long): Boolean
+    fun findUser(keyword: String, pageable: Pageable): Page<UserInfoResponse>?
 }

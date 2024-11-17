@@ -10,4 +10,6 @@ interface SeatRepository {
     fun findById(id: Long): Seat
     fun save(seat: Seat)
     fun existsByUserIdAndIdNot(userId: Long, id: Long): Boolean
+
+    fun findByUserId(userId: Long): Seat?
 }
