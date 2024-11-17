@@ -15,12 +15,14 @@ const Chat = ({ selectedMember }) => {
     employeeNumber: currentEmployeeNumber,
     profileImageUrl: currentProfileImageUrl,
   } = useMyInfoStore();
+  const { fetchUserSeats, memberSeats } = useAttendanceStore();
 
   useEffect(() => {
     if (selectedMember) {
       createAndSubscribeToChatRoom(selectedMember.userId);
+      fetchUserSeats(selectedMember.userId);
     }
-  }, [selectedMember, createAndSubscribeToChatRoom]);
+  }, [selectedMember, createAndSubscribeToChatRoom, fetchUserSeats]);
 
   // 메시지 전송 처리
   const handleSendMessage = (messageContent) => {
@@ -32,6 +34,9 @@ const Chat = ({ selectedMember }) => {
     addMessage(message);
     sendMessage(messageContent);
   };
+
+  const seatInfo =
+    memberSeats[selectedMember?.userId]?.info || "좌석 정보 없음";
 
   return (
     <div className={styles.chat_container}>
@@ -58,7 +63,7 @@ const Chat = ({ selectedMember }) => {
                   }`}
                 />
               </div>
-              <div className={styles.location}>고쳐라1층 B102 06 좌석</div>
+              <div className={styles.location}>{seatInfo}</div>
             </div>
           </div>
         )}

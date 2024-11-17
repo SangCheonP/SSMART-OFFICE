@@ -15,10 +15,15 @@ const useAttendanceStore = create(
       memberData: [],
       userTodoData: [],
       searchResults: [],
+      memberSeats: {},
 
       setMemberData: (data) => set({ memberData: data }),
       setSelectedDate: (date) => set({ selectedDate: date }),
       setSearchResults: (data) => set({ searchResults: data }),
+      setMemberSeats: (userId, seatData) =>
+        set((state) => ({
+          memberSeats: { ...state.memberSeats, [userId]: seatData },
+        })),
 
       // 전체 사용자 목록
       fetchUserList: async () => {
@@ -80,12 +85,19 @@ const useAttendanceStore = create(
         try {
           const response = await fetchUserSeats(userId);
           console.log("사원 좌석 조회 응답 데이터:", response.data.data);
-          set({
-            userSeatData: response.data.data || [], // 좌석 데이터를 store에 저장
-          });
+          set((state) => ({
+            memberSeats: {
+              ...state.memberSeats,
+              [userId]: response.data.data || "좌석 없음",
+            },
+          }));
         } catch (error) {
           console.error("사원 좌석 데이터를 가져오는 중 오류 발생:", error);
-          set({ userSeatData: [] });
+
+          // 오류 시 좌석 없음 처리
+          set((state) => ({
+            memberSeats: { ...state.memberSeats, [userId]: "좌석 없음" },
+          }));
         }
       },
     }),

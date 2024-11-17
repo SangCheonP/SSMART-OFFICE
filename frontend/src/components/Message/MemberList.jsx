@@ -4,7 +4,8 @@ import useAttendanceStore from "@/store/useAttendanceStore";
 
 const MemberList = ({ onMemberSelect }) => {
   const [selectedMemberId, setSelectedMemberId] = useState(null);
-  const { memberData, searchResults, fetchUserList } = useAttendanceStore();
+  const { memberData, searchResults, fetchUserSeats, memberSeats } =
+    useAttendanceStore();
   const [displayedMembers, setDisplayedMembers] = useState(memberData);
 
   // 검색 결과가 존재하면 검색 결과를, 그렇지 않으면 기본 데이터를 사용
@@ -19,6 +20,8 @@ const MemberList = ({ onMemberSelect }) => {
   const handleMemberClick = (member) => {
     setSelectedMemberId(member.userId);
     onMemberSelect(member.userId); // userId 전달
+    // 해당 사원의 좌석 정보를 가져오기
+    fetchUserSeats(member.userId);
   };
 
   return (
@@ -48,7 +51,9 @@ const MemberList = ({ onMemberSelect }) => {
                 ></div>
               </div>
               <div className={styles.duty}>{member.duty}</div>
-              <div className={styles.location}>2층임</div>
+              <div className={styles.location}>
+                {memberSeats[member.userId]?.info || "좌석 없음"}
+              </div>
             </div>
           </div>
         ))
