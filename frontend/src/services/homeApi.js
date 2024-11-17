@@ -10,9 +10,11 @@ export const fetchCalendarData = (month) => {
 
 // 캘린더 일정 일별 조회
 export const fetchTodoData = (month, day) => {
-  console.log("fetchTodoData 호출됨:", { month, day });
+  const formattedMonth = String(month).padStart(2, "0");
+  const formattedDay = String(day).padStart(2, "0");
+  console.log("fetchTodoData 호출됨:", { formattedMonth, formattedDay });
   return api.get(`/assignments`, {
-    params: { month: month, day: day },
+    params: { month: formattedMonth, day: formattedDay },
   });
 };
 
