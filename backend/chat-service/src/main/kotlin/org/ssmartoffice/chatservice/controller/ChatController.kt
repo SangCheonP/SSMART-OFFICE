@@ -52,8 +52,8 @@ class ChatController(
     fun createChatroom(authentication :Authentication, @PathVariable userId: Long) :ResponseEntity<CommonResponse<CreateChatRoomResponse>> {
         val id = authentication.principal as Long
         logger.info { "userId: $userId , id: $id" }
-        chatService.saveChatRoom(id , userId)
-        return CommonResponse.created("채팅방 생성 성공")
+        val createChatroom : CreateChatRoomResponse = CreateChatRoomResponse.fromModel(chatService.saveChatRoom(id , userId))
+        return CommonResponse.created("채팅방 생성 성공", createChatroom)
     }
 
     @GetMapping("/chatroom")
