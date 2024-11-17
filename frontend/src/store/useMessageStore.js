@@ -23,7 +23,6 @@ const useMessageStore = create((set, get) => ({
 
       // 채팅방 생성
       const chatRoomId = await messageApi.createChatRoom(userId);
-      console.log("생성된 채팅방 ID:", chatRoomId);
 
       // 상태 업데이트
       set({ chatRoomId });
@@ -34,7 +33,6 @@ const useMessageStore = create((set, get) => ({
 
       // WebSocket 구독 경로 정의
       const destination = `/topic/chat/${chatRoomId}`;
-      console.log("구독할 경로:", destination);
 
       // WebSocket 구독 중복 방지
       const { subscribed } = get();
