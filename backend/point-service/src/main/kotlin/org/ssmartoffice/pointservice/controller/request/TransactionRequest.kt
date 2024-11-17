@@ -10,10 +10,8 @@ data class TransactionRequest(
     val marketName: String,
     @field:NotNull(message = "거래 금액을 입력해주세요.")
     val amount: Int,
-    @field:NotBlank(message = "상품을 입력해주세요.")
-    val item: String,
-    @field:NotNull(message = "수량을 입력해주세요.")
-    val quantity: Int,
+    val item: String?,
+    val quantity: Int?,
     @field:NotNull(message = "거래 시간을 입력해주세요.")
     val transactionTime: LocalDateTime
 ) {
