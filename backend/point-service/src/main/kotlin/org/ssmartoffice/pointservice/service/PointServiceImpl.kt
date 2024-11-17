@@ -24,7 +24,8 @@ class PointServiceImpl(
     }
 
     override fun getMyPointBalance(userId: Long): Int {
-        return pointHistoryRepository.findTop1ByUserIdOrderByCreatedDateTimeDesc(userId).balance
+        return pointHistoryRepository.findTop1ByUserIdOrderByCreatedDateTimeDesc(userId)
+            ?.balance ?: 0
     }
 
     override fun createTransaction(userId: Long, transaction: Transaction): PointHistory {

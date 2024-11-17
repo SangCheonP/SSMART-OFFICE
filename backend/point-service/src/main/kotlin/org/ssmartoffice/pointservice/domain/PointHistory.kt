@@ -36,5 +36,6 @@ data class PointHistory(
                 transactionTime = transaction.transactionTime
             )
         }
+
     }
 }
