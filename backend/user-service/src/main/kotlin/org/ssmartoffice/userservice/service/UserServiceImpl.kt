@@ -12,7 +12,9 @@ import org.springframework.data.domain.Pageable
 import org.springframework.security.core.Authentication
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
+import org.ssmartoffice.userservice.controller.UserResponseMapper
 import org.ssmartoffice.userservice.controller.request.*
+import org.ssmartoffice.userservice.controller.response.UserInfoResponse
 import org.ssmartoffice.userservice.domain.Role
 import org.ssmartoffice.userservice.global.const.errorcode.UserErrorCode
 
@@ -22,6 +24,7 @@ private val logger = KotlinLogging.logger {}
 class UserServiceImpl(
     val passwordEncoder: BCryptPasswordEncoder,
     val userRepository: UserRepository,
+    val userResponseMapper: UserResponseMapper,
     private val userMapper: UserMapper,
 ) : UserService {
 
@@ -112,6 +115,10 @@ class UserServiceImpl(
         if (!hasAdminRole) {
             throw UserException(UserErrorCode.UNAUTHORIZED_ACCESS)
         }
+    }
+
+    override fun findUser(keyword: String, pageable: Pageable): Page<UserInfoResponse> {
+        return userRepository.findUser(keyword, pageable).map { user -> userResponseMapper.toUserInfoResponse(user) }
     }
 
 }

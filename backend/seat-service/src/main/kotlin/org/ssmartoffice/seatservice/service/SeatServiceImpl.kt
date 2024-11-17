@@ -67,6 +67,10 @@ class SeatServiceImpl(
         }
     }
 
+    override fun findSeatByUserId(userId: Long): Seat? {
+        return seatRepository.findByUserId(userId)
+    }
+
     private fun validateSeatChange(seat: Seat, userId: Long?, requestStatus: SeatStatus) {
         if (isOccupiedByAnotherUser(seat, userId, requestStatus)) {
             throw SeatException(SeatErrorCode.OCCUPIED_BY_ANOTHER_USER)

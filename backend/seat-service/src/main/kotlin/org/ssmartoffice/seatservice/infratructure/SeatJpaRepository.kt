@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository
 interface SeatJpaRepository : JpaRepository<SeatEntity, Long> {
     fun findAllByFloor(floor: Int): List<SeatEntity>
     fun existsByUserIdAndIdNot(userId: Long, id: Long): Boolean
+    fun findByUserId(userId: Long): SeatEntity?
 }
