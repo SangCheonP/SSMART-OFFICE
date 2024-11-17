@@ -18,10 +18,7 @@ const Chat = ({ selectedMember }) => {
   }, [selectedMember, createAndSubscribeToChatRoom]);
 
   const handleSendMessage = (messageContent) => {
-    if (selectedMember) {
-      const destination = `/api/v1/chats/ws/app/${selectedMember.id}`;
-      sendMessage(destination, messageContent);
-    }
+    sendMessage(messageContent);
   };
 
   return (
@@ -54,13 +51,13 @@ const Chat = ({ selectedMember }) => {
         )}
         {/* 채팅 메시지 영역 */}
         <div className={styles.chat_messages}>
-          {messages.map((message) => (
+          {messages.map((message, index) => (
             <ChatBalloon
-              key={message.messageId}
+              key={index}
               message={message.content}
-              createdTime={message.created_date_time}
-              isSender={message.userId === selectedMember.userId}
-              profileImageUrl={selectedMember.profileImageUrl}
+              createdTime={message.createdTime || Date.now()}
+              isSender={message.isSender || true}
+              profileImageUrl={message.profileImageUrl || "default-profile.png"}
             />
           ))}
           {/* 입력창 */}

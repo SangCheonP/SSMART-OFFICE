@@ -1,4 +1,5 @@
 import { Client } from "@stomp/stompjs";
+import api from "./api";
 
 const messageApi = (() => {
   const accessToken =
@@ -44,28 +45,52 @@ const messageApi = (() => {
   // 채팅방 생성
   const createChatRoom = async (userId) => {
     try {
-      const response = await fetch(`/api/v1/chats/chatroom/${userId}`, {
-        method: "POST",
+      const response = await api.post(`/chats/chatroom/${userId}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       });
-
-      if (!response.ok) {
-        throw new Error("Failed to create chat room");
+      console.log("API 응답 데이터:", response.data);
+      // 응답 데이터 확인
+      if (
+        response.data &&
+        response.data.data &&
+        response.data.data.chatRoomId
+      ) {
+        console.log("채팅방 생성 성공, ID:", response.data.data.chatRoomId);
+        return response.data.data.chatRoomId; // chatRoomId 반환
+      } else {
+        throw new Error("Invalid response format");
       }
-
-      const data = await response.json();
-      console.log("채팅방 생성 성공, ID:", data.data.chatRoomId);
-      return data.data.chatRoomId;
     } catch (error) {
       console.error("채팅방 생성 실패:", error);
       throw error;
     }
   };
 
-  return { sendMessage, subscribe, createChatRoom };
+  // 메시지 조회
+  const fetchMessages = async (chatRoomId) => {
+    try {
+      const response = await api.get(`/chats/messages/${chatRoomId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+
+      if (response.data && response.data.data) {
+        console.log("메시지 조회 성공:", response.data.data);
+        return response.data.data; // 메시지 데이터 반환
+      } else {
+        throw new Error("Invalid response format");
+      }
+    } catch (error) {
+      console.error("메시지 조회 실패:", error);
+      throw error;
+    }
+  };
+
+  return { sendMessage, subscribe, createChatRoom, fetchMessages };
 })();
 
 export default messageApi;

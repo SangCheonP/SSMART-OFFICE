@@ -2,7 +2,7 @@ import React, { useRef, useCallback } from "react";
 import styles from "@/styles/Message/Chat.module.css";
 import File from "@/assets/Message/AddFile.svg?react";
 
-const MessageBox = ({ placeholder = "메시지를 입력하세요" }) => {
+const MessageBox = ({ placeholder = "메시지를 입력하세요", onSendMessage }) => {
   const textareaRef = useRef(null);
   const inputRef = useRef(null);
   const [inputMessage, setInputMessage] = React.useState("");
@@ -18,8 +18,9 @@ const MessageBox = ({ placeholder = "메시지를 입력하세요" }) => {
 
   const handleSendMessage = () => {
     if (inputMessage.trim()) {
-      onSendMessage(inputMessage);
-      setInputMessage("");
+      console.log("전송할 메시지 내용:", inputMessage); // 메시지 내용 출력
+      onSendMessage(inputMessage); // 메시지 전송
+      setInputMessage(""); // 입력 초기화
     }
   };
   const handleInput = () => {
