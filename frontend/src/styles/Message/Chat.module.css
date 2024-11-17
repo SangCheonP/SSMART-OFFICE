@@ -81,6 +81,8 @@
   resize: none;
   height: auto;
   max-height: 60px;
+  font-family: "notoSans KR";
+  font-size: 14px;
 }
 .file_icon {
   cursor: pointer;

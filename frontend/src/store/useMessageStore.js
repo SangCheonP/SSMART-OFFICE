@@ -5,6 +5,7 @@ import useAttendanceStore from "./useAttendanceStore";
 const useMessageStore = create((set, get) => ({
   messages: [],
   chatRoomId: null, // 현재 채팅방 ID 상태
+  subscribed: false, // WebSocket 구독 상태
 
   // 메시지 추가
   addMessage: (message) =>
@@ -15,13 +16,18 @@ const useMessageStore = create((set, get) => ({
     try {
       const { memberData } = useAttendanceStore.getState();
 
+      if (!memberData || memberData.length === 0) {
+        throw new Error(
+          "memberData가 비어 있습니다. 멤버 데이터를 로드하세요."
+        );
+      }
+
       const selectedMember = memberData.find(
         (member) => member.name === memberName
       );
 
       if (!selectedMember) {
-        console.error(`Member not found. memberName: ${memberName}`);
-        return;
+        throw new Error(`Member not found: ${memberName}`);
       }
 
       const userId = selectedMember.userId;
@@ -35,19 +41,22 @@ const useMessageStore = create((set, get) => ({
 
       // 메시지 조회 및 상태 설정
       const messages = await get().fetchAndSetMessages(chatRoomId);
-      console.log("초기 메시지:", messages);
+      console.log("초기 메시지 로드 완료:", messages);
 
       // WebSocket 구독 경로 정의
       const destination = `/topic/chat/${chatRoomId}`;
       console.log("구독할 경로:", destination);
 
-      // WebSocket 구독
-      await messageApi.subscribe(destination, (message) => {
-        console.log("수신된 메시지:", message);
-        set((state) => ({ messages: [...state.messages, message] }));
-      });
-
-      console.log("구독 성공:", destination);
+      // WebSocket 구독 중복 방지
+      const { subscribed } = get();
+      if (!subscribed) {
+        await messageApi.subscribe(destination, (message) => {
+          console.log("수신된 메시지:", message);
+          set((state) => ({ messages: [...state.messages, message] }));
+        });
+        set({ subscribed: true });
+        console.log("WebSocket 구독 성공:", destination);
+      }
     } catch (error) {
       console.error("채팅방 생성 및 구독 실패:", error);
     }
@@ -89,7 +98,13 @@ const useMessageStore = create((set, get) => ({
   fetchAndSetMessages: async (chatRoomId) => {
     try {
       const messages = await messageApi.fetchMessages(chatRoomId);
-      set({ messages });
+      const currentMessages = get().messages;
+
+      // 중복된 상태 업데이트 방지
+      if (JSON.stringify(currentMessages) !== JSON.stringify(messages)) {
+        set({ messages });
+      }
+
       return messages;
     } catch (error) {
       console.error("메시지 상태 업데이트 실패:", error);
