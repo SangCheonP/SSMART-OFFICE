@@ -26,9 +26,7 @@ const Home = () => {
     fetchAttendanceData(month);
   }, [fetchCalendarData, fetchTodoData, fetchAttendanceData]);
 
-  useEffect(() => {
-    console.log("현재 출퇴근 데이터:", attendanceData);
-  }, [calendarData, todoData, attendanceData]);
+  useEffect(() => {}, [calendarData, todoData, attendanceData]);
 
   const handleDateSelect = (date) => {
     const selected = new Date(date);
@@ -36,7 +34,6 @@ const Home = () => {
     const month = date.getFullYear() * 100 + (date.getMonth() + 1);
     const day = date.getDate().toString().padStart(2, "0");
     fetchTodoData(month, day);
-    console.log("클릭 날짜:", setSelectedDate);
   };
   return (
     <div className={styles.home}>
