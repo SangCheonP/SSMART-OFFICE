@@ -14,11 +14,8 @@ const GoogleLogin = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // const handleGoogleLogin = () => {
-  //   window.location.href = `${BASE_URL}/auth/oauth2/authorization/google`;
-  // };
   const handleGoogleLogin = () => {
-    navigate(`/auth/oauth2/authorization/google`);
+    window.location.href = `${BASE_URL}/auth/oauth2/authorization/google`;
   };
 
   useEffect(() => {
@@ -48,10 +45,10 @@ const GoogleLogin = () => {
     }
   }, [location.search, setAuth, navigate]);
   return (
-    <button onClick={handleGoogleLogin} className={styles.button}>
+    <div onClick={handleGoogleLogin} className={styles.button}>
       <GoogleIcon />
       Google로 로그인
-    </button>
+    </div>
   );
 };
 
