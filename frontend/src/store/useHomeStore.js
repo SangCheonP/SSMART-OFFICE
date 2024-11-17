@@ -74,24 +74,36 @@ const useHomeStore = create(
         description
       ) => {
         try {
+          // 날짜 형식 변환: YYYY-MM-DD (월과 일이 항상 두 자리로 표시)
+          const formatDate = (date) => {
+            const d = new Date(date);
+            const year = d.getFullYear();
+            const month = String(d.getMonth() + 1).padStart(2, "0"); // 월을 두 자리로
+            const day = String(d.getDate()).padStart(2, "0"); // 일을 두 자리로
+            return `${year}-${month}-${day}`;
+          };
+
+          const formattedDate = formatDate(assignmentDate);
+
+          // 서버로 데이터 전송
           const response = await addCalendarEvent(
             assignmentName,
-            assignmentDate,
+            formattedDate, // 포맷된 날짜를 사용
             assignmentType,
             description
           );
 
           // 일정 추가 후 데이터 갱신
           const addedMonth =
-            new Date(assignmentDate).getFullYear() * 100 +
-            (new Date(assignmentDate).getMonth() + 1);
+            new Date(formattedDate).getFullYear() * 100 +
+            (new Date(formattedDate).getMonth() + 1);
           const updatedResponse = await fetchCalendarData(addedMonth);
 
           // 상태 업데이트: 월별 데이터 갱신
           set({ calendarData: updatedResponse.data });
 
           // 일정이 추가된 날짜 데이터 갱신
-          const addedDay = new Date(assignmentDate).getDate();
+          const addedDay = new Date(formattedDate).getDate();
           const updatedDayResponse = await fetchTodoData(addedMonth, addedDay);
 
           // 상태 업데이트: 일별 데이터 갱신

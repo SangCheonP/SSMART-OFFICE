@@ -1,30 +1,55 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import api from "@/services/api";
-import { fetchUserTodo, fetchUserList } from "@/services/attendanceApi";
+import {
+  fetchUserTodo,
+  fetchUserList,
+  fetchFindUser,
+  fetchUserSeats,
+} from "@/services/attendanceApi";
+import useMyInfoStore from "./useMyInfoStore";
 
 const useAttendanceStore = create(
   persist(
     (set) => ({
       memberData: [],
       userTodoData: [],
+      searchResults: [],
+      memberSeats: {},
 
       setMemberData: (data) => set({ memberData: data }),
       setSelectedDate: (date) => set({ selectedDate: date }),
+      setSearchResults: (data) => set({ searchResults: data }),
+      setMemberSeats: (userId, seatData) =>
+        set((state) => ({
+          memberSeats: { ...state.memberSeats, [userId]: seatData },
+        })),
 
       // 전체 사용자 목록
       fetchUserList: async () => {
         try {
           const response = await fetchUserList();
-          set({ memberData: response.data.data.content });
+          const allMembers = response.data.data.content;
+
+          // 현재 로그인한 사용자 정보 가져오기
+          const { employeeNumber } = useMyInfoStore.getState();
+
+          // 현재 로그인한 사용자를 제외한 목록 필터링
+          const filteredMembers = allMembers.filter(
+            (member) => member.employeeNumber !== employeeNumber
+          );
+
+          // 필터링된 데이터 저장
+          set({ memberData: filteredMembers });
           console.log(
-            "전체 사용자 목록 조회 성공:",
-            response.data.data.content
+            "로그인한 유저 제외한 사용자 목록 조회 성공:",
+            filteredMembers
           );
         } catch (error) {
           console.error("사용자 데이터를 가져오는 중 오류 발생:", error);
         }
       },
+
       // 사원 일정 일별 조회
       fetchUserTodo: async (userId, month, day) => {
         try {
@@ -38,6 +63,41 @@ const useAttendanceStore = create(
         } catch (error) {
           console.error("사원 일정 데이터를 가져오는 중 오류 발생:", error);
           set({ userTodoData: [] });
+        }
+      },
+      // 사원 검색
+      fetchFindUser: async (searchQuery) => {
+        try {
+          const response = await fetchFindUser(searchQuery);
+          console.log("사원 검색 응답 데이터:", response.data.data.content);
+          set({
+            searchResults: Array.isArray(response.data.data.content)
+              ? response.data.data.content
+              : [],
+          });
+        } catch (error) {
+          console.error("사원 검색 데이터를 가져오는 중 오류 발생:", error);
+          set({ searchResults: [] });
+        }
+      },
+      // 사원 좌석 조회
+      fetchUserSeats: async (userId) => {
+        try {
+          const response = await fetchUserSeats(userId);
+          console.log("사원 좌석 조회 응답 데이터:", response.data.data);
+          set((state) => ({
+            memberSeats: {
+              ...state.memberSeats,
+              [userId]: response.data.data || "좌석 없음",
+            },
+          }));
+        } catch (error) {
+          console.error("사원 좌석 데이터를 가져오는 중 오류 발생:", error);
+
+          // 오류 시 좌석 없음 처리
+          set((state) => ({
+            memberSeats: { ...state.memberSeats, [userId]: "좌석 없음" },
+          }));
         }
       },
     }),
