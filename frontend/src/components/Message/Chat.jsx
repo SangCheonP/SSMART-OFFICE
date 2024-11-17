@@ -1,26 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import styles from "@/styles/Message/Chat.module.css";
-import MessageBox from "./MessageBox";
 import ChatBalloon from "./ChatBalloon";
+import MessageBox from "./MessageBox";
+import useMessageStore from "@/store/useMessageStore";
+import useAttendanceStore from "@/store/useAttendanceStore";
+import useMyInfoStore from "@/store/useMyInfoStore";
 
 const Chat = ({ selectedMember }) => {
-  // 임시 데이터
-  const [messages] = useState([
-    {
-      messageId: "46",
-      userId: 3,
-      messageType: "COMMENT",
-      messageContent: "뭐해",
-      created_date_time: "2024-09-01T16:36:21.768188800",
-    },
-    {
-      messageId: "56",
-      userId: 3,
-      messageType: "COMMENT",
-      messageContent: "퇴사할거야? 오늘 할 일 다 끝내고 가",
-      created_date_time: "2024-09-01T16:36:22.768188800",
-    },
-  ]);
+  const { messages, createAndSubscribeToChatRoom, sendMessage, addMessage } =
+    useMessageStore();
+
+  // 현재 사용자 정보 가져오기
+  const {
+    employeeNumber: currentEmployeeNumber,
+    profileImageUrl: currentProfileImageUrl,
+  } = useMyInfoStore();
+  const { fetchUserSeats, memberSeats } = useAttendanceStore();
+
+  useEffect(() => {
+    if (selectedMember) {
+      createAndSubscribeToChatRoom(selectedMember.userId);
+      fetchUserSeats(selectedMember.userId);
+    }
+  }, [selectedMember, createAndSubscribeToChatRoom, fetchUserSeats]);
+
+  // 메시지 전송 처리
+  const handleSendMessage = (messageContent) => {
+    const message = {
+      content: messageContent,
+      createdAt: new Date().toISOString(),
+      userId: currentEmployeeNumber,
+    };
+    addMessage(message);
+    sendMessage(messageContent);
+  };
+
+  const seatInfo =
+    memberSeats[selectedMember?.userId]?.info || "좌석 정보 없음";
 
   return (
     <div className={styles.chat_container}>
@@ -28,9 +44,10 @@ const Chat = ({ selectedMember }) => {
         {selectedMember && (
           <div className={styles.member_card}>
             <img
-              src={selectedMember.profileImageUrl}
-              alt={`${selectedMember.name}'s profile`}
+              src={selectedMember.profileImageUrl || "/default-profile.png"}
+              alt={`${selectedMember.name || "알 수 없는 사용자"}'s profile`}
               className={styles.profile_image}
+              onError={(e) => (e.target.src = "/default-profile.png")}
             />
             <div>
               <div className={styles.member_info}>
@@ -46,24 +63,29 @@ const Chat = ({ selectedMember }) => {
                   }`}
                 />
               </div>
-              <div className={styles.location}>1층 B102 06 좌석</div>
+              <div className={styles.location}>{seatInfo}</div>
             </div>
           </div>
         )}
-        {/* 채팅 메시지 영역 */}
         <div className={styles.chat_messages}>
-          {messages.map((message) => (
-            <ChatBalloon
-              key={message.messageId}
-              message={message.messageContent}
-              createdTime={message.created_date_time}
-              isSender={message.userId === selectedMember.userId}
-              profileImageUrl={selectedMember.profileImageUrl}
-            />
-          ))}
-          {/* 입력창 */}
-          <MessageBox />
-          {/* <File /> */}
+          {messages
+            .slice()
+            .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+            .map((message, index) => (
+              <ChatBalloon
+                key={index}
+                message={message.content}
+                createdTime={message.createdAt || Date.now()}
+                isSender={message.userId !== selectedMember.userId}
+                profileImageUrl={
+                  message.userId === selectedMember.userId
+                    ? selectedMember.profileImageUrl || "/default-user.png"
+                    : currentProfileImageUrl || "/default-profile.png"
+                }
+              />
+            ))}
+          <div></div>
+          <MessageBox onSendMessage={handleSendMessage} />
         </div>
       </div>
     </div>

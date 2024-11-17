@@ -33,7 +33,7 @@ const AddTodoModal = ({ onSubmit, onClose }) => {
         return "EARLY_LEAVE";
       case "회의":
         return "MEETING";
-      case "TODO":
+      case "할일":
         return "TASK";
       default:
         return "OTHER";
@@ -43,9 +43,16 @@ const AddTodoModal = ({ onSubmit, onClose }) => {
   // 완료 버튼
   const handleClickSubmit = async () => {
     if (isSubmitEnabled) {
+      const formatDate = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const day = String(date.getDate()).padStart(2, "0");
+        return `${year}-${month}-${day}`;
+      };
+
       const dataToSubmit = {
         name: assignmentName,
-        date: selectedDate.toISOString().split("T")[0],
+        date: formatDate(selectedDate),
         type: typeChange(assignmentType),
         description: description,
       };

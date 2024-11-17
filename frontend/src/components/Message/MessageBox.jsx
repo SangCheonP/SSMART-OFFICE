@@ -2,9 +2,10 @@ import React, { useRef, useCallback } from "react";
 import styles from "@/styles/Message/Chat.module.css";
 import File from "@/assets/Message/AddFile.svg?react";
 
-const MessageBox = ({ placeholder = "메시지를 입력하세요" }) => {
+const MessageBox = ({ placeholder = "메시지를 입력하세요", onSendMessage }) => {
   const textareaRef = useRef(null);
   const inputRef = useRef(null);
+  const [inputMessage, setInputMessage] = React.useState("");
   const SUPPORTED_FORMATS = [
     "image/jpeg",
     "image/png",
@@ -15,6 +16,13 @@ const MessageBox = ({ placeholder = "메시지를 입력하세요" }) => {
     "application/haansofthwp", // 한글 파일 (.hwp)
   ];
 
+  const handleSendMessage = () => {
+    if (inputMessage.trim()) {
+      console.log("전송할 메시지 내용:", inputMessage); // 메시지 내용 출력
+      onSendMessage(inputMessage); // 메시지 전송
+      setInputMessage(""); // 입력 초기화
+    }
+  };
   const handleInput = () => {
     const textarea = textareaRef.current;
     textarea.style.height = "auto";
@@ -67,9 +75,11 @@ const MessageBox = ({ placeholder = "메시지를 입력하세요" }) => {
   return (
     <div className={styles.message_box}>
       <textarea
+        ref={textareaRef}
         className={styles.message_input}
         placeholder={placeholder}
-        rows="1"
+        value={inputMessage}
+        onChange={(e) => setInputMessage(e.target.value)}
         onInput={handleInput}
       />
       <File className={styles.file_icon} onClick={onFileIconClick} />
@@ -80,7 +90,9 @@ const MessageBox = ({ placeholder = "메시지를 입력하세요" }) => {
         style={{ display: "none" }}
         onChange={onUploadImage}
       />
-      <button className={styles.send_button}>전송</button>
+      <button className={styles.send_button} onClick={handleSendMessage}>
+        전송
+      </button>
     </div>
   );
 };
