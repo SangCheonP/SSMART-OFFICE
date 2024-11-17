@@ -1,7 +1,13 @@
 .icon {
-  margin: 55px 0 44px 0;
+  margin: -10px 0 40px;
 }
 .temp {
   display: flex;
   justify-content: center;
+}
+.top {
+  align-content: center;
+}
+.bottom {
+  align-content: center;
 }

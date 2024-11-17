@@ -1,11 +1,11 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import Profile from "@/assets/Common/Profile.png";
 
 import styles from "@/styles/ImageUpload.module.css";
 import PropTypes from "prop-types";
 
-const ImageUpload = ({ onImageSelect, classNameValue }) => {
+const ImageUpload = ({ onImageSelect, classNameValue, defaultImage }) => {
   const [image, setImage] = useState(null);
   const fileInputRef = useRef(null);
 
@@ -25,6 +25,9 @@ const ImageUpload = ({ onImageSelect, classNameValue }) => {
       fileInputRef.current.click();
     }
   };
+  useEffect(() => {
+    setImage(defaultImage);
+  }, [defaultImage]);
 
   return (
     <div onClick={handleImageClick} className={classNameValue}>
@@ -47,6 +50,7 @@ const ImageUpload = ({ onImageSelect, classNameValue }) => {
 ImageUpload.propTypes = {
   onImageSelect: PropTypes.file,
   classNameValue: PropTypes.string,
+  defaultImage: PropTypes.string,
 };
 
 export default ImageUpload;

@@ -7,6 +7,9 @@ import styles from "@/styles/Modals/AddTodoModal.module.css";
 import useHomeStore from "@/store/useHomeStore";
 import Down from "@/assets/Common/arrow_down.svg?react";
 
+import { handleError } from "@/utils/errorHandler";
+import { handleSuccess } from "@/utils/successHandler";
+
 const AddTodoModal = ({ onSubmit, onClose }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [assignmentName, setAssignmentName] = useState("");
@@ -55,11 +58,11 @@ const AddTodoModal = ({ onSubmit, onClose }) => {
           dataToSubmit.type,
           dataToSubmit.description
         );
-        console.log("일정 추가 성공");
+        handleSuccess("일정 추가 성공!");
 
         onClose();
       } catch (error) {
-        console.error("일정 추가 실패:", error);
+        handleError(error);
       }
     }
   };
