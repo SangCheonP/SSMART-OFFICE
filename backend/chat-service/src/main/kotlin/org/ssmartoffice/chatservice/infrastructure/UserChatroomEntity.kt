@@ -12,7 +12,7 @@ class UserChatroomEntity(
     val userId: Long?,
 
     @ManyToOne
-    @JoinColumn(name = "CHATROOM_ID")
+    @JoinColumn(name = "USER_CHATROOM_ID")
     val chatroom: ChatroomEntity,
 ) {
     fun toModel(): UserChatRoom? {

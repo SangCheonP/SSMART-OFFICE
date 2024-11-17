@@ -21,10 +21,8 @@ class ChatRepositoryImpl(
         return chatRoomJpaRepository.save(ChatroomEntity.fromModel(chatRoom)).id
     }
 
-    override fun findChatRoomById(id: Long): ChatRoom {
-        chatRoomJpaRepository.findById(id)
-            .orElseThrow { IllegalArgumentException("ChatRoom not found") }
-            .let { return it.toModel() }
+    override fun findUserChatRoomById(userId: Long, roomid: Long): UserChatRoom? {
+        return userChatRoomJpaRepository.findByRoomId(userId, roomid)?.toModel()
     }
 
     override fun saveUserChatRoom(userChatRoom: UserChatRoom): UserChatRoom? {
@@ -35,4 +33,16 @@ class ChatRepositoryImpl(
         return userChatRoomJpaRepository.findByMyIdAndUserId(myId, userId)?.toModel()
     }
 
+    override fun findAllUserChatRoom(userId: Long): List<UserChatRoom>? {
+        return userChatRoomJpaRepository.findAllByUserId(userId)?.map { it.toModel()!! }
+    }
+
+    override fun findLastMessageByChatroomId(chatRoomId: Long): Message? {
+        return messageJpaRepository.findTopByChatroomIdOrderByCreatedAtDesc(chatRoomId)?.toModel()
+    }
+
+    override fun findMessagesByChatroomId(roomId: Long): List<Message>?
+    {
+        return messageJpaRepository.findAllByChatroomId(roomId).map { it.toModel() }
+    }
 }
