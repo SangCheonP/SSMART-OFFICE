@@ -5,6 +5,7 @@ import File from "@/assets/Message/AddFile.svg?react";
 const MessageBox = ({ placeholder = "메시지를 입력하세요" }) => {
   const textareaRef = useRef(null);
   const inputRef = useRef(null);
+  const [inputMessage, setInputMessage] = React.useState("");
   const SUPPORTED_FORMATS = [
     "image/jpeg",
     "image/png",
@@ -15,6 +16,12 @@ const MessageBox = ({ placeholder = "메시지를 입력하세요" }) => {
     "application/haansofthwp", // 한글 파일 (.hwp)
   ];
 
+  const handleSendMessage = () => {
+    if (inputMessage.trim()) {
+      onSendMessage(inputMessage);
+      setInputMessage("");
+    }
+  };
   const handleInput = () => {
     const textarea = textareaRef.current;
     textarea.style.height = "auto";
@@ -69,8 +76,8 @@ const MessageBox = ({ placeholder = "메시지를 입력하세요" }) => {
       <textarea
         className={styles.message_input}
         placeholder={placeholder}
-        rows="1"
-        onInput={handleInput}
+        value={inputMessage}
+        onChange={(e) => setInputMessage(e.target.value)}
       />
       <File className={styles.file_icon} onClick={onFileIconClick} />
       <input
@@ -80,7 +87,9 @@ const MessageBox = ({ placeholder = "메시지를 입력하세요" }) => {
         style={{ display: "none" }}
         onChange={onUploadImage}
       />
-      <button className={styles.send_button}>전송</button>
+      <button className={styles.send_button} onClick={handleSendMessage}>
+        전송
+      </button>
     </div>
   );
 };

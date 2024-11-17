@@ -1,26 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import styles from "@/styles/Message/Chat.module.css";
-import MessageBox from "./MessageBox";
 import ChatBalloon from "./ChatBalloon";
+import MessageBox from "./MessageBox";
+import useMessageStore from "@/store/useMessageStore";
 
 const Chat = ({ selectedMember }) => {
-  // 임시 데이터
-  const [messages] = useState([
-    {
-      messageId: "46",
-      userId: 3,
-      messageType: "COMMENT",
-      messageContent: "뭐해",
-      created_date_time: "2024-09-01T16:36:21.768188800",
-    },
-    {
-      messageId: "56",
-      userId: 3,
-      messageType: "COMMENT",
-      messageContent: "퇴사할거야? 오늘 할 일 다 끝내고 가",
-      created_date_time: "2024-09-01T16:36:22.768188800",
-    },
-  ]);
+  const { messages, createAndSubscribeToChatRoom, sendMessage } =
+    useMessageStore();
+
+  useEffect(() => {
+    console.log("selectedMember:", selectedMember);
+    if (selectedMember) {
+      createAndSubscribeToChatRoom(selectedMember);
+    } else {
+      console.warn("selectedMember가 없습니다.");
+    }
+  }, [selectedMember, createAndSubscribeToChatRoom]);
+
+  const handleSendMessage = (messageContent) => {
+    if (selectedMember) {
+      const destination = `/api/v1/chats/ws/app/${selectedMember.id}`;
+      sendMessage(destination, messageContent);
+    }
+  };
 
   return (
     <div className={styles.chat_container}>
@@ -55,15 +57,14 @@ const Chat = ({ selectedMember }) => {
           {messages.map((message) => (
             <ChatBalloon
               key={message.messageId}
-              message={message.messageContent}
+              message={message.content}
               createdTime={message.created_date_time}
               isSender={message.userId === selectedMember.userId}
               profileImageUrl={selectedMember.profileImageUrl}
             />
           ))}
           {/* 입력창 */}
-          <MessageBox />
-          {/* <File /> */}
+          <MessageBox onSendMessage={handleSendMessage} />
         </div>
       </div>
     </div>
