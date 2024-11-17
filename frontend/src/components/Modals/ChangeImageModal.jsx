@@ -10,6 +10,9 @@ import { updateImageFile } from "@/services/fileAPI";
 import { updateProfile } from "@/services/myInfoAPI";
 import useMyInfoStore from "@/store/useMyInfoStore";
 
+import { handleError } from "@/utils/errorHandler";
+import { handleSuccess } from "@/utils/successHandler";
+
 const ChangeImageModal = ({ onSubmit, onClose }) => {
   const [selectedImage, setSelectedImage] = useState();
   const updateProfileImage = useMyInfoStore(
@@ -37,9 +40,10 @@ const ChangeImageModal = ({ onSubmit, onClose }) => {
           // store 사진 업데이트 하기
           updateProfileImage(imageUrl);
         }
+        handleSuccess("프로필 변경 성공");
         onSubmit();
       } catch (error) {
-        console.error("이미지 업로드 실패:", error);
+        handleError(error);
       }
     }
   };

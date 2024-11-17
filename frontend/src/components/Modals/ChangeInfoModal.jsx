@@ -8,6 +8,9 @@ import useMyInfoStore from "@/store/useMyInfoStore";
 import { useState } from "react";
 import { updateTelNumber } from "@/services/myInfoAPI";
 
+import { handleError } from "@/utils/errorHandler";
+import { handleSuccess } from "@/utils/successHandler";
+
 const ChangeInfoModal = ({ onSubmit, onClose }) => {
   const updatePhoneNumber = useMyInfoStore((state) => state.updatePhoneNumber);
   const { name, email, phoneNumber } = useMyInfoStore();
@@ -32,6 +35,7 @@ const ChangeInfoModal = ({ onSubmit, onClose }) => {
   const handleClickSubmit = async () => {
     await updateTelNumber(telNumber);
     updatePhoneNumber(telNumber);
+    handleSuccess("개인정보 수정 성공!");
     onSubmit();
   };
 

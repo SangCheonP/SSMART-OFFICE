@@ -59,16 +59,16 @@ const WelfareList = () => {
 
   return (
     <>
-      <div className={styles.title}>
-        복지 포인트 내역 (총 {formatWithCommas(totalElements)}건)
-      </div>
-      <div className={styles.table}>
+      <div className={styles.box}>
+        <div className={styles.title}>
+          복지 포인트 내역 (총 {formatWithCommas(totalElements)}건)
+        </div>
         <div className={styles.dateBox}>
           <WelfareDatePicker
             value={startDate}
             onChange={(date) => setStartDate(date)}
           />
-          <p>~</p>
+          <p style={{ color: "var(--blue)" }}>~</p>
           <WelfareDatePicker
             value={endDate}
             onChange={(date) => setEndDate(date)}
@@ -77,6 +77,8 @@ const WelfareList = () => {
             검색
           </button>
         </div>
+      </div>
+      <div className={styles.table}>
         <div className={styles.tableHeader}>
           <div className={styles.first}>사용처</div>
           <div>상세</div>
@@ -107,6 +109,7 @@ const WelfareList = () => {
             <div>사용 내역이 존재하지 않습니다</div>
           </div>
         )}
+        {/* <div className={styles.bottom}></div> */}
       </div>
       <Pagination
         totalPages={totalPages}

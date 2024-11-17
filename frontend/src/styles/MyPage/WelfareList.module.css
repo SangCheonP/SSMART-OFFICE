@@ -1,18 +1,25 @@
+.box {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
 .title {
-  margin-top: 3vh;
-  margin-bottom: 2vh;
+  margin-top: 50px;
+  margin-bottom: 25px;
   font-size: 1.25rem;
   font-weight: bold;
 }
 .dateBox {
   display: flex;
-  height: 50px;
   align-items: center;
   column-gap: 10px;
-  border-radius: 10px 10px 0 0;
   margin-left: 13px;
+  justify-content: end;
+  align-content: center;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  padding: 5px;
 }
-
 .datePicker {
   cursor: pointer;
   height: 30px;
@@ -23,7 +30,7 @@
 }
 
 .table {
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   background-color: #fff;
   margin-bottom: 20px;
@@ -35,10 +42,12 @@
   height: 50px;
   align-content: center;
   text-align: center;
-  background-color: #eee;
+  background-color: var(--blue);
+  background-color: #91adf5;
   font-size: 16px;
   font-weight: bold;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px 10px 0 0;
+  color: #fff;
 }
 
 .content {
@@ -48,11 +57,10 @@
   height: 50px;
   align-content: center;
   background-color: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
-.first {
-  /* text-align: left; */
-  /* padding-left: 30px; */
+.content:last-child {
+  border-radius: 0 0 10px 10px;
 }
 
 .welfareSearch {

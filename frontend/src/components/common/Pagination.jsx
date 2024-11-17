@@ -14,6 +14,7 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
   return (
     <div className={styles.wrapper}>
       <button
+        className={styles.prev}
         disabled={currentPage === 1}
         onClick={() => handlePageClick(currentPage - 1)}
       >
@@ -32,6 +33,7 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
         </button>
       ))}
       <button
+        className={styles.next}
         disabled={currentPage === totalPages}
         onClick={() => handlePageClick(currentPage + 1)}
       >

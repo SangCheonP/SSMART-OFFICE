@@ -12,7 +12,6 @@ import styles from "@/styles/MyPage/MyInfo.module.css";
 import useMyInfoStore from "@/store/useMyInfoStore";
 import { fetchMyWelfarePoint } from "@/services/myInfoAPI";
 import { useEffect } from "react";
-import { set } from "date-fns";
 
 const MyInfo = () => {
   const openModal = useModalStore((state) => state.openModal);
@@ -80,8 +79,10 @@ const MyInfo = () => {
             </p>
             <p className={styles.subTitle1}>반갑습니다!</p>
           </div>
-          <div>{email}</div>
-          <div>{phoneNumber ? phoneNumber : "연락처를 등록해주세요"}</div>
+          <div className={styles.subTitle1}>{email}</div>
+          <div className={styles.subTitle1}>
+            {phoneNumber ? phoneNumber : "연락처를 등록해주세요"}
+          </div>
           <div className={styles.welfare}>
             <p className={styles.subWelfare}>복지포인트 : </p>
             <p className={styles.subWelfare1}>

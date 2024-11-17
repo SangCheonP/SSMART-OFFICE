@@ -17,7 +17,7 @@ li {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin: 20px 0 40px 0;
+  margin: 30px 0 60px 0;
   color: #888;
   font-size: 14px;
 }
@@ -54,10 +54,21 @@ li {
 
 .page:hover {
   border: 1px solid #aaa;
+  color: var(--blue);
 }
 
 .page.active {
   font-weight: bold;
   background-color: var(--blue);
   color: #fff;
+}
+
+.prev,
+.next {
+  color: var(--blue);
+}
+
+.prev:hover,
+.next:hover {
+  color: var(--blue);
 }

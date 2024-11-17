@@ -8,6 +8,9 @@ import { registerUser } from "@/services/userAPI";
 import { useState } from "react";
 import ImageUpload from "@/components/ImageUpload";
 
+import { handleError } from "@/utils/errorHandler";
+import { handleSuccess } from "@/utils/successHandler";
+
 const AddMemberModal = ({ onSubmit, onClose }) => {
   const [selectedImage, setSelectedImage] = useState();
   const [name, setName] = useState("");
@@ -46,19 +49,14 @@ const AddMemberModal = ({ onSubmit, onClose }) => {
         const imageUrl = response.data;
         userData.profileImageUrl = imageUrl;
         if (response.status === 200 || response.status === 201) {
-          const temp = await registerUser(userData);
-          if (temp.status === 201) {
-            alert("사원 등록이 완료되었습니다.");
-            onSubmit();
-          } else {
-            alert("사원 등록에 실패했습니다.");
-          }
+          await registerUser(userData);
+          onSubmit();
         }
       } catch (error) {
-        console.error("이미지 업로드 실패:", error);
+        handleError(error);
       }
     } catch (error) {
-      console.log(error);
+      handleError(error);
     }
   };
 

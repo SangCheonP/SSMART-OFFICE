@@ -1,4 +1,5 @@
 import api from "@/services/api";
+import { handleError } from "@/utils/errorHandler";
 // 유저 등록
 export const registerUser = async (userData) => {
   try {
@@ -7,7 +8,7 @@ export const registerUser = async (userData) => {
     console.log("유저 API : ", response.data);
     return response.data;
   } catch (error) {
-    console.log(error);
+    handleError(error);
   }
 };
 
@@ -17,7 +18,7 @@ export const getUser = async (userId) => {
     const response = await api.get(`/users/${userId}`);
     return response.data;
   } catch (error) {
-    console.log(error);
+    handleError(error);
   }
 };
 
@@ -27,6 +28,6 @@ export const modifyUser = async (userId, userData) => {
     const response = await api.patch(`/users/${userId}`, userData);
     return response.data;
   } catch (error) {
-    console.log(error);
+    handleError(error);
   }
 };

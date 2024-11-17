@@ -1,5 +1,6 @@
 import api from "@/services/api";
 import useMyInfoStore from "@/store/useMyInfoStore";
+import { handleError } from "@/utils/errorHandler";
 
 // 비밀번호 업데이트
 export const updatePassword = async (currentPassword, newPassword) => {
@@ -10,7 +11,7 @@ export const updatePassword = async (currentPassword, newPassword) => {
     });
     return response.data;
   } catch (e) {
-    console.error(e);
+    handleError(e);
   }
 };
 
@@ -23,7 +24,7 @@ export const updateProfile = (profileImage) => {
     console.error("myInfoAPI : ", response);
     return response;
   } catch (e) {
-    console.error(e);
+    handleError(e);
   }
 };
 
@@ -35,7 +36,7 @@ export const updateTelNumber = async (phoneNumber) => {
     });
     console.error(response);
   } catch (e) {
-    console.error(e);
+    handleError(e);
   }
 };
 
@@ -46,33 +47,10 @@ export const fetchMyInfo = async () => {
     console.log("드렁오니?");
     useMyInfoStore.getState().setMyInfoData(response.data.data);
   } catch (e) {
-    console.error(e);
+    handleError(e);
   }
 };
 
-// 포인트 사용내역 가져오기
-// export const fetchMyWelfarePointList = async ({
-//   startDate = "2024-11-15",
-//   endDate = "2024-11-16",
-//   page = 0,
-//   size = 10,
-//   sort = "transactionTime,desc",
-// }) => {
-//   try {
-//     const response = await api.get("/points/history", {
-//       params: {
-//         startDate: startDate,
-//         endDate: endDate,
-//         page: page,
-//         size: size,
-//         sort: sort,
-//       },
-//     });
-//     return response.data;
-//   } catch (e) {
-//     console.error(e);
-//   }
-// };
 export const fetchMyWelfarePointList = async ({
   startDate,
   endDate,
@@ -93,7 +71,7 @@ export const fetchMyWelfarePointList = async ({
     console.log(response.data);
     return response.data;
   } catch (e) {
-    console.error(e);
+    handleError(e);
   }
 };
 
@@ -104,6 +82,6 @@ export const fetchMyWelfarePoint = async () => {
     console.log(response.data.data.balance);
     return response.data.data.balance;
   } catch (e) {
-    console.error(e);
+    handleError(e);
   }
 };

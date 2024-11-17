@@ -1,8 +1,9 @@
 .header {
-  margin: 40px 0 0 68px;
   display: flex;
   align-items: center;
+  margin: 40px auto 0;
   justify-content: space-between;
+  width: 90%;
 }
 .leftSection {
   display: flex;
@@ -31,10 +32,10 @@
 }
 .userCardContainer {
   position: relative;
+  display: flex;
 }
 .userInfo {
   display: flex;
-  margin-right: 45px;
   cursor: pointer;
 }
 .info {
