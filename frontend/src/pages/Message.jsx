@@ -8,6 +8,7 @@ import useAttendanceStore from "@/store/useAttendanceStore";
 
 function Message() {
   const [selectedMember, setSelectedMember] = useState(null);
+  const [selectedChatRoomId, setSelectedChatRoomId] = useState(null);
   const [view, setView] = useState("memberList");
   const { memberData, searchResults, fetchUserList, fetchFindUser } =
     useAttendanceStore();
@@ -20,8 +21,16 @@ function Message() {
   const displayedMembers =
     searchResults.length > 0 ? searchResults : memberData;
 
-  const handleMemberSelect = (member) => {
-    setSelectedMember(member);
+  const handleMemberSelect = (userId) => {
+    const selected = memberData.find((member) => member.userId === userId);
+    setSelectedMember(selected); // 선택된 멤버 설정
+  };
+  const handleChatRoomSelect = (chatRoomId, chatRoomMemberId) => {
+    setSelectedChatRoomId(chatRoomId); // 선택된 채팅방 ID 설정
+    const memberInfo = memberData.find(
+      (member) => member.userId === chatRoomMemberId
+    );
+    setSelectedMember(memberInfo || null); // 선택된 멤버 정보 설정
   };
 
   // 검색어 처리
@@ -62,7 +71,7 @@ function Message() {
           {/* 검색 바에 handleSearch 전달 */}
           <SearchBar onSearch={handleSearch} />
           {view === "recentMessages" && (
-            <RecentChatList onMemberSelect={handleMemberSelect} />
+            <RecentChatList onChatRoomSelect={handleChatRoomSelect} />
           )}
           {view === "memberList" && (
             <MemberList

@@ -4,33 +4,22 @@ import useAttendanceStore from "./useAttendanceStore";
 
 const useMessageStore = create((set, get) => ({
   messages: [],
-  chatRoomId: null, // 현재 채팅방 ID 상태
-  subscribed: false, // WebSocket 구독 상태
+  chatrooms: [],
+  chatRoomId: null,
+  subscribed: false,
 
   // 메시지 추가
   addMessage: (message) =>
-    set((state) => ({ messages: [...state.messages, message] })),
+    set((state) => {
+      return { messages: [...state.messages, message] };
+    }),
 
   // 채팅방 생성 및 WebSocket 구독
-  createAndSubscribeToChatRoom: async (memberName) => {
+  createAndSubscribeToChatRoom: async (userId) => {
     try {
-      const { memberData } = useAttendanceStore.getState();
-
-      if (!memberData || memberData.length === 0) {
-        throw new Error(
-          "memberData가 비어 있습니다. 멤버 데이터를 로드하세요."
-        );
+      if (!userId) {
+        throw new Error("userId가 제공되지 않았습니다.");
       }
-
-      const selectedMember = memberData.find(
-        (member) => member.name === memberName
-      );
-
-      if (!selectedMember) {
-        throw new Error(`Member not found: ${memberName}`);
-      }
-
-      const userId = selectedMember.userId;
 
       // 채팅방 생성
       const chatRoomId = await messageApi.createChatRoom(userId);
@@ -65,7 +54,7 @@ const useMessageStore = create((set, get) => ({
   // 메시지 전송
   sendMessage: async (messageContent) => {
     try {
-      const { chatRoomId, addMessage } = get();
+      const { chatRoomId } = get();
 
       if (!chatRoomId) {
         throw new Error("현재 채팅방 ID가 설정되지 않았습니다.");
@@ -75,20 +64,12 @@ const useMessageStore = create((set, get) => ({
       console.log("메시지를 보낼 경로:", destination);
       console.log("전송할 메시지 내용:", messageContent);
 
-      const message = {
-        content: messageContent,
-        createdTime: Date.now(),
-        isSender: true,
-        profileImageUrl: "default-profile.png",
-      };
-
       await messageApi.sendMessage(destination, {
         type: "TEXT",
         content: messageContent,
       });
 
       console.log("메시지 전송 성공:", messageContent);
-      addMessage(message);
     } catch (error) {
       console.error("메시지 전송 실패:", error);
     }
@@ -109,6 +90,17 @@ const useMessageStore = create((set, get) => ({
     } catch (error) {
       console.error("메시지 상태 업데이트 실패:", error);
       return [];
+    }
+  },
+
+  // 채팅방 목록 가져오기
+  fetchAndSetChatrooms: async () => {
+    try {
+      const chatrooms = await messageApi.fetchChatrooms();
+      set({ chatrooms });
+      console.log("채팅방 목록 업데이트 완료:", chatrooms);
+    } catch (error) {
+      console.error("채팅방 목록 업데이트 실패:", error);
     }
   },
 }));

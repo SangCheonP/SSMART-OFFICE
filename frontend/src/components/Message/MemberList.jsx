@@ -18,7 +18,7 @@ const MemberList = ({ onMemberSelect }) => {
 
   const handleMemberClick = (member) => {
     setSelectedMemberId(member.userId);
-    onMemberSelect(member.name);
+    onMemberSelect(member.userId); // userId 전달
   };
 
   return (

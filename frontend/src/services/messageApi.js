@@ -58,8 +58,7 @@ const messageApi = (() => {
         response.data.data &&
         response.data.data.chatRoomId
       ) {
-        console.log("채팅방 생성 성공, ID:", response.data.data.chatRoomId);
-        return response.data.data.chatRoomId; // chatRoomId 반환
+        return response.data.data.chatRoomId;
       } else {
         throw new Error("Invalid response format");
       }
@@ -79,8 +78,7 @@ const messageApi = (() => {
       });
 
       if (response.data && response.data.data) {
-        console.log("메시지 조회 성공:", response.data.data);
-        return response.data.data; // 메시지 데이터 반환
+        return response.data.data;
       } else {
         throw new Error("Invalid response format");
       }
@@ -90,7 +88,33 @@ const messageApi = (() => {
     }
   };
 
-  return { sendMessage, subscribe, createChatRoom, fetchMessages };
+  // 전체 채팅방 조회(최신순)
+  const fetchChatrooms = async () => {
+    try {
+      const response = await api.get(`/chats/chatroom`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      if (response.data && response.data.data) {
+        console.log("전체 채팅방 조회 성공:", response.data.data);
+        return response.data.data; // 채팅방 데이터 반환
+      } else {
+        throw new Error("Invalid response format");
+      }
+    } catch (error) {
+      console.error("채팅방 조회 실패:", error);
+      throw error;
+    }
+  };
+
+  return {
+    sendMessage,
+    subscribe,
+    createChatRoom,
+    fetchMessages,
+    fetchChatrooms,
+  };
 })();
 
 export default messageApi;

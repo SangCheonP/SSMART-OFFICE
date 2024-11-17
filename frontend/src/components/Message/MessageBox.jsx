@@ -75,10 +75,12 @@ const MessageBox = ({ placeholder = "메시지를 입력하세요", onSendMessag
   return (
     <div className={styles.message_box}>
       <textarea
+        ref={textareaRef}
         className={styles.message_input}
         placeholder={placeholder}
         value={inputMessage}
         onChange={(e) => setInputMessage(e.target.value)}
+        onInput={handleInput}
       />
       <File className={styles.file_icon} onClick={onFileIconClick} />
       <input
