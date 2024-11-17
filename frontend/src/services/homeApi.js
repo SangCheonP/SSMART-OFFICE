@@ -12,7 +12,6 @@ export const fetchCalendarData = (month) => {
 export const fetchTodoData = (month, day) => {
   const formattedMonth = String(month).padStart(2, "0");
   const formattedDay = String(day).padStart(2, "0");
-  console.log("fetchTodoData 호출됨:", { formattedMonth, formattedDay });
   return api.get(`/assignments`, {
     params: { month: formattedMonth, day: formattedDay },
   });

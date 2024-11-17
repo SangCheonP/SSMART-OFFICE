@@ -46,7 +46,6 @@ const useHomeStore = create(
       fetchTodoData: async (month, day) => {
         try {
           const response = await fetchTodoData(month, day);
-          console.log("캘린더 일별 조회:", response.data);
           set({ todoData: response?.data || [] });
         } catch (error) {
           console.error("캘린더 일정 일별 조회 오류", error);
@@ -58,7 +57,6 @@ const useHomeStore = create(
       fetchAttendanceData: async (month, day) => {
         try {
           const response = await fetchAttendanceData(month, day);
-          console.log("출퇴근 조회:", response.data);
           set({ attendanceData: response?.data || [] });
         } catch (error) {
           console.error("출퇴근 정보 조회 오류", error);
