@@ -1,4 +1,4 @@
-import { queryOptions } from "@tanstack/react-query";
+import { handleError } from "@/utils/errorHandler";
 import api from "./api";
 
 // 전체 사용자 목록 조회
