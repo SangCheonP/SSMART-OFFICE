@@ -54,4 +54,23 @@ class SeatController(
             data = seatInfo
         )
     }
+
+    @GetMapping("/users/{userId}")
+    fun getSeatByUserId(
+        @Positive @PathVariable userId: Long
+    ): ResponseEntity<CommonResponse<SeatInfoResponse?>> {
+        val seat = seatService.findSeatByUserId(userId)
+        val user = seat?.userId?.let { seatService.getUserInfo(it) }
+
+        if(seat == null) {
+            return CommonResponse.ok(
+                msg = "사용자 좌석 조회에 실패했습니다."
+            )
+        }
+
+        return CommonResponse.ok(
+            msg = "사용자 좌석 조회에 성공했습니다.",
+            data = seatResponseMapper.toSeatInfoResponse(seat, user)
+        )
+    }
 }
