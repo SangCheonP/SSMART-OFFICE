@@ -8,5 +8,4 @@ import java.util.*
 interface ChatRoomJpaRepository :JpaRepository<ChatroomEntity, Long> {
 
     override fun findById(id: Long): Optional<ChatroomEntity>
-
 }
