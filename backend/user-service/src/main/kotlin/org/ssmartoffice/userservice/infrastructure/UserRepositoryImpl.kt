@@ -44,4 +44,8 @@ class UserRepositoryImpl(
     override fun existsByEmail(adminEmail: String): Boolean {
         return userJpaRepository.existsByEmail(adminEmail)
     }
+
+    override fun findUser(keyword: String, pageable: Pageable): Page<User> {
+        return userJpaRepository.findUser(keyword, pageable).map { userEntity -> userEntity.toModel() }
+    }
 }

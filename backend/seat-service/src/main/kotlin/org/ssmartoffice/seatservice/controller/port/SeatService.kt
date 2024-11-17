@@ -10,4 +10,5 @@ interface SeatService {
     fun getSeatStatus(seatId: Long): Seat
     fun getUserInfo(userId: Long): User?
     fun changeSeatStatus(seat: Seat, requestUser: User?, requestStatus: SeatStatus)
+    fun findSeatByUserId(userId: Long): Seat?
 }

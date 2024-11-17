@@ -24,4 +24,8 @@ class SeatRepositoryImpl(
         return seatJpaRepository.existsByUserIdAndIdNot(userId, id)
     }
 
+    override fun findByUserId(userId: Long): Seat? {
+        return seatJpaRepository.findByUserId(userId)?.toModel()
+    }
+
 }
