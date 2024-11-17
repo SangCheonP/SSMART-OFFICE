@@ -40,16 +40,17 @@ const RecentChatList = ({ onChatRoomSelect }) => {
                 className={styles.profile_image}
               />
               <div className={styles.member_info}>
-                <span className={styles.name}>
-                  {memberInfo.name || "알 수 없는 사용자"}
-                </span>
+                <div className={styles.member_profile}>
+                  <span className={styles.position}>{memberInfo.position}</span>
+                  <span className={styles.name}>{memberInfo.name}</span>
+                  <span className={styles.time}>
+                    {chatroom.lastMessageTime
+                      ? new Date(chatroom.lastMessageTime).toLocaleString()
+                      : "시간 정보 없음"}
+                  </span>
+                </div>
                 <span className={styles.last_message}>
                   {chatroom.lastMessage || "없음"}
-                </span>
-                <span className={styles.time}>
-                  {chatroom.lastMessageTime
-                    ? new Date(chatroom.lastMessageTime).toLocaleString()
-                    : "시간 정보 없음"}
                 </span>
               </div>
             </div>

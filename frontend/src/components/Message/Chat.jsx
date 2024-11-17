@@ -24,7 +24,7 @@ const Chat = ({ selectedMember }) => {
 
   useEffect(() => {
     if (selectedMember) {
-      createAndSubscribeToChatRoom(selectedMember.userId); // userId 전달
+      createAndSubscribeToChatRoom(selectedMember.userId);
     }
   }, [selectedMember, createAndSubscribeToChatRoom]);
 
@@ -33,13 +33,10 @@ const Chat = ({ selectedMember }) => {
     const message = {
       content: messageContent,
       createdAt: new Date().toISOString(),
-      userId: currentUserId, // 현재 사용자 ID
+      userId: currentUserId,
     };
 
-    // 상태에 메시지 추가 (렌더링되지 않았을 때도 오른쪽에 위치)
     addMessage(message);
-
-    // 서버로 메시지 전송
     sendMessage(messageContent);
   };
 
@@ -49,10 +46,10 @@ const Chat = ({ selectedMember }) => {
         {selectedMember && (
           <div className={styles.member_card}>
             <img
-              src={selectedMember.profileImageUrl || "/default-profile.png"} // 선택된 멤버의 프로필 URL
+              src={selectedMember.profileImageUrl || "/default-profile.png"}
               alt={`${selectedMember.name || "알 수 없는 사용자"}'s profile`}
               className={styles.profile_image}
-              onError={(e) => (e.target.src = "/default-profile.png")} // 이미지 로드 실패 시 기본 이미지 표시
+              onError={(e) => (e.target.src = "/default-profile.png")}
             />
             <div>
               <div className={styles.member_info}>
@@ -72,7 +69,6 @@ const Chat = ({ selectedMember }) => {
             </div>
           </div>
         )}
-        {/* 채팅 메시지 영역 */}
         <div className={styles.chat_messages}>
           {messages
             .slice()
@@ -82,15 +78,15 @@ const Chat = ({ selectedMember }) => {
                 key={index}
                 message={message.content}
                 createdTime={message.createdAt || Date.now()}
-                isSender={message.userId === currentUserId} // userId 비교
+                isSender={message.userId === currentUserId}
                 profileImageUrl={
                   message.userId === currentUserId
-                    ? currentProfileImageUrl || "/default-profile.png" // 현재 사용자 프로필
-                    : selectedMember.profileImageUrl || "/default-user.png" // 선택된 멤버 프로필
+                    ? currentProfileImageUrl || "/default-profile.png"
+                    : selectedMember.profileImageUrl || "/default-user.png"
                 }
               />
             ))}
-          {/* 입력창 */}
+          <div></div>
           <MessageBox onSendMessage={handleSendMessage} />
         </div>
       </div>

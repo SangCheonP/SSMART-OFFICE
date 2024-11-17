@@ -21,7 +21,12 @@
   padding: 15px;
   display: flex;
   align-items: center;
+  background-color: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
+
 .member_info {
   display: flex;
   align-items: center;
