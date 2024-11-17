@@ -45,10 +45,10 @@ const GoogleLogin = () => {
     }
   }, [location.search, setAuth, navigate]);
   return (
-    <button onClick={handleGoogleLogin} className={styles.button}>
+    <div onClick={handleGoogleLogin} className={styles.button}>
       <GoogleIcon />
       Google로 로그인
-    </button>
+    </div>
   );
 };
 

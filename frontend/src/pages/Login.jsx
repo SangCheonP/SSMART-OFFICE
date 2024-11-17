@@ -32,7 +32,7 @@ const Login = () => {
       </div>
       <div className={styles.right}>
         <div className={styles.title}>Log In</div>
-        <div onSubmit={handleLogin} className={styles.box}>
+        <form onSubmit={handleLogin} className={styles.box}>
           <input
             type="email"
             name="email"
@@ -55,7 +55,7 @@ const Login = () => {
             </button>
             <GoogleLogin />
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );
