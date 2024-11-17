@@ -24,14 +24,14 @@ class PointServiceImpl(
     }
 
     override fun getMyPointBalance(userId: Long): Int {
-        return pointHistoryRepository.findTop1ByUserIdOrderByCreatedDateTimeDesc(userId).balance
+        return pointHistoryRepository.findTop1ByUserIdOrderByCreatedDateTimeDesc(userId)
+            ?.balance ?: 0
     }
 
     override fun createTransaction(userId: Long, transaction: Transaction): PointHistory {
         val balance = getMyPointBalance(userId)
         val pointHistory = PointHistory.createPointHistory(transaction, balance, userId)
-        pointHistoryRepository.save(pointHistory)
-        return pointHistory
+        return pointHistoryRepository.save(pointHistory)
     }
 
 }
