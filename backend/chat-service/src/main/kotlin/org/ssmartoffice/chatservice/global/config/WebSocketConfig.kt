@@ -22,7 +22,6 @@ class WebSocketConfig(
     override fun registerStompEndpoints(registry: StompEndpointRegistry) {
         registry.addEndpoint("/api/v1/chats/ws")
             .setAllowedOriginPatterns("*")
-            .withSockJS()
     }
 
     override fun configureClientInboundChannel(registration: ChannelRegistration) {
