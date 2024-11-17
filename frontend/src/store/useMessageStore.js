@@ -61,8 +61,6 @@ const useMessageStore = create((set, get) => ({
       }
 
       const destination = `/api/v1/chats/ws/app/${chatRoomId}`;
-      console.log("메시지를 보낼 경로:", destination);
-      console.log("전송할 메시지 내용:", messageContent);
 
       await messageApi.sendMessage(destination, {
         type: "TEXT",

@@ -9,18 +9,12 @@ import useMyInfoStore from "@/store/useMyInfoStore";
 const Chat = ({ selectedMember }) => {
   const { messages, createAndSubscribeToChatRoom, sendMessage, addMessage } =
     useMessageStore();
-  const { memberData } = useAttendanceStore();
 
   // 현재 사용자 정보 가져오기
   const {
     employeeNumber: currentEmployeeNumber,
     profileImageUrl: currentProfileImageUrl,
   } = useMyInfoStore();
-
-  // 현재 사용자 userId 가져오기
-  const currentUserId = memberData.find(
-    (member) => member.employeeNumber === currentEmployeeNumber
-  )?.userId;
 
   useEffect(() => {
     if (selectedMember) {
@@ -33,9 +27,8 @@ const Chat = ({ selectedMember }) => {
     const message = {
       content: messageContent,
       createdAt: new Date().toISOString(),
-      userId: currentUserId,
+      userId: currentEmployeeNumber,
     };
-
     addMessage(message);
     sendMessage(messageContent);
   };
@@ -78,11 +71,11 @@ const Chat = ({ selectedMember }) => {
                 key={index}
                 message={message.content}
                 createdTime={message.createdAt || Date.now()}
-                isSender={message.userId === currentUserId}
+                isSender={message.userId !== selectedMember.userId}
                 profileImageUrl={
-                  message.userId === currentUserId
-                    ? currentProfileImageUrl || "/default-profile.png"
-                    : selectedMember.profileImageUrl || "/default-user.png"
+                  message.userId === selectedMember.userId
+                    ? selectedMember.profileImageUrl || "/default-user.png"
+                    : currentProfileImageUrl || "/default-profile.png"
                 }
               />
             ))}

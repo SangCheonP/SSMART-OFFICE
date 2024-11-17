@@ -7,6 +7,7 @@ import {
   fetchFindUser,
   fetchUserSeats,
 } from "@/services/attendanceApi";
+import useMyInfoStore from "./useMyInfoStore";
 
 const useAttendanceStore = create(
   persist(
@@ -23,15 +24,27 @@ const useAttendanceStore = create(
       fetchUserList: async () => {
         try {
           const response = await fetchUserList();
-          set({ memberData: response.data.data.content });
+          const allMembers = response.data.data.content;
+
+          // 현재 로그인한 사용자 정보 가져오기
+          const { employeeNumber } = useMyInfoStore.getState();
+
+          // 현재 로그인한 사용자를 제외한 목록 필터링
+          const filteredMembers = allMembers.filter(
+            (member) => member.employeeNumber !== employeeNumber
+          );
+
+          // 필터링된 데이터 저장
+          set({ memberData: filteredMembers });
           console.log(
-            "전체 사용자 목록 조회 성공:",
-            response.data.data.content
+            "로그인한 유저 제외한 사용자 목록 조회 성공:",
+            filteredMembers
           );
         } catch (error) {
           console.error("사용자 데이터를 가져오는 중 오류 발생:", error);
         }
       },
+
       // 사원 일정 일별 조회
       fetchUserTodo: async (userId, month, day) => {
         try {
