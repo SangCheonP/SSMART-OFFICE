@@ -30,7 +30,7 @@ const Chat = ({ selectedMember }) => {
       createdAt: new Date().toISOString(),
       userId: userId,
     };
-    addMessage(message);
+    // addMessage(message);
     sendMessage(messageContent);
   };
 
