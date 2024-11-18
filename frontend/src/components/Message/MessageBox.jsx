@@ -1,11 +1,13 @@
 import React, { useRef, useCallback } from "react";
 import styles from "@/styles/Message/Chat.module.css";
 import File from "@/assets/Message/AddFile.svg?react";
+import { updateImageFile } from "@/services/fileAPI";
 
 const MessageBox = ({ placeholder = "메시지를 입력하세요", onSendMessage }) => {
   const textareaRef = useRef(null);
   const inputRef = useRef(null);
   const [inputMessage, setInputMessage] = React.useState("");
+  const [isUploading, setIsUploading] = React.useState(false);
   const SUPPORTED_FORMATS = [
     "image/jpeg",
     "image/png",
@@ -41,10 +43,12 @@ const MessageBox = ({ placeholder = "메시지를 입력하세요", onSendMessag
       }
     }
   };
-  const onUploadImage = useCallback(async (event) => {
-    const file = event.target.files[0];
-    const MAX_FILE_SIZE = 5 * 1024 * 1024;
-    if (file) {
+  const onUploadImage = useCallback(
+    async (event) => {
+      const file = event.target.files[0];
+      const MAX_FILE_SIZE = 5 * 1024 * 1024;
+      if (!file) return;
+      // 파일 크기 및 형식 검증
       if (file.size > MAX_FILE_SIZE) {
         alert("파일 크기는 5MB를 초과할 수 없습니다.");
         return;
@@ -54,31 +58,28 @@ const MessageBox = ({ placeholder = "메시지를 입력하세요", onSendMessag
         return;
       }
 
-      const formData = new FormData();
-      formData.append("file", file);
-
-      // TODO api url로 바꾸기
+      // 업로드 시작
+      setIsUploading(true);
       try {
-        const response = await fetch(
-          "http://localhost:8080/api/v1/upload-file",
-          {
-            method: "POST",
-            body: formData,
-          }
-        );
-        const result = await response.json();
-        if (result.status === 200) {
-          console.log("파일 업로드 성공:", result.data.fileUrl);
+        const response = await updateImageFile(file);
+        const fileUrl = response?.data?.fileUrl;
+        if (fileUrl) {
+          // 파일 업로드 성공 시 메시지 전송
+          const messageWithFile = `[파일 업로드] ${fileUrl}`;
+          onSendMessage(messageWithFile);
+          console.log("파일 업로드 성공:", fileUrl);
         } else {
-          console.error("파일 업로드 실패:", result.msg);
           alert("파일 업로드에 실패했습니다.");
         }
       } catch (error) {
         console.error("파일 업로드 에러:", error);
         alert("파일 업로드 중 오류가 발생했습니다.");
+      } finally {
+        setIsUploading(false);
       }
-    }
-  }, []);
+    },
+    [onSendMessage]
+  );
 
   const onFileIconClick = () => {
     inputRef.current.click();
@@ -98,13 +99,17 @@ const MessageBox = ({ placeholder = "메시지를 입력하세요", onSendMessag
       <File className={styles.file_icon} onClick={onFileIconClick} />
       <input
         type="file"
-        accept="image/*"
+        accept="image/*,.ppt,.pptx,.doc,.docx,.hwp"
         ref={inputRef}
         style={{ display: "none" }}
         onChange={onUploadImage}
       />
-      <button className={styles.send_button} onClick={handleSendMessage}>
-        전송
+      <button
+        className={styles.send_button}
+        onClick={handleSendMessage}
+        disabled={isUploading}
+      >
+        {isUploading ? "업로드 중..." : "전송"}
       </button>
     </div>
   );
