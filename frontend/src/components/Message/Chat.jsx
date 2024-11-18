@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "@/styles/Message/Chat.module.css";
 import ChatBalloon from "./ChatBalloon";
 import MessageBox from "./MessageBox";
@@ -72,7 +72,7 @@ const Chat = ({ selectedMember }) => {
             </div>
           </div>
         )}
-        <div className={styles.chat_messages}>
+        <div className={styles.chat_messages} ref={chatMessagesRef}>
           {messages
             .slice()
             .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
