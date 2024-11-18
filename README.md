@@ -129,12 +129,12 @@
 
 ### 피그마 화면 정의서
 
-![figma1](./README_ASSETS/figma1.PNG)
-![figma1](./README_ASSETS/figma2.PNG)
-![figma1](./README_ASSETS/figma3.PNG)
-![figma1](./README_ASSETS/figma4.PNG)
-![figma1](./README_ASSETS/figma5.PNG)
-![figma1](./README_ASSETS/figma6.PNG)
+![figma1](./README_ASSETS/figma1.png)
+![figma1](./README_ASSETS/figma2.png)
+![figma1](./README_ASSETS/figma3.png)
+![figma1](./README_ASSETS/figma4.png)
+![figma1](./README_ASSETS/figma5.png)
+![figma1](./README_ASSETS/figma6.png)
 
 ### ERD
 
