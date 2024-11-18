@@ -6,7 +6,7 @@ import Chat from "@/components/Message/Chat";
 import SearchBar from "@/components/common/SearchBar";
 import useAttendanceStore from "@/store/useAttendanceStore";
 
-function Message() {
+const Message = () => {
   const [selectedMember, setSelectedMember] = useState(null);
   const [selectedChatRoomId, setSelectedChatRoomId] = useState(null);
   const [view, setView] = useState("memberList");
@@ -23,22 +23,24 @@ function Message() {
 
   const handleMemberSelect = (userId) => {
     const selected = memberData.find((member) => member.userId === userId);
-    setSelectedMember(selected); // 선택된 멤버 설정
+    setSelectedMember(selected);
   };
   const handleChatRoomSelect = (chatRoomId, chatRoomMemberId) => {
-    setSelectedChatRoomId(chatRoomId); // 선택된 채팅방 ID 설정
+    setSelectedChatRoomId(chatRoomId);
     const memberInfo = memberData.find(
       (member) => member.userId === chatRoomMemberId
     );
-    setSelectedMember(memberInfo || null); // 선택된 멤버 정보 설정
+    setSelectedMember(memberInfo || null);
   };
 
   // 검색어 처리
   const handleSearch = async (query) => {
+    const { clearSearchResults } = useAttendanceStore.getState();
     if (query.trim() === "") {
-      await fetchUserList(); // 검색어가 비어 있으면 기본 데이터 로드
+      clearSearchResults();
+      await fetchUserList();
     } else {
-      await fetchFindUser(query); // 검색어가 있으면 검색 API 호출
+      await fetchFindUser(query);
     }
   };
 
@@ -68,7 +70,6 @@ function Message() {
               최신 메시지
             </button>
           </div>
-          {/* 검색 바에 handleSearch 전달 */}
           <SearchBar onSearch={handleSearch} />
           {view === "recentMessages" && (
             <RecentChatList onChatRoomSelect={handleChatRoomSelect} />
@@ -82,10 +83,9 @@ function Message() {
         </div>
       </div>
 
-      {/* 선택된 사원이 있을 경우 채팅 창 표시 */}
       {selectedMember && <Chat selectedMember={selectedMember} />}
     </div>
   );
-}
+};
 
 export default Message;
