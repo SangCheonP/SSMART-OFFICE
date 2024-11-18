@@ -35,7 +35,7 @@ const messageApi = (() => {
     }
 
     client = new Client({
-      brokerURL: "ws://k11b202.p.ssafy.io:8080/api/v1/chats/ws",
+      brokerURL: "wss://k11b202.p.ssafy.io:8080/api/v1/chats/ws",
       connectHeaders: {
         Authorization: accessToken,
       },
