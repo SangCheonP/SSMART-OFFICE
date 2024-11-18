@@ -1,10 +1,11 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import Profile from "@/assets/Common/Profile.png";
 
 import styles from "@/styles/ImageUpload.module.css";
+import PropTypes from "prop-types";
 
-const ImageUpload = () => {
+const ImageUpload = ({ onImageSelect, classNameValue, defaultImage }) => {
   const [image, setImage] = useState(null);
   const fileInputRef = useRef(null);
 
@@ -14,6 +15,8 @@ const ImageUpload = () => {
       const reader = new FileReader();
       reader.onload = (e) => setImage(e.target.result);
       reader.readAsDataURL(file);
+
+      onImageSelect(file);
     }
   };
 
@@ -22,9 +25,12 @@ const ImageUpload = () => {
       fileInputRef.current.click();
     }
   };
+  useEffect(() => {
+    setImage(defaultImage);
+  }, [defaultImage]);
 
   return (
-    <div onClick={handleImageClick}>
+    <div onClick={handleImageClick} className={classNameValue}>
       <img
         src={image ? image : Profile}
         alt="클릭하여 파일 선택"
@@ -39,6 +45,12 @@ const ImageUpload = () => {
       />
     </div>
   );
+};
+
+ImageUpload.propTypes = {
+  onImageSelect: PropTypes.file,
+  classNameValue: PropTypes.string,
+  defaultImage: PropTypes.string,
 };
 
 export default ImageUpload;

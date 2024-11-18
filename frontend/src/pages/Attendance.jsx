@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import MemberList from "@/components/Message/MemberList";
+import MemberList from "@/components/Attendance/AttendanceMemberList";
 import styles from "@/styles/Attendance/Member.module.css";
 import AddMember from "@/assets/Message/AddMember.svg?react";
 import SearchBar from "@/components/common/SearchBar";
@@ -9,7 +9,7 @@ import { fetchUserAttendance, fetchUserList } from "@/services/attendanceApi";
 import AddMemberModal from "@/components/Modals/AddMemberModal";
 import useModalStore from "@/store/useModalStore";
 import { isSameDay } from "date-fns";
-import TodoList from "@/components/Todo/TodoList";
+import TodoList from "@/components/Attendance/AttendanceTodoList";
 
 const Attendance = () => {
   const openModal = useModalStore((state) => state.openModal);

@@ -1,8 +1,9 @@
 .header {
-  margin: 40px 0 0 68px;
   display: flex;
   align-items: center;
+  margin: 40px auto 0;
   justify-content: space-between;
+  width: 90%;
 }
 .leftSection {
   display: flex;
@@ -31,10 +32,10 @@
 }
 .userCardContainer {
   position: relative;
+  display: flex;
 }
 .userInfo {
   display: flex;
-  margin-right: 45px;
   cursor: pointer;
 }
 .info {
@@ -66,7 +67,7 @@
   border-radius: 8px;
   overflow: hidden;
   z-index: 1000;
-  margin-right: 45px;
+  /* margin-right: 45px; */
 }
 .menuItem {
   padding: 10px 20px;
@@ -78,4 +79,10 @@
 
 .menuItem:hover {
   background-color: #f0f0f0;
+}
+
+.profileImage {
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
 }

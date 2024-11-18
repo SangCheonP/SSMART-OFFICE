@@ -9,5 +9,7 @@ interface SeatRepository {
     fun findAllByFloor(floor: Int): List<Seat>
     fun findById(id: Long): Seat
     fun save(seat: Seat)
-    fun existsByUserIdAndStatus(userId: Long, status: SeatStatus): Boolean
+    fun existsByUserIdAndIdNot(userId: Long, id: Long): Boolean
+
+    fun findByUserId(userId: Long): Seat?
 }

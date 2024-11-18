@@ -2,11 +2,36 @@
   margin: 25px 67px 0 67px;
   display: flex;
 }
-
+.list_box {
+  flex-direction: column;
+}
+.button_list {
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+  margin-bottom: 30px;
+}
+.active_button {
+  width: 15vw;
+  border: none;
+  color: var(--text-blue);
+  border-bottom: 2.5px solid var(--blue);
+  font-size: 14px;
+  font-weight: 600;
+  padding-bottom: 10px;
+  background-color: transparent;
+}
+.inactive_button {
+  color: var(--text-description);
+  font-size: 14px;
+  width: 15vw;
+  border: none;
+  background-color: transparent;
+}
 .member_box {
   position: relative;
-  width: 30vw;
-  height: 80vh;
+  width: 32vw;
+  height: auto;
   background-color: white;
   border-radius: 10px;
   padding: 35px;
@@ -43,12 +68,15 @@
   display: flex;
   flex-direction: column;
   margin-left: 38px;
+  flex: 1;
 }
 .member_profile {
   display: flex;
   margin-bottom: 9px;
   align-items: center;
+  justify-content: space-between;
 }
+
 .position {
   color: #104def;
   margin-right: 10px;
@@ -99,4 +127,15 @@
 }
 .search_icon {
   margin-right: 10px;
+}
+.time {
+  color: var(--text-description);
+  font-size: 12px;
+  /* margin-left: 50px; */
+}
+.last_message {
+  color: gray;
+  margin-top: 5px;
+  /* margin-left: 10px; */
+  font-size: 15px;
 }

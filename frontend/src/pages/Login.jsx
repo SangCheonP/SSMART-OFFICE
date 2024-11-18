@@ -3,6 +3,7 @@ import Icon from "@/assets/Login/LoginImage.svg?react";
 import api from "@/services/api";
 import useAuthStore from "@/store/useAuthStore";
 import axios from "axios";
+import { handleError } from "@/utils/errorHandler";
 
 import styles from "@/styles/Login/Login.module.css";
 import GoogleLogin from "@/components/Login/GoogleLogin";
@@ -20,7 +21,7 @@ const Login = () => {
     try {
       await setLogin(email, password, navigate);
     } catch (error) {
-      console.log("로그인 실패 : " + error);
+      handleError(error);
     }
   };
 
@@ -31,7 +32,7 @@ const Login = () => {
       </div>
       <div className={styles.right}>
         <div className={styles.title}>Log In</div>
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleLogin} className={styles.box}>
           <input
             type="email"
             name="email"
@@ -40,7 +41,6 @@ const Login = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <br />
           <input
             type="password"
             name="password"

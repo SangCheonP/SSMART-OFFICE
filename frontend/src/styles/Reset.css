@@ -132,6 +132,7 @@ html,
 body {
   height: 100%;
   background-color: #f5f6fa;
+  font-family: "Noto Sans KR", sans-serif;
 }
 
 :root {
@@ -143,4 +144,10 @@ body {
   --text-description: #a0a0a0;
   --text-placeholder: #cccccc;
   --text-gray: #e8e8e8;
+  --hover: #3a5ebf;
+  --whitehover: #eee;
+}
+
+div::-webkit-scrollbar {
+  display: none;
 }

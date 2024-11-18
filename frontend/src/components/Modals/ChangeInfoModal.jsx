@@ -8,17 +8,38 @@ import useMyInfoStore from "@/store/useMyInfoStore";
 import { useState } from "react";
 import { updateTelNumber } from "@/services/myInfoAPI";
 
+import { handleSuccess } from "@/utils/successHandler";
+import Swal from "sweetalert2";
+
 const ChangeInfoModal = ({ onSubmit, onClose }) => {
   const updatePhoneNumber = useMyInfoStore((state) => state.updatePhoneNumber);
   const { name, email, phoneNumber } = useMyInfoStore();
   const [telNumber, setTelNumber] = useState(phoneNumber);
 
-  // 입력된 값을 3-4-4 형식으로 포맷팅
   const formatPhoneNumber = (value) => {
-    const digits = value.replace(/\D/g, "");
+    const digits = value.replace(/\D/g, ""); // 숫자만 추출
+    if (digits.length <= 3) {
+      return digits;
+    }
 
-    if (digits.length <= 3) return digits;
-    if (digits.length <= 7) return `${digits.slice(0, 3)}-${digits.slice(3)}`;
+    if (digits.length <= 7) {
+      return `${digits.slice(0, 3)}-${digits.slice(3)}`;
+    }
+
+    if (digits.length === 10) {
+      // 10자리: 010-XXX-XXXX
+      return `${digits.slice(0, 3)}-${digits.slice(3, 6)}-${digits.slice(
+        6,
+        10
+      )}`;
+    }
+    if (digits.length === 11) {
+      // 11자리: 010-XXXX-XXXX
+      return `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(
+        7,
+        11
+      )}`;
+    }
     return `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(7, 11)}`;
   };
 
@@ -29,9 +50,21 @@ const ChangeInfoModal = ({ onSubmit, onClose }) => {
   };
 
   // 변경 버튼
-  const handleClickSubmit = () => {
+  const handleClickSubmit = async () => {
+    const digits = telNumber.replace(/\D/g, "");
+    if (digits.length < 10 || digits.length > 11) {
+      Swal.fire({
+        icon: "error",
+        title: "연락처 입력 오류",
+        showConfirmButton: false,
+        timer: 1500,
+        text: "연락처는 10자 이상의 숫자만 입력가능합니다.",
+      });
+      return;
+    }
+    await updateTelNumber(telNumber);
     updatePhoneNumber(telNumber);
-    updateTelNumber(telNumber);
+    handleSuccess("개인정보 수정 성공!");
     onSubmit();
   };
 

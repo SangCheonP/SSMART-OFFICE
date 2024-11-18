@@ -10,6 +10,7 @@
   border-bottom-left-radius: 10px;
   display: flex;
   flex-direction: column;
+  z-index: 1000;
 }
 
 .contentWrapper {
@@ -68,8 +69,13 @@
   margin-top: 10px;
 }
 .todoItem {
-  padding: 15px;
+  padding: 20px;
   border-bottom: 1px solid #a0a0a050;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
 }
 .todoItem label {
   display: flex;
@@ -83,6 +89,12 @@
 .labelText {
   font-size: 15px;
 }
+.description_text {
+  color: var(--text-description);
+  margin-right: 20px;
+  font-size: 13px;
+  margin-left: 28px;
+}
 .add_todo {
   background-color: var(--blue);
   height: 65px;
@@ -90,9 +102,10 @@
   border: none;
   border-radius: 13px;
   cursor: pointer;
-  position: fixed;
   top: 80%;
+  margin-top: 30px;
 }
+
 .add_inner {
   margin-left: 1vw;
   display: flex;

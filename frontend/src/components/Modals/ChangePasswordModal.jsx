@@ -7,23 +7,45 @@ import styles from "@/styles/Modals/ChangePasswordModal.module.css";
 import { useState } from "react";
 import { updatePassword } from "@/services/myInfoAPI";
 
+import { handleError } from "@/utils/errorHandler";
+import { handleSuccess } from "@/utils/successHandler";
+import Swal from "sweetalert2";
+
 const ChangePasswordModal = ({ onSubmit, onClose }) => {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("");
 
   const handleClickSubmit = async () => {
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,20}$/;
+    if (!passwordRegex.test(newPassword)) {
+      Swal.fire({
+        icon: "error",
+        title: "비밀번호 입력 오류",
+        showConfirmButton: false,
+        timer: 2000,
+        text: "비밀번호는 4-20자 이내의 영문 숫자 조합이어야 합니다.",
+      });
+      return;
+    }
     if (newPassword !== confirmPassword) {
-      setError("비밀번호가 일치하지 않습니다.");
+      Swal.fire({
+        icon: "error",
+        title: "비밀번호 불일치",
+        showConfirmButton: false,
+        timer: 2000,
+        text: "비밀번호가 일치하지 않습니다.",
+      });
       return;
     }
     try {
-      await updatePassword(currentPassword, newPassword);
-      onSubmit();
-      // onClose();
+      const response = await updatePassword(currentPassword, newPassword);
+      if (response.status === 200) {
+        handleSuccess("비밀번호 변경 성공하였습니다.");
+        onSubmit();
+      }
     } catch (e) {
-      setError(e.message);
+      handleError(e);
     }
   };
 

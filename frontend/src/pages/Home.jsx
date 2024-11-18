@@ -17,45 +17,35 @@ const Home = () => {
 
   useEffect(() => {
     const today = new Date();
-    const month = "202412";
-    const day = "31";
+    const month = today.getFullYear() * 100 + (today.getMonth() + 1);
+    fetchCalendarData(month);
 
     // 캘린더 데이터 조회
-    fetchCalendarData(month);
+    const day = today.getDate();
     fetchTodoData(month, day);
-    fetchAttendanceData(month, day);
-
-    console.log("Fetched Attendance Data:", attendanceData); // 디버깅 확인용
+    fetchAttendanceData(month);
   }, [fetchCalendarData, fetchTodoData, fetchAttendanceData]);
 
+  useEffect(() => {}, [calendarData, todoData, attendanceData]);
+
   const handleDateSelect = (date) => {
-    setSelectedDate(date);
+    const selected = new Date(date);
+    setSelectedDate(selected);
     const month = date.getFullYear() * 100 + (date.getMonth() + 1);
-    const day = date.getDate();
+    const day = date.getDate().toString().padStart(2, "0");
     fetchTodoData(month, day);
-    fetchAttendanceData(month, day); // 선택한 날짜의 출퇴근 정보 조회
   };
   return (
     <div className={styles.home}>
       <div className={styles.calendar}>
         <MyCalendar
-          monthData={
-            Array.isArray(calendarData?.data?.attendances)
-              ? calendarData.data.attendances
-              : []
-          }
-          attendanceData={
-            Array.isArray(attendanceData?.data) ? attendanceData.data : []
-          }
+          monthData={calendarData.data || []}
+          attendanceData={attendanceData.data || []}
           onDateSelect={handleDateSelect}
         />
       </div>
       <div>
-        <Todo
-          selectedDate={selectedDate}
-          monthData={calendarData?.data?.attendances || []}
-          todoData={todoData || []}
-        />
+        <Todo selectedDate={selectedDate} todoData={todoData || { data: [] }} />
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import io.github.oshai.kotlinlogging.KotlinLogging
 import jakarta.validation.Valid
 import jakarta.validation.constraints.Positive
 import org.springframework.http.ResponseEntity
+import org.springframework.security.core.Authentication
 import org.springframework.web.bind.annotation.*
 import org.ssmartoffice.seatservice.controller.port.SeatService
 import org.ssmartoffice.seatservice.controller.request.SeatUpdateRequest
@@ -36,17 +37,40 @@ class SeatController(
         )
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/{seatId}")
     fun changeSeatStatus(
-        @Positive @PathVariable id: Long,
+        @Positive @PathVariable seatId: Long,
         @Valid @RequestBody seatUpdateRequest: SeatUpdateRequest,
+        authentication: Authentication
     ): ResponseEntity<CommonResponse<SeatInfoResponse?>> {
-        val seat = seatService.changeSeatStatus(id, seatUpdateRequest)
-        val user = seatService.getUserAtSeat(seat).takeIf { seat.status.isActive() }
+        val userId = authentication.principal as Long
+        val seat = seatService.getSeatStatus(seatId)
+        val user = seat.takeIf { seatUpdateRequest.status.isActive() }
+            ?.let { runCatching { seatService.getUserInfo(userId) }.getOrNull() }
+        seatService.changeSeatStatus(seat, user, seatUpdateRequest.status)
         val seatInfo = seatResponseMapper.toSeatInfoResponse(seat, user)
         return CommonResponse.ok(
             msg = "좌석 상태 업데이트에 성공했습니다.",
             data = seatInfo
+        )
+    }
+
+    @GetMapping("/users/{userId}")
+    fun getSeatByUserId(
+        @Positive @PathVariable userId: Long
+    ): ResponseEntity<CommonResponse<SeatInfoResponse?>> {
+        val seat = seatService.findSeatByUserId(userId)
+        val user = seat?.userId?.let { seatService.getUserInfo(it) }
+
+        if(seat == null) {
+            return CommonResponse.ok(
+                msg = "사용자 좌석 조회에 실패했습니다."
+            )
+        }
+
+        return CommonResponse.ok(
+            msg = "사용자 좌석 조회에 성공했습니다.",
+            data = seatResponseMapper.toSeatInfoResponse(seat, user)
         )
     }
 }

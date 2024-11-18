@@ -1,0 +1,72 @@
+.member_list {
+  display: flex;
+  flex-direction: column;
+}
+.member_card {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background-color: white;
+  cursor: pointer;
+  border-bottom: 1px solid #a0a0a060;
+  transition: background-color 0.3s ease;
+}
+.member_card:hover {
+  background-color: #f0f0f0;
+}
+.selected_card {
+  background-color: #f5f6fa;
+}
+.profile_image {
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  box-shadow: 0px 4px 10px 3px #ededed;
+  margin-right: 10px;
+}
+.member_info {
+  display: flex;
+  flex-direction: column;
+  margin-left: 38px;
+}
+.member_profile {
+  display: flex;
+  margin-bottom: 9px;
+  align-items: center;
+}
+.position {
+  color: #104def;
+  margin-right: 10px;
+  font-size: 16px;
+}
+.name {
+  font-weight: 500;
+  margin-right: 10px;
+  font-size: 20px;
+}
+.status {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.status.active {
+  background-color: #22d761;
+}
+
+.status.inactive {
+  background-color: var(--text-description);
+}
+.duty {
+  font-size: 14px;
+  color: #404040;
+}
+.location {
+  font-size: 14px;
+  margin-top: 9px;
+  color: #404040;
+}
+.editMember {
+  flex: 1;
+  text-align: end;
+  color: rgba(0, 0, 0, 0.5);
+}

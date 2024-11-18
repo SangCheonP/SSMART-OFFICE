@@ -3,6 +3,8 @@ import axios from "axios";
 import useAuthStore from "@/store/useAuthStore";
 import useMyInfoStore from "@/store/useMyInfoStore";
 import { fetchMyInfo } from "@/services/myInfoAPI";
+import { handleError } from "@/utils/errorHandler";
+import { handleSuccess } from "@/utils/successHandler";
 
 const BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
@@ -19,11 +21,11 @@ export const setLogin = async (email, password, navigate) => {
       setAuth(accessToken);
 
       await fetchMyInfo();
-
+      handleSuccess("로그인 성공!");
       navigate("/", { replace: true });
     }
-  } catch (error) {
-    console.error("Login failed:", error);
+  } catch (e) {
+    handleError(e);
   }
 };
 
@@ -37,7 +39,7 @@ export const setLogout = async (clearAuth, navigate) => {
       clearMyInfoData();
       navigate("/login", { replace: true });
     }
-  } catch (error) {
-    console.error("Logout failed:", error);
+  } catch (e) {
+    handleError(e);
   }
 };

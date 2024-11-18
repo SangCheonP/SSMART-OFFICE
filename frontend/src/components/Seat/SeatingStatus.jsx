@@ -45,9 +45,9 @@ const SeatingStatus = memo(({ floor, seats, totalNumber }) => {
             <div key={seatNumber} className={`${styles.seat} ${statusClass}`}>
               {seatData?.userId ? (
                 <div className={styles.box}>
-                  <div className={styles.role}>{seatData?.role}</div>
+                  <div className={styles.role}>{seatData?.userPosition}</div>
                   <div className={styles.positionName}>
-                    {seatData?.position} {seatData?.name}
+                    {seatData?.userDuty} {seatData?.userName}
                   </div>
                 </div>
               ) : (
