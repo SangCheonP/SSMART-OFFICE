@@ -2,8 +2,6 @@ import React from "react";
 import styles from "@/styles/Message/ChatBalloon.module.css";
 
 const ChatBalloon = ({ message, createdTime, isSender, profileImageUrl }) => {
-  console.log("[디버깅] isSender 값:", isSender);
-
   const formatTime = (time) => {
     const date = new Date(time);
     return `${date.getHours()}:${String(date.getMinutes()).padStart(2, "0")}`;

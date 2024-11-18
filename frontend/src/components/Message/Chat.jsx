@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "@/styles/Message/Chat.module.css";
 import ChatBalloon from "./ChatBalloon";
 import MessageBox from "./MessageBox";
@@ -7,6 +7,7 @@ import useAttendanceStore from "@/store/useAttendanceStore";
 import useMyInfoStore from "@/store/useMyInfoStore";
 
 const Chat = ({ selectedMember }) => {
+  const chatMessagesRef = useRef();
   const { messages, createAndSubscribeToChatRoom, sendMessage, addMessage } =
     useMessageStore();
 
@@ -32,6 +33,12 @@ const Chat = ({ selectedMember }) => {
     addMessage(message);
     sendMessage(messageContent);
   };
+
+  useEffect(() => {
+    if (chatMessagesRef.current) {
+      chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   const seatInfo =
     memberSeats[selectedMember?.userId]?.info || "좌석 정보 없음";
@@ -65,7 +72,7 @@ const Chat = ({ selectedMember }) => {
             </div>
           </div>
         )}
-        <div className={styles.chat_messages}>
+        <div className={styles.chat_messages} ref={chatMessagesRef}>
           {messages
             .slice()
             .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))

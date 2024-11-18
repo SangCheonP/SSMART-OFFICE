@@ -2,17 +2,19 @@ import { Client } from "@stomp/stompjs";
 import api from "./api";
 
 const messageApi = (() => {
+  let client;
+
   const getAccessToken = () => {
     const authData = localStorage.getItem("auth");
     if (!authData) {
       console.error(
         "Authorization 토큰 없음: localStorage에 'auth' 데이터가 없습니다."
       );
-      return "";
+      return null;
     }
 
     try {
-      const accessToken = JSON.parse(authData)?.state?.accessToken || "";
+      const accessToken = JSON.parse(authData)?.state?.accessToken || null;
       if (!accessToken) {
         console.error(
           "Authorization 토큰 없음: 'auth.state.accessToken'가 비어 있습니다."
@@ -21,49 +23,69 @@ const messageApi = (() => {
       return accessToken;
     } catch (error) {
       console.error("Authorization 토큰 파싱 에러:", error);
-      return "";
+      return null;
     }
   };
 
-  const accessToken = getAccessToken();
+  const initializeStompClient = () => {
+    const accessToken = getAccessToken();
+    if (!accessToken) {
+      console.error("STOMP 클라이언트 초기화 실패: 유효하지 않은 토큰.");
+      return null;
+    }
 
-  const client = new Client({
-    brokerURL: "ws://k11b202.p.ssafy.io:8080/api/v1/chats/ws",
-    connectHeaders: {
-      Authorization: accessToken,
-    },
-    reconnectDelay: 5000,
-    debug: (str) => console.log(str),
-  });
+    client = new Client({
+      brokerURL: "ws://k11b202.p.ssafy.io:8080/api/v1/chats/ws",
+      connectHeaders: {
+        Authorization: accessToken,
+      },
+      reconnectDelay: 5000,
+      debug: (str) => console.log(str),
+    });
 
-  // STOMP 연결 이벤트 핸들러
-  client.onConnect = () => {
-    console.log("STOMP 연결 성공");
+    // STOMP 연결 이벤트 핸들러
+    client.onConnect = () => {
+      console.log("STOMP 연결 성공");
+    };
+
+    // STOMP 연결 종료 이벤트 핸들러
+    client.onDisconnect = () => {
+      console.warn("STOMP 연결이 종료되었습니다.");
+    };
+
+    // STOMP 연결 에러 이벤트 핸들러
+    client.onStompError = (error) => {
+      console.error("STOMP 연결 에러 발생:", error.headers.message);
+      console.error("STOMP 에러 세부 정보:", error.body);
+    };
+
+    return client;
   };
 
-  // STOMP 연결 종료 이벤트 핸들러
-  client.onDisconnect = () => {
-    console.warn("STOMP 연결이 종료되었습니다.");
-    // 필요 시 재연결 로직을 추가할 수 있음
-  };
+  const activateStomp = () => {
+    if (!client) {
+      console.log("STOMP 클라이언트를 초기화합니다.");
+      initializeStompClient();
+    }
 
-  // STOMP 연결 에러 이벤트 핸들러
-  client.onStompError = (error) => {
-    console.error("STOMP 연결 에러 발생:", error.headers.message);
-    console.error("STOMP 에러 세부 정보:", error.body);
-    // 에러 발생 시 연결을 재시도하거나 사용자에게 알림
+    if (!client.active) {
+      console.log("STOMP 클라이언트 활성화");
+      client.activate();
+    } else {
+      console.log("STOMP 클라이언트 이미 활성화됨");
+    }
   };
-
-  client.activate();
 
   const ensureConnected = () => {
-    if (client.connected) {
+    if (client && client.connected) {
       console.log("[STOMP 연결 확인: 연결되어 있습니다]");
       return Promise.resolve();
     }
-    console.warn(
-      "[STOMP 연결 확인: 연결되어 있지 않습니다. 재연결 시도 중...]"
-    );
+
+    if (!client || !client.active) {
+      console.warn("[STOMP 연결 확인: 활성화되지 않음, 활성화 시도]");
+      activateStomp();
+    }
 
     return new Promise((resolve, reject) => {
       client.onConnect = resolve;
@@ -77,10 +99,22 @@ const messageApi = (() => {
   // 메시지 전송 (연결 상태 확인 후 전송)
   const sendMessage = async (destination, body) => {
     await ensureConnected();
-    client.publish({
+    console.log(
+      "[디버깅] 메시지 전송: Destination:",
       destination,
-      body: JSON.stringify(body),
-    });
+      "Body:",
+      body
+    );
+
+    try {
+      client.publish({
+        destination,
+        body: JSON.stringify(body),
+      });
+      console.log("[디버깅] 메시지 전송 성공");
+    } catch (error) {
+      console.error("[디버깅] 메시지 전송 실패:", error);
+    }
   };
 
   // 구독 (연결 상태 확인 후 구독)
@@ -91,16 +125,17 @@ const messageApi = (() => {
       callback(parsedMessage);
     });
   };
+
   // 채팅방 생성
   const createChatRoom = async (userId) => {
     try {
       const response = await api.post(`/chats/chatroom/${userId}`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          Authorization: `Bearer ${getAccessToken()}`,
         },
       });
-      // 응답 데이터 확인
+
       if (
         response.data &&
         response.data.data &&
@@ -121,7 +156,7 @@ const messageApi = (() => {
     try {
       const response = await api.get(`/chats/messages/${chatRoomId}`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          Authorization: `Bearer ${getAccessToken()}`,
         },
       });
 
@@ -141,12 +176,13 @@ const messageApi = (() => {
     try {
       const response = await api.get(`/chats/chatroom`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          Authorization: `Bearer ${getAccessToken()}`,
         },
       });
+
       if (response.data && response.data.data) {
         console.log("전체 채팅방 조회 성공:", response.data.data);
-        return response.data.data; // 채팅방 데이터 반환
+        return response.data.data;
       } else {
         throw new Error("Invalid response format");
       }
@@ -158,7 +194,7 @@ const messageApi = (() => {
 
   return {
     ensureConnected,
-    client,
+    activateStomp,
     sendMessage,
     subscribe,
     createChatRoom,

@@ -19,7 +19,7 @@ const RecentChatList = ({ onChatRoomSelect }) => {
 
   const handleChatRoomClick = (chatroom) => {
     if (onChatRoomSelect) {
-      onChatRoomSelect(chatroom.chatRoomId, chatroom.chatRoomMemberId); // chatRoomId와 chatRoomMemberId 전달
+      onChatRoomSelect(chatroom.chatRoomId, chatroom.chatRoomMemberId);
     }
   };
 
@@ -41,13 +41,19 @@ const RecentChatList = ({ onChatRoomSelect }) => {
               />
               <div className={styles.member_info}>
                 <div className={styles.member_profile}>
-                  <span className={styles.position}>{memberInfo.position}</span>
-                  <span className={styles.name}>{memberInfo.name}</span>
-                  <span className={styles.time}>
-                    {chatroom.lastMessageTime
-                      ? new Date(chatroom.lastMessageTime).toLocaleString()
-                      : "시간 정보 없음"}
-                  </span>
+                  <div className={styles.member_data}>
+                    <span className={styles.position}>
+                      {memberInfo.position}
+                    </span>
+                    <span className={styles.name}>{memberInfo.name}</span>
+                  </div>
+                  <div>
+                    <span className={styles.time}>
+                      {chatroom.lastMessageTime
+                        ? new Date(chatroom.lastMessageTime).toLocaleString()
+                        : "시간 정보 없음"}
+                    </span>
+                  </div>
                 </div>
                 <span className={styles.last_message}>
                   {chatroom.lastMessage || "없음"}
