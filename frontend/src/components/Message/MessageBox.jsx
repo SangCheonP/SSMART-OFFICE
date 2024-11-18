@@ -29,6 +29,18 @@ const MessageBox = ({ placeholder = "메시지를 입력하세요", onSendMessag
     textarea.style.height = `${Math.min(textarea.scrollHeight, 60)}px`;
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      if (event.shiftKey) {
+        // Shift + Enter: 줄바꿈
+        return;
+      } else {
+        // Enter: 메시지 전송
+        event.preventDefault(); // 줄바꿈 방지
+        handleSendMessage();
+      }
+    }
+  };
   const onUploadImage = useCallback(async (event) => {
     const file = event.target.files[0];
     const MAX_FILE_SIZE = 5 * 1024 * 1024;
@@ -81,6 +93,7 @@ const MessageBox = ({ placeholder = "메시지를 입력하세요", onSendMessag
         value={inputMessage}
         onChange={(e) => setInputMessage(e.target.value)}
         onInput={handleInput}
+        onKeyDown={handleKeyDown}
       />
       <File className={styles.file_icon} onClick={onFileIconClick} />
       <input
