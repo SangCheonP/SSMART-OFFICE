@@ -4,6 +4,7 @@ import { persist } from "zustand/middleware";
 const useMyInfoStore = create(
   persist(
     (set) => ({
+      userId: null,
       employeeNumber: null,
       name: null,
       email: null,
@@ -15,6 +16,7 @@ const useMyInfoStore = create(
       // 초기 데이터 설정
       setMyInfoData: (data) =>
         set({
+          userId: data.userId,
           employeeNumber: data.employeeNumber,
           name: data.name,
           email: data.email,
@@ -26,6 +28,7 @@ const useMyInfoStore = create(
 
       clearMyInfoData: () =>
         set({
+          userId: null,
           employeeNumber: null,
           name: null,
           email: null,
@@ -45,6 +48,7 @@ const useMyInfoStore = create(
     {
       name: "my-info",
       partialize: (state) => ({
+        userId: state.userId,
         employeeNumber: state.employeeNumber,
         name: state.name,
         email: state.email,
