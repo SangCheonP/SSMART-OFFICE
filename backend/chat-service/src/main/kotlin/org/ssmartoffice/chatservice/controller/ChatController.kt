@@ -61,7 +61,7 @@ class ChatController(
         logger.info { "채팅방 생성 요청 시작 - 요청 사용자 ID: $id, 대상 사용자 ID: $userId" }
 
         val createChatroom : CreateChatRoomResponse = CreateChatRoomResponse.fromModel(chatService.saveChatRoom(id , userId))
-        logger.info { "채팅방 생성 완료 - 생성된 채팅방 ID: ${createChatroom.chatroomId}" }
+        logger.info { "채팅방 생성 완료 - 생성된 채팅방 ID: ${createChatroom.chatRoomId}" }
 
         return CommonResponse.created("채팅방 생성 성공", createChatroom)
     }
