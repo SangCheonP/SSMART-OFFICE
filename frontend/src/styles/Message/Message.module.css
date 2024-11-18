@@ -30,7 +30,7 @@
 }
 .member_box {
   position: relative;
-  width: 30vw;
+  width: 32vw;
   height: auto;
   background-color: white;
   border-radius: 10px;
@@ -68,12 +68,15 @@
   display: flex;
   flex-direction: column;
   margin-left: 38px;
+  flex: 1;
 }
 .member_profile {
   display: flex;
   margin-bottom: 9px;
   align-items: center;
+  justify-content: space-between;
 }
+
 .position {
   color: #104def;
   margin-right: 10px;
@@ -128,7 +131,7 @@
 .time {
   color: var(--text-description);
   font-size: 12px;
-  margin-left: 50px;
+  /* margin-left: 50px; */
 }
 .last_message {
   color: gray;
