@@ -29,7 +29,6 @@ const Chat = ({ selectedMember }) => {
       createdAt: new Date().toISOString(),
       userId: userId,
     };
-    console.log("메세지전송", userId);
     addMessage(message);
     sendMessage(messageContent);
   };

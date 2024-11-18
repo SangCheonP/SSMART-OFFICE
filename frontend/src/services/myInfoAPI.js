@@ -43,7 +43,6 @@ export const fetchMyInfo = async () => {
   try {
     const response = await api.get("/users/me");
     useMyInfoStore.getState().setMyInfoData(response.data.data);
-    console.log(response.data.data);
   } catch (e) {
     handleError(e);
   }
