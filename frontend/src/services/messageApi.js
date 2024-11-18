@@ -40,45 +40,64 @@ const messageApi = (() => {
         Authorization: accessToken,
       },
       reconnectDelay: 5000,
-      debug: (str) => console.log(str),
+      // debug: (str) => console.log(`[STOMP DEBUG]: ${str}`), // 디버깅 로그
+      onStompError: (frame) => {
+        console.log("[STOMP DEBUG] STOMP 에러 발생:", frame);
+      },
     });
 
     // STOMP 연결 이벤트 핸들러
-    client.onConnect = () => {
-      console.log("STOMP 연결 성공");
+    client.onConnect = (frame) => {
+      // console.log("[STOMP DEBUG] 연결 성공. 세부 정보:", frame); // 연결 성공 세부 정보
     };
 
     // STOMP 연결 종료 이벤트 핸들러
     client.onDisconnect = () => {
-      console.warn("STOMP 연결이 종료되었습니다.");
+      console.warn("[STOMP DEBUG] WebSocket 연결이 종료되었습니다.");
     };
 
     // STOMP 연결 에러 이벤트 핸들러
     client.onStompError = (error) => {
-      console.error("STOMP 연결 에러 발생:", error.headers.message);
-      console.error("STOMP 에러 세부 정보:", error.body);
-    };
+      console.error("[STOMP DEBUG] STOMP 연결 에러 발생:", error.headers.message);
+      console.error("[STOMP DEBUG] STOMP 에러 세부 정보:", error.body);
+    }; 
 
     return client;
   };
 
+  let checkInterval = null; // Interval 중복 방지용 변수
+
   const activateStomp = () => {
     if (!client) {
-      console.log("STOMP 클라이언트를 초기화합니다.");
+      // console.log("STOMP 클라이언트를 초기화합니다.");
       initializeStompClient();
     }
 
     if (!client.active) {
-      console.log("STOMP 클라이언트 활성화");
+      // console.log("STOMP 클라이언트 활성화");
       client.activate();
     } else {
-      console.log("STOMP 클라이언트 이미 활성화됨");
+      // console.log("STOMP 클라이언트 이미 활성화됨");
     }
+
+    // 연결 상태를 주기적으로 체크
+    // if (!checkInterval) {
+    //   console.log("WebSocket 연결 상태 확인을 시작합니다.");
+    //   checkInterval = setInterval(checkConnectionStatus, 5000);
+    // }
   };
+
+  // const checkConnectionStatus = () => {
+  //   if (client && client.connected) {
+  //     console.log("[STOMP DEBUG] WebSocket 연결 상태: 연결됨");
+  //   } else {
+  //     console.warn("[STOMP DEBUG] WebSocket 연결 상태: 연결되지 않음");
+  //   }
+  // };
 
   const ensureConnected = () => {
     if (client && client.connected) {
-      console.log("[STOMP 연결 확인: 연결되어 있습니다]");
+      // console.log("[STOMP 연결 확인: 연결되어 있습니다]");
       return Promise.resolve();
     }
 
@@ -99,19 +118,19 @@ const messageApi = (() => {
   // 메시지 전송 (연결 상태 확인 후 전송)
   const sendMessage = async (destination, body) => {
     await ensureConnected();
-    console.log(
-      "[디버깅] 메시지 전송: Destination:",
-      destination,
-      "Body:",
-      body
-    );
+    // console.log(
+    //   "[디버깅] 메시지 전송: Destination:",
+    //   destination,
+    //   "Body:",
+    //   body
+    // );
 
     try {
       client.publish({
         destination,
         body: JSON.stringify(body),
       });
-      console.log("[디버깅] 메시지 전송 성공");
+      // console.log("[디버깅] 메시지 전송 성공");
     } catch (error) {
       console.error("[디버깅] 메시지 전송 실패:", error);
     }
@@ -120,7 +139,9 @@ const messageApi = (() => {
   // 구독 (연결 상태 확인 후 구독)
   const subscribe = async (destination, callback) => {
     await ensureConnected();
+    // console.log(`[디버깅] 구독 경로: ${destination}`); // 구독 경로 확인
     client.subscribe(destination, (message) => {
+      // console.log("[디버깅] 수신된 메시지:", message.body); // 수신된 메시지 확인
       const parsedMessage = JSON.parse(message.body);
       callback(parsedMessage);
     });
@@ -181,7 +202,7 @@ const messageApi = (() => {
       });
 
       if (response.data && response.data.data) {
-        console.log("전체 채팅방 조회 성공:", response.data.data);
+        // console.log("전체 채팅방 조회 성공:", response.data.data);
         return response.data.data;
       } else {
         throw new Error("Invalid response format");
