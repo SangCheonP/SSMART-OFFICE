@@ -10,11 +10,9 @@ const Chat = ({ selectedMember }) => {
   const { messages, createAndSubscribeToChatRoom, sendMessage, addMessage } =
     useMessageStore();
 
-  // 현재 사용자 정보 가져오기
-  const {
-    employeeNumber: currentEmployeeNumber,
-    profileImageUrl: currentProfileImageUrl,
-  } = useMyInfoStore();
+  // 현재 사용자 userId 가져오기
+  const { userId: userId, profileImageUrl: currentProfileImageUrl } =
+    useMyInfoStore();
   const { fetchUserSeats, memberSeats } = useAttendanceStore();
 
   useEffect(() => {
@@ -29,8 +27,9 @@ const Chat = ({ selectedMember }) => {
     const message = {
       content: messageContent,
       createdAt: new Date().toISOString(),
-      userId: currentEmployeeNumber,
+      userId: userId,
     };
+    console.log("메세지전송", userId);
     addMessage(message);
     sendMessage(messageContent);
   };
@@ -76,7 +75,7 @@ const Chat = ({ selectedMember }) => {
                 key={index}
                 message={message.content}
                 createdTime={message.createdAt || Date.now()}
-                isSender={message.userId !== selectedMember.userId}
+                isSender={message.userId === userId}
                 profileImageUrl={
                   message.userId === selectedMember.userId
                     ? selectedMember.profileImageUrl || "/default-user.png"
