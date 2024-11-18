@@ -75,14 +75,25 @@ const useMessageStore = create((set, get) => ({
   fetchAndSetMessages: async (chatRoomId) => {
     try {
       const messages = await messageApi.fetchMessages(chatRoomId);
+      const currentUserId = get().userId || ""; // 현재 사용자 ID 가져오기
+
+      // 메시지 배열에 isSender 필드를 추가
+      const enrichedMessages = messages.map((message) => ({
+        ...message,
+        isSender: message.userId === currentUserId, // 메시지 보낸 사람 판단
+      }));
+
       const currentMessages = get().messages;
 
       // 중복된 상태 업데이트 방지
-      if (JSON.stringify(currentMessages) !== JSON.stringify(messages)) {
-        set({ messages });
+      if (
+        JSON.stringify(currentMessages) !== JSON.stringify(enrichedMessages)
+      ) {
+        set({ messages: enrichedMessages }); // 상태 업데이트
       }
 
-      return messages;
+      console.log("메시지 로드 및 isSender 추가 완료:", enrichedMessages);
+      return enrichedMessages;
     } catch (error) {
       console.error("메시지 상태 업데이트 실패:", error);
       return [];
