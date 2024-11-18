@@ -7,6 +7,7 @@ import useAttendanceStore from "@/store/useAttendanceStore";
 import useMyInfoStore from "@/store/useMyInfoStore";
 
 const Chat = ({ selectedMember }) => {
+  const chatMessagesRef = useRef();
   const { messages, createAndSubscribeToChatRoom, sendMessage, addMessage } =
     useMessageStore();
 
@@ -32,6 +33,12 @@ const Chat = ({ selectedMember }) => {
     addMessage(message);
     sendMessage(messageContent);
   };
+
+  useEffect(() => {
+    if (chatMessagesRef.current) {
+      chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   const seatInfo =
     memberSeats[selectedMember?.userId]?.info || "좌석 정보 없음";
