@@ -12,15 +12,16 @@ const MemberList = ({ onMemberSelect }) => {
   useEffect(() => {
     if (searchResults.length > 0) {
       setDisplayedMembers(searchResults);
+      console.log(searchResults);
     } else {
       setDisplayedMembers(memberData);
+      console.log(memberData);
     }
   }, [searchResults, memberData]);
 
   const handleMemberClick = (member) => {
     setSelectedMemberId(member.userId);
     onMemberSelect(member.userId);
-    console.log("클릭유저id", member.userId);
     // 해당 사원의 좌석 정보를 가져오기
     fetchUserSeats(member.userId);
   };
@@ -41,19 +42,23 @@ const MemberList = ({ onMemberSelect }) => {
               alt={`${member.name}'s profile`}
               className={styles.profile_image}
             />
-            <div className={styles.member_info}>
-              <div className={styles.member_profile}>
-                <span className={styles.position}>{member.position}</span>
-                <span className={styles.name}>{member.name}</span>
-                <div
-                  className={`${styles.status} ${
-                    member.status === "ACTIVE" ? styles.active : styles.inactive
-                  }`}
-                ></div>
-              </div>
-              <div className={styles.duty}>{member.duty}</div>
-              <div className={styles.location}>
-                {memberSeats[member.userId]?.info || "좌석 없음"}
+            <div>
+              <div className={styles.member_info}>
+                <div className={styles.member_profile}>
+                  <span className={styles.position}>{member.position}</span>
+                  <span className={styles.name}>{member.name}</span>
+                  <div
+                    className={`${styles.status} ${
+                      member.status === "ACTIVE"
+                        ? styles.active
+                        : styles.inactive
+                    }`}
+                  ></div>
+                </div>
+                <div className={styles.duty}>{member.duty}</div>
+                <div className={styles.location}>
+                  {memberSeats[member.userId]?.info || "좌석 없음"}
+                </div>
               </div>
             </div>
           </div>
