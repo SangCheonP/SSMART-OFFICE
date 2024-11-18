@@ -19,7 +19,8 @@ const MemberList = ({ onMemberSelect }) => {
 
   const handleMemberClick = (member) => {
     setSelectedMemberId(member.userId);
-    onMemberSelect(member.userId); // userId 전달
+    onMemberSelect(member.userId);
+    console.log("클릭유저id", member.userId);
     // 해당 사원의 좌석 정보를 가져오기
     fetchUserSeats(member.userId);
   };
