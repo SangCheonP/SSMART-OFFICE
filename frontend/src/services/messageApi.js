@@ -2,8 +2,30 @@ import { Client } from "@stomp/stompjs";
 import api from "./api";
 
 const messageApi = (() => {
-  const accessToken =
-    JSON.parse(localStorage.getItem("auth"))?.state?.accessToken || "";
+  const getAccessToken = () => {
+    const authData = localStorage.getItem("auth");
+    if (!authData) {
+      console.error(
+        "Authorization 토큰 없음: localStorage에 'auth' 데이터가 없습니다."
+      );
+      return "";
+    }
+
+    try {
+      const accessToken = JSON.parse(authData)?.state?.accessToken || "";
+      if (!accessToken) {
+        console.error(
+          "Authorization 토큰 없음: 'auth.state.accessToken'가 비어 있습니다."
+        );
+      }
+      return accessToken;
+    } catch (error) {
+      console.error("Authorization 토큰 파싱 에러:", error);
+      return "";
+    }
+  };
+
+  const accessToken = getAccessToken();
 
   const client = new Client({
     brokerURL: "ws://k11b202.p.ssafy.io:8080/api/v1/chats/ws",
@@ -35,7 +57,13 @@ const messageApi = (() => {
   client.activate();
 
   const ensureConnected = () => {
-    if (client.connected) return Promise.resolve();
+    if (client.connected) {
+      console.log("[STOMP 연결 확인: 연결되어 있습니다]");
+      return Promise.resolve();
+    }
+    console.warn(
+      "[STOMP 연결 확인: 연결되어 있지 않습니다. 재연결 시도 중...]"
+    );
 
     return new Promise((resolve, reject) => {
       client.onConnect = resolve;
@@ -129,6 +157,8 @@ const messageApi = (() => {
   };
 
   return {
+    ensureConnected,
+    client,
     sendMessage,
     subscribe,
     createChatRoom,
