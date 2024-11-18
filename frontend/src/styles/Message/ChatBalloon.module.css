@@ -1,6 +1,6 @@
 .balloon_container {
   display: flex;
-  align-items: baseline;
+  align-items: end;
   margin: 10px;
 }
 

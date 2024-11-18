@@ -5,5 +5,6 @@ export const updateImageFile = async (file) => {
   const formData = new FormData();
   formData.append("file", file);
   const response = await api.post("/files/upload", formData);
+  console.log(response.data);
   return response.data;
 };
