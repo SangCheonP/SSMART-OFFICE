@@ -33,11 +33,13 @@ const Chat = ({ selectedMember }) => {
     addMessage(message);
     sendMessage(messageContent);
   };
+
   useEffect(() => {
     if (chatMessagesRef.current) {
       chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
     }
   }, [messages]);
+
   const seatInfo =
     memberSeats[selectedMember?.userId]?.info || "좌석 정보 없음";
 

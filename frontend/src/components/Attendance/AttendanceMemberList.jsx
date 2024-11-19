@@ -40,11 +40,11 @@ const MemberList = ({ memberData, onMemberSelect }) => {
             <div className={styles.member_profile}>
               <span className={styles.position}>{member.position}</span>
               <span className={styles.name}>{member.name}</span>
-              <div
+              {/* <div
                 className={`${styles.status} ${
                   member.status === "ACTIVE" ? styles.active : styles.inactive
                 }`}
-              ></div>
+              ></div> */}
             </div>
             <div className={styles.duty}>{member.duty}</div>
             <div className={styles.location}>2층임</div>

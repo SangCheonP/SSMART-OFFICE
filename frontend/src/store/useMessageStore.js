@@ -32,7 +32,7 @@ const useMessageStore = create((set, get) => ({
       console.log("초기 메시지 로드 완료:", messages);
 
       // WebSocket 구독 경로 정의
-      const destination = `/topic/chat/${chatRoomId}`;
+      const destination = `/api/v1/chats/ws/topic/${chatRoomId}`;
 
       // WebSocket 구독 중복 방지
       const { subscribed } = get();
