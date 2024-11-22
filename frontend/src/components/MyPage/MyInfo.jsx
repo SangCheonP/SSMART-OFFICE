@@ -15,7 +15,7 @@ import { useEffect } from "react";
 
 const MyInfo = () => {
   const openModal = useModalStore((state) => state.openModal);
-  const { name, email, position, profileImageUrl, phoneNumber } =
+  const { name, email, duty, profileImageUrl, phoneNumber } =
     useMyInfoStore();
   const [welfarePoint, setWelfarePoint] = useState(0);
 
@@ -75,7 +75,7 @@ const MyInfo = () => {
         <div className={styles.content}>
           <div className={styles.title}>
             <p className={styles.subTitle}>
-              {name} {position}님
+              {name} {duty}님
             </p>
             <p className={styles.subTitle1}>반갑습니다!</p>
           </div>
