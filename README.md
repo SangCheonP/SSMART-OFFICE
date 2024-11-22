@@ -176,21 +176,6 @@
 
 <table>
   <tr>
-    <td><img src="./README_ASSETS/hw1.jpg" width="300px"></td>
-    <td><img src="./README_ASSETS/hw2.jpg" width="300px"></td>
-  </tr>
-  <tr>
-    <td><img src="./README_ASSETS/hw3.jpg" width="300px"></td>
-    <td><img src="./README_ASSETS/hw4.jpg" width="300px"></td>
-  </tr>
-    <tr>
-    <td colspan="2" align="center">
-      <img src="./README_ASSETS/hw5.jpg" width="200px">
-    </td>
-  </tr>
-</table> -->
-<table>
-  <tr>
     <td align="center">
       <img src="./README_ASSETS/hw1.jpg" width="300px">
       <p>출퇴근HW</p>
