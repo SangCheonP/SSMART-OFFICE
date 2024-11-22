@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6ba50cb0-5fff-418f-a3e1-dae1feb1a629" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../assignment-service/src/main/java/org/ssmartoffice/assignmentservice/domain/Assignment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../assignment-service/src/main/java/org/ssmartoffice/assignmentservice/domain/AssignmentType.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../assignment-service/src/main/java/org/ssmartoffice/assignmentservice/domain/Role.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../assignment-service/src/main/java/org/ssmartoffice/assignmentservice/global/config/SecurityConfig.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../assignment-service/src/main/java/org/ssmartoffice/assignmentservice/global/config/WebConfigure.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../assignment-service/src/main/java/org/ssmartoffice/assignmentservice/global/const/errorcode/AssignmentErrorCode.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../assignment-service/src/main/java/org/ssmartoffice/assignmentservice/global/const/errorcode/CommonErrorCode.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../assignment-service/src/main/java/org/ssmartoffice/assignmentservice/global/const/errorcode/ErrorCode.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../assignment-service/src/main/java/org/ssmartoffice/assignmentservice/global/const/successcode/SuccessCode.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../assignment-service/src/main/java/org/ssmartoffice/assignmentservice/global/dto/CommonResponse.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../assignment-service/src/main/java/org/ssmartoffice/assignmentservice/global/dto/ErrorResponse.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../assignment-service/src/main/java/org/ssmartoffice/assignmentservice/global/exception/AssignmentException.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../assignment-service/src/main/java/org/ssmartoffice/assignmentservice/global/exception/GlobalExceptionHandler.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../assignment-service/src/main/java/org/ssmartoffice/assignmentservice/global/exception/RestApiException.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../assignment-service/src/main/java/org/ssmartoffice/assignmentservice/global/jwt/JwtAuthenticationFilter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../assignment-service/src/main/java/org/ssmartoffice/assignmentservice/global/jwt/JwtUtil.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../assignment-service/src/main/java/org/ssmartoffice/assignmentservice/infrastructure/AssignmentEntity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../assignment-service/src/main/java/org/ssmartoffice/assignmentservice/infrastructure/AssignmentRepositoryImpl.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../assignment-service/src/main/java/org/ssmartoffice/assignmentservice/infrastructure/UserJpaRepository.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../assignment-service/src/main/java/org/ssmartoffice/assignmentservice/service/AssignmentServiceImpl.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../assignment-service/src/main/java/org/ssmartoffice/assignmentservice/service/port/AssignmentRepository.kt" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2oSmfuXPTSFQwmbFvV1ZKwRHjnA" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.Build discovery.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.DiscoveryApplication (1).executor": "Run",
+    "Spring Boot.DiscoveryApplication.executor": "Run",
+    "git-widget-placeholder": "backend-sem",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/SSAFY/Desktop/스마트오피스/S11P31B202/backend/discovery",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "kotlin-gradle-user-dirs": [
+      "C:\\Users\\SSAFY\\.gradle"
+    ]
+  }
+}]]></component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration name="DiscoveryApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="discovery.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.ssmartoffice.discovery.DiscoveryApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6ba50cb0-5fff-418f-a3e1-dae1feb1a629" name="Changes" comment="" />
+      <created>1730871457285</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1730871457285</updated>
+      <workItem from="1730871458491" duration="2296000" />
+      <workItem from="1730937731809" duration="3855000" />
+      <workItem from="1731024273123" duration="9321000" />
+      <workItem from="1731063774261" duration="7000" />
+      <workItem from="1731064178745" duration="142000" />
+      <workItem from="1731064331718" duration="141000" />
+      <workItem from="1731072669140" duration="176000" />
+      <workItem from="1731073557965" duration="5000" />
+      <workItem from="1731119087291" duration="500000" />
+      <workItem from="1731119742957" duration="6648000" />
+      <workItem from="1731288119694" duration="2528000" />
+      <workItem from="1731305571503" duration="3291000" />
+      <workItem from="1731369698926" duration="1201000" />
+      <workItem from="1731386840734" duration="105000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
