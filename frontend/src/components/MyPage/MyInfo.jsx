@@ -15,7 +15,7 @@ import { useEffect } from "react";
 
 const MyInfo = () => {
   const openModal = useModalStore((state) => state.openModal);
-  const { name, email, position, profileImageUrl, phoneNumber } =
+  const { name, email, duty, profileImageUrl, phoneNumber } =
     useMyInfoStore();
   const [welfarePoint, setWelfarePoint] = useState(0);
 
