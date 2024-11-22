@@ -93,17 +93,21 @@
 
 ## ✨ 기술 스택
 
-- **프론트엔드** : 프론트엔드 : React, Vite, Zustand, websocket, STOMP, JWT
-- **백엔드** : Spring Cloud Gateway, Spring Boot, Spring Security, JPA, STOMP, MYSQL, MONGODB, KAFKA
-- **인프라** : Docker, Nginx, Jenkins, MySQL, Redis, Kafka, MongoDB, Certbot, AWS EC2
-- **AI** : 
-  - **얼굴 생체 인식** : ArcFace(최종선정), VGG-Face, GoogleFaceNet, DeepID
-  - **목소리 인식** : Wav2Vec2, ECAPA-TDNN, Wav2Vec2 Bert(최종선정), LSTM ensamble
-- **HW** :
-  - **출/퇴근** : Rasberry pi LCD 7인치, Jetson Nano 2Gb, 스피커(mosu), 카메라(Logi), PN532, RFID RC522
-  - **좌율 좌석제** : Rasberry pi LCD 7인치, Rasberry pi 3, Pn532 ,RFID RC522
-  - **결제** : Arduino Uno, RFID RC522, 1602a lcd
-- **협업툴** : Git Lab, JIRA, Mattermost, Notion, Figma
+| Category              | Details                                                                               |
+| --------------------- | ------------------------------------------------------------------------------------- |
+| **프론트엔드**        | Javascript, React, Vite, Zustand, STOMP                                               |
+| **백엔드**            | Kotlin, Spring Boot, Spring Cloud, Spring Security, Spring Data JPA, STOMP            |
+| **데이터베이스**      | MySQL, MongoDB, Redis                                                                 |
+| **메시지큐**          | Kafka                                                                                 |
+| **배포환경**          | AWS(EC2, S3)                                                                          |
+| **배포도구**          | Docker, Nginx, Jenkins                                                                |
+| **얼굴 생체 인식 AI** | ArcFace(최종선정), VGG-Face, GoogleFaceNet, DeepID                                    |
+| **목소리 인식 AI**    | Wav2Vec2, ECAPA-TDNN, Wav2Vec2 Bert(최종선정), LSTM ensamble                          |
+| **출/퇴근 HW**        | Rasberry pi LCD 7인치, Jetson Nano 2Gb, 스피커(mosu), 카메라(Logi), PN532, RFID RC522 |
+| **좌율 좌석제 HW**    | Rasberry pi LCD 7인치, Rasberry pi 3, Pn532 ,RFID RC522                               |
+| **결제 HW**           | Arduino Uno, RFID RC522, 1602a lcd                                                    |
+| **협업툴**            | Git Lab, JIRA, Mattermost, Notion, Figma                                              |
+
 
 ## ✨ 아키텍처 설계도
 
