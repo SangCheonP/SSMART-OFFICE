@@ -2,7 +2,7 @@
 
 ## 💡 UCC
 
-![UCC](./README_ASSETS/ucc.gif)
+[SSMART OFFICE UCC 보러가기](https://youtu.be/gyyz6IFZmK8)
 
 ## 📑 LOGO
 
