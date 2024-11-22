@@ -198,12 +198,14 @@
 
 ## ✨ 시연영상
 
-|  ![음성/얼굴 인식](./README_ASSETS/face_voice_detect.gif)   | ![일정관리](./README_ASSETS/point.gif) |
+|  ![음성/얼굴 인식](./README_ASSETS/face_voice_detect.gif)   | ![복지포인트](./README_ASSETS/point1.gif) |
 |:-------------------------------------:|:----------------------------------:|
 |                  음성/얼굴 인식                  |                복지포인트                |
 |   ![좌석ON](./README_ASSETS/seat_on.gif)    |  ![좌석OFF](./README_ASSETS/seat_off.gif)  |
 |                  좌석ON                   |                 좌석OFF                 |
-| ![포인트](./README_ASSETS/attendance.gif) |
+| ![좌석 태깅](./README_ASSETS/seat_tagging.gif) | ![복지포인트](./README_ASSETS/point2.gif) |
+|                 좌석 태깅                 |                 복지포인트                 |
+| ![일정관리](./README_ASSETS/attendance.gif) |
 |                 일정관리                 |
 
 ## ✨ 소감
