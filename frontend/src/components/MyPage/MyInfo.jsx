@@ -75,7 +75,7 @@ const MyInfo = () => {
         <div className={styles.content}>
           <div className={styles.title}>
             <p className={styles.subTitle}>
-              {name} {position}님
+              {name} {duty}님
             </p>
             <p className={styles.subTitle1}>반갑습니다!</p>
           </div>
