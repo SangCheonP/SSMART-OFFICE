@@ -215,15 +215,15 @@
 
 ## ✨ 시연영상
 
-|  ![음성/얼굴 인식](./README_ASSETS/face_voice_detect.gif)   | ![복지포인트](./README_ASSETS/point1.gif) |
+|  ![얼굴 인식](./README_ASSETS/face_voice_detect.gif)   | ![음성인식](./README_ASSETS/voice_detect.gif) |
 |:-------------------------------------:|:----------------------------------:|
-|                  음성/얼굴 인식                  |                복지포인트                |
+|                  얼굴 인식                  |                음성인식                |
 |   ![좌석ON](./README_ASSETS/seat_on.gif)    |  ![좌석OFF](./README_ASSETS/seat_off.gif)  |
 |                  좌석ON                   |                 좌석OFF                 |
-| ![좌석 태깅](./README_ASSETS/seat_tagging.gif) | ![복지포인트](./README_ASSETS/point2.gif) |
-|                 좌석 태깅                 |                 복지포인트                 |
-| ![일정관리](./README_ASSETS/attendance.gif) |
-|                 일정관리                 |
+| ![일정관리](./README_ASSETS/attendance.gif) | ![복지포인트](./README_ASSETS/point2.gif) |
+|                 일정관리                 |                 복지포인트                 |
+| ![좌석 태깅](./README_ASSETS/seat_tagging.gif) | ![복지포인트](./README_ASSETS/point1.gif) |
+|                좌석 태깅                  |                복지포인트                |
 
 ## ✨ 소감
 
